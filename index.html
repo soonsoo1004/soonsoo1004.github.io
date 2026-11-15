@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>천장지구 1004 — 매일 쓰는 작은 웹 도구 24가지</title>
-<meta name="description" content="가입도 설치도 결제도 없이 브라우저에서 바로 쓰는 무료 도구 24가지. 복지·생활·가족·배움·건강·교양. 도구는 티스토리 글의 첨부파일로 내려받아 열면 바로 씁니다.">
+<title>천장지구 1004 — 매일 쓰는 작은 웹 도구 13가지</title>
+<meta name="description" content="가입도 설치도 결제도 없이 브라우저에서 바로 쓰는 무료 도구 13가지. 생활·가족·배움·건강·교양. 도구는 티스토리 글의 첨부파일로 내려받아 열면 바로 씁니다.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
@@ -260,7 +260,7 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
     <div class="wrap hub">
       <div class="card-b hero-main">
         <div>
-          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>지금 바로 쓸 수 있는 24가지</span>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>지금 바로 쓸 수 있는 13가지</span>
           <h1>매일 쓰는 작은 도구를<br><em>한곳에 모았습니다</em></h1>
           <p class="lede">가입도, 설치도, 결제도 없습니다. 필요한 화면을 열어 숫자만 넣으면 끝나는 것들입니다.
             도구는 각 글에 붙은 파일을 내려받아 열면 바로 씁니다.</p>
@@ -274,7 +274,7 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
         <div class="card-b tile accent">
           <span class="k">바로 열기</span>
           <div>
-            <div class="v">24<small>가지</small></div>
+            <div class="v">13<small>가지</small></div>
             <div class="s">전부 무료 · 설치 없음</div>
           </div>
         </div>
@@ -300,15 +300,14 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
       </div>
       <div class="toolbar">
         <div class="seg" role="group" aria-label="분류 필터">
-          <button type="button" data-f="all" aria-pressed="true">전체<span class="n" data-cnt="all">24</span></button>
-          <button type="button" data-f="money" aria-pressed="false">돈·복지<span class="n" data-cnt="money">5</span></button>
-          <button type="button" data-f="life" aria-pressed="false">생활·안전<span class="n" data-cnt="life">3</span></button>
-          <button type="button" data-f="family" aria-pressed="false">가족·마음<span class="n" data-cnt="family">6</span></button>
-          <button type="button" data-f="learn" aria-pressed="false">배움·일<span class="n" data-cnt="learn">4</span></button>
+          <button type="button" data-f="all" aria-pressed="true">전체<span class="n" data-cnt="all">13</span></button>
+          <button type="button" data-f="life" aria-pressed="false">생활·안전<span class="n" data-cnt="life">2</span></button>
+          <button type="button" data-f="family" aria-pressed="false">가족·마음<span class="n" data-cnt="family">4</span></button>
+          <button type="button" data-f="learn" aria-pressed="false">배움·일<span class="n" data-cnt="learn">2</span></button>
           <button type="button" data-f="health" aria-pressed="false">건강·육아<span class="n" data-cnt="health">2</span></button>
-          <button type="button" data-f="fun" aria-pressed="false">재미·교양<span class="n" data-cnt="fun">4</span></button>
+          <button type="button" data-f="fun" aria-pressed="false">재미·교양<span class="n" data-cnt="fun">3</span></button>
         </div>
-        <span class="count" id="countTxt">24 / 24</span>
+        <span class="count" id="countTxt">13 / 13</span>
       </div>
       <div class="bento" id="tgrid"></div>
       <p class="empty" id="emptyMsg">이 분류에는 아직 도구가 없습니다.</p>
@@ -434,66 +433,34 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
     paintTheme();
   });
 
-  /* ── 데이터 (2026-11-16 티스토리 글 33개 전수 확인, 글마다 붙은 파일명 대조 완료) ── */
+  /* ── 데이터 (2026-11-16 정리: 금전·세금·수당·보험·법령·정치 글 12건 삭제 후 티스토리 21건 기준. 카드 13개 = 실제 살아 있는 글만 연결) ── */
   var CAT = { money:"돈·복지", life:"생활·안전", family:"가족·마음", learn:"배움·일", health:"건강·육아", fun:"재미·교양" };
   var T = "https://mireunote.tistory.com";
   var LINK_LBL = "티스토리에 올린 글에서 받기";
 
   var TOOLS = [
-    { cat:"money", ico:"🧾", nm:"근로·자녀장려금 계산기", pg:"26",
-      ds:"2027년 지급분, 내가 받을 수 있는지 1분 확인.",
-      bd:"가구 유형(단독·홑벌이·맞벌이)과 2026년 소득, 부양자녀 수, 재산을 넣으면 2027년에 받을 근로장려금과 자녀장려금 예상액을 계산합니다.\n최대 금액은 단독 165만 원, 홑벌이 285만 원, 맞벌이 330만 원이고, 소득이 늘수록 깎이다가 기준선에서 0원이 되는 구간을 함께 보여 줍니다. 재산이 1억7천만 원을 넘으면 절반만 나오고, 기한 후 신청은 5% 깎입니다. 국세청 2026년 안내로 확인한 값입니다." },
-    { cat:"money", ico:"🏥", nm:"건보료 피부양자 진단기", pg:"27",
-      ds:"탈락하면 지역보험료가 얼마인지 계산.",
-      bd:"소득·재산·사업소득 조건을 하나씩 넣어 내년에도 피부양자로 남을 수 있는지 판정하고, 탈락했을 때 매달 나올 지역보험료를 계산합니다.\n재산은 시세가 아니라 재산세 과세표준으로 보고, 퇴직자라면 임의계속가입까지 함께 계산합니다. 2027년 보험료율 7.19%, 장기요양보험료 13.90% 기준입니다." },
-    { cat:"money", ico:"🤝", nm:"장애인·사회적약자 복지혜택 찾기", pg:"9",
-      ds:"내가 받을 수 있는 복지, 한 번에 확인.",
-      bd:"장애 정도, 수급 여부, 나이대 세 가지만 고르면 전기·통신·교통·의료 감면 중 내가 받을 수 있는 것만 남겨 줍니다.\n놓치기 쉬운 복지 상식 8문제와, 동네마다 달라 숫자를 비워 둔 항목도 함께 표시합니다." },
-    { cat:"money", ico:"💰", nm:"숨은 국가제도 100 활용 가이드", pg:"10",
-      ds:"신청 안 하면 사라지는 돈, 이름부터 찾기.",
-      bd:"본인부담상한액, 경정청구, 실업크레딧, 휴면예금처럼 이름을 몰라 못 찾는 제도를 내 상황별로 골라 보여 줍니다.\n제도 상식 8문제, 제도가 있는지 확인하는 창구 안내, 지역마다 달라 숫자를 비워 둔 항목까지 들어 있습니다." },
-    { cat:"money", ico:"⚖️", nm:"어려운 법지식·제도 풀이", pg:"11",
-      ds:"법전 대신 카드 34장, 내가 할 일 세 줄.",
-      bd:"지급명령·내용증명·가압류처럼 헷갈리는 용어를 카드 34장으로 풀고, 빌려준 돈·집주인·상속 빚·세금 착오 같은 내 상황에 맞는 제도와 순서를 알려 줍니다.\n법 상식 8문제로 확인까지 합니다." },
-
     { cat:"life", ico:"☎️", nm:"생활 필수 전화번호", pg:"7",
       ds:"급할 때 찾지 말고, 검색해서 바로 거세요.",
       bd:"카드가 긁히고, 불이 나고, 월급이 안 들어올 때 눌러야 할 번호를 한 화면에 모았습니다. '보이스피싱' '임금' '복지'처럼 상황으로 검색하면 그 번호만 남습니다.\n번호마다 운영시간과 통화료를 적었고, 큰 글씨 모드와 보이는 번호 전부 복사 버튼이 있습니다. 2026년 11월 15일 각 기관 공식 안내로 확인했습니다." },
     { cat:"life", ico:"🛡️", nm:"보이스피싱·스미싱 판별기", pg:"8",
       ds:"문자·통화 내용을 붙여넣으면 위험 점수로.",
       bd:"수사기관 사칭, 송금 요구, 앱 설치, 인증번호 요구, 출처를 알 수 없는 주소 같은 위험 요소를 찾아 점수로 보여 줍니다.\n통화 중 들은 요구를 누르면 바로 판정이 나오고, 돈을 보낸 뒤에는 지급정지 → 112 신고 → 3영업일 안에 환급 신청까지 순서대로 안내합니다." },
-    { cat:"life", ico:"🏢", nm:"아파트 입주민 상식 해결가이드", pg:"28",
-      ds:"물 새고 윗집 뛸 때 어디에 말해야 하는지.",
-      bd:"누수·층간소음·관리비·곰팡이처럼 자주 겪는 일곱 가지를 누르면 책임 소재, 돈 안 들이고 물어볼 곳, 오늘 당장 할 일 세 가지를 정리해 줍니다.\n헷갈리는 상식 41가지와 OX 8문제, 층간소음 기준(낮 39dB·밤 34dB) 같은 숫자를 근거와 함께 달아 두었습니다." },
-
     { cat:"family", ico:"💛", nm:"행복지수 판별기", pg:"13",
       ds:"5문항 1분, 요즘 내 마음 점검.",
       bd:"세계보건기구 웰빙지수 WHO-5 다섯 문항으로 0~100점 점수를 냅니다. 어느 문항에서 점수가 빠졌는지 막대로 보여 주고, 오늘 해볼 일 세 가지를 띄우며, 점수를 저장하면 기록이 쌓입니다.\n검증된 척도가 아닌 생활 10문항 버전도 함께 들어 있습니다. 진단이 아닌 자가 점검이고, 2주 넘게 힘들면 109·1577-0199로 연결됩니다." },
     { cat:"family", ico:"🗣️", nm:"자녀 언어 해독 가이드", pg:"14",
       ds:"‘몰라’ ‘귀찮아’ 뒤에 있는 진짜 뜻.",
       bd:"아이가 ‘몰라’라고만 할 때 그 말 뒤에 있는 뜻을 상황별로 해독하고, 그때 어른이 건넬 문장을 함께 보여 줍니다.\n사춘기인지 신호인지 구분하는 기준과 소통 점검 OX도 들어 있습니다." },
-    { cat:"family", ico:"🏫", nm:"선생과 제자 갈등 해소 가이드", pg:"15",
-      ds:"그날 서로 못 한 말, 정리하는 순서.",
-      bd:"머리 지적, 휴대폰 보관처럼 학교에서 자주 부딪히는 상황을 골라 학생과 선생님 양쪽에서 무슨 일이 있었는지 정리하고, 대화로 풀어 가는 순서를 제시합니다.\n생활지도·권리와 책임 OX, 막혔을 때 거는 곳도 함께 있습니다." },
     { cat:"family", ico:"✉️", nm:"부모와 선생 소통 가이드", pg:"16",
       ds:"같은 일을 아이와 선생님은 다르게 봅니다.",
       bd:"선생님께 문자를 보내기 전에 그 자리에서 무슨 일이 생겼는지 양쪽 시선으로 정리해 줍니다. 같은 침묵도 서로 뜻이 다르다는 것을 먼저 짚습니다.\n소통 매너 OX와, 답이 없을 때 어디에 물어야 하는지 창구 안내가 들어 있습니다." },
-    { cat:"family", ico:"🩺", nm:"생애주기 보살핌 가이드", pg:"17",
-      ds:"돌보는 사람이 먼저 안심하는 순서.",
-      bd:"아이부터 어르신까지 내가 돌보는 사람을 고르면 응급 상황에서 확인할 순서와 안전 점검을 정리해 줍니다.\n응급·안전 OX 8문항과 급할 때 거는 번호가 함께 들어 있습니다." },
     { cat:"family", ico:"💬", nm:"연령별 금기어 대화 가이드", pg:"22",
       ds:"1세부터 100세까지, 대신 건넬 문장.",
       bd:"누구에게 할 말인지 고르면 그 나이에 아픈 자리와 대신 건넬 문장을 보여 주고, 내가 무심코 했던 말을 점검합니다.\n가족에게 그대로 보낼 수 있는 문장도 있습니다." },
 
-    { cat:"learn", ico:"🎓", nm:"자격증 취득 쉬운 루트", pg:"12",
-      ds:"1달 안에 딸 수 있는 것부터 순서대로.",
-      bd:"내 상황을 고르면 지금 딸 수 있는 자격증을 순서대로 골라 줍니다. 기능사·기사·산업기사가 어떻게 갈리는지, 학원 광고의 '국비 100%'와 '취득 후 연봉'이 어디서 어긋나는지 OX 8문항으로 짚습니다.\n응시자격과 실제 숫자도 함께 봅니다." },
     { cat:"learn", ico:"🧭", nm:"AI 대항 직업·공부 진로 가이드", pg:"18",
       ds:"AI 시대에 뭘 배울지 8문항으로.",
       bd:"지금 내 자리를 확인하고 AI 시대 직업·공부 상식 OX를 풀면, AI가 가져갈 일과 내가 남길 일을 나눠 맞는 직군 셋과 3단계 계획을 제시합니다.\n세계경제포럼 미래 일자리 보고서 같은 1차 자료 숫자와, 돈 드는 순서까지 정리했습니다." },
-    { cat:"learn", ico:"🎯", nm:"나이별 필수 상식", pg:"19",
-      ds:"내 나이에 챙겨야 할 것만 골랐습니다.",
-      bd:"내 나이 칸을 찾으면 그 나이에 실제로 챙겨야 하는 것만 남겨 주고, 필수 상식 10문항으로 확인합니다.\n월급 명세서, 무료 검진 시기처럼 놓치기 쉬운 것부터 골라 줍니다." },
     { cat:"learn", ico:"🤖", nm:"상황별 AI 활용 프롬프트", pg:"33",
       ds:"상황 6 × 목적 5, 빈칸만 채우는 프롬프트.",
       bd:"회사·가게·공부 등 여섯 상황과 다섯 목적을 고르면 서른 가지 조합의 루틴과 프롬프트가 나옵니다.\n노란 빈칸에 내 상황을 넣고 복사하면 그대로 붙여넣을 수 있고, 무료로 어디까지 되는지와 조합마다 조심할 점도 함께 적었습니다." },
@@ -511,9 +478,6 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
     { cat:"fun", ico:"📜", nm:"세계명언 팩트체크 48선", pg:"30",
       ds:"인터넷에 도는 명언, 주인부터 확인.",
       bd:"지금 기분에 맞는 칸을 고르면 명언을 보여 주면서, 그 문장의 진짜 주인이 누구인지 확인한 48개만 남겼습니다.\n아리스토텔레스로 도는 문장이 1926년 윌 듀런트의 책에서 나왔다는 식으로, 원래 주인을 하나씩 짚어 둡니다." },
-    { cat:"fun", ico:"🗳️", nm:"정치 쉽게 이해하기", pg:"31",
-      ds:"버스요금부터 탄핵까지, 누가 정하는지.",
-      bd:"핵심 카드 33장으로 내 통장과 동네에 닿는 결정이 누구에게서 나오는지 정리합니다.\n내 생활 문제는 누가 결정하는지, 10문제 기초 상식까지 확인합니다." },
     { cat:"fun", ico:"📻", nm:"연대별 핫트렌드 이해", pg:"32",
       ds:"1970년대부터 2020년대까지 유행의 지도.",
       bd:"궁금한 연대를 고르면 그 시절 유행과 사건을 보여 주고, 나는 어느 연대 감성인지, 연대별 퀴즈까지 이어집니다.\n기억에 의존하지 않고 국가기록원 기록과 그때 신문으로 확인한 날짜만 실었습니다." }
