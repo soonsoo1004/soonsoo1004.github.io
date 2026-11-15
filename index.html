@@ -1,371 +1,364 @@
 <!doctype html>
-<html lang="ko" data-theme="dark">
+<html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>천장지구 1004 — 일상을 가볍게 만드는 작은 웹 도구들</title>
-<meta name="description" content="가입도 설치도 없이 브라우저에서 바로 쓰는 무료 웹도구 16종. 생활·금융 계산기, 육아 수첩, 미니게임. 순수(1004)의 작은 공방.">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#08090a" media="(prefers-color-scheme: dark)">
+<title>천장지구 1004 — 매일 쓰는 작은 웹 도구 24가지</title>
+<meta name="description" content="가입도 설치도 결제도 없이 브라우저에서 바로 쓰는 무료 도구 24가지. 복지·생활·가족·배움·건강·교양. 도구는 티스토리 글의 첨부파일로 내려받아 열면 바로 씁니다.">
+<meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%237c7cff'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='13' font-weight='700' text-anchor='middle' fill='%2308090a'%3E1004%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%233182f6'/%3E%3Ctext x='16' y='22' font-family='system-ui,sans-serif' font-size='12' font-weight='800' text-anchor='middle' fill='%23ffffff'%3E1004%3C/text%3E%3C/svg%3E">
 <script>
-(function(){try{var s=localStorage.getItem("cj-theme");if(s==="dark"||s==="light"){document.documentElement.setAttribute("data-theme",s);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches){document.documentElement.setAttribute("data-theme","light");}}catch(e){}})();
+(function(){try{var s=localStorage.getItem("cj-theme");if(s==="dark"||s==="light"){document.documentElement.setAttribute("data-theme",s);}else if(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches){document.documentElement.setAttribute("data-theme","dark");}}catch(e){}})();
 </script>
 <style>
 :root{
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
-  --wrap: 1120px;
-  --r: 12px;
-  --gap: 12px;
-}
-html[data-theme="dark"]{
-  color-scheme: dark;
-  --bg:#08090a; --bg-soft:#0b0c0e; --panel:#0f1012; --panel2:#15171a; --panel3:#1b1e22;
-  --ink:#f3f4f6; --ink2:#a2a8b0; --ink3:#6d747d;
-  --line:#202327; --line2:#2f343a;
-  --accent:#8b8bff; --accent-ink:#08090a; --accent-soft:rgba(139,139,255,.10);
-  --live:#3ddc97; --soon:#7d838c;
-  --grid:rgba(255,255,255,.030);
-  --code:#c9cbd0;
+  --sans:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --wrap:1080px;
+  --r:20px;
+  --r-sm:14px;
+  --gap:14px;
 }
 html[data-theme="light"]{
-  color-scheme: light;
-  --bg:#ffffff; --bg-soft:#fbfbfc; --panel:#ffffff; --panel2:#f7f8fa; --panel3:#eef0f3;
-  --ink:#0b0c0e; --ink2:#585f68; --ink3:#868d96;
-  --line:#e8e9ec; --line2:#d4d7dc;
-  --accent:#4f46e5; --accent-ink:#ffffff; --accent-soft:rgba(79,70,229,.07);
-  --live:#0f9d58; --soon:#8f959d;
-  --grid:rgba(0,0,0,.035);
-  --code:#3d434b;
+  color-scheme:light;
+  --bg:#ffffff; --bg2:#f6f7f9; --card:#ffffff; --card2:#f7f8fa;
+  --ink:#0b0b0c; --ink2:#5c6169; --ink3:#8b9099;
+  --line:#ececf0; --line2:#dfe1e6;
+  --accent:#3182f6; --accent2:#1b64da; --accent-soft:#eef4ff;
+  --ok:#0b8a5b; --ok-soft:#e8f7f0;
+  --soon:#8b9099; --soon-soft:#f2f3f5;
+  --shadow:0 1px 2px rgba(9,12,18,.04), 0 8px 24px rgba(9,12,18,.05);
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0b0b0d; --bg2:#0e0e11; --card:#141417; --card2:#191a1e;
+  --ink:#f5f5f7; --ink2:#a4a8b0; --ink3:#71767f;
+  --line:#24252a; --line2:#30323a;
+  --accent:#6a9bff; --accent2:#8db3ff; --accent-soft:#16202f;
+  --ok:#3ddc97; --ok-soft:#12251d;
+  --soon:#7b808a; --soon-soft:#17181c;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.28);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   font-family:var(--sans);
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.6;
-  word-break:keep-all;
-  overflow-x:hidden;
+  background:var(--bg); color:var(--ink);
+  line-height:1.62; word-break:keep-all; overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  transition:background-color .2s ease, color .2s ease;
+  transition:background-color .22s ease,color .22s ease;
 }
-.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(var(--grid) 1px, transparent 1px);
-  background-size:22px 22px;
-  mask-image:linear-gradient(180deg,#000 0,rgba(0,0,0,.65) 45%,transparent 78%);
-  -webkit-mask-image:linear-gradient(180deg,#000 0,rgba(0,0,0,.65) 45%,transparent 78%);
-}
-.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px;position:relative;z-index:1}
-a{color:inherit}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.mono{font-family:var(--mono);font-variant-ligatures:none}
-::selection{background:var(--accent);color:var(--accent-ink)}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
 
-/* ---------- top bar ---------- */
-.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--bg) 78%, transparent);
-  backdrop-filter:saturate(140%) blur(12px);-webkit-backdrop-filter:saturate(140%) blur(12px);
+/* ── top bar ── */
+.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);
   border-bottom:1px solid var(--line)}
-.bar{display:flex;align-items:center;gap:14px;height:56px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0}
-.logo{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;background:var(--accent);
-  color:var(--accent-ink);font-size:9.5px;font-weight:700;letter-spacing:-.3px;flex:0 0 auto}
-.bname{font-size:14px;font-weight:600;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bname .sl{color:var(--ink3);margin:0 6px;font-weight:400}
-.bname .s{color:var(--ink2);font-weight:500}
-.nav{display:flex;align-items:center;gap:2px;margin-left:auto}
-.nav a{text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink2);
-  padding:7px 10px;border-radius:7px}
-.nav a:hover{color:var(--ink);background:var(--panel2)}
-.tbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);
-  border-radius:8px;padding:6px 9px;color:var(--ink2);flex:0 0 auto}
-.tbtn:hover{color:var(--ink);border-color:var(--line2)}
+.bar{display:flex;align-items:center;gap:16px;height:60px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;
+  background:var(--accent);color:#fff;font-size:9px;font-weight:800;letter-spacing:-.2px;flex:0 0 auto}
+.bname{font-size:14.5px;font-weight:700;letter-spacing:-.03em;white-space:nowrap}
+.bname span{color:var(--ink3);font-weight:500;margin-left:6px;font-size:13px}
+.nav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav a{font-size:13.5px;font-weight:500;color:var(--ink2);padding:8px 11px;border-radius:9px}
+.nav a:hover{color:var(--ink);background:var(--card2)}
+.tbtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);
+  background:var(--card);border-radius:10px;padding:7px 11px;color:var(--ink2);flex:0 0 auto;
+  font-size:12px;font-weight:600;letter-spacing:.02em}
+.tbtn:hover{color:var(--ink);border-color:var(--ink3)}
 .tbtn svg{display:block}
-.tbtn .mono{font-size:10.5px;letter-spacing:.06em}
-html[data-theme="dark"] .ic-sun{display:none}
-html[data-theme="light"] .ic-moon{display:none}
+html[data-theme="light"] .ic-sun{display:none}
+html[data-theme="dark"] .ic-moon{display:none}
+.tbtn .lbl{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em}
 
-/* ---------- hero ---------- */
-.hero{padding:54px 0 8px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,1fr);gap:var(--gap);align-items:stretch}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r)}
-.hero-main{padding:30px 28px 26px;position:relative;overflow:hidden}
-.hero-main:after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(420px 180px at 88% -20%, var(--accent-soft), transparent 72%)}
-.meta-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:18px;position:relative;z-index:1}
-.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;font-weight:600;
-  letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--line2);
-  border-radius:999px;padding:4px 9px;white-space:nowrap}
-.badge .dot{width:5px;height:5px;border-radius:50%;background:var(--live);flex:0 0 auto;
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 18%, transparent)}
-.badge.soon .dot{background:var(--soon);box-shadow:none}
-.badge.plain{letter-spacing:.04em;text-transform:none}
-h1{font-size:clamp(1.62rem,4.4vw,2.65rem);line-height:1.22;letter-spacing:-.035em;font-weight:700;
-  position:relative;z-index:1;max-width:15em}
-h1 .dim{color:var(--ink2);font-weight:600}
-.lede{margin-top:14px;color:var(--ink2);font-size:clamp(.9rem,1.6vw,1rem);max-width:34em;position:relative;z-index:1}
-.cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;position:relative;z-index:1}
-.btn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border-radius:9px;
-  font-size:13.5px;font-weight:600;padding:10px 15px;border:1px solid var(--line2);background:var(--panel2);color:var(--ink)}
-.btn:hover{border-color:var(--ink3)}
-.btn.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.btn.solid:hover{filter:brightness(1.12)}
-.btn .ar{font-family:var(--mono);font-size:12px;opacity:.7}
+/* ── hero bento ── */
+.hero{padding:52px 0 0}
+.hub{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(0,1fr);gap:var(--gap)}
+.card-b{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.hero-main{padding:38px 34px 34px;display:flex;flex-direction:column;justify-content:space-between;gap:26px;
+  position:relative;overflow:hidden}
+.hero-main:after{content:"";position:absolute;right:-90px;top:-120px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent-soft),transparent 68%);pointer-events:none}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+  color:var(--ok);background:var(--ok-soft);border-radius:999px;padding:5px 11px;text-transform:uppercase;width:max-content}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--ok)}
+h1{font-size:clamp(1.9rem,4.6vw,2.9rem);line-height:1.2;letter-spacing:-.045em;font-weight:800;margin-top:20px;max-width:14em}
+h1 em{font-style:normal;color:var(--accent2)}
+.lede{margin-top:16px;color:var(--ink2);font-size:clamp(.94rem,1.5vw,1.02rem);max-width:32em}
+.cta{display:flex;gap:9px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:12px;font-size:13.5px;font-weight:650;
+  padding:11px 17px;border:1px solid var(--line2);background:var(--card);color:var(--ink)}
+.pill:hover{border-color:var(--ink3)}
+.pill.solid{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill.solid:hover{filter:brightness(1.15)}
+.pill .ar{font-family:var(--mono);font-size:11.5px;opacity:.65}
 
-.sys{padding:18px 18px 14px;display:flex;flex-direction:column;gap:0}
-.sys .head{display:flex;align-items:center;justify-content:space-between;gap:8px;
-  padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:4px}
-.sys .head .t{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink3);text-transform:uppercase}
-.rows{display:flex;flex-direction:column}
-.row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:9px 0;
-  border-bottom:1px solid var(--line);font-size:13px}
-.row:last-child{border-bottom:0}
-.row .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink3);text-transform:uppercase}
-.row .v{font-family:var(--mono);font-size:12.5px;color:var(--ink);font-weight:500}
-.row .v.live{color:var(--live);display:inline-flex;align-items:center;gap:6px}
-.row .v.live .dot{width:5px;height:5px;border-radius:50%;background:var(--live)}
-.row .v .dimv{color:var(--ink3)}
+.side{display:grid;grid-template-rows:1fr 1fr;gap:var(--gap)}
+.tile{padding:20px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;min-height:0}
+.tile .k{font-size:11.5px;font-weight:700;letter-spacing:.05em;color:var(--ink3);text-transform:uppercase}
+.tile .v{font-size:clamp(1.5rem,3.2vw,1.9rem);font-weight:800;letter-spacing:-.04em;line-height:1.1}
+.tile .v small{font-size:13px;font-weight:600;color:var(--ink3);letter-spacing:0;margin-left:5px}
+.tile .s{font-size:12.5px;color:var(--ink2);margin-top:2px}
+.tile.accent{background:var(--accent-soft);border-color:transparent}
 
-/* ---------- section shells ---------- */
-section{padding:44px 0 0}
-.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-.sectitle{display:flex;flex-direction:column;gap:5px;min-width:0}
-.kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
-h2{font-size:clamp(1.12rem,2.6vw,1.4rem);font-weight:700;letter-spacing:-.025em;line-height:1.3}
-.sechead .note{color:var(--ink3);font-size:12.5px}
+/* ── sections ── */
+section{padding:56px 0 0}
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.sectitle{display:flex;flex-direction:column;gap:6px;min-width:0}
+.kicker{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ink3);text-transform:uppercase}
+h2{font-size:clamp(1.25rem,2.6vw,1.55rem);font-weight:800;letter-spacing:-.035em;line-height:1.3}
+.sechead .note{color:var(--ink3);font-size:12.5px;max-width:30em}
 
-/* ---------- channels ---------- */
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:9px;text-decoration:none;max-width:100%;
-  border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 14px;
-  transition:border-color .14s, background .14s}
-.chip:hover{border-color:var(--line2);background:var(--panel2)}
-.chip .nm{font-size:13px;font-weight:600;white-space:nowrap}
-.chip .u{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* channels */
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--card);
+  border-radius:14px;padding:12px 16px;box-shadow:var(--shadow)}
+.chip:hover{border-color:var(--line2);background:var(--card2)}
+.chip .nm{font-size:13.5px;font-weight:650;white-space:nowrap}
+.chip .u{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap}
 .chip .ar{font-family:var(--mono);font-size:11px;color:var(--ink3)}
-.chip[aria-disabled="true"]{border-style:dashed;background:transparent;cursor:default}
-.chip[aria-disabled="true"] .nm{color:var(--ink2)}
-.chip .cd{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--ink3);
-  border:1px solid var(--line2);border-radius:4px;padding:1px 4px}
+.chip.soon{border-style:dashed;box-shadow:none;background:transparent;cursor:default}
+.chip.soon .nm{color:var(--ink2)}
 
-/* ---------- tools ---------- */
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.seg{display:inline-flex;flex-wrap:wrap;gap:2px;border:1px solid var(--line);background:var(--panel);
-  border-radius:9px;padding:3px;max-width:100%}
-.seg button{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--ink2);
-  padding:7px 10px;border-radius:6px;white-space:nowrap}
+/* filters */
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.seg{display:inline-flex;flex-wrap:wrap;gap:3px;border:1px solid var(--line);background:var(--card2);
+  border-radius:13px;padding:4px;max-width:100%}
+.seg button{font-size:12.5px;font-weight:600;color:var(--ink2);padding:8px 12px;border-radius:10px;white-space:nowrap}
 .seg button:hover{color:var(--ink)}
-.seg button[aria-pressed="true"]{background:var(--panel3);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line2)}
-.seg .n{color:var(--ink3);margin-left:5px}
-.count{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.04em}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(9,12,18,.08);border:1px solid var(--line)}
+.seg .n{color:var(--ink3);margin-left:5px;font-weight:600;font-size:11.5px}
+.count{font-family:var(--mono);font-size:11px;color:var(--ink3);letter-spacing:.05em}
 
-.tgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
-.card{display:flex;flex-direction:column;gap:9px;text-align:left;width:100%;
-  background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:15px 15px 13px;
-  transition:border-color .14s, background .14s, transform .14s}
-.card:hover{border-color:var(--line2);background:var(--panel2);transform:translateY(-1px)}
-.card[hidden]{display:none}
-.card .toprow{display:flex;align-items:center;gap:8px}
-.card .ico{display:grid;place-items:center;width:28px;height:28px;border-radius:7px;
-  border:1px solid var(--line);background:var(--panel2);font-size:14px;line-height:1;flex:0 0 auto}
-.card .idx{font-family:var(--mono);font-size:10.5px;color:var(--ink3);letter-spacing:.05em}
-.card .badge{margin-left:auto;font-size:9px;padding:3px 7px;letter-spacing:.1em}
-.card .nm{font-size:14px;font-weight:600;letter-spacing:-.015em;line-height:1.4}
-.card .ds{font-size:12.5px;color:var(--ink2);line-height:1.55}
-.card .foot{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;
-  border-top:1px solid var(--line);margin-top:12px}
-.card .cat{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--ink3);text-transform:uppercase}
-.card .more{font-family:var(--mono);font-size:10.5px;color:var(--ink3);letter-spacing:.04em}
-.card:hover .more{color:var(--ink)}
-.empty{display:none;padding:30px 0;color:var(--ink3);font-size:13px}
+/* bento tool grid */
+.bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+.tool{display:flex;flex-direction:column;gap:10px;text-align:left;width:100%;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;
+  box-shadow:var(--shadow);transition:border-color .16s,transform .16s,box-shadow .16s}
+.tool:hover{border-color:var(--line2);transform:translateY(-2px);
+  box-shadow:0 2px 4px rgba(9,12,18,.05),0 14px 34px rgba(9,12,18,.08)}
+.tool[hidden]{display:none}
+.tool .toprow{display:flex;align-items:center;gap:10px}
+.tool .ico{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;
+  background:var(--card2);border:1px solid var(--line);font-size:18px;line-height:1;flex:0 0 auto}
+.tool .st{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.04em;border-radius:999px;
+  padding:4px 9px;white-space:nowrap}
+.tool .st.on{color:var(--ok);background:var(--ok-soft)}
+.tool .st.wait{color:var(--soon);background:var(--soon-soft)}
+.tool .nm{font-size:15px;font-weight:700;letter-spacing:-.025em;line-height:1.42}
+.tool .ds{font-size:12.8px;color:var(--ink2);line-height:1.55}
+.tool .foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  border-top:1px solid var(--line)}
+.tool .cat{font-size:11px;font-weight:600;color:var(--ink3)}
+.tool .go{font-size:11.5px;font-weight:650;color:var(--accent2)}
+.tool.wide{grid-column:span 2}
+.bento.wait-grid .tool{cursor:pointer}
+.empty{display:none;padding:26px 0;color:var(--ink3);font-size:13px}
 
-/* ---------- locked room ---------- */
+/* locked */
 .locked{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;
-  border:1px dashed var(--line2);border-radius:var(--r);background:var(--panel);padding:20px}
-.locked .lk{display:grid;place-items:center;width:42px;height:42px;border-radius:10px;
-  border:1px solid var(--line);background:var(--panel2);color:var(--ink2)}
-.locked h3{font-size:14.5px;font-weight:600;letter-spacing:-.01em}
-.locked p{font-size:12.5px;color:var(--ink3);margin-top:3px}
-.locked .pill{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink3);
-  border:1px solid var(--line2);border-radius:999px;padding:5px 10px;white-space:nowrap}
+  border:1px dashed var(--line2);border-radius:var(--r);background:var(--card2);padding:22px}
+.locked .lk{display:grid;place-items:center;width:44px;height:44px;border-radius:13px;
+  background:var(--card);border:1px solid var(--line);color:var(--ink2)}
+.locked h3{font-size:15px;font-weight:700;letter-spacing:-.02em}
+.locked p{font-size:12.8px;color:var(--ink3);margin-top:4px}
+.locked .tag{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--ink3);
+  border:1px solid var(--line2);border-radius:999px;padding:6px 11px;white-space:nowrap}
 
-/* ---------- footer ---------- */
-footer{margin-top:52px;border-top:1px solid var(--line);padding:22px 0 40px;color:var(--ink3);font-size:12px}
-.frow{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
-.fbrand{display:flex;align-items:center;gap:9px;color:var(--ink2);font-weight:600;font-size:13px}
-.fbrand .logo{width:22px;height:22px;border-radius:6px;font-size:8px}
-footer .mono{font-size:11px;letter-spacing:.03em}
-footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
+/* footer */
+footer{margin-top:70px;border-top:1px solid var(--line);padding:26px 0 46px;color:var(--ink3);font-size:12px}
+.frow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.fbrand{display:flex;align-items:center;gap:9px;color:var(--ink2);font-weight:650;font-size:13px}
+.fbrand .logo{width:22px;height:22px;border-radius:7px;font-size:7.5px}
+footer .mono{font-family:var(--mono);font-size:11px}
+footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)}
 
-/* ---------- modal ---------- */
+/* modal */
 .mwrap{position:fixed;inset:0;z-index:70;display:none}
 .mwrap.on{display:block}
-.mdim{position:absolute;inset:0;background:rgba(4,5,6,.62);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.mdim{position:absolute;inset:0;background:rgba(8,10,14,.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .msheet{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:min(540px,calc(100vw - 28px));max-height:min(84vh,720px);overflow:auto;
-  background:var(--bg);border:1px solid var(--line2);border-radius:14px;padding:22px 20px 20px;
-  box-shadow:0 24px 70px rgba(0,0,0,.45)}
-.msheet .x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:7px;
-  border:1px solid var(--line);background:var(--panel);color:var(--ink2);font-size:12px;display:grid;place-items:center}
+  width:min(520px,calc(100vw - 28px));max-height:min(84vh,700px);overflow:auto;
+  background:var(--card);border:1px solid var(--line2);border-radius:22px;padding:26px 24px 22px;
+  box-shadow:0 30px 80px rgba(8,10,14,.4)}
+.msheet .x{position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card2);color:var(--ink2);font-size:13px;display:grid;place-items:center}
 .msheet .x:hover{color:var(--ink);border-color:var(--line2)}
-.msheet .mhead{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-right:40px}
-.msheet h3{font-size:17px;font-weight:700;letter-spacing:-.02em;margin:11px 0 9px}
-.msheet .mtxt{font-size:13px;color:var(--ink2);line-height:1.75;white-space:pre-line}
-.msheet .mlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.mhead{display:flex;align-items:center;gap:9px;padding-right:42px}
+.mico{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;
+  background:var(--card2);border:1px solid var(--line);font-size:19px}
+.mcat{font-size:11px;font-weight:700;letter-spacing:.05em;color:var(--ink3);text-transform:uppercase}
+.msheet h3{font-size:19px;font-weight:800;letter-spacing:-.035em;margin:14px 0 10px}
+.mtxt{font-size:13.5px;color:var(--ink2);line-height:1.78;white-space:pre-line}
+.mlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.mnote{font-size:11.5px;color:var(--ink3);margin-top:12px;line-height:1.7}
 
-/* ---------- responsive ---------- */
-@media (max-width:920px){
-  .hero{padding:38px 0 6px}
-  .hero-grid{grid-template-columns:minmax(0,1fr)}
-  .tgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .nav a{padding:7px 8px}
+@media (max-width:960px){
+  .hub{grid-template-columns:minmax(0,1fr)}
+  .side{grid-template-rows:none;grid-template-columns:1fr 1fr}
+  .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tool.wide{grid-column:span 2}
+  .nav a{padding:8px 9px;font-size:13px}
 }
-@media (max-width:600px){
+@media (max-width:640px){
   .wrap{padding:0 16px}
   .nav{display:none}
-  .hero-main{padding:22px 18px 20px}
-  .tgrid{grid-template-columns:minmax(0,1fr)}
-  .locked{grid-template-columns:auto minmax(0,1fr);row-gap:12px}
-  .locked .pill{grid-column:1 / -1;justify-self:start}
+  .hero{padding:34px 0 0}
+  .hero-main{padding:26px 20px 24px}
+  .side{grid-template-columns:1fr}
+  .bento{grid-template-columns:minmax(0,1fr)}
+  .tool.wide{grid-column:span 1}
   .chip .u{display:none}
-  .sys{padding:16px}
-  section{padding:34px 0 0}
+  .locked{grid-template-columns:auto minmax(0,1fr);row-gap:12px}
+  .locked .tag{grid-column:1 / -1;justify-self:start}
+  section{padding:42px 0 0}
+  .sechead .note{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
+  .tool:hover{transform:none}
 }
 </style>
 </head>
 <body>
-<div class="grid-bg" aria-hidden="true"></div>
 
 <header class="top">
   <div class="wrap bar">
     <a class="brand" href="#top" aria-label="천장지구 1004 홈">
-      <span class="logo mono" aria-hidden="true">1004</span>
-      <span class="bname">천장지구 1004<span class="sl">/</span><span class="s">순수</span></span>
+      <span class="logo" aria-hidden="true">1004</span>
+      <span class="bname">천장지구 1004<span>순수</span></span>
     </a>
     <nav class="nav" aria-label="섹션 이동">
-      <a href="#tools">Tools</a>
-      <a href="#channels">Channels</a>
+      <a href="#tools">도구</a>
+      <a href="#soon">준비 중</a>
+      <a href="#channels">채널</a>
       <a href="#room">글방</a>
     </nav>
-    <button class="tbtn" id="themeBtn" type="button" aria-label="라이트 모드로 전환">
-      <svg class="ic-moon" width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><path d="M11.7 10.4A5.2 5.2 0 0 1 5.6 4.3a5.4 5.4 0 1 0 6.1 6.1z" fill="currentColor"/></svg>
-      <svg class="ic-sun" width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.1" fill="currentColor"/><g stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M8 1v1.7M8 13.3V15M1 8h1.7M13.3 8H15M3.1 3.1l1.2 1.2M11.7 11.7l1.2 1.2M12.9 3.1l-1.2 1.2M4.3 11.7l-1.2 1.2"/></g></svg>
-      <span class="mono" id="themeTxt">DARK</span>
+    <button class="tbtn" id="themeBtn" type="button" aria-label="다크 모드로 전환">
+      <svg class="ic-moon" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M11.7 10.4A5.2 5.2 0 0 1 5.6 4.3a5.4 5.4 0 1 0 6.1 6.1z" fill="currentColor"/></svg>
+      <svg class="ic-sun" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.1" fill="currentColor"/><g stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M8 1v1.7M8 13.3V15M1 8h1.7M13.3 8H15M3.1 3.1l1.2 1.2M11.7 11.7l1.2 1.2M12.9 3.1l-1.2 1.2M4.3 11.7l-1.2 1.2"/></g></svg>
+      <span class="lbl" id="themeTxt">LIGHT</span>
     </button>
   </div>
 </header>
 
 <main id="top">
-  <!-- hero -->
   <section class="hero" aria-label="소개">
-    <div class="wrap">
-      <div class="hero-grid">
-        <div class="panel hero-main">
-          <div class="meta-row">
-            <span class="badge"><span class="dot" aria-hidden="true"></span>LIVE</span>
-            <span class="badge plain">16 Tools</span>
-            <span class="badge plain">0 Dependencies</span>
-          </div>
-          <h1>일상을 가볍게 만드는<br><span class="dim">작은 웹 도구들</span></h1>
-          <p class="lede">가입도, 설치도, 결제도 없이 브라우저에서 바로 쓰는 계산기·수첩·미니게임 16종.
-            밤에 고쳐 가며 만든 도구들을 한곳에 모았습니다.</p>
-          <div class="cta">
-            <a class="btn solid" href="#tools">도구 둘러보기 <span class="ar" aria-hidden="true">→</span></a>
-            <a class="btn" href="#channels">채널 <span class="ar" aria-hidden="true">↗</span></a>
+    <div class="wrap hub">
+      <div class="card-b hero-main">
+        <div>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span>지금 바로 쓸 수 있는 24가지</span>
+          <h1>매일 쓰는 작은 도구를<br><em>한곳에 모았습니다</em></h1>
+          <p class="lede">가입도, 설치도, 결제도 없습니다. 필요한 화면을 열어 숫자만 넣으면 끝나는 것들입니다.
+            도구는 각 글에 붙은 파일을 내려받아 열면 바로 씁니다.</p>
+        </div>
+        <div class="cta">
+          <a class="pill solid" href="#tools">도구 보기 <span class="ar" aria-hidden="true">→</span></a>
+          <a class="pill" href="#channels">채널 <span class="ar" aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card-b tile accent">
+          <span class="k">바로 열기</span>
+          <div>
+            <div class="v">24<small>가지</small></div>
+            <div class="s">전부 무료 · 설치 없음</div>
           </div>
         </div>
-        <div class="panel sys" aria-label="사이트 상태 요약">
-          <div class="head">
-            <span class="t">Status</span>
-            <span class="badge"><span class="dot" aria-hidden="true"></span>Operational</span>
-          </div>
-          <div class="rows">
-            <div class="row"><span class="k">Status</span><span class="v live"><span class="dot" aria-hidden="true"></span>LIVE</span></div>
-            <div class="row"><span class="k">Tools</span><span class="v" id="statTools">16</span></div>
-            <div class="row"><span class="k">Channels</span><span class="v">3 <span class="dimv">/ 2 soon</span></span></div>
-            <div class="row"><span class="k">Dependencies</span><span class="v">0</span></div>
-            <div class="row"><span class="k">Updated</span><span class="v">2026.11</span></div>
+        <div class="card-b tile">
+          <span class="k">준비 중</span>
+          <div>
+            <div class="v">16<small>가지</small></div>
+            <div class="s">완성했지만 아직 글을 올리지 않았습니다</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- channels -->
+  <section id="tools" aria-label="도구">
+    <div class="wrap">
+      <div class="sechead">
+        <div class="sectitle">
+          <span class="kicker">Tools</span>
+          <h2>지금 쓸 수 있는 도구</h2>
+        </div>
+        <span class="note">카드를 누르면 설명과 내려받을 글 링크가 열립니다.</span>
+      </div>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="분류 필터">
+          <button type="button" data-f="all" aria-pressed="true">전체<span class="n" data-cnt="all">24</span></button>
+          <button type="button" data-f="money" aria-pressed="false">돈·복지<span class="n" data-cnt="money">5</span></button>
+          <button type="button" data-f="life" aria-pressed="false">생활·안전<span class="n" data-cnt="life">3</span></button>
+          <button type="button" data-f="family" aria-pressed="false">가족·마음<span class="n" data-cnt="family">6</span></button>
+          <button type="button" data-f="learn" aria-pressed="false">배움·일<span class="n" data-cnt="learn">4</span></button>
+          <button type="button" data-f="health" aria-pressed="false">건강·육아<span class="n" data-cnt="health">2</span></button>
+          <button type="button" data-f="fun" aria-pressed="false">재미·교양<span class="n" data-cnt="fun">4</span></button>
+        </div>
+        <span class="count" id="countTxt">24 / 24</span>
+      </div>
+      <div class="bento" id="tgrid"></div>
+      <p class="empty" id="emptyMsg">이 분류에는 아직 도구가 없습니다.</p>
+      <noscript><p class="empty" style="display:block">도구 목록을 보려면 브라우저에서 JavaScript를 허용해 주세요.</p></noscript>
+    </div>
+  </section>
+
+  <section id="soon" aria-label="준비 중인 도구">
+    <div class="wrap">
+      <div class="sechead">
+        <div class="sectitle">
+          <span class="kicker">Coming</span>
+          <h2>곧 올라갈 도구</h2>
+        </div>
+        <span class="note">완성했지만 아직 글을 올리지 않았습니다. 올리면 이 자리에서 바로 연결합니다.</span>
+      </div>
+      <div class="bento wait-grid" id="sgrid"></div>
+    </div>
+  </section>
+
   <section id="channels" aria-label="채널">
     <div class="wrap">
       <div class="sechead">
         <div class="sectitle">
           <span class="kicker">Channels</span>
-          <h2>직접 운영하는 채널</h2>
+          <h2>글과 도구를 올리는 곳</h2>
         </div>
-        <span class="note">도구 사용법과 글은 아래 채널에 올립니다.</span>
       </div>
       <div class="chips">
         <a class="chip" href="https://mireunote.tistory.com" target="_blank" rel="noopener">
           <span class="nm">티스토리</span>
           <span class="u">mireunote.tistory.com</span>
-          <span class="cd">LIVE</span>
           <span class="ar" aria-hidden="true">↗</span>
         </a>
         <a class="chip" href="https://www.postype.com/@mireunote" target="_blank" rel="noopener">
           <span class="nm">포스타입</span>
           <span class="u">postype.com/@mireunote</span>
-          <span class="cd">LIVE</span>
           <span class="ar" aria-hidden="true">↗</span>
         </a>
         <a class="chip" href="https://blog.naver.com/dbnndb" target="_blank" rel="noopener">
           <span class="nm">네이버 블로그</span>
           <span class="u">blog.naver.com/dbnndb</span>
-          <span class="cd">LIVE</span>
           <span class="ar" aria-hidden="true">↗</span>
         </a>
-        <span class="chip" aria-disabled="true">
+        <span class="chip soon" aria-disabled="true">
           <span class="nm">크몽</span>
           <span class="u">심사 후 연결</span>
-          <span class="cd">SOON</span>
         </span>
-        <span class="chip" aria-disabled="true">
+        <span class="chip soon" aria-disabled="true">
           <span class="nm">재능넷</span>
           <span class="u">심사 후 연결</span>
-          <span class="cd">SOON</span>
         </span>
       </div>
     </div>
   </section>
 
-  <!-- tools -->
-  <section id="tools" aria-label="웹도구와 미니게임">
-    <div class="wrap">
-      <div class="sechead">
-        <div class="sectitle">
-          <span class="kicker">Tools</span>
-          <h2>웹도구 &amp; 미니게임</h2>
-        </div>
-        <span class="note">카드를 누르면 설명과 실행 링크가 열립니다.</span>
-      </div>
-      <div class="toolbar">
-        <div class="seg" role="group" aria-label="카테고리 필터">
-          <button type="button" data-f="all" aria-pressed="true">전체<span class="n" data-cnt="all">16</span></button>
-          <button type="button" data-f="calc" aria-pressed="false">계산기<span class="n" data-cnt="calc">11</span></button>
-          <button type="button" data-f="life" aria-pressed="false">육아·일상<span class="n" data-cnt="life">2</span></button>
-          <button type="button" data-f="game" aria-pressed="false">미니게임<span class="n" data-cnt="game">3</span></button>
-        </div>
-        <span class="count" id="countTxt">SHOWING 16 / 16</span>
-      </div>
-      <div class="tgrid" id="tgrid"></div>
-      <p class="empty" id="emptyMsg">이 카테고리에는 아직 도구가 없습니다.</p>
-      <noscript><p class="empty" style="display:block">도구 목록을 보려면 브라우저에서 JavaScript를 허용해 주세요.</p></noscript>
-    </div>
-  </section>
-
-  <!-- locked room -->
   <section id="room" aria-label="작은 글방">
     <div class="wrap">
       <div class="sechead">
@@ -373,17 +366,16 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
           <span class="kicker">Room</span>
           <h2>작은 글방</h2>
         </div>
-        <span class="note">시집 · 출간 준비 중</span>
       </div>
       <div class="locked">
         <span class="lk" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.8 9V6.9a3.2 3.2 0 0 1 6.4 0V9" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+          <svg width="18" height="18" viewBox="0 0 20 20"><rect x="4" y="9" width="12" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.8 9V6.9a3.2 3.2 0 0 1 6.4 0V9" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </span>
         <div>
           <h3>🔒 비공개 · 준비 중</h3>
-          <p>시집은 잠금 상태입니다. 공개되면 이 자리에서 안내합니다.</p>
+          <p>아직 공개하지 않았습니다. 공개되면 이 자리에서 안내합니다.</p>
         </div>
-        <span class="pill">LOCKED</span>
+        <span class="tag">LOCKED</span>
       </div>
     </div>
   </section>
@@ -392,10 +384,10 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
 <footer>
   <div class="wrap">
     <div class="frow">
-      <span class="fbrand"><span class="logo mono" aria-hidden="true">1004</span>천장지구 1004 · 순수 (1004)</span>
+      <span class="fbrand"><span class="logo" aria-hidden="true">1004</span>천장지구 1004 · 순수 (1004)</span>
       <span class="mono">© 2026 SOONSU / 1004</span>
     </div>
-    <p class="fine">도구와 글은 위 채널에서만 무료로 배포합니다. 문의·정정은 각 채널 방명록으로 남겨 주세요.<br>
+    <p class="fine">도구와 글은 위 채널에서만 무료로 나눕니다. 문의·정정은 각 채널 방명록으로 남겨 주세요.<br>
       소개된 도구는 AI 도구의 도움으로 만들었습니다.</p>
   </div>
 </footer>
@@ -405,13 +397,13 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
   <div class="msheet">
     <button class="x" id="mClose" type="button" aria-label="닫기">✕</button>
     <div class="mhead">
-      <span class="badge"><span class="dot" aria-hidden="true"></span>LIVE</span>
-      <span class="badge plain" id="mCat">계산기</span>
-      <span class="badge plain" id="mIdx">01</span>
+      <span class="mico" id="mIco" aria-hidden="true">🧰</span>
+      <span class="mcat" id="mCat">도구</span>
     </div>
     <h3 id="mTitle">제목</h3>
     <p class="mtxt" id="mBody">내용</p>
     <div class="mlinks" id="mLinks"></div>
+    <p class="mnote" id="mNote"></p>
   </div>
 </div>
 
@@ -419,14 +411,14 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
 (function(){
   "use strict";
 
-  /* ---------------- theme ---------------- */
+  /* ── theme ── */
   var root = document.documentElement;
   var tBtn = document.getElementById("themeBtn");
   var tTxt = document.getElementById("themeTxt");
   function paintTheme(){
-    var dark = root.getAttribute("data-theme") !== "light";
-    tTxt.textContent = dark ? "DARK" : "LIGHT";
-    tBtn.setAttribute("aria-label", dark ? "라이트 모드로 전환" : "다크 모드로 전환");
+    var light = root.getAttribute("data-theme") === "light";
+    tTxt.textContent = light ? "LIGHT" : "DARK";
+    tBtn.setAttribute("aria-label", light ? "다크 모드로 전환" : "라이트 모드로 전환");
   }
   paintTheme();
   tBtn.addEventListener("click", function(){
@@ -436,114 +428,157 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
     paintTheme();
   });
 
-  /* ---------------- data ---------------- */
-  var CAT = { calc:"계산기", life:"육아·일상", game:"미니게임" };
+  /* ── 데이터 (2026-11-16 티스토리 글 33개 전수 확인, 글마다 붙은 파일명 대조 완료) ── */
+  var CAT = { money:"돈·복지", life:"생활·안전", family:"가족·마음", learn:"배움·일", health:"건강·육아", fun:"재미·교양" };
   var T = "https://mireunote.tistory.com";
+  var LINK_LBL = "티스토리에 올린 글에서 받기";
+
   var TOOLS = [
-    { cat:"calc", ico:"🐰", nm:"귀여운 캐릭터 계산기",
-      ds:"네 친구 테마와 계산 기록을 갖춘 폰 계산기.",
-      bd:"19키 폰 계산기 방식(2+3×4=20)에 계산식·결과 듀얼 디스플레이, 최근 계산 5건 기록·재사용·복사가 들어 있습니다. 탭 한 번에 🐰콩이·🐱모모·🐶포포·🐻방울 네 테마로 바뀌고, 방울 테마는 어르신 큰글씨용입니다. 터짐 파티클과 효과음은 각각 끌 수 있어요.",
-      lk:[["티스토리 사용법·실행 화면", T + "/22"]] },
-    { cat:"calc", ico:"🐧", nm:"창작물 실수령 비교기",
-      ds:"플랫폼별 수수료와 실수령액을 한 화면에서 비교.",
-      bd:"전자책·웹도구·유료 칼럼·굿즈·기획안 중 뭘 팔지와 판매가를 넣으면, 다섯 플랫폼(크몽·재능넷·포스타입·네이버 프리미엄콘텐츠·부크크)의 수수료·정산 주기·AI 표기 규정·실수령액을 실수령 순으로 비교합니다. 등록 전 셀프 점검표 8개도 함께 따라옵니다.",
-      lk:[["티스토리 사용법·실행 화면", T + "/19"]] },
-    { cat:"calc", ico:"🐷", nm:"퇴직금·연차수당 계산기",
-      ds:"법정 퇴직금과 미사용 연차수당, 지급 기한까지.",
-      bd:"입사일·퇴사일과 월 통상임금(또는 시급)만 넣으면 법정 퇴직금과 미사용 연차수당, 합계 실수령액을 계산합니다. 평균임금과 통상임금 중 큰 쪽을 자동으로 골라 배지로 알려 주고, 지급 기한(퇴직일+14일)과 기한 경과 시 연 20% 지연이자, 못 받았을 때 6단계 대처 순서까지 적어 두었습니다.",
-      lk:[["티스토리 사용법·실행 화면", T + "/20"]] },
-    { cat:"calc", ico:"🌾", nm:"근로·자녀장려금 계산기",
-      ds:"2027년 지급분, 받을 수 있는지 1분 확인.",
-      bd:"가구 유형·연간 소득·부양자녀 수·재산을 넣으면 2027년 지급분 근로장려금과 자녀장려금 예상액을 계산합니다. 소득 구간표 11행으로 지금보다 얼마를 더 벌면 유리한지, 기한 후 신청 감액과 국세 체납 충당 규칙도 함께 보여 줍니다.",
-      lk:[["티스토리 글 보기", T + "/26"]] },
-    { cat:"calc", ico:"🏥", nm:"건보료 피부양자 진단기",
-      ds:"피부양자 유지 여부와 지역가입자 전환 시 보험료.",
-      bd:"내년에도 건강보험 피부양자로 유지될지, 조건을 벗어나면 지역가입자 전환 시 보험이 얼마가 되는지 계산합니다. 소득·재산 기준을 항목별로 점검해 어디서 걸리는지 알려 줍니다.",
-      lk:[["티스토리 글 보기", T + "/27"]] },
-    { cat:"calc", ico:"💼", nm:"실업급여 모의계산기",
-      ds:"기초일액·일액·총액과 조기재취업수당 요건.",
-      bd:"이직 시기(2025 이전·2026·2027)와 만 나이·가입기간·퇴직 전 3개월 임금총액을 넣으면 기초일액과 일액, 총급여액과 수급 기간을 계산합니다. 조기재취업수당은 조건 4개를 하나씩 검사해 어디가 부족한지 알려 줍니다.",
-      lk:[["티스토리 글 보기", T + "/23"]] },
-    { cat:"calc", ico:"⏰", nm:"주휴·퇴직·연차 수당 계산기",
-      ds:"짧게 일한 근로자가 놓치기 쉬운 세 가지 수당.",
-      bd:"짧게 일한 근로자가 놓치기 쉬운 세 가지 — 주휴수당·퇴직금·연차수당을 한 화면에서 계산합니다. 1주 15시간 요건, 1년 미만 연차 규칙 같은 기준도 항목별로 정리돼 있습니다.",
-      lk:[["티스토리 글 보기", T + "/18"]] },
-    { cat:"calc", ico:"🏠", nm:"전월세 위험도 진단기",
-      ds:"전세가율과 등기부 위험 신호, 대처 순서.",
-      bd:"보증금·선순위 근저당·선순위 세입자 보증금을 넣으면 전세가율과 반환보증 가능 여부, 등기부 갑구·을구 위험 신호 6종을 점검합니다. 소액임차인 최우선변제 기준과 계약 단계 대처 순서 5단계, 특약 예시도 들어 있습니다.",
-      lk:[["티스토리 글 보기", T + "/15"]] },
-    { cat:"calc", ico:"💡", nm:"공공요금 감면 통합기",
-      ds:"전기·통신·건강보험 감면 대상인지 한 번에.",
-      bd:"전기·수도·통신·건강보험 등 각종 공공요금과 세금 감면 대상인지 한 번에 확인하는 통합기입니다. 복지감면·국가유공자·장애인·다자녀 등 조건별 감면 폭을 정리해 보여 줍니다.",
-      lk:[["티스토리 글 보기", T + "/14"]] },
-    { cat:"calc", ico:"🏦", nm:"연금·ISA 세액공제 계산기",
-      ds:"연금저축·IRP·ISA 납입액으로 돌아오는 세금.",
-      bd:"연금저축(연 600만 한도)·IRP·DC(합산 900만 한도)·ISA 만기 전환금액을 넣으면 돌아오는 세액공제를 계산합니다. 초과 납입 알림과 중도인출 환수 규칙, 남은 한도로 채우면 더 돌아오는 금액까지 표시합니다.",
-      lk:[["티스토리 글 보기", T + "/16"]] },
-    { cat:"calc", ico:"📋", nm:"단순경비율 세금 진단기",
-      ds:"3.3% 원천징수 뒤 실수령과 정산 때 나올 세금.",
-      bd:"사업 소득이 있을 때 단순경비율·기준경비율 중 무엇이 적용되는지, 3.3% 원천징수 뒤 정산 때 얼마가 더 나오거나 나갈지를 업종 기준으로 진단합니다. 업종 코드 데이터가 들어 있어 업종만 골라도 됩니다.",
-      lk:[["티스토리 글 보기", T + "/17"]] },
-    { cat:"life", ico:"🦉", nm:"생활의 지혜 모음집",
-      ds:"1차 자료로 확인한 생활 지혜 30가지.",
-      bd:"공공기관·법령·1차 자료에서 직접 확인한 생활 지혜 30가지입니다. 소비·환불 / 집안·가전 / 행정·숨은돈 / 계절·안전 카테고리와 검색, 항목마다 \"왜 맞는지·주의할 점\" 펼치기, 오늘 챙긴 지혜 체크리스트(브라우저에 저장)로 이뤄져 있습니다.",
-      lk:[["티스토리 사용법·실행 화면", T + "/21"]] },
-    { cat:"life", ico:"🐻", nm:"아기 돌봄 육아 수첩",
-      ds:"분유·모유·기저귀·수면 기록, 기록은 기기에만.",
-      bd:"분유(60~240ml)·모유·기저귀·수면을 버튼 하나로 기록하고, 마지막 수유 후 경과 시간과 오늘 총량을 크게 보여 줍니다. 캐릭터 포코·토토·나비와 12간지 띠 동물, 큰글씨 모드, 예방접종 표까지. 기록과 사진은 기기 브라우저에만 남고 어디로도 보내지 않습니다.",
-      lk:[["티스토리 사용법·실행 화면", T + "/13"]] },
-    { cat:"game", ico:"⭐", nm:"포포의 별빛 간식 퍼즐",
-      ds:"타이머도 하트도 없는 힐링 블록퍼즐.",
-      bd:"타이머·하트 없는 힐링 블록퍼즐입니다. 8×8 보드에 간식 블록을 놓아 줄을 지우고, 콤보와 피버로 점수를 올립니다. 스테이지마다 별빛 골목 친구들의 이야기가 이어지고, 막히면 새로고침과 별빛 폭탄 2종의 찬스가 있습니다. 닫았다 열면 그 자리에서 이어집니다.",
-      lk:[["티스토리 플레이 화면", T + "/10"]] },
-    { cat:"game", ico:"🍩", nm:"모모의 톡톡 연쇄팡",
-      ds:"맞닿으면 저절로 터지는 연쇄 간식 퍼즐.",
-      bd:"도넛·딸기케이크·별사탕이 위에서 톡톡 떨어져 쌓이고, 같은 간식 2개만 붙어 있어도 터집니다. 낙하로 3개 이상 맞닿으면 손대지 않아도 자동 연쇄 — 연쇄 배율이 도레미파솔라시도로 높아지는 타격음이 함께 갑니다. 5개 이상 터뜨리면 별봉 폭탄.",
-      lk:[["티스토리 플레이 화면", T + "/11"]] },
-    { cat:"game", ico:"☕", nm:"포포의 별빛카페 성장기",
-      ds:"작물이 썩지 않는 카페 성장게임, 오프라인 보상.",
-      bd:"작물이 절대 썩지 않고, 창을 닫아도 오프라인 골드와 수확물이 쌓이는 카페 성장게임입니다. 강아지 바리스타 포포가 견습생에서 별빛 카페 사장님까지 네 단계로 자라고, 레벨마다 새 메뉴·손님·인테리어가 열립니다. 손님 주문 3슬롯 콤보가 손맛입니다.",
-      lk:[["티스토리 플레이 화면", T + "/12"]] }
+    { cat:"money", ico:"🧾", nm:"근로·자녀장려금 계산기", pg:"26",
+      ds:"2027년 지급분, 내가 받을 수 있는지 1분 확인.",
+      bd:"가구 유형(단독·홑벌이·맞벌이)과 2026년 소득, 부양자녀 수, 재산을 넣으면 2027년에 받을 근로장려금과 자녀장려금 예상액을 계산합니다.\n최대 금액은 단독 165만 원, 홑벌이 285만 원, 맞벌이 330만 원이고, 소득이 늘수록 깎이다가 기준선에서 0원이 되는 구간을 함께 보여 줍니다. 재산이 1억7천만 원을 넘으면 절반만 나오고, 기한 후 신청은 5% 깎입니다. 국세청 2026년 안내로 확인한 값입니다." },
+    { cat:"money", ico:"🏥", nm:"건보료 피부양자 진단기", pg:"27",
+      ds:"탈락하면 지역보험료가 얼마인지 계산.",
+      bd:"소득·재산·사업소득 조건을 하나씩 넣어 내년에도 피부양자로 남을 수 있는지 판정하고, 탈락했을 때 매달 나올 지역보험료를 계산합니다.\n재산은 시세가 아니라 재산세 과세표준으로 보고, 퇴직자라면 임의계속가입까지 함께 계산합니다. 2027년 보험료율 7.19%, 장기요양보험료 13.90% 기준입니다." },
+    { cat:"money", ico:"🤝", nm:"장애인·사회적약자 복지혜택 찾기", pg:"9",
+      ds:"내가 받을 수 있는 복지, 한 번에 확인.",
+      bd:"장애 정도, 수급 여부, 나이대 세 가지만 고르면 전기·통신·교통·의료 감면 중 내가 받을 수 있는 것만 남겨 줍니다.\n놓치기 쉬운 복지 상식 8문제와, 동네마다 달라 숫자를 비워 둔 항목도 함께 표시합니다." },
+    { cat:"money", ico:"💰", nm:"숨은 국가제도 100 활용 가이드", pg:"10",
+      ds:"신청 안 하면 사라지는 돈, 이름부터 찾기.",
+      bd:"본인부담상한액, 경정청구, 실업크레딧, 휴면예금처럼 이름을 몰라 못 찾는 제도를 내 상황별로 골라 보여 줍니다.\n제도 상식 8문제, 제도가 있는지 확인하는 창구 안내, 지역마다 달라 숫자를 비워 둔 항목까지 들어 있습니다." },
+    { cat:"money", ico:"⚖️", nm:"어려운 법지식·제도 풀이", pg:"11",
+      ds:"법전 대신 카드 34장, 내가 할 일 세 줄.",
+      bd:"지급명령·내용증명·가압류처럼 헷갈리는 용어를 카드 34장으로 풀고, 빌려준 돈·집주인·상속 빚·세금 착오 같은 내 상황에 맞는 제도와 순서를 알려 줍니다.\n법 상식 8문제로 확인까지 합니다." },
+
+    { cat:"life", ico:"☎️", nm:"생활 필수 전화번호", pg:"7",
+      ds:"급할 때 찾지 말고, 검색해서 바로 거세요.",
+      bd:"카드가 긁히고, 불이 나고, 월급이 안 들어올 때 눌러야 할 번호를 한 화면에 모았습니다. '보이스피싱' '임금' '복지'처럼 상황으로 검색하면 그 번호만 남습니다.\n번호마다 운영시간과 통화료를 적었고, 큰 글씨 모드와 보이는 번호 전부 복사 버튼이 있습니다. 2026년 11월 15일 각 기관 공식 안내로 확인했습니다." },
+    { cat:"life", ico:"🛡️", nm:"보이스피싱·스미싱 판별기", pg:"8",
+      ds:"문자·통화 내용을 붙여넣으면 위험 점수로.",
+      bd:"수사기관 사칭, 송금 요구, 앱 설치, 인증번호 요구, 출처를 알 수 없는 주소 같은 위험 요소를 찾아 점수로 보여 줍니다.\n통화 중 들은 요구를 누르면 바로 판정이 나오고, 돈을 보낸 뒤에는 지급정지 → 112 신고 → 3영업일 안에 환급 신청까지 순서대로 안내합니다." },
+    { cat:"life", ico:"🏢", nm:"아파트 입주민 상식 해결가이드", pg:"28",
+      ds:"물 새고 윗집 뛸 때 어디에 말해야 하는지.",
+      bd:"누수·층간소음·관리비·곰팡이처럼 자주 겪는 일곱 가지를 누르면 책임 소재, 돈 안 들이고 물어볼 곳, 오늘 당장 할 일 세 가지를 정리해 줍니다.\n헷갈리는 상식 41가지와 OX 8문제, 층간소음 기준(낮 39dB·밤 34dB) 같은 숫자를 근거와 함께 달아 두었습니다." },
+
+    { cat:"family", ico:"💛", nm:"행복지수 판별기", pg:"13",
+      ds:"5문항 1분, 요즘 내 마음 점검.",
+      bd:"세계보건기구 웰빙지수 WHO-5 다섯 문항으로 0~100점 점수를 냅니다. 어느 문항에서 점수가 빠졌는지 막대로 보여 주고, 오늘 해볼 일 세 가지를 띄우며, 점수를 저장하면 기록이 쌓입니다.\n검증된 척도가 아닌 생활 10문항 버전도 함께 들어 있습니다. 진단이 아닌 자가 점검이고, 2주 넘게 힘들면 109·1577-0199로 연결됩니다." },
+    { cat:"family", ico:"🗣️", nm:"자녀 언어 해독 가이드", pg:"14",
+      ds:"‘몰라’ ‘귀찮아’ 뒤에 있는 진짜 뜻.",
+      bd:"아이가 ‘몰라’라고만 할 때 그 말 뒤에 있는 뜻을 상황별로 해독하고, 그때 어른이 건넬 문장을 함께 보여 줍니다.\n사춘기인지 신호인지 구분하는 기준과 소통 점검 OX도 들어 있습니다." },
+    { cat:"family", ico:"🏫", nm:"선생과 제자 갈등 해소 가이드", pg:"15",
+      ds:"그날 서로 못 한 말, 정리하는 순서.",
+      bd:"머리 지적, 휴대폰 보관처럼 학교에서 자주 부딪히는 상황을 골라 학생과 선생님 양쪽에서 무슨 일이 있었는지 정리하고, 대화로 풀어 가는 순서를 제시합니다.\n생활지도·권리와 책임 OX, 막혔을 때 거는 곳도 함께 있습니다." },
+    { cat:"family", ico:"✉️", nm:"부모와 선생 소통 가이드", pg:"16",
+      ds:"같은 일을 아이와 선생님은 다르게 봅니다.",
+      bd:"선생님께 문자를 보내기 전에 그 자리에서 무슨 일이 생겼는지 양쪽 시선으로 정리해 줍니다. 같은 침묵도 서로 뜻이 다르다는 것을 먼저 짚습니다.\n소통 매너 OX와, 답이 없을 때 어디에 물어야 하는지 창구 안내가 들어 있습니다." },
+    { cat:"family", ico:"🩺", nm:"생애주기 보살핌 가이드", pg:"17",
+      ds:"돌보는 사람이 먼저 안심하는 순서.",
+      bd:"아이부터 어르신까지 내가 돌보는 사람을 고르면 응급 상황에서 확인할 순서와 안전 점검을 정리해 줍니다.\n응급·안전 OX 8문항과 급할 때 거는 번호가 함께 들어 있습니다." },
+    { cat:"family", ico:"💬", nm:"연령별 금기어 대화 가이드", pg:"22",
+      ds:"1세부터 100세까지, 대신 건넬 문장.",
+      bd:"누구에게 할 말인지 고르면 그 나이에 아픈 자리와 대신 건넬 문장을 보여 주고, 내가 무심코 했던 말을 점검합니다.\n가족에게 그대로 보낼 수 있는 문장도 있습니다." },
+
+    { cat:"learn", ico:"🎓", nm:"자격증 취득 쉬운 루트", pg:"12",
+      ds:"1달 안에 딸 수 있는 것부터 순서대로.",
+      bd:"내 상황을 고르면 지금 딸 수 있는 자격증을 순서대로 골라 줍니다. 기능사·기사·산업기사가 어떻게 갈리는지, 학원 광고의 '국비 100%'와 '취득 후 연봉'이 어디서 어긋나는지 OX 8문항으로 짚습니다.\n응시자격과 실제 숫자도 함께 봅니다." },
+    { cat:"learn", ico:"🧭", nm:"AI 대항 직업·공부 진로 가이드", pg:"18",
+      ds:"AI 시대에 뭘 배울지 8문항으로.",
+      bd:"지금 내 자리를 확인하고 AI 시대 직업·공부 상식 OX를 풀면, AI가 가져갈 일과 내가 남길 일을 나눠 맞는 직군 셋과 3단계 계획을 제시합니다.\n세계경제포럼 미래 일자리 보고서 같은 1차 자료 숫자와, 돈 드는 순서까지 정리했습니다." },
+    { cat:"learn", ico:"🎯", nm:"나이별 필수 상식", pg:"19",
+      ds:"내 나이에 챙겨야 할 것만 골랐습니다.",
+      bd:"내 나이 칸을 찾으면 그 나이에 실제로 챙겨야 하는 것만 남겨 주고, 필수 상식 10문항으로 확인합니다.\n월급 명세서, 무료 검진 시기처럼 놓치기 쉬운 것부터 골라 줍니다." },
+    { cat:"learn", ico:"🤖", nm:"상황별 AI 활용 프롬프트", pg:"33",
+      ds:"상황 6 × 목적 5, 빈칸만 채우는 프롬프트.",
+      bd:"회사·가게·공부 등 여섯 상황과 다섯 목적을 고르면 서른 가지 조합의 루틴과 프롬프트가 나옵니다.\n노란 빈칸에 내 상황을 넣고 복사하면 그대로 붙여넣을 수 있고, 무료로 어디까지 되는지와 조합마다 조심할 점도 함께 적었습니다." },
+
+    { cat:"health", ico:"🥛", nm:"키성장 음식 팩트체크", pg:"20",
+      ds:"사골국 14mg vs 우유 452mg, 숫자로.",
+      bd:"'이거 키에 좋대요'라는 말을 식약처 식품영양성분 데이터베이스 숫자로 확인해 주고, 오늘 아이 식탁에 올릴 것을 골라 줍니다.\n사골국 400g의 칼슘이 14.14mg, 같은 양 우유가 452mg이라는 식으로 비교합니다." },
+    { cat:"health", ico:"📏", nm:"성장기 다이어트 금물 체크", pg:"21",
+      ds:"키 클 때 살부터 빼면 키도 멈춥니다.",
+      bd:"지금 아이가 어디쯤인지 확인하고, 성장을 막는 습관 여섯 가지를 짚은 뒤 오늘 키 크는 하루를 제안합니다.\n질병관리청 국가건강정보포털의 성장기 치료 원칙을 근거로 삼았습니다." },
+
+    { cat:"fun", ico:"🌙", nm:"꿈해몽 상세 검색", pg:"29",
+      ds:"같은 꿈도 내 상황과 나이에 따라.",
+      bd:"그날 기분과 시기, 꿈 내용을 고르면 내 상황에 맞춰 풀이를 보여 줍니다. 돼지꿈은 무조건 길몽이라는 식의 한쪽 풀이 대신 어디서 확인했는지를 밝힙니다.\n수면 컨디션 자가점검과 수면 상식 OX 5문항도 들어 있습니다." },
+    { cat:"fun", ico:"📜", nm:"세계명언 팩트체크 48선", pg:"30",
+      ds:"인터넷에 도는 명언, 주인부터 확인.",
+      bd:"지금 기분에 맞는 칸을 고르면 명언을 보여 주면서, 그 문장의 진짜 주인이 누구인지 확인한 48개만 남겼습니다.\n아리스토텔레스로 도는 문장이 1926년 윌 듀런트의 책에서 나왔다는 식으로, 원래 주인을 하나씩 짚어 둡니다." },
+    { cat:"fun", ico:"🗳️", nm:"정치 쉽게 이해하기", pg:"31",
+      ds:"버스요금부터 탄핵까지, 누가 정하는지.",
+      bd:"핵심 카드 33장으로 내 통장과 동네에 닿는 결정이 누구에게서 나오는지 정리합니다.\n내 생활 문제는 누가 결정하는지, 10문제 기초 상식까지 확인합니다." },
+    { cat:"fun", ico:"📻", nm:"연대별 핫트렌드 이해", pg:"32",
+      ds:"1970년대부터 2020년대까지 유행의 지도.",
+      bd:"궁금한 연대를 고르면 그 시절 유행과 사건을 보여 주고, 나는 어느 연대 감성인지, 연대별 퀴즈까지 이어집니다.\n기억에 의존하지 않고 국가기록원 기록과 그때 신문으로 확인한 날짜만 실었습니다." }
   ];
 
-  /* ---------------- render cards ---------------- */
+  var SOON = [
+    { ico:"🧮", nm:"연말정산 절세 계산기", kind:"계산기" },
+    { ico:"🛵", nm:"라이더 3.3% 환급 계산기", kind:"계산기" },
+    { ico:"💼", nm:"실업급여 모의계산기", kind:"계산기" },
+    { ico:"⏰", nm:"주휴·퇴직·연차 수당 계산기", kind:"계산기" },
+    { ico:"🏠", nm:"전월세 위험도 진단기", kind:"계산기" },
+    { ico:"💡", nm:"공공요금 감면 통합기", kind:"진단" },
+    { ico:"🏦", nm:"연금·ISA 세액공제 계산기", kind:"계산기" },
+    { ico:"📋", nm:"단순경비율 세금 진단기", kind:"계산기" },
+    { ico:"🐰", nm:"귀여운 캐릭터 계산기", kind:"계산기" },
+    { ico:"🐧", nm:"창작물 실수령 비교기", kind:"계산기" },
+    { ico:"🐷", nm:"퇴직금·연차수당 계산기", kind:"계산기" },
+    { ico:"🦉", nm:"생활의 지혜 모음집", kind:"모음집" },
+    { ico:"🐻", nm:"아기 돌봄 육아 수첩", kind:"수첩" },
+    { ico:"⭐", nm:"포포의 별빛 간식 퍼즐", kind:"게임" },
+    { ico:"🍩", nm:"모모의 톡톡 연쇄팡", kind:"게임" },
+    { ico:"☕", nm:"포포의 별빛카페 성장기", kind:"게임" }
+  ];
+
+  /* ── 도구 카드 ── */
   var grid = document.getElementById("tgrid");
   var frag = document.createDocumentFragment();
   TOOLS.forEach(function(t, i){
     var b = document.createElement("button");
     b.type = "button";
-    b.className = "card";
+    b.className = "tool";
     b.setAttribute("data-cat", t.cat);
     b.setAttribute("data-i", String(i));
     b.setAttribute("aria-haspopup", "dialog");
-    var idx = String(i + 1).length < 2 ? "0" + (i + 1) : String(i + 1);
-    b.innerHTML =
-      '<span class="toprow">' +
-        '<span class="ico" aria-hidden="true">' + t.ico + '</span>' +
-        '<span class="idx">' + idx + '</span>' +
-        '<span class="badge"><span class="dot" aria-hidden="true"></span>LIVE</span>' +
-      '</span>' +
-      '<span class="nm">' + t.nm + '</span>' +
-      '<span class="ds">' + t.ds + '</span>' +
-      '<span class="foot">' +
-        '<span class="cat">' + CAT[t.cat] + '</span>' +
-        '<span class="more">DETAIL →</span>' +
-      '</span>';
+    var row = document.createElement("span");
+    row.className = "toprow";
+    row.innerHTML = '<span class="ico" aria-hidden="true">' + t.ico + '</span>' +
+                    '<span class="st on">바로 열기</span>';
+    var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = t.nm;
+    var ds = document.createElement("span"); ds.className = "ds"; ds.textContent = t.ds;
+    var foot = document.createElement("span");
+    foot.className = "foot";
+    foot.innerHTML = '<span class="cat">' + CAT[t.cat] + '</span><span class="go">자세히 →</span>';
+    b.appendChild(row); b.appendChild(nm); b.appendChild(ds); b.appendChild(foot);
     frag.appendChild(b);
   });
   grid.appendChild(frag);
 
-  /* counts */
-  var counts = { all: TOOLS.length, calc: 0, life: 0, game: 0 };
-  TOOLS.forEach(function(t){ counts[t.cat]++; });
-  [].forEach.call(document.querySelectorAll("[data-cnt]"), function(el){
-    var k = el.getAttribute("data-cnt");
-    if (typeof counts[k] === "number") el.textContent = String(counts[k]);
+  /* ── 준비 중 카드 ── */
+  var sgrid = document.getElementById("sgrid");
+  var sfrag = document.createDocumentFragment();
+  SOON.forEach(function(s, i){
+    var d = document.createElement("div");
+    d.className = "tool";
+    d.setAttribute("data-i", String(i));
+    var row = document.createElement("span");
+    row.className = "toprow";
+    row.innerHTML = '<span class="ico" aria-hidden="true">' + s.ico + '</span>' +
+                    '<span class="st wait">준비 중</span>';
+    var nm = document.createElement("span"); nm.className = "nm"; nm.textContent = s.nm;
+    var ds = document.createElement("span"); ds.className = "ds"; ds.textContent = "완성했지만 아직 글을 올리지 않았습니다.";
+    var foot = document.createElement("span");
+    foot.className = "foot";
+    foot.innerHTML = '<span class="cat">' + s.kind + '</span><span class="go">안내 →</span>';
+    d.appendChild(row); d.appendChild(nm); d.appendChild(ds); d.appendChild(foot);
+    sfrag.appendChild(d);
   });
-  document.getElementById("statTools").textContent = String(TOOLS.length);
+  sgrid.appendChild(sfrag);
 
-  /* ---------------- filter ---------------- */
-  var cards = [].slice.call(grid.querySelectorAll(".card"));
+  /* ── 필터 ── */
+  var cards = [].slice.call(grid.querySelectorAll(".tool"));
   var fBtns = [].slice.call(document.querySelectorAll(".seg button"));
   var countTxt = document.getElementById("countTxt");
   var emptyMsg = document.getElementById("emptyMsg");
@@ -555,7 +590,7 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
       if (on) shown++;
     });
     emptyMsg.style.display = shown ? "none" : "block";
-    countTxt.textContent = "SHOWING " + shown + " / " + TOOLS.length;
+    countTxt.textContent = shown + " / " + TOOLS.length;
   }
   fBtns.forEach(function(b){
     b.addEventListener("click", function(){
@@ -565,35 +600,20 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
   });
   applyFilter("all");
 
-  /* ---------------- modal ---------------- */
+  /* ── 모달 ── */
   var modal = document.getElementById("modal");
   var mDim = document.getElementById("mDim");
   var mClose = document.getElementById("mClose");
   var mTitle = document.getElementById("mTitle");
   var mBody = document.getElementById("mBody");
   var mCat = document.getElementById("mCat");
-  var mIdx = document.getElementById("mIdx");
+  var mIco = document.getElementById("mIco");
   var mLinks = document.getElementById("mLinks");
+  var mNote = document.getElementById("mNote");
   var lastFocus = null;
 
-  function openModal(i){
-    var t = TOOLS[i];
-    if (!t) return;
+  function openModal(){
     lastFocus = document.activeElement;
-    mTitle.textContent = t.nm;
-    mBody.textContent = t.bd;
-    mCat.textContent = CAT[t.cat];
-    mIdx.textContent = String(i + 1).length < 2 ? "0" + (i + 1) : String(i + 1);
-    mLinks.textContent = "";
-    t.lk.forEach(function(l){
-      var a = document.createElement("a");
-      a.className = "btn solid";
-      a.href = l[1];
-      a.target = "_blank";
-      a.rel = "noopener";
-      a.textContent = l[0] + " ↗";
-      mLinks.appendChild(a);
-    });
     modal.classList.add("on");
     mClose.focus();
   }
@@ -601,8 +621,43 @@ footer .fine{margin-top:12px;font-size:11px;line-height:1.7;color:var(--ink3)}
     modal.classList.remove("on");
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
+  function addLink(href, label){
+    var a = document.createElement("a");
+    a.className = "pill solid";
+    a.href = href;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.textContent = label + " ↗";
+    mLinks.appendChild(a);
+  }
+
   cards.forEach(function(c){
-    c.addEventListener("click", function(){ openModal(parseInt(c.getAttribute("data-i"), 10)); });
+    c.addEventListener("click", function(){
+      var t = TOOLS[parseInt(c.getAttribute("data-i"), 10)];
+      if (!t) return;
+      mIco.textContent = t.ico;
+      mCat.textContent = CAT[t.cat];
+      mTitle.textContent = t.nm;
+      mBody.textContent = t.bd;
+      mLinks.textContent = "";
+      addLink(T + "/" + t.pg, LINK_LBL);
+      mNote.textContent = "이 도구는 위 글에 파일로 붙어 있습니다. 글에서 내려받아 열면 설치 없이 바로 씁니다.";
+      openModal();
+    });
+  });
+  [].forEach.call(sgrid.querySelectorAll(".tool"), function(d){
+    d.addEventListener("click", function(){
+      var s = SOON[parseInt(d.getAttribute("data-i"), 10)];
+      if (!s) return;
+      mIco.textContent = s.ico;
+      mCat.textContent = s.kind;
+      mTitle.textContent = s.nm;
+      mBody.textContent = "완성했지만 아직 티스토리에 글을 올리지 않았습니다.\n글을 올리면 이 화면에서 바로 연결해 드립니다. 그때까지는 아래 티스토리에서 다른 도구를 먼저 보실 수 있습니다.";
+      mLinks.textContent = "";
+      addLink(T, "티스토리에서 다른 도구 보기");
+      mNote.textContent = "";
+      openModal();
+    });
   });
   mClose.addEventListener("click", closeModal);
   mDim.addEventListener("click", closeModal);
