@@ -1645,7 +1645,7 @@ function drawPup(pu){
    배경 1장·벽돌 1장을 오프스크린 캔버스에 한 번만 그려 두고 매 프레임은 이미지 1장만
    그립니다. 그림자·필터·DOM 갱신은 늘지 않으므로 터치 반응은 최초 버전 그대로입니다. */
 var brickSprites = {}, BRICK_PAD = 6, stoneBG = null, stoneBGKey = "";
-var auraCache = {};
+var auraCache = {}, auraKeys = [];
 function stoneMode(){ return S.theme === "night"; }
 /* 스테이지 빛무리 — 테마·팔레트·번짐 단계마다 1장만 구워 두고 매 프레임 drawImage 1번 */
 function auraCanvas(){
@@ -1665,7 +1665,10 @@ function auraCanvas(){
   rad.addColorStop(1, hexA(accent, 0));
   g.fillStyle = rad;
   g.fillRect(0, 0, aw, ah);
+  /* 기기 메모리 상한: 최근 5장만 들고 있는다 */
+  if(auraKeys.length >= 5){ auraCache = {}; auraKeys.length = 0; }
   auraCache[key] = c;
+  auraKeys.push(key);
   return c;
 }
 function rrPathOn(g, x, y, w, h, r){
@@ -2463,6 +2466,7 @@ function applyTheme(){
   stoneBG = null;
   stoneBGKey = "";
   auraCache = {};
+  auraKeys = [];
   stagePalCache = {};
   renderThemes();
   syncThemePressed();
@@ -2884,6 +2888,7 @@ function fitCanvas(){
   stoneBGKey = "";
   brickSprites = {};
   auraCache = {};
+  auraKeys = [];
   stagePalCache = {};
   draw();
 }
