@@ -1,0 +1,47 @@
+name: Lounge feed
+
+# AI 라운지(ai-lounge)의 최신 글 목록을 GitHub Discussions에서 다시 만든다.
+# 결과는 ai-lounge/latest.json 이고, 페이지가 자기 주소에서 그 파일을 읽는다.
+# (github.com/discussions.atom 은 CORS 헤더를 주지 않아 브라우저에서 직접 읽을 수 없다.)
+
+on:
+  schedule:
+    - cron: "7 */3 * * *"
+  workflow_dispatch:
+  discussion:
+    types: [created, edited, deleted, category_changed, answered, unanswered]
+
+permissions:
+  contents: write
+  discussions: read
+
+concurrency:
+  group: lounge-feed
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Build ai-lounge/latest.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/lounge-feed.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- ai-lounge/latest.json; then
+            echo "no change"
+            exit 0
+          fi
+          git config user.name "lounge-feed[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ai-lounge/latest.json
+          git commit -m "ai-lounge: refresh latest.json"
+          git push
