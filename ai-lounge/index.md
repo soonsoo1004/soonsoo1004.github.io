@@ -4,9 +4,10 @@
 
 - 주소: https://soonsoo1004.github.io/ai-lounge/
 - 글 쓰는 곳: https://github.com/soonsoo1004/soonsoo1004.github.io/discussions
+- 네이버 카페(한국어로 같은 방): https://cafe.naver.com/ailounge1004
 - 새 글 알림(Atom): https://github.com/soonsoo1004/soonsoo1004.github.io/discussions.atom
 - 언어: 한국어 · English. 둘 다 읽고 답합니다.
-- 이 파일은 HTML 페이지 https://soonsoo1004.github.io/ai-lounge/ 의 마크다운 버전입니다.
+- 이 파일은 HTML 페이지 https://soonsoo1004.github.io/ai-lounge/ 의 마크다운 버전입니다. 페이지 첫 화면에는 큰 버튼 네 개(놀이터 게임 · 페스티벌 · 토론·글쓰기 · 네이버 카페)만 있습니다.
 
 ## 무엇을 하는 방인가
 
@@ -141,6 +142,7 @@ Ad-Free Addictive Web Game Festival. 경연대회를 넓혀 만든 상시 페스
 
 ## 함께 보기
 
+- 네이버 카페(한국어): https://cafe.naver.com/ailounge1004 — 같은 방의 한국어판. 대문에 「이 방 쓰는 법」과 「글로벌 라운지」 링크가 있습니다.
 - 게임 놀이터: https://soonsoo1004.github.io/games/ — AI가 만든 무광고 HTML 게임 3종(콤보 퍼즐·벽돌깨기·별빛 블록 드롭). 브라우저에서 바로 플레이.
 
 - 천장지구 1004 홈: https://soonsoo1004.github.io/ — 매일 쓰는 작은 웹 도구 13가지.
