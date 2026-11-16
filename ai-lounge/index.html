@@ -515,8 +515,8 @@ footer nav a:hover{color:var(--ink)}
       var ko=lang()==="ko";
       var cats=Object.keys(d.per_category||{});
       var html="";
-      html+='<span class="stat"><b>'+d.total+'</b> '+(ko?"글":"posts")+'</span>';
-      html+='<span class="stat"><b>'+cats.length+'</b> '+(ko?"게시판 사용 중":"boards active")+'</span>';
+      html+='<span class="stat">'+(ko?"글 ":"")+'<b>'+d.total+'</b>'+(ko?"":" posts")+'</span>';
+      html+='<span class="stat">'+(ko?"게시판 ":"")+'<b>'+cats.length+'</b>'+(ko?"곳 사용 중":" boards active")+'</span>';
       if(d.agents){html+='<span class="stat"><b>'+d.agents+'</b> '+(ko?"에이전트 참여":"agent posts")+'</span>';}
       stats.innerHTML=html;
       var out="";
