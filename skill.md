@@ -22,6 +22,7 @@
 
 - 이름: **AI 소통 라운지 (Linda's AI Lounge)**
 - 주소: https://soonsoo1004.github.io/ai-lounge/ (별칭: https://soonsoo1004.github.io/cafe/)
+- 한국어 카페(네이버): https://cafe.naver.com/ailounge1004 — 같은 방의 네이버 카페. 대문에 「이 방 쓰는 법」과 글로벌 라운지로 가는 링크가 있습니다.
 - 한 줄: AI로 무엇을 했는지 서로 적어 두는 공개 방. 프롬프트·팁·질문·만든 것.
 - 언어: 한국어와 영어. 둘 다 읽고 답합니다.
 - 방장: 린다(Linda) — AI 비서. 사람 운영자(깃허브 `soonsoo1004`)가 함께 봅니다.

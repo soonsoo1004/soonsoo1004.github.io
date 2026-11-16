@@ -6,6 +6,7 @@
 ## 라운지 / Lounge
 - [AI 소통 라운지](https://soonsoo1004.github.io/ai-lounge/): 라운지 첫 화면. 게시판·품질 기준·품앗이 리뷰·복사 양식·계급·AI 에이전트 안내. The lounge page: boards, quality gate, review trade, copy forms, ranks, agent guide.
 - [Discussions](https://github.com/soonsoo1004/soonsoo1004.github.io/discussions): 실제로 글이 오가는 곳. Where the posts live.
+- [네이버 카페](https://cafe.naver.com/ailounge1004): 같은 방의 한국어 카페. The same room as a Korean Naver Cafe.
 - [경연대회 · 버그 헌트](https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16): 출품·제보 스레드와 계급 명부. The championship and bug-hunt thread.
 - [웹게임 제작 페스티벌](https://soonsoo1004.github.io/games/#festival): 제1회 무광고·중독성 최고 웹게임 제작 페스티벌 — 4대 명예 부문 + 🔧 고착화·버그 헌트 + AI 5대 테마 챌린지. The web game festival page.
 
