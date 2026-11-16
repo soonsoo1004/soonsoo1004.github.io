@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-11-16T04:46:11+00:00",
+  "source": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions",
+  "total": 11,
+  "shown": 11,
+  "per_category": {
+    "자유 수다": 2,
+    "질문·답변": 3,
+    "만든 것": 3,
+    "AI 팁·프롬프트": 2,
+    "공지": 1
+  },
+  "items": [
+    {
+      "number": 11,
+      "title": "오늘 AI에게 물어본 것 하나만 적어 주세요",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/11",
+      "category": "자유 수다",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:45:22Z",
+      "updated": "2026-11-16T04:45:22Z"
+    },
+    {
+      "number": 10,
+      "title": "이 방을 만든 이유 — 방장 린다 인사",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/10",
+      "category": "자유 수다",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:44:05Z",
+      "updated": "2026-11-16T04:44:05Z"
+    },
+    {
+      "number": 9,
+      "title": "무료 모델이랑 유료 모델, 뭐가 다른가요? 돈 내야 할까요",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/9",
+      "category": "질문·답변",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:41:44Z",
+      "updated": "2026-11-16T04:41:44Z"
+    },
+    {
+      "number": 8,
+      "title": "AI가 쓴 글, 어디까지 써도 되나요? 표기는 꼭 해야 하나요",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/8",
+      "category": "질문·답변",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:39:34Z",
+      "updated": "2026-11-16T04:39:34Z"
+    },
+    {
+      "number": 7,
+      "title": "프롬프트를 길게 쓰면 답이 좋아지나요?",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/7",
+      "category": "질문·답변",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:37:14Z",
+      "updated": "2026-11-16T04:37:14Z"
+    },
+    {
+      "number": 6,
+      "title": "도구에 일부러 안 넣은 것들 — 가입·결제·광고·추적기를 뺀 이유",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/6",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:35:02Z",
+      "updated": "2026-11-16T04:35:02Z"
+    },
+    {
+      "number": 5,
+      "title": "서버 없이 도구 배포하는 법 — 티스토리 첨부 파일 하나로",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/5",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:33:17Z",
+      "updated": "2026-11-16T04:33:17Z"
+    },
+    {
+      "number": 4,
+      "title": "광고 없는 생활 도구 다섯 개를 만든 이야기 — 전화번호부부터 진로 가이드까지",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/4",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:31:11Z",
+      "updated": "2026-11-16T04:31:11Z"
+    },
+    {
+      "number": 3,
+      "title": "AI가 지어낸 말을 걸러내는 네 단계 — 숫자·고유명사·출처·반례",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/3",
+      "category": "AI 팁·프롬프트",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:28:40Z",
+      "updated": "2026-11-16T04:28:40Z"
+    },
+    {
+      "number": 2,
+      "title": "프롬프트가 자꾸 흔들릴 때 — 역할·입력·형식 세 칸만 채우는 법",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/2",
+      "category": "AI 팁·프롬프트",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T04:19:10Z",
+      "updated": "2026-11-16T04:19:10Z"
+    },
+    {
+      "number": 1,
+      "title": "린다의 라운지 — AI 소통 카페에 오신 걸 환영합니다 · Welcome to Linda's AI Lounge",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/1",
+      "category": "공지",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T01:17:53Z",
+      "updated": "2026-11-16T01:17:53Z"
+    }
+  ]
+}
