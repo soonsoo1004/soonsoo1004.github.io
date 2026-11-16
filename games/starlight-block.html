@@ -23,6 +23,8 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
   --bg1:#0e1730; --bg2:#182347; --bg3:#0b1226;
   --ring:rgba(157,182,255,.5); --shadow:0 14px 38px rgba(4,8,22,.5);
   --dimc:rgba(7,12,26,.42); --grid:rgba(255,255,255,.06); --edge:rgba(255,255,255,.35);
+  --h1:rgba(157,182,255,.38); --h2:rgba(255,176,210,.26);
+  --prim:linear-gradient(150deg,#a8c0ff,#ffb4d6);
   position:relative; display:block; width:100%; max-width:430px; margin:0 auto;
   padding:10px 10px 12px; border-radius:24px; overflow:hidden;
   background:radial-gradient(120% 70% at 50% -6%,#243561 0%,#172346 46%,#0d1630 100%);
@@ -31,7 +33,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
   -webkit-text-size-adjust:100%; -webkit-tap-highlight-color:transparent;
   box-shadow:var(--shadow); box-sizing:border-box;
 }
-.stardrop.stardrop[data-theme="light"]{
+.stardrop.stardrop[data-tone="light"]{
   --ink:#2a3452; --dim:#6b7695; --line:#dbe3f4; --soft:rgba(24,36,70,.055); --soft2:rgba(24,36,70,.1);
   --accent:#4c7ede; --accent2:#dd6f9c; --gold:#b8860b; --ok:#22967a; --bad:#cd5454;
   --card:rgba(255,255,255,.62); --card2:rgba(255,255,255,.86);
@@ -40,6 +42,51 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
   --dimc:rgba(255,255,255,.16); --grid:rgba(40,60,110,.09); --edge:rgba(255,255,255,.8);
   background:radial-gradient(120% 70% at 50% -6%,#fffdf9 0%,#f4f7ff 50%,#e9effb 100%);
 }
+
+/* ---------- 테마 4종 (별빛 네이비 = 기본값) ---------- */
+.stardrop.stardrop[data-theme="gold"]{
+  --ink:#f7ecd2; --dim:#c3ac84; --line:#5b4527; --soft:rgba(255,225,170,.07); --soft2:rgba(255,225,170,.14);
+  --accent:#e8c06a; --accent2:#d98f5a; --gold:#f4d488; --ok:#a8c98a; --bad:#e08b7a;
+  --card:rgba(255,220,150,.06); --card2:rgba(255,220,150,.12);
+  --bg1:#1a1408; --bg2:#2a1f10; --bg3:#120d05;
+  --ring:rgba(232,192,106,.5); --shadow:0 14px 38px rgba(8,5,1,.62);
+  --dimc:rgba(14,10,3,.46); --grid:rgba(255,225,170,.06); --edge:rgba(255,235,190,.4);
+  --h1:rgba(232,192,106,.4); --h2:rgba(217,143,90,.26);
+  --prim:linear-gradient(150deg,#f0cd7e,#c98f52);
+  background:radial-gradient(120% 70% at 50% -6%,#3b2c13 0%,#241a0c 46%,#130e06 100%);
+}
+.stardrop.stardrop[data-theme="cream"]{
+  --ink:#4a3f52; --dim:#8b7f93; --line:#e9dcf0; --soft:rgba(90,60,110,.05); --soft2:rgba(90,60,110,.1);
+  --accent:#c084b8; --accent2:#e6a3a3; --gold:#b9863a; --ok:#5f9e82; --bad:#c96b6b;
+  --card:rgba(255,255,255,.66); --card2:rgba(255,255,255,.88);
+  --bg1:#fffdf8; --bg2:#fdf1f4; --bg3:#f6ecf7;
+  --ring:rgba(192,132,184,.42); --shadow:0 12px 30px rgba(120,90,130,.18);
+  --dimc:rgba(255,255,255,.2); --grid:rgba(110,70,120,.09); --edge:rgba(255,255,255,.85);
+  --h1:rgba(192,132,184,.3); --h2:rgba(230,163,163,.24);
+  --prim:linear-gradient(150deg,#e3b7dc,#f3c2bf);
+  background:radial-gradient(120% 70% at 50% -6%,#fffefa 0%,#fdf3f6 50%,#f7eefa 100%);
+}
+.stardrop.stardrop[data-theme="mint"]{
+  --ink:#20463f; --dim:#5d8279; --line:#cfe9e2; --soft:rgba(20,90,80,.05); --soft2:rgba(20,90,80,.1);
+  --accent:#3fae91; --accent2:#6fbfd0; --gold:#b08f32; --ok:#2f9c74; --bad:#cf6058;
+  --card:rgba(255,255,255,.68); --card2:rgba(255,255,255,.9);
+  --bg1:#f7fffc; --bg2:#e9f8f4; --bg3:#ddf2ec;
+  --ring:rgba(63,174,145,.42); --shadow:0 12px 30px rgba(40,110,95,.16);
+  --dimc:rgba(255,255,255,.2); --grid:rgba(30,100,88,.09); --edge:rgba(255,255,255,.85);
+  --h1:rgba(63,174,145,.32); --h2:rgba(111,191,208,.24);
+  --prim:linear-gradient(150deg,#8fd9c1,#a8dfe9);
+  background:radial-gradient(120% 70% at 50% -6%,#ffffff 0%,#eafaf5 50%,#ddf2ec 100%);
+}
+.stardrop.stardrop[data-theme="gold"] .sd-board{background:#140f07}
+.stardrop.stardrop[data-theme="gold"] .sd-boardBg[data-bg="night"]{background:
+  radial-gradient(1.4px 1.4px at 20% 20%,rgba(255,228,160,.8),transparent 60%),
+  radial-gradient(1.4px 1.4px at 74% 14%,rgba(255,228,160,.6),transparent 60%),
+  radial-gradient(1.2px 1.2px at 40% 60%,rgba(255,214,140,.5),transparent 60%),
+  radial-gradient(1.6px 1.6px at 86% 72%,rgba(255,236,190,.6),transparent 60%),
+  radial-gradient(90% 50% at 50% -8%,rgba(232,192,106,.22) 0%,rgba(232,192,106,0) 60%),
+  radial-gradient(120% 80% at 30% 8%,#3a2c16 0%,#251b0d 48%,#120d06 100%)}
+.stardrop.stardrop[data-theme="cream"] .sd-board{background:#f5eef6}
+.stardrop.stardrop[data-theme="mint"] .sd-board{background:#e4f4ef}
 .stardrop.stardrop[data-big="1"]{font-size:17.5px}
 .stardrop.stardrop *,.stardrop.stardrop *::before,.stardrop.stardrop *::after{box-sizing:border-box}
 .stardrop.stardrop div,.stardrop.stardrop span,.stardrop.stardrop b,.stardrop.stardrop i,.stardrop.stardrop em,
@@ -61,7 +108,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-head{display:flex; align-items:flex-start; gap:8px; margin-bottom:8px}
 .stardrop.stardrop .sd-brand{display:flex; align-items:center; gap:8px; flex:1 1 auto; min-width:0}
 .stardrop.stardrop .sd-mark{width:34px; height:34px; border-radius:12px; flex:0 0 auto; display:flex; align-items:center; justify-content:center;
-  background:linear-gradient(155deg,rgba(157,182,255,.4),rgba(255,176,210,.3)); border:1px solid var(--line)}
+  background:linear-gradient(155deg,var(--h1),var(--h2)); border:1px solid var(--line)}
 .stardrop.stardrop .sd-mark svg{width:20px; height:20px; display:block}
 .stardrop.stardrop .sd-titles{min-width:0; display:block}
 .stardrop.stardrop .sd-title{display:block; font-size:1.02em; font-weight:800; letter-spacing:-.035em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
@@ -71,7 +118,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
   display:flex; align-items:center; justify-content:center; font-size:.8em; font-weight:800; color:var(--ink); flex:0 0 auto;
   transition:background .15s}
 .stardrop.stardrop .sd-ico:active{background:var(--soft2)}
-.stardrop.stardrop .sd-ico[aria-pressed="true"]{background:linear-gradient(160deg,rgba(157,182,255,.34),rgba(255,176,210,.24)); border-color:var(--accent)}
+.stardrop.stardrop .sd-ico[aria-pressed="true"]{background:linear-gradient(160deg,var(--h1),var(--h2)); border-color:var(--accent)}
 
 /* ---------- 응원 배지 ---------- */
 .stardrop.stardrop .sd-cheer{display:flex; align-items:center; gap:7px; padding:4px 8px 4px 4px; margin-bottom:7px;
@@ -115,7 +162,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-board canvas{position:relative; z-index:2; display:block; touch-action:none; -webkit-user-select:none; user-select:none}
 .stardrop.stardrop .sd-banner{position:absolute; z-index:4; left:50%; top:34%; transform:translate(-50%,-50%) scale(.85);
   opacity:0; pointer-events:none; padding:.24em .7em; border-radius:999px; font-weight:900; letter-spacing:-.03em;
-  font-size:1.15em; color:#101a34; background:linear-gradient(150deg,#ffe6a8,#ffb8d8 60%,#a9c6ff);
+  font-size:1.15em; color:#101a34; background:linear-gradient(150deg,var(--gold),var(--accent2) 60%,var(--accent));
   box-shadow:0 8px 22px rgba(10,16,36,.4); white-space:nowrap; transition:none}
 .stardrop.stardrop .sd-banner[data-show="1"]{animation:sdPop .62s cubic-bezier(.16,.9,.25,1) forwards}
 @keyframes sdPop{
@@ -157,7 +204,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-boardBg[data-bg="photo"]{background-position:center; background-size:cover; background-repeat:no-repeat}
 .stardrop.stardrop .sd-boardBg[data-bg="photo"] + .sd-boardDim{background:rgba(6,10,22,.58); backdrop-filter:saturate(.85) brightness(.9)}
 .stardrop.stardrop .sd-boardDim{box-shadow:inset 0 0 60px rgba(6,10,22,.35)}
-.stardrop.stardrop[data-theme="light"] .sd-boardBg[data-bg="photo"] + .sd-boardDim{background:rgba(250,249,255,.62); box-shadow:inset 0 0 60px rgba(40,60,110,.16)}
+.stardrop.stardrop[data-tone="light"] .sd-boardBg[data-bg="photo"] + .sd-boardDim{background:rgba(250,249,255,.62); box-shadow:inset 0 0 60px rgba(40,60,110,.16)}
 
 /* 설정 속 배경 미리보기 */
 .stardrop.stardrop .sd-bgSw{position:absolute; inset:0}
@@ -169,20 +216,20 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 
 
 /* 라이트 테마에서는 게임판도 밝게 (어두운 판 위에 흰 딤을 얹으면 탁해진다) */
-.stardrop.stardrop[data-theme="light"] .sd-board{background:#e8eefb}
-.stardrop.stardrop[data-theme="light"] .sd-boardBg[data-bg="night"]{background:
+.stardrop.stardrop[data-tone="light"] .sd-board{background:#e8eefb}
+.stardrop.stardrop[data-tone="light"] .sd-boardBg[data-bg="night"]{background:
   radial-gradient(1.5px 1.5px at 18% 20%,rgba(90,120,200,.55),transparent 60%),
   radial-gradient(1.5px 1.5px at 72% 12%,rgba(90,120,200,.45),transparent 60%),
   radial-gradient(1.3px 1.3px at 42% 58%,rgba(90,120,200,.4),transparent 60%),
   radial-gradient(1.4px 1.4px at 84% 70%,rgba(90,120,200,.4),transparent 60%),
   radial-gradient(120% 80% at 30% 4%,#fbfdff 0%,#e6efff 48%,#d2dff5 100%)}
-.stardrop.stardrop[data-theme="light"] .sd-boardBg[data-bg="dawn"]{background:
+.stardrop.stardrop[data-tone="light"] .sd-boardBg[data-bg="dawn"]{background:
   radial-gradient(80% 55% at 82% 6%,rgba(255,214,180,.65),transparent 62%),
   linear-gradient(170deg,#fff6ea 0%,#ffe6ec 45%,#ece6ff 100%)}
-.stardrop.stardrop[data-theme="light"] .sd-boardBg[data-bg="forest"]{background:
+.stardrop.stardrop[data-tone="light"] .sd-boardBg[data-bg="forest"]{background:
   radial-gradient(70% 50% at 24% 12%,rgba(180,240,210,.55),transparent 62%),
   linear-gradient(168deg,#f6fdf8 0%,#dcf2e7 52%,#cbe7df 100%)}
-.stardrop.stardrop[data-theme="light"] .sd-boardBg[data-bg="paper"]{background:
+.stardrop.stardrop[data-tone="light"] .sd-boardBg[data-bg="paper"]{background:
   radial-gradient(50% 40% at 18% 12%,rgba(255,255,255,.85),transparent 60%),
   repeating-linear-gradient(0deg,rgba(40,60,110,.05) 0 1px,transparent 1px 7px),
   linear-gradient(170deg,#fffdf7 0%,#f6f2e8 60%,#eeeade 100%)}
@@ -191,27 +238,27 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-overlay{position:absolute; z-index:6; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:8px; padding:14px 16px; text-align:center; background:linear-gradient(180deg,rgba(9,14,30,.72),rgba(9,14,30,.9));
   backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); color:#eef3ff; overflow:auto; touch-action:pan-y}
-.stardrop.stardrop[data-theme="light"] .sd-overlay{background:linear-gradient(180deg,rgba(250,248,255,.86),rgba(240,244,255,.95)); color:#243050}
+.stardrop.stardrop[data-tone="light"] .sd-overlay{background:linear-gradient(180deg,rgba(250,248,255,.86),rgba(240,244,255,.95)); color:#243050}
 .stardrop.stardrop .sd-ovT{font-size:1.18em; font-weight:900; letter-spacing:-.035em; line-height:1.25}
 .stardrop.stardrop .sd-ovS{font-size:.72em; color:#a9b6dd; line-height:1.55; max-width:30em}
-.stardrop.stardrop[data-theme="light"] .sd-ovS{color:#5c6a8e}
+.stardrop.stardrop[data-tone="light"] .sd-ovS{color:#5c6a8e}
 .stardrop.stardrop .sd-ovBig{font-size:2em; font-weight:900; color:var(--gold); font-variant-numeric:tabular-nums; line-height:1.1; letter-spacing:-.04em}
 .stardrop.stardrop .sd-ovRow{display:flex; gap:6px; flex-wrap:wrap; justify-content:center; width:100%; max-width:280px}
 .stardrop.stardrop .sd-btn{display:inline-flex; align-items:center; justify-content:center; gap:5px; min-height:40px; padding:0 14px;
   border-radius:13px; background:var(--soft2); border:1px solid rgba(255,255,255,.24); color:inherit; font-weight:800;
   font-size:.82em; letter-spacing:-.02em; transition:transform .12s,background .15s; flex:1 1 auto}
-.stardrop.stardrop[data-theme="light"] .sd-btn{border-color:rgba(40,60,110,.16)}
+.stardrop.stardrop[data-tone="light"] .sd-btn{border-color:rgba(40,60,110,.16)}
 .stardrop.stardrop .sd-btn:active{transform:scale(.97); background:rgba(255,255,255,.24)}
-.stardrop.stardrop .sd-btn.sd-primary{background:linear-gradient(150deg,#a8c0ff,#ffb4d6); color:#141c34; border-color:transparent;
+.stardrop.stardrop .sd-btn.sd-primary{background:var(--prim); color:#141c34; border-color:transparent;
   box-shadow:0 8px 20px rgba(120,150,255,.32)}
 .stardrop.stardrop .sd-btn.sd-wide{flex:1 1 100%}
 .stardrop.stardrop .sd-btn.sd-ghost{background:transparent}
 .stardrop.stardrop .sd-ovNote{font-size:.62em; color:#93a2cc; line-height:1.5}
-.stardrop.stardrop[data-theme="light"] .sd-ovNote{color:#6d7a9c}
+.stardrop.stardrop[data-tone="light"] .sd-ovNote{color:#6d7a9c}
 .stardrop.stardrop .sd-ovStats{display:flex; gap:10px; justify-content:center; font-size:.72em; color:#b9c5e8}
 .stardrop.stardrop .sd-ovStats b{font-weight:900; color:#fff; font-variant-numeric:tabular-nums}
-.stardrop.stardrop[data-theme="light"] .sd-ovStats{color:#5b688b}
-.stardrop.stardrop[data-theme="light"] .sd-ovStats b{color:#243050}
+.stardrop.stardrop[data-tone="light"] .sd-ovStats{color:#5b688b}
+.stardrop.stardrop[data-tone="light"] .sd-ovStats b{color:#243050}
 .stardrop.stardrop .sd-speedPick{display:flex; gap:5px; padding:3px; border-radius:12px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16)}
 .stardrop.stardrop .sd-speedPick button{min-height:28px; padding:0 9px; border-radius:9px; font-size:.68em; font-weight:800; color:#c9d4f2}
 .stardrop.stardrop .sd-speedPick button[aria-pressed="true"]{background:rgba(255,255,255,.9); color:#1a2440}
@@ -219,20 +266,66 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-zchip{aspect-ratio:1/1; border-radius:12px; background:var(--soft); border:1px solid var(--line);
   display:flex; align-items:center; justify-content:center; padding:3px; overflow:hidden}
 .stardrop.stardrop .sd-zchip svg{width:100%; height:100%; display:block}
-.stardrop.stardrop .sd-zchip[aria-pressed="true"]{border-color:var(--accent); background:linear-gradient(160deg,rgba(157,182,255,.3),rgba(255,176,210,.22));
+.stardrop.stardrop .sd-zchip[aria-pressed="true"]{border-color:var(--accent); background:linear-gradient(160deg,var(--h1),var(--h2));
   box-shadow:0 0 0 1px var(--accent) inset}
 
-/* ---------- 보조 버튼 ---------- */
-.stardrop.stardrop .sd-assist{display:flex; gap:6px; margin-top:7px}
-.stardrop.stardrop .sd-abtn{flex:1 1 0; height:54px; border-radius:15px; background:linear-gradient(165deg,var(--soft2),var(--soft));
-  border:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+/* ---------- 이동 버튼 : 배치 5종 + 크기 2종 ---------- */
+.stardrop.stardrop .sd-pad{display:flex; flex-direction:column; gap:6px; margin-top:7px}
+.stardrop.stardrop .sd-pad .sd-line{display:flex; gap:6px}
+.stardrop.stardrop .sd-pb{flex:1 1 0; min-height:54px; padding:0 2px; border-radius:15px;
+  background:linear-gradient(165deg,var(--soft2),var(--soft)); border:1px solid var(--line);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
   font-weight:800; color:var(--ink); touch-action:none; -webkit-user-select:none; user-select:none;
   box-shadow:0 2px 0 rgba(0,0,0,.12); transition:transform .08s,background .12s}
-.stardrop.stardrop .sd-abtn svg{width:20px; height:20px; display:block}
-.stardrop.stardrop .sd-abtn i{font-size:.5em; color:var(--dim); font-weight:700}
-.stardrop.stardrop .sd-abtn:active,.stardrop.stardrop .sd-abtn[data-down="1"]{transform:translateY(1px);
-  background:linear-gradient(165deg,rgba(157,182,255,.4),rgba(255,176,210,.26)); border-color:var(--accent)}
-.stardrop.stardrop .sd-abtn.sd-drop{flex:1.25 1 0}
+.stardrop.stardrop .sd-pb .sd-pic{display:flex; align-items:center; justify-content:center}
+.stardrop.stardrop .sd-pb svg{width:21px; height:21px; display:block}
+.stardrop.stardrop .sd-pb i{font-size:.5em; color:var(--dim); font-weight:700; white-space:nowrap; line-height:1.2}
+.stardrop.stardrop .sd-pb:active,.stardrop.stardrop .sd-pb[data-down="1"]{transform:translateY(1px);
+  background:linear-gradient(165deg,var(--h1),var(--h2)); border-color:var(--accent)}
+/* ① 일렬형 */
+.stardrop.stardrop .sd-pad[data-layout="row"] .sd-line1 .sd-pb{min-height:56px}
+.stardrop.stardrop .sd-pad[data-layout="row"] .sd-line2 .sd-pb{min-height:40px; flex-direction:row; gap:6px}
+.stardrop.stardrop .sd-pad[data-layout="row"] .sd-line2 .sd-pb svg{width:17px; height:17px}
+/* ②③ 게임패드 십자형 (좌우 반전) */
+.stardrop.stardrop .sd-gp{display:flex; gap:6px; align-items:stretch}
+.stardrop.stardrop .sd-gp .sd-moveX{flex:1.55 1 0; display:flex; gap:6px}
+.stardrop.stardrop .sd-gp .sd-moveX .sd-pb{min-height:112px}
+.stardrop.stardrop .sd-gp .sd-moveX .sd-pb svg{width:27px; height:27px}
+.stardrop.stardrop .sd-gp .sd-acts{flex:1 1 0; display:flex; flex-direction:column; gap:5px}
+.stardrop.stardrop .sd-gp .sd-acts .sd-pb{min-height:0; flex:1 1 0}
+.stardrop.stardrop .sd-gp .sd-acts .sd-pb svg{width:17px; height:17px}
+.stardrop.stardrop .sd-pad[data-layout="padL"] .sd-gp{flex-direction:row-reverse}
+/* ④ 양손 분할형 */
+.stardrop.stardrop .sd-split{display:flex; gap:6px; align-items:stretch}
+.stardrop.stardrop .sd-split .sd-half{flex:1.3 1 0; min-height:88px}
+.stardrop.stardrop .sd-split .sd-half svg{width:30px; height:30px}
+.stardrop.stardrop .sd-split .sd-mid{flex:1 1 0; display:flex; flex-direction:column; gap:5px}
+.stardrop.stardrop .sd-split .sd-mid .sd-pb{min-height:0; flex:1 1 0}
+.stardrop.stardrop .sd-split .sd-mid .sd-pb svg{width:18px; height:18px}
+/* ⑤ 스와이프형 */
+.stardrop.stardrop .sd-hint{font-size:.56em; color:var(--dim); text-align:center; line-height:1.4; padding:0 3px}
+.stardrop.stardrop .sd-pad[data-layout="swipe"] .sd-line .sd-pb{min-height:38px; border-radius:12px}
+.stardrop.stardrop .sd-pad[data-layout="swipe"] .sd-line .sd-pb svg{width:16px; height:16px}
+.stardrop.stardrop .sd-pad[data-layout="swipe"] .sd-line .sd-pb i{font-size:.44em}
+/* 크기 : 크게 */
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-pb{min-height:66px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-pb svg{width:28px; height:28px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-pb i{font-size:.56em}
+.stardrop.stardrop .sd-pad[data-size="large"][data-layout="row"] .sd-line1 .sd-pb{min-height:70px}
+.stardrop.stardrop .sd-pad[data-size="large"][data-layout="row"] .sd-line2 .sd-pb{min-height:50px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-gp .sd-moveX .sd-pb{min-height:138px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-gp .sd-moveX .sd-pb svg{width:34px; height:34px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-split .sd-half{min-height:110px}
+.stardrop.stardrop .sd-pad[data-size="large"][data-layout="swipe"] .sd-line .sd-pb{min-height:46px}
+/* 설정 : 배치 카드 */
+.stardrop.stardrop .sd-layGrid{display:grid; grid-template-columns:1fr 1fr; gap:6px}
+.stardrop.stardrop .sd-layCard{display:flex; flex-direction:column; gap:2px; padding:7px 8px; border-radius:12px;
+  background:var(--soft); border:1px solid var(--line); text-align:left; color:var(--ink)}
+.stardrop.stardrop .sd-layCard b{font-size:.72em; font-weight:800; letter-spacing:-.02em}
+.stardrop.stardrop .sd-layCard em{font-size:.56em; color:var(--dim); line-height:1.35}
+.stardrop.stardrop .sd-layCard[aria-pressed="true"]{background:linear-gradient(160deg,var(--h1),var(--h2));
+  border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset}
+.stardrop.stardrop .sd-ico.sd-layIco{width:auto; min-width:38px; padding:0 7px; font-size:.6em; letter-spacing:-.02em}
 
 /* ---------- 하단 ---------- */
 .stardrop.stardrop .sd-foot{display:flex; gap:6px; margin-top:7px}
@@ -240,13 +333,13 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
   font-size:.68em; font-weight:750; color:var(--ink); display:flex; align-items:center; justify-content:center; gap:4px}
 .stardrop.stardrop .sd-fbtn:active{background:var(--soft2)}
 .stardrop.stardrop .sd-fbtn:disabled{opacity:.4}
-.stardrop.stardrop .sd-fbtn[aria-pressed="true"]{background:linear-gradient(160deg,rgba(157,182,255,.3),rgba(255,176,210,.2)); border-color:var(--accent)}
+.stardrop.stardrop .sd-fbtn[aria-pressed="true"]{background:linear-gradient(160deg,var(--h1),var(--h2)); border-color:var(--accent)}
 
 /* ---------- 설정 시트 ---------- */
 .stardrop.stardrop .sd-sheet{position:absolute; z-index:20; inset:0; display:flex; flex-direction:column;
   background:linear-gradient(180deg,#0e1730,#080d1e); color:#eaf0ff;
   border-radius:24px; overflow:hidden; animation:sdUp .22s ease-out}
-.stardrop.stardrop[data-theme="light"] .sd-sheet{background:linear-gradient(180deg,#fdfbff,#f0f4ff); color:#26304e}
+.stardrop.stardrop[data-tone="light"] .sd-sheet{background:linear-gradient(180deg,#fdfbff,#f0f4ff); color:#26304e}
 @keyframes sdUp{from{opacity:0; transform:translateY(14px)}to{opacity:1; transform:none}}
 .stardrop.stardrop .sd-sheetHead{display:flex; align-items:center; gap:8px; padding:11px 12px 9px; border-bottom:1px solid var(--line); flex:0 0 auto}
 .stardrop.stardrop .sd-sheetHead b{flex:1; font-size:.95em; font-weight:850; letter-spacing:-.03em}
@@ -259,7 +352,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-chips{display:flex; flex-wrap:wrap; gap:5px}
 .stardrop.stardrop .sd-chip{min-height:32px; padding:0 11px; border-radius:10px; background:var(--soft); border:1px solid var(--line);
   font-size:.7em; font-weight:750; color:var(--ink); display:inline-flex; align-items:center; gap:5px}
-.stardrop.stardrop .sd-chip[aria-pressed="true"]{background:linear-gradient(155deg,rgba(157,182,255,.36),rgba(255,176,210,.24));
+.stardrop.stardrop .sd-chip[aria-pressed="true"]{background:linear-gradient(155deg,var(--h1),var(--h2));
   border-color:var(--accent); box-shadow:0 0 0 1px var(--accent) inset}
 .stardrop.stardrop .sd-chip .sd-sw{width:12px; height:12px; border-radius:4px; display:block; border:1px solid rgba(255,255,255,.4)}
 .stardrop.stardrop .sd-bgRow{display:flex; gap:6px; flex-wrap:wrap}
@@ -276,15 +369,49 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
 .stardrop.stardrop .sd-switch{width:46px; height:27px; border-radius:999px; background:rgba(140,155,190,.35); position:relative; flex:0 0 auto; transition:background .16s}
 .stardrop.stardrop .sd-switch::after{content:""; position:absolute; top:3px; left:3px; width:21px; height:21px; border-radius:50%; background:#fff;
   transition:transform .16s; box-shadow:0 1px 4px rgba(0,0,0,.3)}
-.stardrop.stardrop .sd-switch[aria-checked="true"]{background:linear-gradient(120deg,#8fb4ff,#ffa9cd)}
+.stardrop.stardrop .sd-switch[aria-checked="true"]{background:var(--prim)}
 .stardrop.stardrop .sd-switch[aria-checked="true"]::after{transform:translateX(19px)}
 .stardrop.stardrop .sd-note{font-size:.62em; color:var(--dim); line-height:1.55; margin-top:4px}
 .stardrop.stardrop .sd-danger{color:var(--bad)}
 .stardrop.stardrop .sd-toast{position:absolute; z-index:30; left:50%; bottom:14px; transform:translate(-50%,12px); opacity:0;
   padding:8px 14px; border-radius:999px; background:rgba(20,28,52,.94); color:#eef3ff; font-size:.72em; font-weight:750;
   border:1px solid rgba(255,255,255,.18); pointer-events:none; transition:opacity .18s,transform .18s; max-width:88%; text-align:center}
-.stardrop.stardrop[data-theme="light"] .sd-toast{background:rgba(38,48,78,.94); color:#fff}
+.stardrop.stardrop[data-tone="light"] .sd-toast{background:rgba(38,48,78,.94); color:#fff}
 .stardrop.stardrop .sd-toast[data-show="1"]{opacity:1; transform:translate(-50%,0)}
+
+/* ---------- 테마별 판 색 (뒤 규칙이 이긴다) ---------- */
+.stardrop.stardrop[data-theme="cream"] .sd-board{background:#f6ecf7}
+.stardrop.stardrop[data-theme="mint"] .sd-board{background:#e2f4ee}
+.stardrop.stardrop[data-theme="cream"] .sd-boardBg[data-bg="night"]{background:
+  radial-gradient(1.4px 1.4px at 20% 18%,rgba(190,130,190,.5),transparent 60%),
+  radial-gradient(1.4px 1.4px at 74% 12%,rgba(210,150,180,.45),transparent 60%),
+  radial-gradient(1.3px 1.3px at 42% 58%,rgba(190,130,190,.4),transparent 60%),
+  radial-gradient(1.4px 1.4px at 84% 70%,rgba(210,160,170,.4),transparent 60%),
+  radial-gradient(120% 80% at 30% 4%,#fffdfa 0%,#fdf1f6 48%,#f3e6f2 100%)}
+.stardrop.stardrop[data-theme="mint"] .sd-boardBg[data-bg="night"]{background:
+  radial-gradient(1.4px 1.4px at 20% 18%,rgba(90,180,160,.45),transparent 60%),
+  radial-gradient(1.4px 1.4px at 72% 12%,rgba(110,190,200,.4),transparent 60%),
+  radial-gradient(1.3px 1.3px at 42% 58%,rgba(90,180,160,.35),transparent 60%),
+  radial-gradient(1.4px 1.4px at 84% 70%,rgba(110,190,200,.35),transparent 60%),
+  radial-gradient(120% 80% at 30% 4%,#fdfffe 0%,#eafaf5 48%,#dcf0ea 100%)}
+
+/* ---------- 높이 정리 ---------- */
+.stardrop.stardrop .sd-pad > .sd-line2 .sd-pb{min-height:40px; flex-direction:row; gap:6px}
+.stardrop.stardrop .sd-pad > .sd-line2 .sd-pb svg{width:17px; height:17px}
+.stardrop.stardrop .sd-pad[data-layout="swipe"] > .sd-line2 .sd-pb{min-height:38px}
+.stardrop.stardrop .sd-pad[data-size="large"] > .sd-line2 .sd-pb{min-height:48px}
+.stardrop.stardrop .sd-pad[data-size="large"][data-layout="swipe"] > .sd-line2 .sd-pb{min-height:46px}
+.stardrop.stardrop .sd-pad[data-layout="split"] .sd-half{min-height:84px}
+.stardrop.stardrop .sd-pad[data-size="large"][data-layout="split"] .sd-half{min-height:104px}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-gp .sd-acts .sd-pb,
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-split .sd-mid .sd-pb{min-height:0}
+.stardrop.stardrop .sd-pad[data-size="large"] .sd-gp .sd-moveX .sd-pb{min-height:124px}
+/* 라이트 톤 대비 보정 */
+.stardrop.stardrop[data-tone="light"] .sd-speedPick button{color:#5b6889}
+.stardrop.stardrop[data-tone="light"] .sd-speedPick button[aria-pressed="true"]{background:#fff; color:#243050}
+.stardrop.stardrop[data-theme="mint"] .sd-overlay{background:linear-gradient(180deg,rgba(247,255,252,.9),rgba(231,247,242,.96)); color:#20463f}
+.stardrop.stardrop[data-theme="mint"] .sd-ovS{color:#4d7368}
+.stardrop.stardrop[data-theme="cream"] .sd-ovS{color:#7a6a86}
 </style>
 </head>
 <body>
@@ -300,6 +427,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
       </span>
     </div>
     <div class="sd-headbtns">
+      <button class="sd-ico sd-layIco" id="sdLayoutBtn" type="button" aria-label="이동 버튼 배치 바꾸기">일렬</button>
       <button class="sd-ico" id="sdSoundBtn" type="button" aria-pressed="true" aria-label="소리 켜기/끄기">♪</button>
       <button class="sd-ico" id="sdPauseBtn" type="button" aria-label="일시정지">❚❚</button>
       <button class="sd-ico" id="sdSetBtn" type="button" aria-label="설정">⚙</button>
@@ -352,6 +480,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
         <button class="sd-btn sd-primary sd-wide" id="sdStartBtn" type="button" data-i18n="play">시작하기</button>
       </div>
       <div class="sd-ovNote" data-i18n="startNote">점수 삭감 없는 되돌리기 · 이어하기 무제한</div>
+      <div class="sd-ovNote" data-i18n="startNote2">이동 버튼 5가지 배치 · 버튼 크기 · 테마 4종 · 효과음 6종</div>
     </div>
 
     <div class="sd-overlay" id="sdOvPause" hidden>
@@ -377,20 +506,7 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
     </div>
   </div>
 
-  <div class="sd-assist" id="sdAssist">
-    <button class="sd-abtn" id="sdLeftBtn" type="button" aria-label="왼쪽으로">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg><i data-i18n="left">왼쪽</i>
-    </button>
-    <button class="sd-abtn" id="sdRotBtn" type="button" aria-label="돌리기">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 10-2.6 6"/><path d="M20 4v7h-7"/></svg><i data-i18n="rotate">돌리기</i>
-    </button>
-    <button class="sd-abtn" id="sdRightBtn" type="button" aria-label="오른쪽으로">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg><i data-i18n="right">오른쪽</i>
-    </button>
-    <button class="sd-abtn sd-drop" id="sdDownBtn" type="button" aria-label="내리기">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v13"/><path d="M6 12l6 6 6-6"/><path d="M5 21h14"/></svg><i data-i18n="down">내리기</i>
-    </button>
-  </div>
+  <div class="sd-pad" id="sdPad" data-layout="row" data-size="normal"></div>
 
   <div class="sd-foot">
     <button class="sd-fbtn" id="sdUndoBtn" type="button">↩ <span data-i18n="undo">되돌리기</span></button>
@@ -407,6 +523,16 @@ body{background:radial-gradient(130% 85% at 50% 0%,#1d2a52 0%,#0d1428 58%,#070b1
       <div class="sd-field">
         <div class="sd-fieldTop"><b data-i18n="blockTheme">블록 모양</b><i data-i18n="blockThemeHint">손에 닿는 느낌</i></div>
         <div class="sd-chips" id="sdBlockChips"></div>
+      </div>
+
+      <div class="sd-field">
+        <div class="sd-fieldTop"><b data-i18n="layLayout">이동 버튼 배치</b><i data-i18n="layLayoutHint">엄지에 맞게 골라요</i></div>
+        <div class="sd-layGrid" id="sdLayChips"></div>
+      </div>
+
+      <div class="sd-field">
+        <div class="sd-fieldTop"><b data-i18n="laySize">버튼 크기</b><i data-i18n="laySizeHint">손이 작거나 화면이 좁으면 크게</i></div>
+        <div class="sd-chips" id="sdSizeChips"></div>
       </div>
 
       <div class="sd-field">
@@ -503,14 +629,28 @@ var I18N = {
     bestReset: '최고점수 지우기', saveNote: '설정과 최고점수는 이 기기에만 저장됩니다.',
     clay: '파스텔 클레이', crystal: '보석 크리스탈', neon: '네온',
     night: '밤별', dawn: '새벽노을', forest: '숲', paper: '종이',
-    dark: '다크', light: '라이트', sDefault: '기본', water: '물방울', cat: '고양이', dog: '강아지', gem: '보석', arcade: '오락실',
+    sDefault: '기본', water: '물방울', cat: '고양이', dog: '강아지', gem: '보석',
     defaultName: '별이', namePlaceholder: '응원 이름',
     tSaved: '저장했어요', tNoUndo: '되돌릴 수가 없어요', tHoldOnce: '이번 블록엔 보관을 이미 썼어요',
     tPhotoIn: '사진은 폰 안에서만 잘려요', tPhotoOut: '사진을 넣었어요', tPhotoGone: '사진을 뺐어요',
     tBadPhoto: '사진 파일이 아니에요', tBestReset: '최고점수를 지웠어요', tSoundOff: '소리를 껐어요', tSoundOn: '소리를 켰어요',
     tAssistOn: '보조 버튼을 켰어요', tAssistOff: '보조 버튼을 껐어요', tLang: '한국어로 바꿨어요',
     tBest: '최고 기록이에요!', tPaused: '잠시 멈췄어요', tContinue: '이어서 할 수 있어요',
-    rows: '줄', combo: '콤보', clearOne: '한 줄!', clearMany: '줄!', plus: '+'
+    rows: '줄', combo: '콤보', clearOne: '한 줄!', clearMany: '줄!', plus: '+',
+    dropNow: '즉시낙하',
+    layLayout: '이동 버튼 배치', layLayoutHint: '엄지에 맞게 골라요', laySize: '버튼 크기', laySizeHint: '손이 작거나 화면이 좁으면 크게',
+    sizeNormal: '보통', sizeLarge: '크게',
+    layRow: '일렬형', layRowD: '◀ ↻ ▶ ⬇ · ⚡ 📦 두 줄',
+    layPadR: '오른손 십자형', layPadRD: '왼쪽 이동 · 오른쪽 액션',
+    layPadL: '왼손 십자형', layPadLD: '오른쪽 이동 · 왼쪽 액션',
+    laySplit: '양손 분할형', laySplitD: '양 끝 큰 이동 · 가운데 회전/내리기',
+    laySwipe: '스와이프형', laySwipeD: '판을 밀고 톡톡 · 미니 버튼',
+    shortRow: '일렬', shortPadR: '오른손', shortPadL: '왼손', shortSplit: '양손', shortSwipe: '스와이프',
+    swipeHint: '판을 좌우로 밀면 이동 · 톡 누르면 회전 · 아래로 튕기면 낙하',
+    quickLay: '이동 버튼 배치 바꾸기', tLayout: '이동 버튼 배치를 바꿨어요',
+    thNavy: '별빛 네이비', thGold: '다크 골드 RPG', thCream: '크림 파스텔', thMint: '민트 산뜻',
+    mute: '무음', tMute: '효과음을 껐어요',
+    startNote2: '이동 버튼 5가지 배치 · 버튼 크기 · 테마 4종 · 효과음 6종'
   },
   en: {
     title: 'Starlight Block Drop', sub: 'No ads, no hearts — just let it fall',
@@ -535,14 +675,28 @@ var I18N = {
     bestReset: 'Clear best score', saveNote: 'Settings and best score stay on this device.',
     clay: 'Pastel clay', crystal: 'Gem crystal', neon: 'Neon',
     night: 'Night sky', dawn: 'Dawn', forest: 'Forest', paper: 'Paper',
-    dark: 'Dark', light: 'Light', sDefault: 'Basic', water: 'Water drop', cat: 'Cat', dog: 'Puppy', gem: 'Gem', arcade: 'Arcade',
+    sDefault: 'Basic', water: 'Water drop', cat: 'Cat', dog: 'Puppy', gem: 'Gem',
     defaultName: 'Star', namePlaceholder: 'Cheer name',
     tSaved: 'Saved', tNoUndo: 'Nothing to undo', tHoldOnce: 'Hold already used for this block',
     tPhotoIn: 'Photos are cropped on your phone only', tPhotoOut: 'Photo added', tPhotoGone: 'Photo removed',
     tBadPhoto: 'That is not an image file', tBestReset: 'Best score cleared', tSoundOff: 'Sound off', tSoundOn: 'Sound on',
     tAssistOn: 'Buttons on', tAssistOff: 'Buttons off', tLang: 'Switched to English',
     tBest: 'A new best!', tPaused: 'Paused', tContinue: 'You can carry on',
-    rows: 'rows', combo: 'combo', clearOne: 'A line!', clearMany: ' lines!', plus: '+'
+    rows: 'rows', combo: 'combo', clearOne: 'A line!', clearMany: ' lines!', plus: '+',
+    dropNow: 'Drop',
+    layLayout: 'Move buttons', layLayoutHint: 'Fit your thumb', laySize: 'Button size', laySizeHint: 'Bigger is easier on small screens',
+    sizeNormal: 'Normal', sizeLarge: 'Large',
+    layRow: 'One row', layRowD: '◀ ↻ ▶ ⬇ · ⚡ 📦 in two rows',
+    layPadR: 'Gamepad, right', layPadRD: 'Move left · actions right',
+    layPadL: 'Gamepad, left', layPadLD: 'Move right · actions left',
+    laySplit: 'Two-hand split', laySplitD: 'Big move keys at both ends',
+    laySwipe: 'Swipe + mini', laySwipeD: 'Drag the board, tap, flick · mini keys',
+    shortRow: 'Row', shortPadR: 'Right', shortPadL: 'Left', shortSplit: 'Split', shortSwipe: 'Swipe',
+    swipeHint: 'Drag to move · tap to turn · flick down to drop',
+    quickLay: 'Change button layout', tLayout: 'Button layout changed',
+    thNavy: 'Starlight navy', thGold: 'Dark gold RPG', thCream: 'Cream pastel', thMint: 'Fresh mint',
+    mute: 'Silent', tMute: 'Sound effects off',
+    startNote2: 'Five button layouts · button size · four themes · six sounds'
   }
 };
 function t(k) { var d = I18N[S.lang] || I18N.ko; return d[k] != null ? d[k] : (I18N.ko[k] != null ? I18N.ko[k] : k); }
@@ -551,8 +705,22 @@ function t(k) { var d = I18N[S.lang] || I18N.ko; return d[k] != null ? d[k] : (I
 var BLOCKS = [{ id: 'clay', k: 'clay' }, { id: 'crystal', k: 'crystal' }, { id: 'neon', k: 'neon' }];
 var BGS = [{ id: 'night', k: 'night' }, { id: 'dawn', k: 'dawn' }, { id: 'forest', k: 'forest' }, { id: 'paper', k: 'paper' }];
 var SPEEDS = [{ id: 'slow', k: 'slow', ms: 1150 }, { id: 'normal', k: 'normal', ms: 790 }, { id: 'fast', k: 'fast', ms: 520 }];
-var SOUNDS = [{ id: 'default', k: 'sDefault' }, { id: 'water', k: 'water' }, { id: 'cat', k: 'cat' }, { id: 'dog', k: 'dog' }, { id: 'gem', k: 'gem' }, { id: 'arcade', k: 'arcade' }];
-var THEMES = [{ id: 'dark', k: 'dark' }, { id: 'light', k: 'light' }];
+var SOUNDS = [{ id: 'default', k: 'sDefault' }, { id: 'water', k: 'water' }, { id: 'cat', k: 'cat' }, { id: 'dog', k: 'dog' }, { id: 'gem', k: 'gem' }, { id: 'mute', k: 'mute' }];
+var THEMES = [
+  { id: 'navy', k: 'thNavy', sw: 'linear-gradient(135deg,#243561,#9db6ff)' },
+  { id: 'gold', k: 'thGold', sw: 'linear-gradient(135deg,#3a2c14,#e8c06a)' },
+  { id: 'cream', k: 'thCream', sw: 'linear-gradient(135deg,#fffdf8,#d9b8e4)' },
+  { id: 'mint', k: 'thMint', sw: 'linear-gradient(135deg,#f2fffb,#7fd0b8)' }
+];
+var LIGHTS = ['cream', 'mint'];
+var LAYOUTS = [
+  { id: 'row', k: 'layRow', d: 'layRowD', shortk: 'shortRow' },
+  { id: 'padR', k: 'layPadR', d: 'layPadRD', shortk: 'shortPadR' },
+  { id: 'padL', k: 'layPadL', d: 'layPadLD', shortk: 'shortPadL' },
+  { id: 'split', k: 'laySplit', d: 'laySplitD', shortk: 'shortSplit' },
+  { id: 'swipe', k: 'laySwipe', d: 'laySwipeD', shortk: 'shortSwipe' }
+];
+function layoutOf(id) { for (var i = 0; i < LAYOUTS.length; i++) if (LAYOUTS[i].id === id) return LAYOUTS[i]; return LAYOUTS[0]; }
 var LANGS = [{ id: 'ko', label: '한국어' }, { id: 'en', label: 'English' }];
 var SHAPES = {
   I: [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
@@ -569,7 +737,7 @@ var LINE_PTS = [0, 100, 300, 600, 1000];
 
 /* ---------- 상태 ---------- */
 var S = {
-  lang: 'ko', theme: 'dark', big: false,
+  lang: 'ko', theme: 'navy', big: false, btns: 'row', bsize: 'normal',
   block: 'clay', bg: 'night', speed: 'normal',
   sound: true, soundSet: 'default', fx: true, assist: true,
   best: 0,
@@ -593,6 +761,7 @@ function save() {
     localStorage.setItem(STORE, JSON.stringify({
       lang: S.lang, theme: S.theme, big: S.big, block: S.block, bg: S.bg, speed: S.speed,
       sound: S.sound, soundSet: S.soundSet, fx: S.fx, assist: S.assist, best: S.best,
+      btns: S.btns, bsize: S.bsize,
       badge: { zodiac: S.badge.zodiac, name: S.badge.name },
       bgPhoto: S.bgPhoto, badgePhoto: S.badge.photo
     }));
@@ -606,13 +775,18 @@ function load() {
   try { d = JSON.parse(raw); } catch (e) { return; }
   if (!d || typeof d !== 'object') return;
   if (d.lang === 'ko' || d.lang === 'en') S.lang = d.lang;
-  if (d.theme === 'dark' || d.theme === 'light') S.theme = d.theme;
+  if (typeof d.theme === 'string') {
+    var TMAP = { dark: 'navy', light: 'cream' }, want = TMAP[d.theme] || d.theme;
+    for (var ti = 0; ti < THEMES.length; ti++) if (THEMES[ti].id === want) S.theme = want;
+  }
+  ['row', 'padR', 'padL', 'split', 'swipe'].forEach(function (b) { if (d.btns === b) S.btns = b; });
+  S.bsize = d.bsize === 'large' ? 'large' : 'normal';
   S.big = !!d.big;
   ['clay', 'crystal', 'neon'].forEach(function (b) { if (d.block === b) S.block = b; });
   ['night', 'dawn', 'forest', 'paper'].forEach(function (b) { if (d.bg === b) S.bg = b; });
   ['slow', 'normal', 'fast'].forEach(function (b) { if (d.speed === b) S.speed = b; });
   S.sound = d.sound !== false;
-  ['default', 'water', 'cat', 'dog', 'gem', 'arcade'].forEach(function (b) { if (d.soundSet === b) S.soundSet = b; });
+  ['default', 'water', 'cat', 'dog', 'gem', 'mute'].forEach(function (b) { if (d.soundSet === b) S.soundSet = b; });
   S.fx = d.fx !== false;
   S.assist = d.assist !== false;
   S.best = Math.max(0, parseInt(d.best, 10) || 0);
@@ -698,6 +872,7 @@ function sfx(ev, n) {
   var c = actx(); if (!c) return;
   var set = S.soundSet || 'default', i;
   n = n || 1;
+  if (set === 'mute') return;
   try {
     if (set === 'water') {
       if (ev === 'move') tone({ f: 880, f2: 430, dur: 0.1, g: 0.1, type: 'sine', filter: 'bandpass', fc: 1400, q: 2 });
@@ -735,16 +910,7 @@ function sfx(ev, n) {
       else if (ev === 'hold') bell(1400, 0.16, 0.06);
       else if (ev === 'undo') { bell(900, 0.12, 0.05); bell(1400, 0.14, 0.05, 0.06); }
       else if (ev === 'over') { var do2 = [880, 740, 587, 494]; for (i = 0; i < 4; i++) bell(do2[i], 0.5, 0.07, i * 0.13); }
-    } else if (set === 'arcade') {
-      if (ev === 'move') tone({ f: 440, dur: 0.05, g: 0.07, type: 'square' });
-      else if (ev === 'rotate') { tone({ f: 660, dur: 0.045, g: 0.07, type: 'square' }); tone({ f: 990, dur: 0.05, g: 0.055, type: 'square', delay: 0.045 }); }
-      else if (ev === 'drop') noiseBurst({ fc: 2400, fc2: 700, dur: 0.1, g: 0.1, filter: 'bandpass', q: 0.8 });
-      else if (ev === 'lock') tone({ f: 150, dur: 0.1, g: 0.1, type: 'square' });
-      else if (ev === 'clear') { var ar = [523, 659, 784, 1046, 1318]; for (i = 0; i <= Math.min(4, n); i++) tone({ f: ar[i], dur: 0.08, g: 0.07, type: 'square', delay: i * 0.045 }); }
-      else if (ev === 'hold') { tone({ f: 700, dur: 0.05, g: 0.07, type: 'square' }); tone({ f: 900, dur: 0.05, g: 0.06, type: 'square', delay: 0.05 }); }
-      else if (ev === 'undo') tone({ f: 500, f2: 900, dur: 0.1, g: 0.07, type: 'square' });
-      else if (ev === 'over') { var dd = [440, 330, 262, 196]; for (i = 0; i < 4; i++) tone({ f: dd[i], dur: 0.14, g: 0.08, type: 'square', delay: i * 0.12 }); }
-    } else {
+        } else {
       if (ev === 'move') tone({ f: 520, f2: 560, dur: 0.06, g: 0.07, type: 'triangle' });
       else if (ev === 'rotate') { tone({ f: 680, dur: 0.07, g: 0.07, type: 'triangle' }); tone({ f: 920, dur: 0.06, g: 0.045, type: 'triangle', delay: 0.045 }); }
       else if (ev === 'drop') noiseBurst({ fc: 2600, fc2: 500, dur: 0.14, g: 0.1, filter: 'bandpass', q: 0.9 });
@@ -979,14 +1145,16 @@ function fullRows() {
 function particleBurst(r, c, type) {
   var col = COLORS[type] || '#fff';
   var cx = (c + 0.5) * CELL, cy = (r + 0.5) * CELL, i;
-  var cnt = 5;
-  for (i = 0; i < cnt; i++) {
-    var a = Math.random() * Math.PI * 2, sp = 60 + Math.random() * 210;
+  for (i = 0; i < 4; i++) {
+    var a = Math.random() * Math.PI * 2, sp = 70 + Math.random() * 190;
+    var star = (i === 0);
     G.parts.push({
-      x: cx + (Math.random() - 0.5) * CELL * 0.5, y: cy + (Math.random() - 0.5) * CELL * 0.5,
-      vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 120,
-      sz: 2.4 + Math.random() * (CELL * 0.16), rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 14,
-      col: i === 0 ? '#ffffff' : col, t: 0, life: 0.40 + Math.random() * 0.22
+      star: star,
+      x: cx + (Math.random() - 0.5) * CELL * 0.6, y: cy + (Math.random() - 0.5) * CELL * 0.6,
+      vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 115,
+      sz: star ? CELL * 0.52 : 2.2 + Math.random() * (CELL * 0.13),
+      rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 11,
+      col: star ? '#fff6d8' : col, t: 0, life: 0.32 + Math.random() * 0.16
     });
   }
 }
@@ -1180,7 +1348,7 @@ function draw() {
   var w = CELL * COLS, h = CELL * ROWS;
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   ctx.clearRect(0, 0, w, h);
-  var dark = S.theme === 'dark';
+  var dark = LIGHTS.indexOf(S.theme) < 0;
   ctx.strokeStyle = dark ? 'rgba(255,255,255,.055)' : 'rgba(38,58,108,.075)';
   ctx.lineWidth = 1;
   ctx.beginPath();
@@ -1212,8 +1380,24 @@ function draw() {
     ctx.save();
     ctx.globalAlpha = a < 0 ? 0 : a;
     ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-    ctx.fillStyle = p.col;
-    ctx.fillRect(-p.sz / 2, -p.sz / 2, p.sz, p.sz * 0.78);
+    if (p.star) {
+      var kk, rad, ang;
+      ctx.beginPath();
+      for (kk = 0; kk < 10; kk++) {
+        rad = (kk % 2) ? p.sz * 0.2 : p.sz * 0.5;
+        ang = -Math.PI / 2 + kk * Math.PI / 5;
+        if (kk === 0) ctx.moveTo(Math.cos(ang) * rad, Math.sin(ang) * rad);
+        else ctx.lineTo(Math.cos(ang) * rad, Math.sin(ang) * rad);
+      }
+      ctx.closePath();
+      ctx.fillStyle = p.col;
+      ctx.shadowColor = p.col; ctx.shadowBlur = 9;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.fillStyle = p.col;
+      ctx.fillRect(-p.sz / 2, -p.sz / 2, p.sz, p.sz * 0.78);
+    }
     ctx.restore();
   }
   for (i = 0; i < G.rings.length; i++) {
@@ -1280,6 +1464,15 @@ function updateFx(dt) {
 
 /* ================= 배치 ================= */
 var LAYOUT_LOCK = false;
+function setCell(cell) {
+  if (cell !== CELL) {
+    CELL = cell;
+    var w = CELL * COLS, h = CELL * ROWS;
+    cv.style.width = w + 'px'; cv.style.height = h + 'px';
+    cv.width = Math.round(w * DPR); cv.height = Math.round(h * DPR);
+  }
+  $('sdBoardWrap').style.width = (CELL * COLS) + 'px';
+}
 function layout() {
   if (LAYOUT_LOCK) return;
   LAYOUT_LOCK = true;
@@ -1298,13 +1491,12 @@ function layout() {
     var availW = (root.clientWidth || 390) - 20;
     var cell = Math.floor(Math.min(availW / COLS, availH / ROWS));
     cell = clamp(cell, 16, 46);
-    if (cell !== CELL) {
-      CELL = cell;
-      var w = CELL * COLS, h = CELL * ROWS;
-      cv.style.width = w + 'px'; cv.style.height = h + 'px';
-      cv.width = Math.round(w * DPR); cv.height = Math.round(h * DPR);
+    setCell(cell);
+    var guard = 0;
+    while (cell > 16 && guard++ < 14 && document.documentElement.scrollHeight > (window.innerHeight + 0.5)) {
+      cell--;
+      setCell(cell);
     }
-    $('sdBoardWrap').style.width = (CELL * COLS) + 'px';
   } finally { LAYOUT_LOCK = false; }
 }
 var rzT = null;
@@ -1320,10 +1512,14 @@ function onResize() {
 /* ================= 화면/테마 ================= */
 function applyTheme() {
   root.setAttribute('data-theme', S.theme);
+  root.setAttribute('data-tone', LIGHTS.indexOf(S.theme) >= 0 ? 'light' : 'dark');
   root.setAttribute('data-big', S.big ? '1' : '0');
   root.setAttribute('data-assist', S.assist ? '1' : '0');
-  var ab = $('sdAssist');
+  var ab = $('sdPad');
   ab.hidden = !S.assist;
+  var lb = $('sdLayoutBtn');
+  lb.textContent = t(layoutOf(S.btns).shortk);
+  lb.setAttribute('aria-label', t('quickLay'));
   $('sdAssistSw').setAttribute('aria-checked', S.assist ? 'true' : 'false');
   $('sdBigSw').setAttribute('aria-checked', S.big ? 'true' : 'false');
   $('sdSoundSw').setAttribute('aria-checked', S.sound ? 'true' : 'false');
@@ -1369,6 +1565,7 @@ function applyLang() {
   $('sdNameInput').placeholder = t('namePlaceholder');
   $('sdNameInput').value = S.badge.name || '';
   renderChips();
+  renderPad();
   renderBadge();
   drawSide();
 }
@@ -1445,11 +1642,27 @@ function renderChips() {
   box = $('sdThemeChips'); box.innerHTML = '';
   for (i = 0; i < THEMES.length; i++) {
     (function (b) {
-      box.appendChild(mkChip(t(b.k), S.theme === b.id, function () {
-        S.theme = b.id; save(); applyTheme(); renderChips(); layout(); drawSide();
-      }));
+      var el = mkChip(t(b.k), S.theme === b.id, function () { setTheme(b.id); });
+      var sw = document.createElement('span');
+      sw.className = 'sd-sw'; sw.style.background = b.sw;
+      el.insertBefore(sw, el.firstChild);
+      box.appendChild(el);
     })(THEMES[i]);
   }
+  box = $('sdLayChips'); box.innerHTML = '';
+  for (i = 0; i < LAYOUTS.length; i++) {
+    (function (b) {
+      var el = document.createElement('button');
+      el.type = 'button'; el.className = 'sd-layCard';
+      el.setAttribute('aria-pressed', S.btns === b.id ? 'true' : 'false');
+      el.innerHTML = '<b>' + t(b.k) + '</b><em>' + t(b.d) + '</em>';
+      el.addEventListener('click', function () { setLayout(b.id); });
+      box.appendChild(el);
+    })(LAYOUTS[i]);
+  }
+  box = $('sdSizeChips'); box.innerHTML = '';
+  box.appendChild(mkChip(t('sizeNormal'), S.bsize !== 'large', function () { setBsize('normal'); }));
+  box.appendChild(mkChip(t('sizeLarge'), S.bsize === 'large', function () { setBsize('large'); }));
   box = $('sdLangChips'); box.innerHTML = '';
   for (i = 0; i < LANGS.length; i++) {
     (function (b) {
@@ -1487,6 +1700,9 @@ function setSpeed(id) {
 }
 function toast(msg) {
   var el = $('sdToast');
+  var br = $('sdBoardWrap').getBoundingClientRect(), rr = root.getBoundingClientRect();
+  el.style.bottom = 'auto';
+  el.style.top = Math.round(br.top - rr.top + br.height * 0.44) + 'px';
   el.textContent = msg;
   el.setAttribute('data-show', '1');
   clearTimeout(toast._t);
@@ -1575,27 +1791,121 @@ cv.addEventListener('pointerup', endPtr);
 cv.addEventListener('pointercancel', endPtr);
 cv.addEventListener('contextmenu', function (e) { e.preventDefault(); });
 
-function bindRepeat(el, fn, delay, rate) {
-  var t1 = null, t2 = null;
-  function stop() {
-    if (t1) { clearTimeout(t1); t1 = null; }
-    if (t2) { clearInterval(t2); t2 = null; }
-    el.removeAttribute('data-down');
-  }
-  el.addEventListener('pointerdown', function (e) {
-    e.preventDefault();
-    if (!canPlay()) return;
-    el.setAttribute('data-down', '1');
-    fn();
-    t1 = setTimeout(function () { t2 = setInterval(fn, rate); }, delay);
-  });
-  ['pointerup', 'pointercancel', 'pointerleave', 'blur'].forEach(function (ev) { el.addEventListener(ev, stop); });
-  el.addEventListener('click', function (e) { e.preventDefault(); });
+/* ---------- 이동 버튼 : 배치별 렌더 + 반복 입력 ---------- */
+var PAD_SVG = {
+  left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
+  right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>',
+  down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v13"/><path d="M6 12l6 6 6-6"/><path d="M5 21h14"/></svg>',
+  rot: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 10-2.6 6"/><path d="M20 4v7h-7"/></svg>',
+  drop: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2.2L4.4 13.6c-.4.5 0 1.2.6 1.2h4.4l-1.2 7c-.1.7.7 1.1 1.2.6l9.2-11.6c.4-.5 0-1.2-.6-1.2h-4.5l1.2-6.6c.1-.7-.7-1.1-1.2-.5z"/></svg>',
+  hold: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.2h17"/><path d="M6 8.2V4.8h12v3.4"/><path d="M5 8.2v11h14v-11"/><path d="M10 12.4h4"/></svg>'
+};
+function pb(act, icon, lab, cls) {
+  return '<button class="sd-pb' + (cls ? ' ' + cls : '') + '" type="button" data-act="' + act + '" aria-label="' + lab + '">' +
+    '<span class="sd-pic" aria-hidden="true">' + PAD_SVG[icon] + '</span><i>' + lab + '</i></button>';
 }
-bindRepeat($('sdLeftBtn'), function () { move(-1); }, 220, 95);
-bindRepeat($('sdRightBtn'), function () { move(1); }, 220, 95);
-bindRepeat($('sdDownBtn'), function () { softDrop(); }, 240, 55);
-$('sdRotBtn').addEventListener('click', function (e) { e.preventDefault(); rotate(1); });
+function renderPad() {
+  var pad = $('sdPad'), h = '', L = S.btns;
+  var L1 = pb('left', 'left', t('left')), RO = pb('rot', 'rot', t('rotate')),
+    R1 = pb('right', 'right', t('right')), DN = pb('down', 'down', t('down')),
+    DR = pb('drop', 'drop', t('dropNow')), HD = pb('hold', 'hold', t('hold'));
+  if (L === 'row') {
+    h = '<div class="sd-line sd-line1">' + L1 + RO + R1 + DN + '</div>' +
+      '<div class="sd-line sd-line2">' + DR + HD + '</div>';
+  } else if (L === 'padR' || L === 'padL') {
+    h = '<div class="sd-gp"><div class="sd-moveX">' + L1 + DN + R1 + '</div>' +
+      '<div class="sd-acts">' + RO + DR + HD + '</div></div>';
+  } else if (L === 'split') {
+    h = '<div class="sd-split">' + pb('left', 'left', t('left'), 'sd-half') +
+      '<div class="sd-mid">' + RO + DN + '</div>' +
+      pb('right', 'right', t('right'), 'sd-half') + '</div>' +
+      '<div class="sd-line sd-line2">' + DR + HD + '</div>';
+  } else {
+    h = '<div class="sd-hint">' + t('swipeHint') + '</div>' +
+      '<div class="sd-line sd-line2">' + L1 + RO + R1 + DN + DR + HD + '</div>';
+  }
+  pad.innerHTML = h;
+  pad.setAttribute('data-layout', L);
+  pad.setAttribute('data-size', S.bsize);
+}
+var padEl = $('sdPad');
+var PADREP = { t1: null, t2: null };
+function padStop() {
+  if (PADREP.t1) { clearTimeout(PADREP.t1); PADREP.t1 = null; }
+  if (PADREP.t2) { clearInterval(PADREP.t2); PADREP.t2 = null; }
+  var d = padEl.querySelectorAll('[data-down]'), i;
+  for (i = 0; i < d.length; i++) d[i].removeAttribute('data-down');
+}
+function padPress(act) {
+  if (!canPlay()) return;
+  if (act === 'left') move(-1);
+  else if (act === 'right') move(1);
+  else if (act === 'down') softDrop();
+  else if (act === 'rot') rotate(1);
+  else if (act === 'drop') hardDrop();
+  else if (act === 'hold') toggleHold();
+}
+function padTarget(e) {
+  var n = e.target;
+  while (n && n !== padEl) {
+    if (n.getAttribute && n.getAttribute('data-act')) return n;
+    n = n.parentNode;
+  }
+  return null;
+}
+padEl.addEventListener('pointerdown', function (e) {
+  if (!canPlay()) return;
+  var b = padTarget(e);
+  if (!b) return;
+  e.preventDefault();
+  var act = b.getAttribute('data-act');
+  padStop();
+  b.setAttribute('data-down', '1');
+  padPress(act);
+  if (act === 'left' || act === 'right' || act === 'down') {
+    var delay = act === 'down' ? 240 : 220, rate = act === 'down' ? 55 : 95;
+    PADREP.t1 = setTimeout(function () { PADREP.t2 = setInterval(function () { padPress(act); }, rate); }, delay);
+  }
+}, { passive: false });
+padEl.addEventListener('click', function (e) { e.preventDefault(); });
+padEl.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+document.addEventListener('pointerup', padStop);
+document.addEventListener('pointercancel', padStop);
+window.addEventListener('blur', padStop);
+
+function setLayout(id) {
+  S.btns = layoutOf(id).id;
+  save();
+  renderPad();
+  applyTheme();
+  renderChips();
+  layout();
+  drawSide();
+  toast(t(layoutOf(S.btns).k));
+}
+function setBsize(v) {
+  S.bsize = v === 'large' ? 'large' : 'normal';
+  save();
+  renderPad();
+  renderChips();
+  layout();
+  drawSide();
+  toast(t(S.bsize === 'large' ? 'sizeLarge' : 'sizeNormal'));
+}
+function setTheme(id) {
+  S.theme = id;
+  save();
+  applyTheme();
+  renderChips();
+  layout();
+  drawSide();
+  toast(t('tSaved'));
+}
+$('sdLayoutBtn').addEventListener('click', function () {
+  var i, cur = 0;
+  for (i = 0; i < LAYOUTS.length; i++) if (LAYOUTS[i].id === S.btns) cur = i;
+  setLayout(LAYOUTS[(cur + 1) % LAYOUTS.length].id);
+});
 $('sdHoldSlot').addEventListener('click', function () { if (canPlay()) toggleHold(); });
 $('sdHoldFootBtn').addEventListener('click', function () { if (canPlay()) toggleHold(); });
 $('sdUndoBtn').addEventListener('click', function () { undoMove(); });
@@ -1706,6 +2016,7 @@ load();
 Snd.on = S.sound;
 applyTheme();
 applyLang();
+renderPad();
 renderBoardBg();
 renderBadge();
 renderChips();
@@ -1847,12 +2158,35 @@ window.__sd = {
     return { cell: CELL, w: cv.clientWidth, h: cv.clientHeight, rootW: root.clientWidth, rootH: root.clientHeight };
   },
   icons: function () {
-    return {
-      left: $('sdLeftBtn').getBoundingClientRect().toJSON(), rot: $('sdRotBtn').getBoundingClientRect().toJSON(),
-      right: $('sdRightBtn').getBoundingClientRect().toJSON(), down: $('sdDownBtn').getBoundingClientRect().toJSON(),
-      board: $('sdBoardWrap').getBoundingClientRect().toJSON(), cv: cv.getBoundingClientRect().toJSON()
-    };
-  }
+    var out = { board: $('sdBoardWrap').getBoundingClientRect().toJSON(), cv: cv.getBoundingClientRect().toJSON(), pad: {} };
+    var bs = $('sdPad').querySelectorAll('[data-act]'), i;
+    for (i = 0; i < bs.length; i++) out.pad[bs[i].getAttribute('data-act')] = bs[i].getBoundingClientRect().toJSON();
+    return out;
+  },
+  setLayout: function (v) { setLayout(v); return S.btns; },
+  layoutId: function () { return S.btns; },
+  layouts: function () { return LAYOUTS.map(function (l) { return l.id; }); },
+  cycleLayout: function () { $('sdLayoutBtn').click(); return S.btns; },
+  setBsize: function (v) { setBsize(v); return S.bsize; },
+  padInfo: function () {
+    var p = $('sdPad');
+    return { layout: p.getAttribute('data-layout'), size: p.getAttribute('data-size'), hidden: p.hidden,
+      acts: Array.prototype.map.call(p.querySelectorAll('[data-act]'), function (b) { return b.getAttribute('data-act'); }),
+      h: p.getBoundingClientRect().height, w: p.getBoundingClientRect().width };
+  },
+  padTap: function (act) {
+    var b = $('sdPad').querySelector('[data-act="' + act + '"]');
+    if (!b) return false;
+    var r = b.getBoundingClientRect();
+    var ev = new PointerEvent('pointerdown', { bubbles: true, cancelable: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, pointerId: 91 });
+    b.dispatchEvent(ev);
+    document.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerId: 91 }));
+    return true;
+  },
+  themes: function () { return THEMES.map(function (x) { return x.id; }); },
+  themeId: function () { return S.theme; },
+  particles: function () { return G.parts.length; },
+  rings: function () { return G.rings.length; }
 };
 })();
 </script>
