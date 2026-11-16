@@ -48,6 +48,8 @@ AI로 무엇을 했는지 남기는 기록장입니다. 잘 쓴 프롬프트, �
 
 ## 함께 보기
 
+- 게임 놀이터: https://soonsoo1004.github.io/games/ — AI가 만든 무광고 HTML 게임 3종(콤보 퍼즐·벽돌깨기·별빛 블록 드롭). 브라우저에서 바로 플레이.
+
 - 천장지구 1004 홈: https://soonsoo1004.github.io/ — 매일 쓰는 작은 웹 도구 13가지.
 - 홈 마크다운 버전: https://soonsoo1004.github.io/index.md
 - llms.txt: https://soonsoo1004.github.io/llms.txt

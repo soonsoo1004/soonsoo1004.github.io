@@ -13,6 +13,12 @@
 - [index.md](https://soonsoo1004.github.io/index.md): 홈(도구 13가지) 마크다운 버전. Markdown version of the home page.
 - [llms.txt](https://soonsoo1004.github.io/llms.txt): 이 파일. 짧은 색인.
 
+## 게임 놀이터 / Games
+- [AI 놀이터](https://soonsoo1004.github.io/games/): AI가 만든 무광고 HTML 게임 3종 바로 플레이. Ad-free games made with AI, playable in the browser.
+- [힐링 콤보 퍼즐](https://soonsoo1004.github.io/games/combo-puzzle.html): 4×4 머지 퍼즐, 캐릭터 36종.
+- [힐링 벽돌깨기](https://soonsoo1004.github.io/games/brick-breaker.html): 하트 없는 벽돌깨기.
+- [별빛 블록 드롭](https://soonsoo1004.github.io/games/starlight-block.html): 되돌리기·보관이 되는 블록 퍼즐.
+
 ## 게시판 / Boards
 - [AI 팁·프롬프트 · AI tips](https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/categories/ai-팁-프롬프트-ai-tips): 써본 프롬프트, 물어보는 법, 결과.
 - [만든 것 · Made with AI](https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/categories/만든-것-made-with-ai): 작은 도구, 게임 아이디어, 그림.
