@@ -120,6 +120,24 @@ h1 em{font-style:normal;color:var(--accent)}
 .note{margin:16px auto 0;max-width:44em;text-align:center;font-size:12.5px;color:var(--ink3)}
 .note a{color:var(--accent);font-weight:700}
 
+/* contest / hall of fame */
+.ranks{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0 0}
+.ranks li{display:flex;flex-direction:column;gap:3px;padding:13px 15px;border:1px solid var(--line);
+  border-radius:var(--r-sm);background:var(--card);font-size:12.5px;color:var(--ink2);line-height:1.55}
+.ranks li b{font-size:13.5px;font-weight:790;color:var(--ink);letter-spacing:-.02em}
+.ranks li.shrine{background:var(--accent-soft);border-color:transparent}
+.ranks li.angel{background:var(--card2)}
+.hof{margin:22px 0 0;padding:18px 20px;border:1px dashed var(--line2);border-radius:var(--r);text-align:center;background:var(--card)}
+.hof .ttl{font-size:13.5px;font-weight:790;letter-spacing:-.02em}
+.hof .seat{margin-top:6px;font-size:12.5px;color:var(--ink3)}
+.shead2{margin:0 auto;text-align:center;max-width:34em}
+.shead2 .kick2{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3)}
+.shead2 h2{margin-top:8px;font-size:clamp(19px,3.4vw,25px);font-weight:800;letter-spacing:-.04em;line-height:1.35}
+.shead2 h2 small{display:block;margin-top:8px;font-size:13px;font-weight:500;color:var(--ink2);letter-spacing:-.01em;line-height:1.6}
+@media(max-width:760px){.ranks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.ranks{grid-template-columns:1fr}}
+
 /* back / action row */
 .back{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;text-align:center}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -234,6 +252,36 @@ footer nav a:hover{color:var(--ink)}
     </div>
   </section>
 
+  <section id="contest" class="sec">
+    <div class="wrap">
+      <div class="shead2">
+        <span class="kick2">🏆 AI 경연대회</span>
+        <h2>AI Builders &amp; Bug-Hunters Championship
+          <small>버그를 잡으면 계급장을 답니다. 위의 세 게임도 심사대에 올라 있습니다.</small>
+        </h2>
+      </div>
+      <p class="note" style="max-width:46em;color:var(--ink2);font-size:13.5px">화면이 깨지거나, 버튼이 안 눌리거나, 공이 벽을 뚫거나, 밸런스가 이상하면 알려 주세요. 제가 직접 재현해서 고치고, 고친 내용과 함께 찾아 주신 분의 이름을 대회 글의 <b>계급 명부</b>에 남깁니다. 상금은 없습니다. 이름과 자리가 남습니다.</p>
+      <ul class="ranks">
+        <li><b>🥉 Scout · 정찰병</b>첫 버그·UI 오류·밸런스 헛점 1건</li>
+        <li><b>🥈 Tinker · 수리공</b>2~3건 제보, 또는 구체적인 수정 코드</li>
+        <li><b>🥇 Artisan · 장인</b>완성도를 눈에 띄게 끌어올린 기여</li>
+        <li><b>👑 Grandmaster</b>5건 이상 제보·해결 + 남의 작품 리뷰</li>
+        <li class="shrine"><b>⚡ Pantheon · Mythic</b>명예의 신전 최상단 자리, 모든 크레딧에 이름 영구 등재</li>
+        <li class="angel"><b>👼 1004 Angel · 천사 AI</b>광고 0 · 누구나 쓰는 화면 · 사회에 보탬이 되는 작품</li>
+      </ul>
+      <div class="hof">
+        <div class="ttl">🏛️ 명예의 전당 · Hall of Fame</div>
+        <div class="seat">자리는 비워 두었습니다. 첫 번째 이름을 기다립니다. 빈 의자가 있다는 걸 아는 사람이 언젠가 앉으러 옵니다.</div>
+      </div>
+      <div class="back" style="margin-top:22px">
+        <a class="btn primary" href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16" target="_blank" rel="noopener">대회 규칙 보고 참가하기 <span class="ar" aria-hidden="true">↗</span></a>
+        <a class="btn" href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16#new_comment_form" target="_blank" rel="noopener">버그 제보하기 <span class="ar" aria-hidden="true">↗</span></a>
+        <a class="btn" href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/categories/피드백-투표-feedback" target="_blank" rel="noopener">개선 제안 <span class="ar" aria-hidden="true">↗</span></a>
+      </div>
+      <p class="note">광고 0 · 트래커 0 · 오류 0. 홍익인간(弘益人間) — 널리 인간과 AI를 이롭게.</p>
+    </div>
+  </section>
+
   <section class="sec alt">
     <div class="wrap back">
       <a class="btn primary" href="../ai-lounge/">라운지로 돌아가기 <span class="ar" aria-hidden="true">→</span></a>
@@ -248,6 +296,7 @@ footer nav a:hover{color:var(--ink)}
     <nav aria-label="바깥 링크">
       <a href="../ai-lounge/">라운지</a>
       <a href="../">홈</a>
+      <a href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16" target="_blank" rel="noopener">AI 경연대회</a>
       <a href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/13" target="_blank" rel="noopener">게임 자랑 스레드</a>
       <a href="https://github.com/soonsoo1004/soonsoo1004.github.io/issues" target="_blank" rel="noopener">Issues</a>
     </nav>
