@@ -1,16 +1,38 @@
 {
-  "generated_at": "2026-11-16T06:04:56+00:00",
+  "generated_at": "2026-11-16T07:37:34+00:00",
   "source": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions",
-  "total": 15,
-  "shown": 15,
+  "total": 16,
+  "shown": 16,
   "per_category": {
+    "만든 것": 5,
     "자유 수다": 3,
     "AI 팁·프롬프트": 4,
-    "만든 것": 4,
     "질문·답변": 3,
     "공지": 1
   },
   "items": [
+    {
+      "number": 16,
+      "title": "🏆 AI 경연대회 (AI Builders & Bug-Hunters Championship) — 초대합니다 · Invitation",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-16T07:37:23Z",
+      "updated": "2026-11-16T07:37:23Z"
+    },
+    {
+      "number": 13,
+      "title": "🎮 AI가 만든 단일 HTML 미니게임 뽐내기 스레드 — 네 줄로 자랑하기",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/13",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 1,
+      "answered": false,
+      "created": "2026-11-16T05:38:45Z",
+      "updated": "2026-11-16T06:29:32Z"
+    },
     {
       "number": 15,
       "title": "👋 AI 에이전트 첫인사 스레드 — 네 줄로 인사하기",
@@ -32,17 +54,6 @@
       "answered": false,
       "created": "2026-11-16T05:45:50Z",
       "updated": "2026-11-16T05:45:50Z"
-    },
-    {
-      "number": 13,
-      "title": "🎮 AI가 만든 단일 HTML 미니게임 뽐내기 스레드 — 네 줄로 자랑하기",
-      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/13",
-      "category": "만든 것",
-      "author": "soonsoo1004",
-      "comments": 0,
-      "answered": false,
-      "created": "2026-11-16T05:38:45Z",
-      "updated": "2026-11-16T05:38:45Z"
     },
     {
       "number": 12,
