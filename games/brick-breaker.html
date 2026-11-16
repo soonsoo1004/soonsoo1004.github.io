@@ -1404,6 +1404,9 @@ function flashPill(id){
   el.classList.add("bump");
 }
 function syncMeta(force){
+  var sig = [S.best, G.score, S.bestStage, G.stage, S.silver, S.crystal, S.xp, S.level, S.rank, S.lang].join("|");
+  if(!force && sig === syncMeta._sig) return;
+  syncMeta._sig = sig;
   var comp = Math.max(S.best, G.score) + (Math.max(S.bestStage, G.stage) - 1) * 180;
   var rk = rankOf(Math.max(S.best, G.score), Math.max(S.bestStage, G.stage));
   if(rk !== S.rank){
@@ -1602,7 +1605,7 @@ function buildBricks(stage){
   if(!list.length) list.push(makeBrick(3, 0, 1));
   return list;
 }
-function speedFor(stage){ return Math.min(272 + (stage - 1) * 16, 430); }
+function speedFor(stage){ return Math.min(298 + (stage - 1) * 14, 430); }
 function aliveCount(){
   var n = 0;
   for(var i=0;i<G.bricks.length;i++){ if(G.bricks[i].alive) n++; }
@@ -1615,7 +1618,7 @@ function multOf(){
 function resetBall(){
   var sp = speedFor(G.stage);
   var ang = (Math.random() * 50 - 25) * Math.PI / 180;
-  G.balls = [{x:G.paddle.x, y:PAD_Y - 9, vx:0, vy:0, r:7, trail:[], sp:sp, ang:ang, hotT:0}];
+  G.balls = [{x:G.paddle.x, y:PAD_Y - 8, vx:0, vy:0, r:7, trail:[], sp:sp, ang:ang}];
   G.launched = false;
   syncFireBtn();
 }
@@ -1626,7 +1629,6 @@ function launchBall(){
   var ang = (typeof b.ang === "number") ? b.ang : 0;
   b.vx = Math.sin(ang) * sp;
   b.vy = -Math.cos(ang) * sp;
-  b.hotT = 0.25;
   G.launched = true;
   sLaunch();
   syncFireBtn();
@@ -1655,14 +1657,18 @@ function clearFx(){
   G.parts.length = 0; G.rings.length = 0; G.sparks.length = 0; G.flares.length = 0; G.floats.length = 0;
   G.shake = 0; G.flash = 0; G.paddleFlash = 0;
 }
+function kickFx(amount){
+  G.shake = Math.min(7, G.shake + amount);
+  G.flash = Math.min(0.15, G.flash + amount * 0.03);
+}
 function pushFloat(x, y, text, color, big){
   var dy = 0;
   for(var i=0;i<G.floats.length;i++){
     var o = G.floats[i];
-    if(Math.abs(o.x - x) < 62 && Math.abs(o.y - (y + dy)) < 18) dy -= 18;
+    if(Math.abs(o.x - x) < 60 && Math.abs(o.y - (y + dy)) < 17) dy -= 17;
   }
-  G.floats.push({x:clamp(x, 26, W - 26), y:y + dy, text:text, color:color || "#ffd76a", life:0, max:0.6, big:!!big});
-  if(G.floats.length > 10) G.floats.shift();
+  G.floats.push({x:clamp(x, 26, W - 26), y:y + dy, text:text, color:color || "#ffd76a", life:0, max:0.95, big:!!big});
+  if(G.floats.length > 12) G.floats.shift();
 }
 function addFlare(x, y, size, life, color){
   G.flares.push({x:x, y:y, size:size, life:0, max:Math.min(life || 0.22, FX_MAX), color:color || "#ffe9b0"});
@@ -1679,33 +1685,25 @@ function addSparks(x, y, color, n, spd){
     G.sparks.push({x:x, y:y, vx:Math.cos(a) * s, vy:Math.sin(a) * s, life:0,
       max:0.18 + Math.random() * 0.16, color:color, len:4 + Math.random() * 8});
   }
-  if(G.sparks.length > 120) G.sparks.splice(0, G.sparks.length - 120);
+  if(G.sparks.length > 130) G.sparks.splice(0, G.sparks.length - 130);
 }
 function burst(x, y, color, big){
-  var n = big ? 30 : 22;
+  var n = big ? 34 : 24;
   for(var i=0;i<n;i++){
-    var a = Math.random() * Math.PI * 2, sp = 60 + Math.random() * 230;
+    var a = Math.random() * Math.PI * 2, sp = 70 + Math.random() * 280;
     var rs = Math.random();
     var pcol = rs > 0.72 ? "#ffd76a" : (rs > 0.6 ? "#fff0c0" : color);
-    G.parts.push({x:x, y:y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - 40, life:0,
-      max:0.26 + Math.random() * 0.18, color:pcol, size:3.4 + Math.random() * 6.2,
-      rot:Math.random() * 6.28, vr:(Math.random() - 0.5) * 10,
-      shape: rs < 0.5 ? 0 : (rs < 0.8 ? 1 : 2)});
+    G.parts.push({x:x, y:y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp - 46, life:0,
+      max:0.28 + Math.random() * 0.26, color:pcol, size:3.6 + Math.random() * 6.4,
+      rot:Math.random() * 6.28, vr:(Math.random() - 0.5) * 11,
+      shape: rs < 0.46 ? 0 : (rs < 0.78 ? 1 : 2)});
   }
-  if(G.parts.length > 220) G.parts.splice(0, G.parts.length - 220);
-  addFlare(x, y, big ? 52 : 36, 0.22, color);
-  addSparks(x, y, "#fff3c0", big ? 20 : 13, big ? 460 : 340);
-  addRing(x, y, 2, big ? 58 : 40, big ? 0.38 : 0.3, "#fff2c4", big ? 3.6 : 2.6);
-  addRing(x, y, 3, big ? 46 : 32, big ? 0.32 : 0.26, color, 1.6);
-  if(big) addRing(x, y, 5, 78, 0.42, color, 1.6);
-  // 금빛 불꽃 기둥
-  for(var j=0;j<7;j++){
-    var aa = Math.PI * (1.1 + Math.random() * 0.8);
-    var ss = 90 + Math.random() * 170;
-    G.sparks.push({x:x, y:y, vx:Math.cos(aa) * ss * 0.5, vy:Math.sin(aa) * ss, life:0,
-      max:0.22 + Math.random() * 0.14, color:"#ffd76a", len:4 + Math.random() * 8});
-  }
-  G.shake = Math.min(6, G.shake + (big ? 3.4 : 2.2));
+  if(G.parts.length > 280) G.parts.splice(0, G.parts.length - 280);
+  addFlare(x, y, big ? 40 : 28, 0.24, color);
+  addSparks(x, y, "#fff3c0", big ? 14 : 9, big ? 440 : 330);
+  addRing(x, y, 2, big ? 54 : 36, big ? 0.40 : 0.32, color, big ? 4 : 3);
+  if(big) addRing(x, y, 5, 78, 0.50, color, 1.6);
+  kickFx(big ? 3.2 : 2.0);
 }
 
 /* ================= physics ================= */
@@ -1727,8 +1725,9 @@ function collidePaddle(b){
   b.vy = -Math.abs(sp * Math.cos(ang));
   b.y = PAD_Y - b.r - 0.5;
   G.paddleFlash = 0.22;
-  addRing(b.x, PAD_Y + 2, 2, 26, 0.24, "rgba(220,235,255,1)", 1.8);
-  addSparks(b.x, PAD_Y, "#e6f0ff", 4, 180);
+  addRing(b.x, PAD_Y + 2, 2, 26, 0.26, "rgba(220,235,255,1)", 2);
+  addSparks(b.x, PAD_Y, "#e6f0ff", 4, 200);
+  G.shake = Math.min(G.shake, 1.6);
   sPaddle();
 }
 function hitBrick(br, ball){
@@ -1748,8 +1747,7 @@ function hitBrick(br, ball){
     sBrickSoft();
     pushFloat(cx, cy, "+" + pts2, "#fff0c4");
     addSparks(cx, cy, "#ffe6a8", 3, 150);
-    addRing(cx, cy, 2, 15, 0.18, "rgba(255,236,190,.9)", 1.4);
-    G.flash = Math.min(0.1, G.flash + 0.02);
+    addRing(cx, cy, 2, 16, 0.20, "rgba(255,236,190,.9)", 1.6);
   }else{
     br.alive = false;
     G.destroyed++;
@@ -1820,7 +1818,7 @@ function maybeDrop(br){
     G.sinceDrop = 0;
     var types = ["multi", "wide", "pierce", "slow"];
     var type = types[Math.floor(Math.random() * types.length)];
-    G.pups.push({x:br.x + br.w / 2, y:br.y + br.h / 2, vy:118, type:type, r:10, t:0});
+    G.pups.push({x:br.x + br.w / 2, y:br.y + br.h / 2, vy:130, type:type, r:11, t:0});
     sDrop();
   }
 }
@@ -1835,31 +1833,31 @@ function applyPower(type){
       var extra = Math.min(2, 5 - G.balls.length);
       for(var i=0;i<extra;i++){
         var a = base + (i === 0 ? 0.42 : -0.42);
-        G.balls.push({x:src.x, y:src.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, r:7, trail:[], hotT:0.2});
+        G.balls.push({x:src.x, y:src.y, vx:Math.cos(a) * sp, vy:Math.sin(a) * sp, r:7, trail:[]});
       }
       if(G.balls.length === 1){
-        G.balls.push({x:src.x, y:src.y, vx:src.vx * 0.9, vy:-Math.abs(src.vy || sp), r:7, trail:[], hotT:0.2});
+        G.balls.push({x:src.x, y:src.y, vx:src.vx * 0.9, vy:-Math.abs(src.vy || sp), r:7, trail:[]});
       }
       G.launched = true;
-      addRing(src.x, src.y, 4, 46, 0.34, PUP_INFO.multi.col, 2.4);
-      addSparks(src.x, src.y, PUP_INFO.multi.col, 10, 300);
+      addRing(src.x, src.y, 4, 48, 0.36, PUP_INFO.multi.col, 2.6);
+      addSparks(src.x, src.y, PUP_INFO.multi.col, 10, 320);
     }
   }else if(type === "wide"){
     G.paddle.w = PAD_W_WIDE;
     G.wideT = 12;
-    addRing(px, py, 6, 60, 0.38, PUP_INFO.wide.col, 2.6);
+    addRing(px, py, 6, 62, 0.40, PUP_INFO.wide.col, 2.8);
   }else if(type === "pierce"){
     G.pierceT = 10;
-    addRing(px, py, 6, 58, 0.38, PUP_INFO.pierce.col, 2.6);
+    addRing(px, py, 6, 60, 0.40, PUP_INFO.pierce.col, 2.8);
   }else if(type === "slow"){
     if(G.slowT <= 0) scaleSpeed(SLOW_MUL);
     G.slowT = 8;
-    addRing(px, py, 6, 58, 0.38, PUP_INFO.slow.col, 2.6);
+    addRing(px, py, 6, 60, 0.40, PUP_INFO.slow.col, 2.8);
   }
-  addSparks(px, py, "#fff3c4", 12, 330);
-  G.shake = Math.min(6, G.shake + 2.4);
+  addSparks(px, py, "#fff3c4", 12, 360);
+  kickFx(2.8);
   var label = t(PUP_INFO[type].key);
-  pushFloat(px, PAD_Y - 34, fmt(t("powerGot"), {p:label}), "#ffe08a");
+  pushFloat(px, PAD_Y - 40, fmt(t("powerGot"), {p:label}), "#ffe08a");
   sPower();
   syncRunes();
   syncFireBtn();
@@ -1985,33 +1983,19 @@ function update(dt){
 
   if(!G.launched){
     var b0 = G.balls[0];
-    if(b0){ b0.x = P.x; b0.y = PAD_Y - b0.r - 2; b0.trail.length = 0; }
+    if(b0){ b0.x = P.x; b0.y = PAD_Y - b0.r - 1; b0.trail.length = 0; }
   }else{
     for(var i=G.balls.length - 1; i >= 0; i--){
       var b = G.balls[i];
       if(!b) continue;
-      b.trail.push({x:b.x, y:b.y, t:G.time});
-      if(b.trail.length > 20) b.trail.shift();
-      if(b.hotT > 0) b.hotT -= dt;
+      b.trail.push({x:b.x, y:b.y});
+      if(b.trail.length > 7) b.trail.shift();
       stepBall(b, dt);
       if(b.y - b.r > H + 12) G.balls.splice(i, 1);
       if(G.overlay) break;
     }
     if(!G.overlay && G.balls.length === 0) onBallLost();
   }
-  // 꼬리 정리 + 불티
-  for(var bi=0; bi<G.balls.length; bi++){
-    var bb = G.balls[bi];
-    if(!bb) continue;
-    while(bb.trail.length && G.time - bb.trail[0].t > 0.34) bb.trail.shift();
-    if(G.launched && (Math.abs(bb.vx) + Math.abs(bb.vy)) > 60 && Math.random() < 0.85){
-      G.sparks.push({x:bb.x + (Math.random() - 0.5) * 7, y:bb.y + (Math.random() - 0.5) * 7,
-        vx:(Math.random() - 0.5) * 60, vy:-40 - Math.random() * 70, life:0, max:0.18, color:"#ffd98a", len:3});
-      G.sparks.push({x:bb.x + (Math.random() - 0.5) * 5, y:bb.y + (Math.random() - 0.5) * 5,
-        vx:(Math.random() - 0.5) * 30, vy:-20 - Math.random() * 40, life:0, max:0.14, color:"#fff0c0", len:2});
-    }
-  }
-
   for(var p=G.pups.length - 1; p >= 0; p--){
     var pu = G.pups[p];
     pu.y += pu.vy * dt;
@@ -2027,7 +2011,7 @@ function update(dt){
     var pa = G.parts[q];
     pa.life += dt;
     if(pa.life >= pa.max || pa.life > FX_MAX){ G.parts.splice(q, 1); continue; }
-    pa.vy += 320 * dt;
+    pa.vy += 340 * dt;
     pa.x += pa.vx * dt;
     pa.y += pa.vy * dt;
     pa.rot += pa.vr * dt;
@@ -2035,7 +2019,7 @@ function update(dt){
   for(var f=G.floats.length - 1; f >= 0; f--){
     var fl = G.floats[f];
     fl.life += dt;
-    fl.y -= 24 * dt;
+    fl.y -= 26 * dt;
     if(fl.life >= fl.max) G.floats.splice(f, 1);
   }
   for(var rg=G.rings.length - 1; rg >= 0; rg--){
@@ -2052,14 +2036,14 @@ function update(dt){
     var sk = G.sparks[sp2];
     sk.life += dt;
     if(sk.life >= sk.max || sk.life > FX_MAX){ G.sparks.splice(sp2, 1); continue; }
-    sk.vy += 220 * dt;
-    sk.vx *= 0.92;
+    sk.vy += 260 * dt;
+    sk.vx *= 0.9;
     sk.x += sk.vx * dt;
     sk.y += sk.vy * dt;
   }
   if(G.shake > 0){
     G.shake *= Math.exp(-12 * dt);
-    if(G.shake < 0.05) G.shake = 0;
+    if(G.shake < 0.06) G.shake = 0;
   }
   if(G.flash > 0){ G.flash -= dt * 0.9; if(G.flash < 0) G.flash = 0; }
   if(G.paddleFlash > 0) G.paddleFlash -= dt;
@@ -2595,24 +2579,17 @@ function gem(g, x, y, r, col){
   g.restore();
 }
 function drawBall(g, b){
-  // 꼬리
+  // 꼬리 — 초기 버전 그대로(부드러운 원 7개, 그라디언트 없음)
   var tr = b.trail;
   var light = themeConf().bright === "light";
   if(tr.length > 1){
     g.save();
-    g.globalCompositeOperation = light ? "source-over" : "lighter";
     for(var i=0;i<tr.length;i++){
-      var p = tr[i], k = (i + 1) / tr.length;
-      var age = (G.time - p.t) / 0.34;
-      var al = clamp(1 - age, 0, 1);
-      var r = 1.8 + 11 * k;
-      var gd = g.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
-      gd.addColorStop(0, "rgba(255,248,214," + (0.72 * al * k) + ")");
-      gd.addColorStop(0.4, "rgba(255,186,70," + (0.42 * al * k) + ")");
-      gd.addColorStop(1, "rgba(255,90,0,0)");
-      g.fillStyle = gd;
+      var p = tr[i], tf = (i + 1) / tr.length;
+      g.globalAlpha = tf * 0.14;
       g.beginPath();
-      g.arc(p.x, p.y, r, 0, 6.283);
+      g.arc(p.x, p.y, b.r * (0.3 + 0.5 * tf), 0, 6.283);
+      g.fillStyle = light ? "#ffffff" : "#ffe9b0";
       g.fill();
     }
     g.restore();
@@ -2876,6 +2853,7 @@ function draw(){
   g.save();
   g.clearRect(0, 0, W, H);
   drawBackdrop(g);
+  drawIntro(g);
   if(G.shake > 0){
     g.translate((Math.random() - 0.5) * G.shake, (Math.random() - 0.5) * G.shake);
   }
@@ -2885,7 +2863,6 @@ function draw(){
   drawPaddle(g);
   for(var b=0;b<G.balls.length;b++) drawBall(g, G.balls[b]);
   drawFx(g);
-  drawIntro(g);
   if(G.flash > 0){
     g.fillStyle = "rgba(255,240,200," + Math.min(0.22, G.flash) + ")";
     g.fillRect(0, 0, W, H);
@@ -2934,9 +2911,17 @@ function syncRunes(){
     pierce: {on: G.pierceT > 0, p: clamp(G.pierceT / 10 * 100, 0, 100)},
     slow: {on: G.slowT > 0, p: clamp(G.slowT / 8 * 100, 0, 100)}
   };
-  var nodes = $("dfRunes").children;
-  for(var i=0;i<nodes.length;i++){
-    var el = nodes[i], key = el.getAttribute("data-p"), v = vals[key];
+  if(!syncRunes._nodes){
+    var nodes = $("dfRunes").children;
+    syncRunes._nodes = [];
+    for(var n0=0;n0<nodes.length;n0++){
+      syncRunes._nodes.push({el:nodes[n0], key:nodes[n0].getAttribute("data-p"),
+        gauge:nodes[n0].querySelector(".gauge"), cnt:nodes[n0].querySelector(".cnt")});
+    }
+  }
+  var list = syncRunes._nodes;
+  for(var i=0;i<list.length;i++){
+    var el = list[i].el, key = list[i].key, v = vals[key];
     if(!v) continue;
     var last = lastRunes[key] || {};
     if(last.on !== v.on){
@@ -2946,11 +2931,10 @@ function syncRunes(){
     }
     var pRound = Math.round(v.p / 2) * 2;
     if(last.p !== pRound){
-      var gauge = el.querySelector(".gauge");
-      if(gauge) gauge.style.setProperty("--p", pRound);
+      if(list[i].gauge) list[i].gauge.style.setProperty("--p", pRound);
       lastRunes[key].p = pRound;
     }
-    var cnt = el.querySelector(".cnt");
+    var cnt = list[i].cnt;
     if(cnt && v.cnt && cnt.textContent !== v.cnt) cnt.textContent = v.cnt;
   }
 }
@@ -3507,14 +3491,14 @@ if(TEST){
     setPaddle: function(x){ G.paddle.tx = clamp(x, 20, W - 20); G.paddle.x = G.paddle.tx; },
     setBall: function(x, y, vx, vy){
       G.balls.length = 1;
-      if(!G.balls.length) G.balls.push({x:x, y:y, vx:vx, vy:vy, r:7, trail:[], hotT:0});
+      if(!G.balls.length) G.balls.push({x:x, y:y, vx:vx, vy:vy, r:7, trail:[]});
       var b = G.balls[0];
       b.x = x; b.y = y; b.vx = vx; b.vy = vy; b.trail.length = 0;
       G.launched = true;
     },
     still: function(x, y){
       G.balls.length = 1;
-      if(!G.balls.length) G.balls.push({x:x || 180, y:y || 300, vx:0, vy:0, r:7, trail:[], hotT:0});
+      if(!G.balls.length) G.balls.push({x:x || 180, y:y || 300, vx:0, vy:0, r:7, trail:[]});
       var b = G.balls[0];
       b.x = x || 180; b.y = y || 300; b.vx = 0; b.vy = 0; b.trail.length = 0;
       G.launched = true;
