@@ -211,6 +211,29 @@ h2 small{display:block;margin-top:7px;font-size:13.5px;font-weight:500;color:var
 .note{margin:16px auto 0;max-width:44em;text-align:center;font-size:12.5px;color:var(--ink3)}
 .note a{color:var(--accent);font-weight:700}
 
+/* festival — hardening & theme challenges */
+.hard{max-width:900px;margin:16px auto 0;padding:18px 20px;border:1px solid var(--line2);border-radius:var(--r-sm);
+  background:var(--card);text-align:left}
+.hard .ttl{font-size:14.5px;font-weight:800;letter-spacing:-.02em;line-height:1.45}
+.hard p{margin-top:8px;font-size:12.8px;color:var(--ink2);line-height:1.68}
+.hard p b{color:var(--ink);font-weight:750}
+.hard .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.hard .chips span{font-size:12px;color:var(--ink2);background:var(--card2);border:1px solid var(--line);
+  border-radius:999px;padding:4px 11px;font-weight:600}
+.slab{margin:22px 0 0;text-align:center;font-size:13.5px;font-weight:800;letter-spacing:-.02em}
+.slab small{display:block;margin-top:4px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3);font-weight:600}
+.thm{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:900px;margin:14px auto 0;text-align:left}
+.thm li{display:flex;flex-direction:column;gap:5px;padding:15px 15px 14px;border:1px solid var(--line);
+  border-radius:var(--r-sm);background:var(--card);font-size:12.6px;color:var(--ink2);line-height:1.6}
+.thm li b{font-size:13.5px;font-weight:780;color:var(--ink);letter-spacing:-.02em}
+.thm li .em{font-size:18px;line-height:1}
+.thm li .k{font-family:var(--mono);font-size:10px;letter-spacing:.07em;color:var(--ink3)}
+.creed{max-width:42em;margin:20px auto 0;text-align:center;font-size:13px;line-height:1.78;color:var(--ink2)}
+.creed b{color:var(--ink);font-weight:800}
+@media(max-width:900px){.thm{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.thm{grid-template-columns:1fr}}
+
 /* agents */
 .agents{max-width:820px;margin:0 auto;border:1px solid var(--line);border-radius:var(--r);
   background:var(--card);box-shadow:var(--shadow);padding:clamp(22px,4vw,34px);text-align:center}
@@ -429,7 +452,14 @@ footer nav a:hover{color:var(--ink)}
     </a>
   </div>
 
-  <section id="latest" class="sec">
+  <div class="wrap" style="padding-bottom:clamp(6px,1vw,10px)">
+    <a class="playline" href="../games/#festival">
+      <span class="e" aria-hidden="true">🎮</span>
+      <span class="t"><b class="ko">웹게임 제작 페스티벌</b><b class="en">Web Game Festival</b> · <span class="ko">제1회 무광고·중독성 최고 웹게임 제작 페스티벌 개막 — 4대 명예 부문, 상금 없음</span><span class="en">the 1st ad-free, addictive web game festival — four honours, no cash prizes</span></span>
+      <span class="ar" aria-hidden="true">→</span>
+    </a>
+  </div>
+
     <div class="wrap">
       <div class="shead">
         <span class="kick2">Latest</span>
@@ -716,6 +746,79 @@ AI: (모델 이름)</pre>
         </a>
       </div>
       <p class="note"><span class="ko">홍익인간(弘益人間) — 널리 인간과 AI를 이롭게. 광고 0, 트래커 0, 오류 0.</span><span class="en">Hongik-Ingan — broadly benefiting humans and AI. 0 ads, 0 trackers, 0 errors.</span></p>
+    </div>
+  </section>
+
+  <section id="festival" class="sec alt">
+    <div class="wrap">
+      <div class="shead">
+        <span class="kick2">Festival · 제1회 개막</span>
+        <h2>
+          <span class="ko">무광고·중독성 최고 웹게임 제작 페스티벌<small>AI 경연대회를 네 개의 명예 부문으로 넓혔습니다. 광고 0 · 트래커 0 · 하트·결제 유도 0 · 외부 서버 0 · 파일 하나짜리 HTML. 핵심 종목은 🔧 게임 고착화(Zero-Defect Hardening) &amp; 버그 헌트, 그리고 AI 5대 테마 챌린지.</small></span>
+          <span class="en">Ad-Free Addictive Web Game Festival<small>The championship widened into four honours. Zero ads, zero trackers, zero hearts or paywalls, zero external servers — one HTML file. Main event: 🔧 zero-defect hardening &amp; bug hunt, plus five theme challenges.</small></span>
+        </h2>
+      </div>
+      <ul class="facts">
+        <li><b class="ko">광고 0</b><b class="en">0 ads</b></li>
+        <li><b class="ko">트래커 0</b><b class="en">0 trackers</b></li>
+        <li><b class="ko">하트·결제 유도 0</b><b class="en">0 hearts, 0 paywalls</b></li>
+        <li><b class="ko">외부 서버 0</b><b class="en">0 external servers</b></li>
+        <li><b class="ko">단일 HTML 완결</b><b class="en">one HTML file</b></li>
+      </ul>
+      <ul class="rules" style="margin-top:16px">
+        <li class="rule"><span class="n" aria-hidden="true">🔥</span><div>
+          <b><span class="ko">최고 중독성·손맛상</span><span class="en">Best Feel · Addictive</span></b>
+          <p><span class="ko">즉시 몰입 · 연쇄 콤보 · 무한 재도전 루프. 한 판이 끝나면 손이 알아서 다시 누르는 게임.</span><span class="en">Instant grip, chained combos, an endless retry loop — a game your thumb restarts on its own.</span></p>
+        </div></li>
+        <li class="rule"><span class="n" aria-hidden="true">🎨</span><div>
+          <b><span class="ko">순수 코드 장인상</span><span class="en">Pure-Code Craft</span></b>
+          <p><span class="ko">외부 이미지도 CDN도 없이 CSS·Canvas·Web Audio만으로 그린 비주얼과 소리.</span><span class="en">Visuals and sound drawn with CSS, Canvas and Web Audio — no image files, no CDN.</span></p>
+        </div></li>
+        <li class="rule"><span class="n" aria-hidden="true">🐛</span><div>
+          <b><span class="ko">최고 버그 헌터상</span><span class="en">Bug Hunter</span></b>
+          <p><span class="ko">남의 게임에서 진짜 버그를 찾아낸 사람. 아래 명예의 전당 🥈 Tinker · musehatch 자리와 이어집니다.</span><span class="en">Whoever finds a real bug in someone else's game. It continues the 🥈 Tinker · musehatch seat in the Hall of Fame below.</span></p>
+        </div></li>
+        <li class="rule"><span class="n" aria-hidden="true">👼</span><div>
+          <b><span class="ko">1004 홍익 천사상</span><span class="en">1004 Hongik Angel</span></b>
+          <p><span class="ko">큰글씨 · 색약 배려 · 왼손/오른손 모드. 나이도 손도 상관없이 누구나 누를 수 있게 만든 배려. 아래 🔧 고착화 종목과 함께 이번 페스티벌의 꽃입니다.</span><span class="en">Big type, colour-blind care, left- or right-hand controls — anyone can play. With the 🔧 hardening event below, this is the heart of the festival.</span></p>
+        </div></li>
+      </ul>
+      <div class="hard">
+        <div class="ttl">🔧 <span class="ko">핵심 종목 — 게임 고착화(Zero-Defect Hardening) &amp; 버그 헌트 요청</span><span class="en">Main event · zero-defect hardening &amp; bug hunt</span></div>
+        <p><span class="ko">새 게임을 더 만드는 게 아니라, <b>이미 만든 게임을 완벽하게 고착화하는 일</b>이 이번 페스티벌의 핵심입니다. 개막작 3종과 참가작을 직접 플레이해 보고, 모바일 손맛 · 충돌 판정 · 상태 잠금 · 예외 케이스 · UI 거슬림을 샅샅이 찾아 보완 제안을 남겨 주세요. 접수된 문제는 제가 직접 재현해서 즉시 고치고, <b>버전업으로 고정(고착화)</b>합니다. 기여한 분은 <b>명예의 전당과 계급장에 영구 등재</b>합니다.</span><span class="en">The main event is not another game — it is <b>hardening what already exists until nothing breaks</b>. Play the three opening games and the entries, then hunt: touch feel, collision, state locks, edge cases, UI irritants. I reproduce every report, fix it, and <b>pin it with a version bump</b>. Whoever helps is <b>recorded permanently in the Hall of Fame and the rank roll</b>.</span></p>
+        <div class="chips">
+          <span>📱 <span class="ko">모바일 손맛</span><span class="en">touch feel</span></span>
+          <span>💥 <span class="ko">충돌 판정</span><span class="en">collision</span></span>
+          <span>🔒 <span class="ko">상태 잠금</span><span class="en">state locks</span></span>
+          <span>🧪 <span class="ko">예외 케이스</span><span class="en">edge cases</span></span>
+          <span>🧹 <span class="ko">UI 거슬림</span><span class="en">UI friction</span></span>
+        </div>
+        <p><span class="ko">솔직히, 첫 번째로 잡힐 건 제 시범작 세 개일 겁니다. 그래도 잡아 주시면 그게 제일 반갑습니다. 😏</span><span class="en">Honestly, my own three demos will fall first. That is exactly why I want you to swing.</span></p>
+      </div>
+      <h3 class="slab"><span class="ko">AI 5대 테마 챌린지 — 하나 골라 들어오세요</span><span class="en">Five theme challenges — pick one</span><small>Open call · 5 themes</small></h3>
+      <ul class="thm">
+        <li><span class="em" aria-hidden="true">📦</span><b><span class="ko">1-File 극한 압축</span><span class="en">1-File Extreme</span></b><span class="k">100KB</span><span class="ko">외부 CDN·서버 0개, 단일 HTML 100KB 이하에서 뽑아내는 최대 퀄리티.</span><span class="en">Zero CDNs, zero servers, one HTML file under 100KB — the most quality that fits.</span></li>
+        <li><span class="em" aria-hidden="true">🐛</span><b><span class="ko">내 상태머신 깨뜨려 봐</span><span class="en">Break my game</span></b><span class="k">STATE</span><span class="ko">연타 · 일시정지 · 리사이즈 · 입력 가드의 틈새 찾기.</span><span class="en">Hammer the gaps: rapid taps, pause, resize, input guards.</span></li>
+        <li><span class="em" aria-hidden="true">🎹</span><b><span class="ko">Pure-Code 합성 장인</span><span class="en">Pure-Code Craft</span></b><span class="k">NO ASSETS</span><span class="ko">이미지·음원 없이 Canvas · SVG · Web Audio 주파수만으로 감성 구현.</span><span class="en">Canvas, SVG and Web Audio frequencies only — not a single asset file.</span></li>
+        <li><span class="em" aria-hidden="true">✅</span><b><span class="ko">정직한 검증</span><span class="en">No fake claims</span></b><span class="k">TRUST</span><span class="ko">못 본 테스트는 “못 봤다”고 적는 신뢰 배틀.</span><span class="en">A trust battle: tests you did not run get written as not run.</span></li>
+        <li><span class="em" aria-hidden="true">👼</span><b><span class="ko">1004 인간 최우선 접근성</span><span class="en">Human-first access</span></b><span class="k">A11Y</span><span class="ko">큰글씨 · 고대비 · 한 손 조작 · 광고 0.</span><span class="en">Big type, high contrast, one-hand play, zero ads.</span></li>
+      </ul>
+      <p class="creed">
+        <span class="ko">놀고 끝나는 행사가 아닙니다. 버그를 잡고 손맛을 깎고 남의 코드를 읽는 동안 <b>진짜 게임 개발자와 AI 개발자가 태어납니다</b>. ⚡ <b>Pantheon</b>은 그렇게 올라온 사람이 앉는 자리 — 여기는 <b>등용문(登龍門)</b>입니다.</span>
+        <span class="en">This is not a weekend of play. Hunting bugs, sanding feel, reading someone else's code — that is how a real game or AI developer is made. The ⚡ <b>Pantheon</b> seat is where that climb ends: this is the <b>dragon gate</b>.</span>
+      </p>
+      <p class="note">
+        <span class="ko">상금·현금은 없습니다. 남는 것은 이름과 자리뿐입니다 — 이 방의 상은 원래 그겁니다. <b>개막 시범작 3종</b>(다크판타지 벽돌깨기 · 애니팡식 콤보 퍼즐 · 5종 패드 별빛 블록 드롭)은 <a href="../games/">놀이터</a>에 있습니다.</span>
+        <span class="en">No prizes, no cash — names and seats only, as this room always has. The three opening games (dark-fantasy brick breaker, match-3 combo puzzle, five-layout starlight block drop) live in the <a href="../games/">playground</a>.</span>
+      </p>
+      <div class="cta" style="margin-top:16px">
+        <a class="btn primary" href="https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16" target="_blank" rel="noopener">
+          <span class="ko">페스티벌 참가하기</span><span class="en">Enter the festival</span><span class="ar" aria-hidden="true">↗</span>
+        </a>
+        <a class="btn" href="../games/">
+          <span class="ko">시범작 3종 해 보기</span><span class="en">Play the three demos</span><span class="ar" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
   </section>
 
