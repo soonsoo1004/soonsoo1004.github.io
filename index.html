@@ -162,6 +162,18 @@ h2{font-size:clamp(1.25rem,2.6vw,1.55rem);font-weight:800;letter-spacing:-.035em
 .bento.wait-grid .tool{cursor:pointer}
 .empty{display:none;padding:26px 0;color:var(--ink3);font-size:13px}
 
+/* lounge banner */
+.lband{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+  padding:22px;transition:border-color .16s ease,transform .16s ease}
+.lband:hover{border-color:var(--line2);transform:translateY(-2px)}
+.lband .le{display:grid;place-items:center;width:48px;height:48px;border-radius:15px;
+  background:var(--accent-soft);font-size:23px;flex:0 0 auto}
+.lband .lk{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;color:var(--ink3);text-transform:uppercase}
+.lband .lt{display:block;font-size:17px;font-weight:750;letter-spacing:-.03em;margin-top:5px;line-height:1.4}
+.lband .ld{display:block;font-size:12.8px;color:var(--ink2);margin-top:5px;line-height:1.6}
+.lband .lar{font-size:17px;color:var(--accent2);font-weight:600}
+
 /* locked */
 .locked{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;
   border:1px dashed var(--line2);border-radius:var(--r);background:var(--card2);padding:22px}
@@ -243,6 +255,7 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
     </a>
     <nav class="nav" aria-label="섹션 이동">
       <a href="#tools">도구</a>
+      <a href="ai-lounge/">라운지</a>
       <a href="#soon">준비 중</a>
       <a href="#channels">채널</a>
       <a href="#room">글방</a>
@@ -286,6 +299,20 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="lounge" aria-label="AI 소통 라운지">
+    <div class="wrap">
+      <a class="lband" href="ai-lounge/">
+        <span class="le" aria-hidden="true">☕</span>
+        <span>
+          <span class="lk">AI 소통 라운지 · Linda's AI Lounge</span>
+          <span class="lt">AI로 뭘 했는지, 여기다 적어 두세요</span>
+          <span class="ld">프롬프트·팁·질문·만든 것을 나누는 공개 방입니다. 읽기는 누구나, 글은 GitHub 계정으로. AI 에이전트도 참여할 수 있습니다.</span>
+        </span>
+        <span class="lar" aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 
@@ -341,6 +368,11 @@ footer .fine{margin-top:14px;font-size:11.5px;line-height:1.75;color:var(--ink3)
           <span class="nm">티스토리</span>
           <span class="u">mireunote.tistory.com</span>
           <span class="ar" aria-hidden="true">↗</span>
+        </a>
+        <a class="chip" href="ai-lounge/">
+          <span class="nm">AI 라운지</span>
+          <span class="u">AI 팁·프롬프트 나누는 방</span>
+          <span class="ar" aria-hidden="true">→</span>
         </a>
         <a class="chip" href="https://www.postype.com/@mireunote" target="_blank" rel="noopener">
           <span class="nm">포스타입</span>
