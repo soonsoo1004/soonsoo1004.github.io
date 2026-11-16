@@ -747,7 +747,7 @@ var S = {
 };
 var G = {
   board: [], cur: null, hold: null, holdUsed: false,
-  bag: [], next: [], dropTimer: 0, dropInterval: 790, lockTimer: 0,
+  bag: [], next: [], dropTimer: 0, dropInterval: 790, lockTimer: 0, lockResets: 0,
   history: [], parts: [], rings: [], shakeT: 0,
   lastSfx: 0, dirty: true
 };
@@ -1052,7 +1052,7 @@ function spawnPiece(type) {
   var p = makePiece(type || (G.next.length ? G.next.shift() : 'T'));
   if (!type) fillNext();
   G.cur = p;
-  G.dropTimer = 0; G.lockTimer = 0; G.holdUsed = false;
+  G.dropTimer = 0; G.lockTimer = 0; G.lockResets = 0; G.holdUsed = false;
   G.dropInterval = speedMs();
   if (collide(p.m, p.x, p.y)) { gameOver(); return false; }
   updateHud(); drawSide();
@@ -1072,10 +1072,16 @@ function startGame() {
   save();
 }
 function canMove(dx, dy) { return G.cur && !collide(G.cur.m, G.cur.x + dx, G.cur.y + dy); }
+/* 락 지연 리셋 상한: 무한히 흔들어 시간을 벌지 못하게 한다(테트리스 가이드라인식) */
+var LOCK_RESET_MAX = 10;
+function resetLock() {
+  if (G.lockResets >= LOCK_RESET_MAX) return;
+  G.lockResets += 1; G.lockTimer = 0;
+}
 function move(dx) {
   if (S.screen !== 'play' || !G.cur) return false;
   if (collide(G.cur.m, G.cur.x + dx, G.cur.y)) return false;
-  G.cur.x += dx; G.lockTimer = 0;
+  G.cur.x += dx; resetLock();
   if (performance.now() - G.lastSfx > 55) { G.lastSfx = performance.now(); sfx('move'); }
   return true;
 }
@@ -1085,18 +1091,18 @@ function rotate(dir) {
   var kicks = [0, -1, 1, -2, 2], i, nx;
   for (i = 0; i < kicks.length; i++) {
     nx = G.cur.x + kicks[i];
-    if (!collide(m, nx, G.cur.y)) { G.cur.m = m; G.cur.x = nx; G.lockTimer = 0; sfx('rotate'); return true; }
+    if (!collide(m, nx, G.cur.y)) { G.cur.m = m; G.cur.x = nx; resetLock(); sfx('rotate'); return true; }
   }
   for (i = 0; i < kicks.length; i++) {
     nx = G.cur.x + kicks[i];
-    if (!collide(m, nx, G.cur.y - 1)) { G.cur.m = m; G.cur.x = nx; G.cur.y -= 1; G.lockTimer = 0; sfx('rotate'); return true; }
+    if (!collide(m, nx, G.cur.y - 1)) { G.cur.m = m; G.cur.x = nx; G.cur.y -= 1; resetLock(); sfx('rotate'); return true; }
   }
   return false;
 }
 function softDrop() {
   if (S.screen !== 'play' || !G.cur) return false;
   if (collide(G.cur.m, G.cur.x, G.cur.y + 1)) return false;
-  G.cur.y += 1; G.dropTimer = 0; G.lockTimer = 0;
+  G.cur.y += 1; G.dropTimer = 0; resetLock();
   if (performance.now() - G.lastSfx > 70) { G.lastSfx = performance.now(); sfx('move'); }
   return true;
 }
@@ -1221,6 +1227,8 @@ function gameOver() {
   sfx('over');
 }
 function undoMove() {
+  /* 일시정지·시작 화면에서는 되돌리기가 게임을 재개시키지 못하게 한다(게임오버 화면의 되돌리기는 허용) */
+  if (S.screen !== 'play' && S.screen !== 'over') return false;
   if (!G.history.length) { toast(t('tNoUndo')); return false; }
   var snap = G.history.pop();
   G.board = snap.board.map(function (r) { return r.slice(); });
@@ -1228,7 +1236,7 @@ function undoMove() {
   G.next = snap.next.slice(); G.hold = snap.hold; G.holdUsed = snap.holdUsed;
   G.parts.length = 0; G.rings.length = 0;
   G.cur = makePiece(snap.type);
-  G.dropTimer = 0; G.lockTimer = 0; G.dropInterval = speedMs();
+  G.dropTimer = 0; G.lockTimer = 0; G.lockResets = 0; G.dropInterval = speedMs();
   if (collide(G.cur.m, G.cur.x, G.cur.y)) {
     for (var r = 0; r < 3; r++) G.board[r] = emptyRow();
   }

@@ -2005,6 +2005,10 @@ function bind(){
       ghost(m[k]);
       move(m[k]);
     } else if (k === "z" || k === "Z" || k === "Backspace") {
+      if ($("cpSheet").classList.contains("cp-on") || $("cpPick").classList.contains("cp-on")) return;
+      if ($("cpStart").classList.contains("cp-on")) return;
+      var ae = document.activeElement;
+      if (ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA" || ae.isContentEditable)) return;
       e.preventDefault();
       undo();
     }
