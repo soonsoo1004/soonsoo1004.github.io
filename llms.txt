@@ -17,7 +17,7 @@
 
 ## 게임 놀이터 / Games
 - [AI 놀이터](https://soonsoo1004.github.io/games/): AI가 만든 무광고 HTML 게임 3종 바로 플레이. Ad-free games made with AI, playable in the browser.
-- [힐링 콤보 퍼즐](https://soonsoo1004.github.io/games/combo-puzzle.html): 4×4 머지 퍼즐, 캐릭터 36종.
+- [힐링 콤보 퍼즐](https://soonsoo1004.github.io/games/combo-puzzle.html): 6×6 매치3 퍼즐. 연쇄 콤보·줄 폭탄·무지개 별, 12간지·보석·과일 테마, 이동/시간/힐링 무한 3가지 모드.
 - [힐링 벽돌깨기 · 다크 판타지](https://soonsoo1004.github.io/games/brick-breaker.html): 석재 던전·보석 벽돌·룬 파워업·랭크가 있는 무광고 벽돌깨기.
 - [별빛 블록 드롭](https://soonsoo1004.github.io/games/starlight-block.html): 되돌리기·보관이 되는 블록 퍼즐.
 
