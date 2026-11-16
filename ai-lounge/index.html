@@ -109,8 +109,7 @@ html[data-lang="en"] .ko{display:none !important}
 .skip:focus{left:12px;top:12px;z-index:99;background:var(--accent);color:#fff;padding:8px 14px;border-radius:10px}
 
 /* header */
-.top{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 86%,transparent);
-  backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);
+.top{position:sticky;top:0;z-index:40;background:var(--bg);
   border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;height:58px}
 .brand{display:inline-flex;align-items:center;gap:9px;min-width:0}
@@ -152,7 +151,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .facts b{font-weight:750;color:var(--ink)}
 
 /* sections */
-.sec{padding:clamp(34px,6vw,60px) 0}
+.sec{padding:clamp(34px,6vw,60px) 0;scroll-margin-top:74px}
 .sec.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .shead{text-align:center;margin-bottom:clamp(20px,3vw,30px)}
 .kick2{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
