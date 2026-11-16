@@ -145,34 +145,30 @@
 .brk .brk-stageBox{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);
   background:#141110;touch-action:none;box-shadow:0 8px 20px rgba(6,10,24,.35)}
 .brk #brkCanvas{display:block;width:100%;height:auto;aspect-ratio:360 / 520;touch-action:none}
-.brk .brk-pads{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:7px;margin-top:8px}
-/* ---------- 캔버스 바로 아래: 손가락으로 미는 슬라이드 바 ---------- */
-.brk .brk-slide{margin-top:8px;padding:5px 8px 8px;border-radius:16px;
+/* ---------- 캔버스 바로 아래: 손가락으로 미는 슬라이드 바 (유일한 조작 UI) ---------- */
+.brk .brk-slide{margin-top:10px;padding:8px 11px 12px;border-radius:20px;
   background:linear-gradient(180deg,var(--panel2),var(--panel));border:1.5px solid var(--line);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 6px 16px rgba(6,10,24,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 8px 20px rgba(6,10,24,.24);
   touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab}
-.brk .brk-slide[data-on="1"]{border-color:var(--accent);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 0 2px var(--selChar),0 6px 16px rgba(6,10,24,.22);cursor:grabbing}
-.brk .brk-slideLab{display:flex;align-items:center;gap:6px;font-size:.62em;font-weight:800;color:var(--dim);line-height:1.25}
-.brk .brk-slideLab>span:first-child,.brk .brk-slideLab>span:last-child{flex:none;color:var(--accent);font-size:.95em}
+.brk .brk-slide[data-on="1"]{border-color:var(--accent);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 0 2px var(--selChar),0 8px 20px rgba(6,10,24,.24);cursor:grabbing}
+.brk .brk-slideLab{display:flex;align-items:center;gap:8px;font-size:.68em;font-weight:800;color:var(--dim);line-height:1.3;
+  margin-bottom:1px;pointer-events:none}
+.brk .brk-slideLab>span:first-child,.brk .brk-slideLab>span:last-child{flex:none;color:var(--accent);font-size:1.05em}
 .brk .brk-slideHint{flex:1;min-width:0;text-align:center;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brk .brk-slideTrack{position:relative;height:26px;margin-top:5px;border-radius:999px;
-  background:var(--soft);border:1px solid var(--line);box-shadow:inset 0 2px 6px rgba(0,0,0,.30)}
-.brk .brk-slideTrack::before{content:"";position:absolute;left:18px;right:18px;top:50%;height:2px;margin-top:-1px;border-radius:2px;
-  background:repeating-linear-gradient(90deg,var(--dim) 0 6px,transparent 6px 12px);opacity:.32;pointer-events:none}
-.brk .brk-slideThumb{position:absolute;left:0;top:50%;width:44px;height:22px;margin-top:-11px;border-radius:999px;
-  display:flex;align-items:center;justify-content:center;gap:2.5px;pointer-events:none;will-change:transform;
+.brk .brk-slideTrack{position:relative;height:38px;margin-top:7px;border-radius:999px;
+  background:var(--soft);border:1px solid var(--line);box-shadow:inset 0 2px 7px rgba(0,0,0,.32)}
+.brk .brk-slideTrack::before{content:"";position:absolute;left:26px;right:26px;top:50%;height:2px;margin-top:-1px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--dim) 0 7px,transparent 7px 14px);opacity:.30;pointer-events:none}
+.brk .brk-slideThumb{position:absolute;left:0;top:50%;width:60px;height:34px;margin-top:-17px;border-radius:999px;
+  display:flex;align-items:center;justify-content:center;gap:3.5px;pointer-events:none;will-change:transform;
   background:linear-gradient(180deg,#ffffff,#c3cee4);border:1px solid rgba(0,0,0,.20);
-  box-shadow:0 2px 6px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.95)}
-.brk .brk-slideThumb i{display:block;width:2px;height:9px;border-radius:2px;background:rgba(44,60,96,.42)}
+  box-shadow:0 3px 8px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.95)}
+.brk .brk-slideThumb i{display:block;width:2.6px;height:14px;border-radius:2px;background:rgba(44,60,96,.42)}
 @media (max-width:340px){
-  .brk .brk-slideLab{font-size:.58em}
-  .brk .brk-slideTrack{height:24px}
+  .brk .brk-slideLab{font-size:.62em}
+  .brk .brk-slideTrack{height:34px}
+  .brk .brk-slideThumb{width:54px;height:30px;margin-top:-15px}
 }
-.brk .brk-pad,.brk .brk-launch{height:54px;border-radius:15px;font-weight:800;font-size:1.05em;display:flex;align-items:center;justify-content:center;
-  background:var(--soft);border:1px solid var(--line);color:var(--fg)}
-.brk .brk-launch{font-size:.86em;color:#1d2a48;background:linear-gradient(155deg,#ffe1a6,#ffd479);border-color:transparent}
-.brk[data-bright="light"] .brk-launch{color:#5a3f06;background:linear-gradient(155deg,#ffe6b4,#f5c85c)}
-.brk .brk-pad:active,.brk .brk-launch:active{filter:brightness(1.1)}
 .brk .brk-powerRow{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px;min-height:18px}
 .brk .brk-powerTag{font-size:.62em;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--panel2);border:1px solid var(--line);color:var(--fg)}
 .brk .brk-tip{font-size:.6em;color:var(--dim);text-align:center;margin-top:6px;line-height:1.5}
@@ -225,10 +221,10 @@
   .brk .brk-title{font-size:1em}
   .brk .brk-stat em{font-size:.86em}
 }
-/* 짧은 화면(가로 640 이하 등): 캔버스만 살짝 줄여 슬라이드 바·버튼이 첫 화면에 들어오게 */
-@media (max-height:720px){
+/* 짧은 화면(높이 760 이하 등): 캔버스만 살짝 줄여 게임판·슬라이드 바가 첫 화면에 들어오게 */
+@media (max-height:760px){
   .brk .brk-stageBox{display:flex;align-items:center;justify-content:center}
-  .brk #brkCanvas{width:auto;height:auto;max-height:calc(100vh - 250px);max-height:calc(100svh - 250px)}
+  .brk #brkCanvas{width:auto;height:auto;max-height:calc(100vh - 196px);max-height:calc(100svh - 196px)}
 }
 </style>
 </head>
@@ -335,11 +331,6 @@
         <span class="brk-slideThumb" id="brkSlideThumb"><i></i><i></i><i></i></span>
       </div>
     </div>
-    <div class="brk-pads">
-      <button class="brk-pad" id="brkLeft" aria-label="왼쪽" data-i18n-aria="leftAria">◀</button>
-      <button class="brk-launch" id="brkLaunch" data-i18n="launch">발사</button>
-      <button class="brk-pad" id="brkRight" aria-label="오른쪽" data-i18n-aria="rightAria">▶</button>
-    </div>
     <div class="brk-powerRow" id="brkPowerRow"></div>
     <div class="brk-legend" id="brkLegend"></div>
     <p class="brk-tip" data-i18n="tip">아래 슬라이드 바를 엄지로 좌우로 밀거나, 화면을 드래그하거나, ◀ ▶ 버튼·키보드 ← →로 움직이세요. 화면을 탭하면 발사돼요.</p>
@@ -442,15 +433,15 @@ var I18N = {
     themeDark: "다크 모드",
     themeLight: "라이트 모드",
     start: "시작하기",
-    how: "드래그하거나 하단 슬라이드 바·좌우 버튼·키보드로 패들을 움직이고, 화면을 눌러 공을 쏘세요. 벽돌을 다 깨면 다음 스테이지가 열립니다.",
+    how: "아래 슬라이드 바나 화면을 좌우로 밀어 패들을 옮기고, 화면을 탭하면 공이 발사됩니다. 벽돌을 다 깨면 다음 스테이지가 열립니다.",
     foot: "광고·결제·외부 요청 0건 · 기록은 이 기기에만",
     stage: "스테이지",
     score: "점수",
     combo: "콤보",
     launch: "발사",
     launchHint: "탭해서 발사",
-    tip: "아래 슬라이드 바를 엄지로 좌우로 밀거나, 화면을 드래그하거나, ◀ ▶ 버튼·키보드 ← →로 움직이세요. 화면을 탭하면 발사돼요.",
-    slideHint: "손가락으로 좌우 밀기 (터치·드래그 가능)",
+    tip: "화면을 탭해 발사 · 아래 슬라이드 바 또는 화면을 좌우로 밀어 이동",
+    slideHint: "손가락으로 좌우로 밀기 (탭하면 발사)",
     slideAria: "좌우로 밀어서 패들 움직이기",
     paused: "잠깐 쉬는 중",
     pausedSub: "공도 벽돌도 그대로 멈춰 있습니다. 급하면 그냥 나가도 점수는 남아요.",
@@ -529,15 +520,15 @@ var I18N = {
     themeDark: "Dark mode",
     themeLight: "Light mode",
     start: "Start",
-    how: "Drag, use the slide bar or arrow buttons at the bottom, or your keyboard, and tap to launch. Clear every brick to open the next stage.",
+    how: "Slide the bar under the board or drag the screen to move the paddle, and tap to launch. Clear every brick to open the next stage.",
     foot: "0 ads · 0 payments · 0 external requests · saved on this device only",
     stage: "Stage",
     score: "Score",
     combo: "Combo",
     launch: "Launch",
     launchHint: "Tap to launch",
-    tip: "Slide the bar under the board with your thumb, drag the screen, or use ◀ ▶ / ← → keys. Tap to launch.",
-    slideHint: "Slide left/right with your thumb (touch & drag)",
+    tip: "Tap the screen to launch · slide the bar below or swipe the screen to move",
+    slideHint: "Slide left / right (tap to launch)",
     slideAria: "Slide to move the paddle",
     paused: "Taking a break",
     pausedSub: "The ball and bricks are frozen right here. Leaving still keeps your score.",
@@ -889,7 +880,8 @@ var G = {
   paddle:{x:W/2, tx:W/2, w:PAD_W},
   launched:false, overlay:null, destroyed:0, sinceDrop:0, continues:0, sinceHit:0,
   wideT:0, pierceT:0, slowT:0, left:false, right:false, pointer:false,
-  lastPowerSig:"", hits:0, paddleHits:0, drawPaused:false
+  lastPowerSig:"", hits:0, paddleHits:0, drawPaused:false,
+  layout:"arch", intro:null
 };
 var brickGrads = {}, bgCache = null, stars = [];
 /* 떨어지는 파워업 4종 — 색 + 심볼 + 짧은 표기 */
@@ -923,6 +915,17 @@ function brickPalette(){
   /* night: 컬러 글래스 블록 몸통 색 (선명한 파스텔·네온) */
   return ["#4cc9f0","#9b8cff","#ffc857","#ff8fab","#4ade9b","#ffe066","#7aa7ff","#d59bff"];
 }
+/* 스테이지마다 같은 테마 안에서도 색이 한 바퀴씩 돌아간다 — 매 판 다른 무지개 */
+var stagePalCache = {};
+function stagePalette(stage){
+  var st = stage || 1;
+  var key = S.theme + "|" + st;
+  if(stagePalCache[key]) return stagePalCache[key];
+  var base = brickPalette(), off = (st - 1) % base.length, out = [];
+  for(var i = 0; i < base.length; i++) out.push(base[(i + off) % base.length]);
+  stagePalCache[key] = out;
+  return out;
+}
 function shade(hex, f){
   var n = parseInt(hex.slice(1), 16);
   var r = Math.min(255, Math.round(((n >> 16) & 255) * f));
@@ -931,37 +934,160 @@ function shade(hex, f){
   return "rgb(" + r + "," + g + "," + b + ")";
 }
 
-/* ================= stage ================= */
-function makeBrick(col, row, hp){
-  var pal = brickPalette();
+/* ================= stage =================
+   스테이지 배치 12종 — 모두 좌우 대칭. stage 1~5는 고정, 6부터는 순환 확장.
+   cell(c, r, rows) 는 벽돌 내구도(0 = 벽돌 없음)를 돌려준다. */
+var CX = 3, MAX_ROWS = 8;
+function lpArch(c, r, rs){
+  var mx = 3 - Math.max(0, r - (rs - 3));
+  if(mx < 0) mx = 0;
+  return Math.abs(c - CX) <= mx ? 1 : 0;
+}
+function lpDiamond(c, r, rs){
+  var d = Math.abs(c - CX), v = Math.abs(r - (rs - 1) / 2);
+  var edge = 3 - v;
+  if(d > edge) return 0;
+  return (d === Math.floor(edge)) ? 2 : 1;
+}
+function lpVwave(c, r, rs){
+  var d = Math.abs(c - CX);
+  var band = (d + r) % 4;
+  if(band === 3) return 0;
+  return (band === 0) ? 2 : 1;
+}
+function lpFortress(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(r > 5) return (d === 0 && r === 6) ? 3 : 0;
+  if(d === 3) return (r === 0) ? 2 : 1;
+  if(d === 2) return (r === 0) ? 0 : (r <= 1 ? 2 : 1);
+  if(d === 1 && r >= 3) return 2;
+  if(d === 0 && r >= 4) return 3;
+  return 0;
+}
+function lpStar(c, r, rs){
+  var d = Math.abs(c - CX), v = Math.abs(r - (rs - 1) / 2);
+  if(d === 0 && v <= 0.5) return 3;
+  if(d <= 1 || v <= 0.5) return 2;
+  if(Math.abs(d - v) < 1 && d <= 2) return 1;
+  return 0;
+}
+function lpArmor(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(d === 3 && r % 3 === 2) return 0;
+  if(d === 0 && r % 2 === 1) return 3;
+  if(d === 3 || r === 0) return 2;
+  return 1;
+}
+function lpCrown(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(r >= rs - 2) return 1;
+  if(r === rs - 3) return (d === 3) ? 2 : 1;
+  if(r === rs - 4) return (d <= 2) ? 1 : 0;
+  if(d === 0) return 3;
+  if(d === 2) return 2;
+  return 0;
+}
+function lpMaze(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(r % 2 === 0){
+    if(r % 4 === 0) return (d === 0) ? 0 : ((d === 3) ? 2 : 1);
+    return (d === 3) ? 0 : ((d === 0) ? 2 : 1);
+  }
+  return (r % 4 === 1) ? ((d === 3) ? 2 : 0) : ((d === 0) ? 2 : 0);
+}
+function lpLattice(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(((d * 2 + r) % 4) === 3) return 0;
+  if(d === 0) return 2;
+  if(d === 3) return 2;
+  return 1;
+}
+function lpHourglass(c, r, rs){
+  var d = Math.abs(c - CX), v = Math.abs(r - (rs - 1) / 2);
+  if(v <= 0.55) return (d <= 1) ? (d === 0 ? 2 : 1) : 0;
+  if(v <= 1.3) return (d <= 2) ? 1 : 0;
+  return (d === 3) ? 2 : 1;
+}
+function lpButterfly(c, r, rs){
+  var d = Math.abs(c - CX), v = Math.abs(r - (rs - 1) / 2);
+  if(d === 0) return (v <= 1.5) ? 3 : 0;
+  if(v > 2.5) return (d === 3) ? 1 : 0;
+  if(d === 1 && v <= 0.5) return 0;
+  if(d === 1) return 1;
+  return 2;
+}
+function lpCheck(c, r, rs){
+  var d = Math.abs(c - CX);
+  if(((r + d) % 2) === 1) return 0;
+  return (((r + d) % 4) === 0) ? 2 : 1;
+}
+var LAYOUTS = [
+  {id:"arch",      ko:"무지개 아치",  en:"Rainbow arch",  rows:5, cell:lpArch},
+  {id:"diamond",   ko:"다이아몬드",    en:"Diamond",       rows:7, cell:lpDiamond},
+  {id:"vwave",     ko:"V자 웨이브",   en:"V wave",        rows:6, cell:lpVwave},
+  {id:"fortress",  ko:"쌍둥이 성채",  en:"Twin fortress", rows:7, cell:lpFortress},
+  {id:"star",      ko:"별빛 크로스",  en:"Star cross",    rows:7, cell:lpStar},
+  {id:"armor",     ko:"아머드 월",     en:"Armored wall",  rows:8, cell:lpArmor},
+  {id:"crown",     ko:"황금 왕관",    en:"Golden crown",  rows:7, cell:lpCrown},
+  {id:"maze",      ko:"미로 성벽",    en:"Maze wall",     rows:8, cell:lpMaze},
+  {id:"lattice",   ko:"격자 창틀",    en:"Lattice",       rows:7, cell:lpLattice},
+  {id:"hourglass", ko:"모래시계",     en:"Hourglass",     rows:7, cell:lpHourglass},
+  {id:"butterfly", ko:"나비 날개",    en:"Butterfly",     rows:7, cell:lpButterfly},
+  {id:"checker",   ko:"네온 체커",    en:"Neon checker",   rows:8, cell:lpCheck}
+];
+function layoutFor(stage){
+  if(stage <= 5) return LAYOUTS[Math.max(0, stage - 1)];
+  var k = 5 + ((stage - 6) % (LAYOUTS.length - 5));
+  return LAYOUTS[k];
+}
+function layoutName(lay){ return lay[S.lang === "en" ? "en" : "ko"]; }
+/* 스테이지가 오를수록 네온 번짐 단계가 올라간다 (0~3) */
+function stageGlow(stage){ return Math.min(3, Math.floor(((stage || 1) - 1) / 3)); }
+function rowsFor(lay, stage){
+  return Math.min(MAX_ROWS, lay.rows + Math.floor(((stage || 1) - 1) / 6));
+}
+function boostHp(hp, c, r, rows, stage){
+  var d = Math.abs(c - CX);
+  if(stage >= 3 && hp === 1 && d === 3 && r === 0) hp = 2;
+  if(stage >= 6 && hp === 2 && ((r + d * 2) % 5) === 0) hp = 3;
+  if(stage >= 9 && hp === 1 && (r % 4 === 0) && d <= 1) hp = 2;
+  return hp;
+}
+function makeBrick(col, row, hp, pal, glow){
+  var p = pal || stagePalette(G.stage || 1);
   return {
     x: SIDE + col * (BW + GAP),
     y: BTOP + row * (BH + BGAP),
     w: BW, h: BH,
-    hp: hp, maxHp: hp, alive: true, flash: 0,
-    color: pal[row % pal.length]
+    hp: hp, maxHp: hp, alive: true, flash: 0, col: col, row: row,
+    color: p[row % p.length],
+    glow: (typeof glow === "number") ? glow : stageGlow(G.stage || 1)
   };
 }
 function buildBricks(stage){
-  var rows = Math.min(4 + Math.floor((stage - 1) / 2), 8);
-  var pat = (stage - 1) % 5;
+  var st = stage || 1;
+  var lay = layoutFor(st);
+  var rows = rowsFor(lay, st);
+  var pal = stagePalette(st);
+  var glow = stageGlow(st);
   var list = [];
   for(var r = 0; r < rows; r++){
     for(var c = 0; c < COLS; c++){
-      var on = true;
-      if(pat === 1) on = (r + c) % 2 === 0;
-      else if(pat === 2) on = c >= Math.floor(r / 2) && c <= COLS - 1 - Math.floor(r / 2);
-      else if(pat === 3) on = !(c === 2 || c === 4) || r % 2 === 1;
-      else if(pat === 4) on = ((c + (r % 2) * 2) % 4) !== 3;
-      if(!on) continue;
-      var hp = 1;
-      if(stage >= 2 && r === 0) hp = 2;
-      if(stage >= 4 && r <= 1) hp = 2;
-      if(stage >= 7 && r === 2 && (c % 3 === 0)) hp = 3;
-      list.push(makeBrick(c, r, hp));
+      var hp = lay.cell(c, r, rows);
+      if(!hp) continue;
+      list.push(makeBrick(c, r, boostHp(hp, c, r, rows, st), pal, glow));
     }
   }
-  if(!list.length) list.push(makeBrick(3, 0, 1));
+  if(!list.length) list.push(makeBrick(CX, 0, 1, pal, glow));
+  if(st >= 4){
+    var has3 = false, core = null;
+    for(var i = 0; i < list.length; i++){
+      if(list[i].maxHp >= 3) has3 = true;
+      /* 대칭을 깨지 않도록 금테 코어는 늘 중심 기둥 벽돌에 준다 */
+      if(list[i].col === CX && (!core || list[i].row < core.row)) core = list[i];
+    }
+    if(!has3 && core){ core.hp = 3; core.maxHp = 3; }
+  }
   return list;
 }
 function speedFor(stage){ return Math.min(298 + (stage - 1) * 14, 430); }
@@ -984,9 +1110,12 @@ function launchBall(){
 }
 function buildStage(n){
   G.stage = n;
+  var lay = layoutFor(n);
+  G.layout = lay.id;
   G.bricks = buildBricks(n);
   G.pups = []; G.parts = []; G.floats = [];
   clearFx();
+  G.intro = {t:0, max:1.8, n:n, name:layoutName(lay), glow:stageGlow(n)};
   G.paddle.w = PAD_W;
   G.wideT = 0; G.pierceT = 0; G.slowT = 0;
   G.combo = 0; G.comboT = 0;
@@ -1128,7 +1257,7 @@ function hitBrick(br, ball){
     G.score += 6 * mult;
     sBrickSoft();
     pushFloat(br.x + br.w / 2, br.y + br.h / 2, "+" + (6 * mult), "#ffffff");
-    addSparks(br.x + br.w / 2, br.y + br.h / 2, "#ffffff", 3, 150);
+    addSparks(br.x + br.w / 2, br.y + br.h / 2, "#ffffff", 3 + Math.min(3, br.glow || 0), 150 + (br.glow || 0) * 26);
     addRing(br.x + br.w / 2, br.y + br.h / 2, 2, 16, 0.20, "rgba(255,255,255,.9)", 1.6);
   }else{
     br.alive = false;
@@ -1294,6 +1423,7 @@ function retryBall(){
 /* ================= loop ================= */
 function update(dt){
   var P = G.paddle;
+  if(G.intro){ G.intro.t += dt; if(G.intro.t >= G.intro.max) G.intro = null; }
   if(G.wideT > 0){
     G.wideT -= dt;
     if(G.wideT <= 0){ G.wideT = 0; P.w = PAD_W; P.tx = Math.max(P.w / 2, Math.min(W - P.w / 2, P.tx)); }
@@ -1515,7 +1645,29 @@ function drawPup(pu){
    배경 1장·벽돌 1장을 오프스크린 캔버스에 한 번만 그려 두고 매 프레임은 이미지 1장만
    그립니다. 그림자·필터·DOM 갱신은 늘지 않으므로 터치 반응은 최초 버전 그대로입니다. */
 var brickSprites = {}, BRICK_PAD = 6, stoneBG = null, stoneBGKey = "";
+var auraCache = {};
 function stoneMode(){ return S.theme === "night"; }
+/* 스테이지 빛무리 — 테마·팔레트·번짐 단계마다 1장만 구워 두고 매 프레임 drawImage 1번 */
+function auraCanvas(){
+  var accent = stagePalette(G.stage || 1)[0];
+  var tier = stageGlow(G.stage || 1);
+  var key = S.theme + "|" + accent + "|" + tier + "|" + cv.width;
+  if(auraCache[key]) return auraCache[key];
+  var aw = W, ah = 320, dpr = cv.width / W;
+  var c = document.createElement("canvas");
+  c.width = Math.max(1, Math.round(aw * dpr));
+  c.height = Math.max(1, Math.round(ah * dpr));
+  var g = c.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  var cy = 132, rad = g.createRadialGradient(W / 2, cy, 6, W / 2, cy, 176 + tier * 20);
+  rad.addColorStop(0, hexA(accent, 0.16 + tier * 0.045));
+  rad.addColorStop(0.52, hexA(accent, 0.05 + tier * 0.02));
+  rad.addColorStop(1, hexA(accent, 0));
+  g.fillStyle = rad;
+  g.fillRect(0, 0, aw, ah);
+  auraCache[key] = c;
+  return c;
+}
 function rrPathOn(g, x, y, w, h, r){
   var rad = Math.min(r, w / 2, h / 2);
   g.beginPath();
@@ -1532,7 +1684,9 @@ function rrPathOn(g, x, y, w, h, r){
 }
 function stoneBgCanvas(){
   var dpr = cv.width / W;
-  var key = dpr + "|" + W + "x" + H;
+  var accent = stagePalette(G.stage || 1)[0];
+  var tier = stageGlow(G.stage || 1);
+  var key = dpr + "|" + W + "x" + H + "|" + accent + "|" + tier;
   if(stoneBG && stoneBGKey === key) return stoneBG;
   var c = document.createElement("canvas");
   c.width = Math.max(1, Math.round(W * dpr));
@@ -1566,10 +1720,10 @@ function stoneBgCanvas(){
       g.stroke();
     }
   }
-  /* 은은한 금빛 먼지 */
-  for(var i = 0; i < 22; i++){
+  /* 은은한 빛 먼지 — 스테이지 팔레트 색으로 바뀐다 */
+  for(var i = 0; i < 22 + tier * 5; i++){
     g.globalAlpha = 0.10 + Math.random() * 0.14;
-    g.fillStyle = "#ffd8a0";
+    g.fillStyle = accent;
     g.beginPath();
     g.arc(Math.random() * W, Math.random() * H * 0.85, 0.5 + Math.random() * 1.3, 0, 6.2832);
     g.fill();
@@ -1589,10 +1743,11 @@ function stoneBgCanvas(){
    색·내구도 조합마다 오프스크린 캔버스에 한 번만 구워 두고, 그리는 순간에는
    이미지 1장(drawImage)만 붙입니다. 그림자·그라디언트·글자 측정은 캐시 안에서만
    일어나므로 프레임 비용은 최초 버전과 같은 수준입니다. */
-function brickSprite(color, hp, maxHp){
+function brickSprite(color, hp, maxHp, glow){
   var dpr = cv.width / W;
   var lightOn = isLight();
-  var key = color + "|" + hp + "|" + maxHp + "|" + dpr + "|" + (lightOn ? "L" : "D");
+  var gl = glow || 0;
+  var key = color + "|" + hp + "|" + maxHp + "|" + dpr + "|" + (lightOn ? "L" : "D") + "|" + gl;
   if(brickSprites[key]) return brickSprites[key];
   var w = BW, h = BH, rad = 6.5, PAD = BRICK_PAD;
   var c = document.createElement("canvas");
@@ -1601,19 +1756,19 @@ function brickSprite(color, hp, maxHp){
   var g = c.getContext("2d");
   g.setTransform(dpr, 0, 0, dpr, 0, 0);
   var x = PAD, y = PAD;
-  /* 1) 블록 뒤 네온 번짐 (캔버스 여백 안쪽) */
+  /* 1) 블록 뒤 네온 번짐 (스테이지가 오를수록 더 밝고 넓게, 캔버스 여백 안쪽) */
   g.save();
-  g.shadowColor = hexA(color, lightOn ? 0.34 : 0.62);
-  g.shadowBlur = 4;
+  g.shadowColor = hexA(color, Math.min(0.95, (lightOn ? 0.30 : 0.52) + gl * 0.13));
+  g.shadowBlur = 3.5 + gl * 2.8;
   rrPathOn(g, x + 0.8, y + 0.8, w - 1.6, h - 1.6, rad);
-  g.fillStyle = shade(color, 0.68);
+  g.fillStyle = shade(color, 0.68 - gl * 0.03);
   g.fill();
   g.restore();
   /* 2) 유리 몸통: 위는 밝게, 아래는 진하게 */
   var body = g.createLinearGradient(0, y, 0, y + h);
-  body.addColorStop(0, shade(color, 1.34));
-  body.addColorStop(0.34, shade(color, 1.00));
-  body.addColorStop(1, shade(color, 0.64));
+  body.addColorStop(0, shade(color, 1.30 + gl * 0.06));
+  body.addColorStop(0.34, shade(color, 1.00 + gl * 0.04));
+  body.addColorStop(1, shade(color, 0.64 - gl * 0.02));
   rrPathOn(g, x, y, w, h, rad);
   g.fillStyle = body;
   g.fill();
@@ -1674,6 +1829,24 @@ function brickSprite(color, hp, maxHp){
       g.lineTo(x + w * 0.40, y + h * 0.52);
       g.lineTo(x + w * 0.34, y + h * 0.80);
       g.stroke();
+    }
+    /* 내구도 3: 좌우 다이아 엣지 */
+    if(maxHp >= 3){
+      var dx = x + 5.2, dy = y + h / 2;
+      for(var side = 0; side < 2; side++){
+        var cxp = side === 0 ? dx : x + w - 5.2;
+        g.beginPath();
+        g.moveTo(cxp, dy - 3.1);
+        g.lineTo(cxp + 2.6, dy);
+        g.lineTo(cxp, dy + 3.1);
+        g.lineTo(cxp - 2.6, dy);
+        g.closePath();
+        g.fillStyle = fresh ? "rgba(255,246,214,.92)" : "rgba(255,246,214,.40)";
+        g.fill();
+        g.strokeStyle = "rgba(255,206,110,.85)";
+        g.lineWidth = 0.7;
+        g.stroke();
+      }
     }
     /* +1 / +2 배지 */
     var label = "+" + (maxHp - 1);
@@ -1755,6 +1928,15 @@ function draw(){
   ctx.stroke();
   }
 
+  /* 스테이지 빛무리 (미리 구운 1장) — 위로 올라갈수록 넓고 진해진다 */
+  if(G.running){
+    ctx.save();
+    if(!isLight()) ctx.globalCompositeOperation = "lighter";
+    ctx.globalAlpha = isLight() ? 0.5 : 0.85;
+    ctx.drawImage(auraCanvas(), 0, 0, W, 320);
+    ctx.restore();
+  }
+
   var shx = 0, shy = 0;
   if(G.shake > 0){
     shx = (Math.random() - 0.5) * 2 * G.shake;
@@ -1767,7 +1949,7 @@ function draw(){
     var b = G.bricks[i];
     if(!b.alive) continue;
     /* 컬러 글래스 블록: 캐시된 그림 1장만 붙임 (테마 공통) */
-    ctx.drawImage(brickSprite(b.color, b.hp, b.maxHp),
+    ctx.drawImage(brickSprite(b.color, b.hp, b.maxHp, b.glow),
       b.x - BRICK_PAD, b.y - BRICK_PAD, BW + BRICK_PAD * 2, BH + BRICK_PAD * 2);
     if(b.flash > 0){
       ctx.save();
@@ -2027,6 +2209,40 @@ function draw(){
     ctx.textAlign = "center";
     ctx.fillText(t("launchHint"), W / 2, PAD_Y - 62);
   }
+
+  /* ---------- 스테이지 시작 배너: "스테이지 N · 배치 이름" ---------- */
+  if(G.intro && !G.overlay){
+    var it = G.intro, ik = it.t / it.max;
+    var ia = ik < 0.14 ? ik / 0.14 : (ik > 0.70 ? Math.max(0, 1 - (ik - 0.70) / 0.30) : 1);
+    var iy = 300 - ik * 12;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, ia);
+    ctx.textAlign = "center";
+    var glowR = 54 + it.glow * 10;
+    var ig = ctx.createRadialGradient(W / 2, iy - 4, 4, W / 2, iy - 4, glowR);
+    ig.addColorStop(0, isLight() ? "rgba(255,255,255,.55)" : "rgba(255,214,120,.26)");
+    ig.addColorStop(1, isLight() ? "rgba(255,255,255,0)" : "rgba(255,214,120,0)");
+    ctx.fillStyle = ig;
+    ctx.beginPath();
+    ctx.arc(W / 2, iy - 4, glowR, 0, 6.2832);
+    ctx.fill();
+    ctx.font = "900 19px system-ui, sans-serif";
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = isLight() ? "rgba(255,255,255,.9)" : "rgba(14,20,40,.5)";
+    ctx.strokeText(fmt(t("stageStart"), {n: it.n}), W / 2, iy);
+    var igt = ctx.createLinearGradient(0, iy - 16, 0, iy + 4);
+    if(isLight()){
+      igt.addColorStop(0, "#e0a03a"); igt.addColorStop(1, "#b4611f");
+    }else{
+      igt.addColorStop(0, "#fff6dc"); igt.addColorStop(0.6, "#ffd479"); igt.addColorStop(1, "#ffa6c9");
+    }
+    ctx.fillStyle = igt;
+    ctx.fillText(fmt(t("stageStart"), {n: it.n}), W / 2, iy);
+    ctx.font = "800 12.5px system-ui, sans-serif";
+    ctx.fillStyle = isLight() ? "rgba(64,52,39,.85)" : "rgba(234,240,255,.92)";
+    ctx.fillText(it.name, W / 2, iy + 20);
+    ctx.restore();
+  }
   ctx.restore();
 
   if(G.flash > 0){
@@ -2246,6 +2462,8 @@ function applyTheme(){
   bgCache = null;
   stoneBG = null;
   stoneBGKey = "";
+  auraCache = {};
+  stagePalCache = {};
   renderThemes();
   syncThemePressed();
 }
@@ -2495,21 +2713,19 @@ function hold(btn, on){
   btn.addEventListener("pointercancel", function(){ on(false); });
   btn.addEventListener("pointerleave", function(){ on(false); });
 }
-hold(document.getElementById("brkLeft"), function(v){ G.left = v; });
-hold(document.getElementById("brkRight"), function(v){ G.right = v; });
 
-/* ---------- 하단 손가락 슬라이드 바 (캔버스 바로 아래) ----------
-   손가락이 닿은 곳 = 패들 위치로 지연 없이 1:1 이동.
-   기존 캔버스 드래그·◀ 발사 ▶ 버튼은 그대로 둔다. */
+/* ---------- 하단 손가락 슬라이드 바 (캔버스 바로 아래) — 유일한 조작 UI ----------
+   손가락이 닿은 곳 = 패들 위치로 지연 없이 1:1 이동. 탭하면 바로 발사. */
 var slideEl = document.getElementById("brkSlide");
 var slideTrack = document.getElementById("brkSlideTrack");
 var slideThumb = document.getElementById("brkSlideThumb");
-var SLIDE_KNOB = 44, slideTravel = 0, slideDrag = false, slideTPrev = -9, slidePct = -1;
-function slideGeom(){ slideTravel = Math.max(0, slideTrack.getBoundingClientRect().width - SLIDE_KNOB); return slideTravel; }
+var SLIDE_KNOB = 60, slideTravel = 0, slideDrag = false, slideTPrev = -9, slidePct = -1;
+function slideKnob(){ return slideThumb.offsetWidth || SLIDE_KNOB; }
+function slideGeom(){ slideTravel = Math.max(0, slideTrack.getBoundingClientRect().width - slideKnob()); return slideTravel; }
 function slideMove(clientX){
-  var r = slideTrack.getBoundingClientRect();
+  var r = slideTrack.getBoundingClientRect(), knob = slideKnob();
   if(!r.width) return;
-  var t = (clientX - r.left - SLIDE_KNOB / 2) / Math.max(1, r.width - SLIDE_KNOB);
+  var t = (clientX - r.left - knob / 2) / Math.max(1, r.width - knob);
   t = Math.max(0, Math.min(1, t));
   var half = G.paddle.w / 2;
   G.paddle.tx = half + t * (W - G.paddle.w);
@@ -2532,6 +2748,7 @@ slideEl.addEventListener("pointerdown", function(e){
   slideEl.setAttribute("data-on", "1");
   try{ slideEl.setPointerCapture(e.pointerId); }catch(err){}
   slideMove(e.clientX);
+  if(!G.launched) launchBall();
   if(e.cancelable) e.preventDefault();
 });
 slideEl.addEventListener("pointermove", function(e){
@@ -2544,10 +2761,6 @@ slideEl.addEventListener("pointerup", endSlide);
 slideEl.addEventListener("pointercancel", endSlide);
 slideEl.addEventListener("pointerleave", endSlide);
 slideEl.addEventListener("touchstart", function(e){ if(e.cancelable) e.preventDefault(); }, {passive:false});
-
-document.getElementById("brkLaunch").addEventListener("click", function(){
-  if(G.running && !G.overlay && !G.launched) launchBall();
-});
 
 document.addEventListener("keydown", function(e){
   if(!G.running) return;
@@ -2670,6 +2883,8 @@ function fitCanvas(){
   stoneBG = null;
   stoneBGKey = "";
   brickSprites = {};
+  auraCache = {};
+  stagePalCache = {};
   draw();
 }
 
@@ -2693,7 +2908,7 @@ if(TEST){
         stage: G.stage, score: G.score, combo: G.combo, mult: multOf(),
         balls: G.balls.length, bricks: aliveCount(), pups: G.pups.length,
         paddleX: Math.round(G.paddle.x * 100) / 100, paddleW: G.paddle.w,
-        launched: G.launched, overlay: G.overlay,
+        launched: G.launched, overlay: G.overlay, layout: G.layout,
         power: {wide:Math.round(G.wideT * 10) / 10, pierce:Math.round(G.pierceT * 10) / 10, slow:Math.round(G.slowT * 10) / 10},
         particles: G.parts.length, sinceHit: Math.round(G.sinceHit * 10) / 10,
         rings: G.rings.length, sparks: G.sparks.length,
@@ -2881,7 +3096,47 @@ if(TEST){
     stageBox: function(){
       var r = document.getElementById("brkStageWrap").getBoundingClientRect();
       return {x:r.x, y:r.y, w:r.width, h:r.height};
-    }
+    },
+    /* --- 64번 스테이지 다변화 검증용 --- */
+    setStage: function(n){
+      buildStage(n);
+      draw();
+      return {
+        stage: G.stage, layout: G.layout,
+        name: layoutName(layoutFor(n)), bricks: aliveCount(),
+        glow: stageGlow(n), rows: rowsFor(layoutFor(n), n)
+      };
+    },
+    grid: function(){
+      var rows = 0, i;
+      for(i = 0; i < G.bricks.length; i++){ rows = Math.max(rows, Math.round((G.bricks[i].y - BTOP) / (BH + BGAP)) + 1); }
+      var out = [];
+      for(var r = 0; r < rows; r++){
+        var line = [];
+        for(var c = 0; c < COLS; c++){
+          var found = "·";
+          for(i = 0; i < G.bricks.length; i++){
+            var br = G.bricks[i];
+            var bc = Math.round((br.x - SIDE) / (BW + GAP));
+            var brr = Math.round((br.y - BTOP) / (BH + BGAP));
+            if(bc === c && brr === r){ found = String(br.maxHp); }
+          }
+          line.push(found);
+        }
+        out.push(line.join(""));
+      }
+      return out;
+    },
+    layoutName: function(){ return layoutName(layoutFor(G.stage)); },
+    slideBar: function(){
+      var el = document.getElementById("brkSlide");
+      if(!el) return null;
+      var r = el.getBoundingClientRect();
+      var tr = document.getElementById("brkSlideTrack").getBoundingClientRect();
+      var th = document.getElementById("brkSlideThumb").getBoundingClientRect();
+      return {x:r.x, y:r.y, w:r.width, h:r.height, track:{x:tr.x, w:tr.width, h:tr.height}, thumb:{x:th.x, w:th.width, h:th.height}};
+    },
+    hasPads: function(){ return !!document.getElementById("brkLeft") || !!document.getElementById("brkLaunch") || !!document.getElementById("brkRight") || !!document.querySelector("#brkGame .brk-pads"); }
   };
 }
 })();
