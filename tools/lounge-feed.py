@@ -12,7 +12,7 @@ import urllib.request
 
 OWNER = "soonsoo1004"
 REPO = "soonsoo1004.github.io"
-LIMIT = 12
+LIMIT = 20
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ai-lounge", "latest.json")
 
 QUERY = """
