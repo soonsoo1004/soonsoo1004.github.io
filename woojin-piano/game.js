@@ -1196,9 +1196,9 @@
     ctx.translate(x, y);
     if (G.fallT > 0) {
       var ft = 1 - clamp(G.fallT, 0, 1);
-      ctx.rotate(ft * 0.9);
-      ctx.globalAlpha = clamp(1 - ft * 0.85, 0, 1);
-      ctx.translate(0, ft * 150);
+      ctx.rotate(ft * 0.55);
+      ctx.globalAlpha = clamp(1 - ft * 0.3, 0.66, 1);
+      ctx.translate(0, ft * 62);
     }
     var bob = G.mode === 'playing' ? Math.sin(now * 0.006) * 1.6 * s : Math.sin(now * 0.0035) * 3;
     ctx.translate(0, bob);
@@ -1475,7 +1475,7 @@
       for (k = Math.max(0, G.charIdx - 2); k <= top; k++) if (k >= 1) drawRiser(k, now);
       for (k = top; k >= Math.max(0, G.charIdx - 2); k--) drawTile(k, now);
       drawCharacter(now);
-      drawTile(G.nextIdx, now);
+      if (G.fallT <= 0) drawTile(G.nextIdx, now);
       drawParts();
     } else {
       drawCharacter(now);
