@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-<meta name="robots" content="noindex, nofollow" />
-<meta name="googlebot" content="noindex, nofollow" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<meta name="googlebot" content="noindex, nofollow, noarchive" />
 <meta name="referrer" content="no-referrer" />
 <meta name="theme-color" content="#58b4f0" />
 <meta name="mobile-web-app-capable" content="yes" />
@@ -17,10 +17,10 @@
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div id="app">
+<div id="app" data-screen="home" data-mode="rhythm">
   <canvas id="stage" aria-hidden="true"></canvas>
 
-  <!-- 상단 HUD -->
+  <!-- ══ 상단 HUD ══ -->
   <button id="pauseBtn" class="hud-pause" type="button" aria-label="일시정지">❚❚</button>
 
   <div class="hud-score" id="hudScore">
@@ -32,12 +32,23 @@
     <span>❤️</span><span>❤️</span><span>❤️</span>
   </div>
 
+  <div class="hud-floors" id="floorBadge">🪜 <b id="floorNum">0</b>층</div>
+
   <div class="song-tag">
     <span class="stage-chip" id="stageBadge">STAGE 1 🌱</span>
     <span id="songTag">⭐ 작은별</span>
   </div>
 
   <div class="hud-acc" id="accTag">PERFECT <b id="accNum">100</b>%</div>
+
+  <!-- 천국의 계단 모드 — 상단 제한시간 게이지 -->
+  <div class="time-gauge" id="timeGauge" aria-label="남은 시간">
+    <i id="timeFill"></i>
+    <span class="tg-lbl">TIME</span>
+  </div>
+
+  <!-- 리듬 건반 모드 — 곡 진행 -->
+  <div class="song-prog" id="songProg"><i id="songProgFill"></i></div>
 
   <!-- 콤보 -->
   <div class="combo-box" id="comboBox">
@@ -49,19 +60,10 @@
   <!-- 판정 팝업 -->
   <div class="judge" id="judge" aria-live="polite"></div>
 
-  <!-- 우측 세로 진행 -->
-  <div class="prog-wrap" id="progWrap">
-    <div class="prog-flag" aria-hidden="true">TOP</div>
-    <div class="prog-track">
-      <div class="prog-fill" id="progFill"></div>
-      <img class="prog-ico" id="progIco" src="assets/woojin-face.png" alt="" width="28" height="28" />
-    </div>
-  </div>
-
   <div class="banner" id="banner"></div>
 
-  <!-- 하단 조작부: 시간 게이지 · 방향전환(계단 30%) · 피아노 4건반(70%) -->
-  <div class="controls" id="controls">
+  <!-- ══ 하단 조작부 — 믹스 모드 (피아노 70 : 계단 30) ══ -->
+  <div class="controls mix-controls" id="mixControls">
     <div class="gauge" id="gauge"><i id="gaugeFill"></i></div>
     <button class="turn-bar" id="btnTurn" type="button" aria-label="방향전환">
       <i aria-hidden="true">↺</i>
@@ -76,101 +78,116 @@
     </div>
   </div>
 
-  <!-- 시작 화면 -->
-  <div class="overlay show" id="startScreen">
-    <div class="card">
-      <div class="card-head">
-        <img class="card-sprite" src="assets/woojin-play.png" alt="우진이" width="86" height="106" />
-        <div class="card-titles">
-          <p class="card-kicker">구름 위 피아노 계단</p>
-          <h1 class="card-title">도레미<br />별빛 피아노</h1>
-          <p class="card-sub">우진이와 계단을 톡톡! ✨</p>
-        </div>
-      </div>
-
-      <div class="howto">
-        <div class="howto-row">
-          <span class="howto-ico up">🎹</span>
-          <span class="howto-txt"><b>건반 치기 70%</b> — 내려오는 타일의 음(도·레·미·솔)을 쳐요</span>
-        </div>
-        <div class="howto-row">
-          <span class="howto-ico turn">↺</span>
-          <span class="howto-txt"><b>방향전환 30%</b> — 3~4칸마다 계단이 <i>꺾이면</i> ↺</span>
-        </div>
-        <p class="howto-foot">건반을 치면 그 음이 피아노로 울려요 🎹 판이 오르면 다음 노래로!</p>
-      </div>
-
-      <p class="sec-label">시작할 노래 <span class="sec-hint">별이 많을수록 빨라요</span></p>
-      <div class="songs" id="songPicker" role="radiogroup" aria-label="시작할 노래">
-        <button class="song is-on" type="button" data-song="twinkle" role="radio" aria-checked="true">
-          <span class="song-emoji">⭐</span><span class="song-name">작은별</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="joy" role="radio" aria-checked="false">
-          <span class="song-emoji">🌅</span><span class="song-name">환희의 송가</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="mary" role="radio" aria-checked="false">
-          <span class="song-emoji">🐑</span><span class="song-name">메리의 양</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="butterfly" role="radio" aria-checked="false">
-          <span class="song-emoji">🦋</span><span class="song-name">나비야</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="macdonald" role="radio" aria-checked="false">
-          <span class="song-emoji">🐄</span><span class="song-name">농장 노래</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="london" role="radio" aria-checked="false">
-          <span class="song-emoji">🌉</span><span class="song-name">런던 다리</span><span class="song-stars">★</span>
-        </button>
-        <button class="song" type="button" data-song="lullaby" role="radio" aria-checked="false">
-          <span class="song-emoji">🌙</span><span class="song-name">자장가</span><span class="song-stars">★★</span>
-        </button>
-        <button class="song" type="button" data-song="jingle" role="radio" aria-checked="false">
-          <span class="song-emoji">🔔</span><span class="song-name">징글벨</span><span class="song-stars">★★</span>
-        </button>
-        <button class="song" type="button" data-song="birthday" role="radio" aria-checked="false">
-          <span class="song-emoji">🎂</span><span class="song-name">생일 축하</span><span class="song-stars">★★</span>
-        </button>
-        <button class="song" type="button" data-song="elise" role="radio" aria-checked="false">
-          <span class="song-emoji">🌷</span><span class="song-name">엘리제를 위하여</span><span class="song-stars">★★</span>
-        </button>
-        <button class="song" type="button" data-song="minuet" role="radio" aria-checked="false">
-          <span class="song-emoji">🎻</span><span class="song-name">미뉴에트</span><span class="song-stars">★★★</span>
-        </button>
-        <button class="song" type="button" data-song="canon" role="radio" aria-checked="false">
-          <span class="song-emoji">🌈</span><span class="song-name">캐논</span><span class="song-stars">★★★</span>
-        </button>
-      </div>
-
-      <button class="cta" id="startBtn" type="button">건반 톡톡! 시작</button>
-      <p class="best-line">최고 점수 <b id="bestNum">0</b>점</p>
+  <!-- ══ 하단 조작부 — 리듬 건반 모드 ══ -->
+  <div class="controls rhythm-controls" id="rhythmControls">
+    <div class="key-row" id="rhythmKeyRow">
+      <button class="pkey k0" id="rkey0" data-lane="0" type="button" aria-label="도 건반"><i aria-hidden="true"></i><b>도</b></button>
+      <button class="pkey k1" id="rkey1" data-lane="1" type="button" aria-label="레 건반"><i aria-hidden="true"></i><b>레</b></button>
+      <button class="pkey k2" id="rkey2" data-lane="2" type="button" aria-label="미 건반"><i aria-hidden="true"></i><b>미</b></button>
+      <button class="pkey k3" id="rkey3" data-lane="3" type="button" aria-label="솔 건반"><i aria-hidden="true"></i><b>솔</b></button>
     </div>
   </div>
 
-  <!-- 게임오버 화면 -->
+  <!-- ══ 하단 조작부 — 천국의 계단 모드 (2버튼) ══ -->
+  <div class="controls stairs-controls" id="stairsControls">
+    <button class="st-btn st-turn" id="btnStTurn" type="button" aria-label="방향전환">
+      <i aria-hidden="true">↺</i>
+      <b>방향전환</b>
+      <small>계단이 꺾이면</small>
+    </button>
+    <button class="st-btn st-up" id="btnStUp" type="button" aria-label="오르기">
+      <i aria-hidden="true">⬆</i>
+      <b>오르기</b>
+      <small>그대로 이어지면</small>
+    </button>
+  </div>
+
+  <!-- ══ 홈 — 모드 선택 ══ -->
+  <div class="overlay show" id="homeScreen">
+    <div class="card home-card">
+      <div class="card-head">
+        <img class="card-sprite" src="assets/woojin-play.png" alt="우진이" width="74" height="92" />
+        <div class="card-titles">
+          <p class="card-kicker">구름 위 별빛 놀이터</p>
+          <h1 class="card-title">도레미<br />별빛 피아노</h1>
+          <p class="card-sub">우진이와 함께 골라서 놀아요 ✨</p>
+        </div>
+      </div>
+
+      <p class="sec-label">놀이를 골라 주세요 <span class="sec-hint">누르면 바로 시작!</span></p>
+
+      <button class="mode-card mc-rhythm" id="modeRhythm" data-mode="rhythm" type="button">
+        <span class="mc-ico" aria-hidden="true">🎹</span>
+        <span class="mc-body">
+          <b>리듬 건반 모드</b>
+          <small>떨어지는 도·레·미·솔을 박자에 맞춰 톡톡</small>
+        </span>
+        <span class="mc-best"><i>최고</i><b id="bestRhythm">0</b></span>
+      </button>
+
+      <button class="mode-card mc-stairs" id="modeStairs" data-mode="stairs" type="button">
+        <span class="mc-ico" aria-hidden="true">🪜</span>
+        <span class="mc-body">
+          <b>천국의 계단 모드</b>
+          <small>오르기·방향전환 두 버튼으로 끝없이 올라가요</small>
+        </span>
+        <span class="mc-best"><i>최고</i><b id="bestStairs">0</b></span>
+      </button>
+
+      <button class="mode-card mc-mix" id="modeMix" data-mode="mix" type="button">
+        <span class="mc-ico" aria-hidden="true">✨</span>
+        <span class="mc-body">
+          <b>믹스 모드</b> <em>피아노 70 : 계단 30</em>
+          <small>건반을 치다가 가끔 꺾이는 계단을 넘어요</small>
+        </span>
+      </button>
+
+      <p class="sec-label">시작할 노래 <span class="sec-hint">별이 많을수록 빨라요</span></p>
+      <div class="song-strip" id="songPicker" role="radiogroup" aria-label="시작할 노래">
+        <button class="song is-on" type="button" data-song="twinkle" role="radio" aria-checked="true"><span class="song-emoji">⭐</span><span class="song-name">작은별</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="joy" role="radio" aria-checked="false"><span class="song-emoji">🌅</span><span class="song-name">환희의 송가</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="mary" role="radio" aria-checked="false"><span class="song-emoji">🐑</span><span class="song-name">메리의 양</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="butterfly" role="radio" aria-checked="false"><span class="song-emoji">🦋</span><span class="song-name">나비야</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="macdonald" role="radio" aria-checked="false"><span class="song-emoji">🐄</span><span class="song-name">농장 노래</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="london" role="radio" aria-checked="false"><span class="song-emoji">🌉</span><span class="song-name">런던 다리</span><span class="song-stars">★</span></button>
+        <button class="song" type="button" data-song="lullaby" role="radio" aria-checked="false"><span class="song-emoji">🌙</span><span class="song-name">자장가</span><span class="song-stars">★★</span></button>
+        <button class="song" type="button" data-song="jingle" role="radio" aria-checked="false"><span class="song-emoji">🔔</span><span class="song-name">징글벨</span><span class="song-stars">★★</span></button>
+        <button class="song" type="button" data-song="birthday" role="radio" aria-checked="false"><span class="song-emoji">🎂</span><span class="song-name">생일 축하</span><span class="song-stars">★★</span></button>
+        <button class="song" type="button" data-song="elise" role="radio" aria-checked="false"><span class="song-emoji">🌷</span><span class="song-name">엘리제를 위하여</span><span class="song-stars">★★</span></button>
+        <button class="song" type="button" data-song="minuet" role="radio" aria-checked="false"><span class="song-emoji">🎻</span><span class="song-name">미뉴에트</span><span class="song-stars">★★★</span></button>
+        <button class="song" type="button" data-song="canon" role="radio" aria-checked="false"><span class="song-emoji">🌈</span><span class="song-name">캐논</span><span class="song-stars">★★★</span></button>
+      </div>
+
+      <p class="best-line" id="bestSummary">최고 기록 · 리듬 <b>0</b>점</p>
+    </div>
+  </div>
+
+  <!-- ══ 게임오버 ══ -->
   <div class="overlay" id="overScreen">
     <div class="card over-card">
-      <img class="over-face" src="assets/woojin-oops.png" alt="우진이" width="96" height="118" />
+      <img class="over-face" src="assets/woojin-oops.png" alt="우진이" width="92" height="114" />
       <h2 class="over-title" id="overTitle">참 잘했어요!</h2>
       <p class="over-msg" id="overMsg">별빛 계단이 반짝반짝 ✨</p>
       <div class="over-stats">
         <div class="ov-stat"><span>점수</span><b id="overScore">0</b></div>
         <div class="ov-stat"><span>최고 콤보</span><b id="overCombo">0</b></div>
-        <div class="ov-stat"><span>판</span><b id="overStage">STAGE 1</b></div>
+        <div class="ov-stat"><span id="overRecLbl">판</span><b id="overStage">STAGE 1</b></div>
       </div>
-      <p class="over-best">최고 점수 <b id="overBest">0</b>점</p>
+      <p class="over-best" id="overBestLine">최고 점수 <b id="overBest">0</b>점</p>
       <button class="cta" id="retryBtn" type="button">한 번 더!</button>
-      <button class="ghost-btn" id="menuBtn" type="button">노래 바꾸기</button>
+      <button class="ghost-btn" id="menuBtn" type="button">모드 선택으로</button>
     </div>
   </div>
 
-  <!-- 일시정지 화면 -->
+  <!-- ══ 일시정지 ══ -->
   <div class="overlay" id="pauseScreen">
     <div class="card small-card">
       <p class="pause-emoji" aria-hidden="true">☁️</p>
       <h2 class="over-title">잠깐 쉬는 중</h2>
-      <p class="over-msg">준비되면 다시 올라가요!</p>
+      <p class="over-msg" id="pauseMsg">준비되면 다시 놀아요!</p>
       <button class="cta" id="resumeBtn" type="button">계속하기</button>
       <button class="ghost-btn" id="muteToggle" type="button">🔊 소리 끄기</button>
-      <button class="ghost-btn" id="pauseMenuBtn" type="button">처음으로</button>
+      <button class="ghost-btn" id="pauseMenuBtn" type="button">모드 선택으로</button>
     </div>
   </div>
 </div>
