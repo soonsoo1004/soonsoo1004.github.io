@@ -51,7 +51,7 @@ body{
 @keyframes pulse{50%{filter:brightness(1.12)}}
 .hud-btns{display:flex;gap:4px;flex:0 0 auto;margin-left:auto}
 .icon-btn{
-  width:31px;height:38px;border:0;border-radius:11px;
+  width:34px;height:40px;border:0;border-radius:11px;
   background:rgba(255,255,255,.92);color:#6577a0;
   box-shadow:0 3px 9px rgba(110,130,190,.16), inset 0 0 0 1.4px var(--line);
   display:grid;place-items:center;cursor:pointer;padding:0;
