@@ -313,6 +313,7 @@ function loadLevel(i, opts) {
     tools: Object.assign({}, L.tools), selected: null, speed: 1, t: 0,
     flash: 0, ended: false
   };
+  clearTimeout(overlayTimer);
   buildGrid(L);
   terrainDirty = true;
   renderTerrain();
@@ -359,7 +360,7 @@ function hideOverlays() {
   ['startScreen', 'pauseScreen', 'clearScreen', 'failScreen'].forEach((id) => $(id).classList.remove('show'));
 }
 function showOverlay(id) { $(id).classList.add('show'); }
-let hintTimer = 0, toastTimer = 0;
+let hintTimer = 0, toastTimer = 0, overlayTimer = 0;
 function showHint(text) {
   const el = $('hint');
   el.textContent = text;
@@ -693,8 +694,11 @@ function win() {
   $('clearGems').textContent = G.gemsTaken;
   $('clearScore').textContent = G.score;
   $('nextBtn').textContent = G.stage >= LEVELS.length - 1 ? '처음부터 다시' : '다음 스테이지';
-  setTimeout(() => showOverlay('clearScreen'), 550);
-  setTimeout(() => { renderStageList(); }, 600);
+  clearTimeout(overlayTimer);
+  overlayTimer = setTimeout(() => {
+    if (G && G.mode === 'clear') showOverlay('clearScreen');
+    renderStageList();
+  }, 550);
 }
 
 function fail(msg) {
