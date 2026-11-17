@@ -439,8 +439,8 @@ function resetRun(){
   S.camY=0; S.camTarget=0; S.heat=0; S.shake=0; S.flash=0; S.warnT=0;
   S.newBest=false;
   ensure(14);
-  S.plats[0].life = 2400;
-  S.plats[0].lifeMax = 2400;
+  S.plats[0].life = 3800;
+  S.plats[0].lifeMax = 3800;
   S.zone = -1;
   S.px = platX(S.plats[0].col);
   S.py = screenY(0);
@@ -463,6 +463,7 @@ function startRun(){
 
 function pauseGame(){
   if(S.state!=='play') return;
+  if(S.fall) return;
   S.state='paused';
   pad.classList.add('locked');
   Snd.stopSeq();
@@ -527,7 +528,6 @@ function startFall(kind){
     if(p) p.dead = true;
   }
   syncHud(true);
-  setTimeout(function(){ if(S.state==='play') endGame(); }, 700);
 }
 
 function attempt(dir){
@@ -570,6 +570,7 @@ function landOn(i){
   p.hit = 1;
   S.hop = null;
   S.px = platX(p.col); S.py = screenY(platY(i));
+  if(i===300) toast('무한 · INFINITE','여기서부터는 끝이 없습니다');
   var z = zoneOf(i);
   if(z > S.zone){
     S.zone = z;
@@ -957,13 +958,17 @@ function update(dt){
   }
 
   if(S.fall){
-    S.fall.t += dt;
-    S.fall.vy += 2100*dt;
-    S.fall.spin += dt*7;
-    S.px = S.fall.x0 + Math.sin(S.fall.t*9)*22;
-    S.py = S.fall.y0 + S.fall.vy*S.fall.t;
-    var q = S.plats[S.floor];
-    if(q && q.lifeMax>0 && !q.dead) q.dead = true;
+    var F = S.fall;
+    F.t += dt;
+    if(S.state==='play' && F.t > 0.74){ endGame(); F = S.fall; }
+    if(F){
+      F.vy += 2100*dt;
+      F.spin += dt*7;
+      S.px = F.x0 + Math.sin(F.t*9)*22;
+      S.py = F.y0 + F.vy*F.t;
+      var q = S.plats[S.floor];
+      if(q && q.lifeMax>0 && !q.dead) q.dead = true;
+    }
   }
 
   updateParts(dt);
@@ -1095,7 +1100,10 @@ function bindUi(){
     b.addEventListener('click', function(){
       store.sound = !store.sound; save();
       Snd.on = store.sound;
-      if(store.sound){ Snd.resume(); Snd.tone(880,0.1,'triangle',0.1); }
+      if(store.sound){
+        Snd.resume(); Snd.tone(880,0.1,'triangle',0.1);
+        if(S.state==='play') Snd.schedule();
+      }else{ Snd.stopSeq(); }
       syncToggles();
     });
   });
