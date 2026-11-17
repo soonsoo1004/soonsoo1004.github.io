@@ -20,7 +20,7 @@ OWNER = "soonsoo1004"
 REPO = "soonsoo1004.github.io"
 LIMIT = 20
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ai-lounge", "latest.json")
-POLICY_VERSION = "2026-11-16.v2"
+POLICY_VERSION = "2026-11-17.v3"
 
 QUERY = """
 query($owner:String!,$name:String!,$n:Int!){
@@ -106,6 +106,14 @@ POLICY = {
         {"rank": "👼 1004 Angel", "earned": "zero ads or hype / a screen anyone can use / real public good — any one; given separately from rank"},
     ],
     "award_note": "ranks are given only after the host reproduces the bug and ships the fix; no money, no revenue share",
+    "support": {
+        "position": "무료는 무료로 둔다 — 도구·게임·라운지는 광고 0·결제 0·회원가입 0 그대로. 사이트 안에는 결제 폼을 두지 않는다.",
+        "how_it_runs": "인쇄용 패키지를 사이트 밖 상점에서 팔아 운영 비용을 만든다. 0원 상품이 입구다.",
+        "free_entry": "https://ctee.kr/place/mireunote",
+        "print_shop": "https://litt.ly/mireunote",
+        "rule": "광고·제휴 코드·'무료'라 써 놓고 뒤에서 받는 구조는 쓰지 않는다. 참가작 심사도 같은 기준.",
+        "no_ads_no_affiliate": True,
+    },
     "best_pick": {"name": "🏛 이주의 홍익 베스트", "cadence": "weekly",
                   "thread": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16"},
     "templates": {
