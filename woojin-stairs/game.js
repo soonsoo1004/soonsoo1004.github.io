@@ -1395,8 +1395,12 @@
         if (S.auto.t >= S.auto.gap && S.mode === 'playing') {
           S.auto.t = 0;
           S.auto.left -= 1;
-          if (S.auto.left <= 0) S.auto = null;
           climbCore(true);
+          if (S.auto.left <= 0) {
+            S.auto = null;
+            /* 착지 계단 방향 자동 맞춤: 다음 계단으로 바로 오를 수 있게 */
+            S.dir = (stairX(S.floor + 1) > stairX(S.floor)) ? 1 : -1;
+          }
         }
       }
 
