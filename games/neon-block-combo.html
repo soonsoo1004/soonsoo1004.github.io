@@ -564,6 +564,16 @@ function drawTray(){
       ctx.stroke();
     }
     if (!p) continue;
+    if (G.drag && G.drag.slot === i){
+      ctx.save();
+      ctx.setLineDash([5, 5]);
+      ctx.strokeStyle = 'rgba(140,235,255,.35)';
+      ctx.lineWidth = 1.3;
+      rr(ctx, slot.x + slot.w * 0.12, slot.y + slot.h * 0.2, slot.w * 0.76, slot.h * 0.6, 10);
+      ctx.stroke();
+      ctx.restore();
+      continue;
+    }
     var ts = trayScale(p);
     var bx = pieceBox(p, slot, ts);
     var v = p.color;
@@ -647,8 +657,21 @@ function drawGhost(){
     /* 배치될 자리 고스트 */
     for (var j = 0; j < p.cells.length; j++){
       var rr2 = t.row + p.cells[j][0], cc2 = t.col + p.cells[j][1];
-      crystal(ctx, LAY.bx + cc2 * cs, LAY.by + rr2 * cs, cs, COLORS[p.color], 0.46, 0.6);
+      crystal(ctx, LAY.bx + cc2 * cs, LAY.by + rr2 * cs, cs, COLORS[p.color], 0.52, 0.9);
     }
+    ctx.save();
+    ctx.setLineDash([cs * 0.22, cs * 0.14]);
+    ctx.lineDashOffset = -G.time * cs * 0.6;
+    ctx.strokeStyle = rgba(COLORS[p.color], 0.55 + 0.45 * pulse);
+    ctx.lineWidth = Math.max(2, cs * 0.06);
+    ctx.shadowColor = COLORS[p.color];
+    ctx.shadowBlur = 12;
+    for (var q = 0; q < p.cells.length; q++){
+      var rq = t.row + p.cells[q][0], cq = t.col + p.cells[q][1];
+      rr(ctx, LAY.bx + cq * cs + cs * 0.1, LAY.by + rq * cs + cs * 0.1, cs * 0.8, cs * 0.8, cs * 0.19);
+      ctx.stroke();
+    }
+    ctx.restore();
     /* 완성될 줄 발광 예고 (고스트 위에) */
     if (ln.count) drawLineHint(ln.rows, ln.cols, pulse);
   } else {
@@ -732,29 +755,54 @@ function updateParticles(dt){
   }
   if (G.shake > 0) G.shake = Math.max(0, G.shake - dt * 3.4);
 }
+var glowCache = {};
+function glowSprite(color){
+  if (glowCache[color]) return glowCache[color];
+  var n = 64, cvs = document.createElement('canvas');
+  cvs.width = n; cvs.height = n;
+  var g = cvs.getContext('2d');
+  var grd = g.createRadialGradient(n / 2, n / 2, 0, n / 2, n / 2, n / 2);
+  grd.addColorStop(0, rgba(color, 0.9));
+  grd.addColorStop(0.32, rgba(color, 0.34));
+  grd.addColorStop(1, rgba(color, 0));
+  g.fillStyle = grd;
+  g.fillRect(0, 0, n, n);
+  glowCache[color] = cvs;
+  return cvs;
+}
+
 function drawParticles(){
   if (!G.particles.length) return;
+  var i, p, a, R, sp;
   ctx.save();
   var mx = LAY.cell * 0.6;
   ctx.beginPath();
   ctx.rect(LAY.bx - mx, LAY.by - mx, LAY.cell * N + mx * 2, LAY.cell * N + mx * 2);
   ctx.clip();
   ctx.globalCompositeOperation = 'lighter';
-  for (var i = 0; i < G.particles.length; i++){
-    var p = G.particles[i];
-    var a = clamp(p.life / p.max, 0, 1);
+  /* 1) 빛무리 스프라이트 (캐시된 이미지) */
+  for (i = 0; i < G.particles.length; i++){
+    p = G.particles[i];
+    a = clamp(p.life / p.max, 0, 1);
+    R = p.size * 3.4;
+    ctx.globalAlpha = a * 0.85;
+    ctx.drawImage(glowSprite(p.color), p.x - R, p.y - R, R * 2, R * 2);
+  }
+  /* 2) 크리스탈 파편 */
+  ctx.globalAlpha = 1;
+  for (i = 0; i < G.particles.length; i++){
+    p = G.particles[i];
+    a = clamp(p.life / p.max, 0, 1);
     ctx.globalAlpha = a * 0.95;
     ctx.save();
     ctx.translate(p.x, p.y);
     ctx.rotate(p.rot);
     ctx.fillStyle = p.color;
-    ctx.shadowColor = p.color;
-    ctx.shadowBlur = p.size * 3.2;
     ctx.beginPath();
     ctx.moveTo(0, -p.size);
-    ctx.lineTo(p.size * 0.8, 0);
+    ctx.lineTo(p.size * 0.82, 0);
     ctx.lineTo(0, p.size);
-    ctx.lineTo(-p.size * 0.8, 0);
+    ctx.lineTo(-p.size * 0.82, 0);
     ctx.closePath();
     ctx.fill();
     ctx.restore();
@@ -763,6 +811,7 @@ function drawParticles(){
   ctx.globalAlpha = 1;
   ctx.shadowBlur = 0;
 }
+
 function drawTexts(){
   if (!G.texts.length) return;
   ctx.save();
@@ -773,6 +822,9 @@ function drawTexts(){
     var a = clamp(t.life / t.max, 0, 1);
     ctx.globalAlpha = a;
     ctx.font = '800 ' + Math.round(LAY.cell * 0.52) + 'px -apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif';
+    ctx.lineWidth = Math.max(3, LAY.cell * 0.11);
+    ctx.strokeStyle = 'rgba(4,8,20,.82)';
+    ctx.strokeText(t.text, t.x, t.y);
     ctx.fillStyle = t.color;
     ctx.shadowColor = t.color;
     ctx.shadowBlur = 12;
@@ -820,7 +872,7 @@ function syncHud(){
   elBest.textContent = fmt(G.best);
   elCombo.textContent = G.combo > 1
     ? '콤보 ' + G.combo + ' ×' + (1 + Math.min(G.combo - 1, 9) * 0.25).toFixed(2).replace(/\.?0+$/, '')
-    : '콤보 0';
+    : '콤보 ' + G.combo;
   if (G.combo > 1){
     elCombo.classList.add('on');
   } else {
@@ -917,10 +969,11 @@ function placeAt(slot, row, col){
 
     var keys = Object.keys(set);
     cleared = keys.length;
+    var perCell = cleared > 28 ? 4 : cleared > 16 ? 6 : 8;
     for (i = 0; i < keys.length; i++){
       idx = parseInt(keys[i], 10);
       var rr2 = Math.floor(idx / N), cc2 = idx % N;
-      spawnCrystals(rr2, cc2, COLORS[G.board[idx] - 1], 8);
+      spawnCrystals(rr2, cc2, COLORS[G.board[idx] - 1], perCell);
       G.board[idx] = 0;
     }
     var mult = 1 + Math.min(G.combo - 1, 9) * 0.25;
@@ -935,15 +988,15 @@ function placeAt(slot, row, col){
     G.texts.push({ text: '+' + fmt(gain), x: midX, y: midY, life: 0.85, max: 0.85,
       color: ln.count > 1 ? '#9dffe8' : '#bfe7ff' });
     if (ln.count > 1){
-      G.texts.push({ text: ln.count + '줄 동시!', x: midX, y: midY - LAY.cell * 0.8,
+      G.texts.push({ text: ln.count + '줄 동시!', x: midX, y: midY - LAY.cell * 1.15,
         life: 0.95, max: 0.95, color: '#ffd6ff' });
     }
     if (G.combo > 1){
-      G.texts.push({ text: '콤보 x' + G.combo, x: midX, y: midY + LAY.cell * 0.9,
+      G.texts.push({ text: '콤보 x' + G.combo, x: midX, y: midY + LAY.cell * 1.15,
         life: 0.9, max: 0.9, color: '#ff9df0' });
     }
     if (perfect){
-      G.texts.push({ text: '퍼펙트 클리어!', x: midX, y: midY - LAY.cell * 1.6,
+      G.texts.push({ text: '퍼펙트 클리어!', x: midX, y: midY - LAY.cell * 1.9,
         life: 1.2, max: 1.2, color: '#ffe89d' });
     }
     /* 지워진 칸 전체에 흰 발광 */
@@ -1105,7 +1158,7 @@ function onDown(e){
   var piece = G.tray[i];
   var ts = trayScale(piece);
   var gi = grabInfo(piece, slotRect(i), p0.x, p0.y, ts);
-  var lift = (e.pointerType === 'mouse') ? LAY.cell * 0.30 : LAY.cell * 1.15;
+  var lift = (e.pointerType === 'mouse') ? LAY.cell * 0.30 : LAY.cell * 1.02;
   G.drag = {
     slot: i, piece: piece, pid: e.pointerId,
     x: p0.x - gi.gx * LAY.cell,
