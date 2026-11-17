@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>성향 테스트 — 나를 4글자로 · 오리지널 16유형 (12문항·약 1분)</title>
+<meta name="description" content="12문항, 1분이면 끝나는 오리지널 16유형 성향 테스트. 네 가지 축으로 내 성향을 4글자와 동물 이름으로 알려 주고, 잘 맞는 유형·부딪히기 쉬운 유형·나에게 맞는 하루 루틴까지 보여 줍니다. 가입·설치·광고 없이 폰에서 바로. 결과 카드 이미지로 저장해 친구에게 보낼 수 있습니다.">
+<meta name="author" content="천장지구 1004">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fffaf3">
+<meta property="og:type" content="website">
+<meta property="og:title" content="나를 4글자로 — 오리지널 16유형 성향 테스트">
+<meta property="og:description" content="12문항 1분. 내 유형 배지 · 4축 퍼센트 · 잘 맞는 유형 · 나에게 맞는 하루 루틴까지. 결과 카드로 저장해서 친구에게 보내 보세요.">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --cream:#fffaf3; --cream2:#fdf3e7; --card:#fffdfa;
+  --ink:#2f2a26; --ink2:#6b615a; --ink3:#9c9188;
+  --line:#efe2d3; --line2:#e3d3c1;
+  --accent:#d9663a; --accent2:#f7e3d6;
+  --mint:#2c9c7c; --sky:#4a7fd4; --violet:#7a5fc8; --gold:#c2851c;
+  --sans:Gulim,"GulimChe","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:
+    radial-gradient(120% 60% at 50% -10%, #fff1e0 0%, rgba(255,241,224,0) 60%),
+    radial-gradient(90% 50% at 100% 100%, #e9f6ef 0%, rgba(233,246,239,0) 55%),
+    var(--cream);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  word-break:keep-all; overflow-wrap:break-word;
+  touch-action:manipulation;
+  min-height:100dvh;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+a{color:var(--accent);text-decoration:none}
+
+#app{max-width:520px;margin:0 auto;padding:0 18px calc(28px + env(safe-area-inset-bottom));}
+
+/* ── 공통 ── */
+.screen{animation:fade .28s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--accent);
+  background:var(--accent2);border-radius:99px;padding:6px 12px;font-weight:700;letter-spacing:-.01em}
+h1{font-size:27px;line-height:1.35;letter-spacing:-.03em;margin:14px 0 8px;font-weight:700}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{color:var(--ink2);font-size:15.5px;margin:0}
+.disclaimer{font-size:12.5px;color:var(--ink3);line-height:1.55;margin:14px 0 0}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  min-height:58px;border-radius:18px;font-size:17.5px;font-weight:700;letter-spacing:-.02em;
+  transition:transform .12s ease, box-shadow .12s ease, background .15s ease}
+.btn.primary{background:linear-gradient(180deg,#e57345,#d25c30);color:#fff;
+  box-shadow:0 8px 20px rgba(210,92,48,.28), inset 0 1px 0 rgba(255,255,255,.35)}
+.btn.primary:active{transform:translateY(1px) scale(.995);box-shadow:0 4px 12px rgba(210,92,48,.24)}
+.btn.ghost{background:var(--card);border:1.5px solid var(--line2);color:var(--ink)}
+.btn.ghost:active{background:#fdf4ea}
+.btn.soft{background:#f5ece1;color:#6b4a34}
+.btn:disabled{opacity:.55}
+.btnrow{display:flex;gap:10px}
+.btnrow .btn{flex:1}
+.note{font-size:12.5px;color:var(--ink3);text-align:center;margin:12px 0 0;line-height:1.5}
+
+/* ── 인트로 ── */
+.hero{padding:28px 0 8px;text-align:center}
+.badge-big{font-size:52px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 6px 12px rgba(217,102,58,.18))}
+.hero .lede{margin-top:6px}
+.axesbox{margin:26px 0 0;display:grid;gap:10px;text-align:left}
+.axis{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 15px;
+  display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;box-shadow:0 2px 8px rgba(120,90,60,.05)}
+.axis .ai{font-size:22px;text-align:center}
+.axis b{display:block;font-size:14.5px;letter-spacing:-.02em}
+.axis span{display:block;font-size:13px;color:var(--ink2);line-height:1.45}
+.cta{margin:26px 0 0}
+.ctameta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}
+.pillmini{font-size:12px;color:var(--ink2);background:#fff;border:1px solid var(--line);
+  border-radius:99px;padding:5px 11px}
+
+/* ── 퀴즈 ── */
+#quiz{min-height:100dvh;display:flex;flex-direction:column;padding-top:calc(10px + env(safe-area-inset-top))}
+.qtop{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;margin-bottom:14px}
+.iconbtn{width:44px;height:44px;border-radius:14px;background:#fff;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--ink2)}
+.iconbtn:active{background:#fdf4ea}
+.iconbtn[disabled]{opacity:.35}
+.qcount{text-align:center;font-size:13px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
+.qcount b{color:var(--accent);font-size:15px}
+.qbar{height:6px;border-radius:99px;background:#f0e4d6;overflow:hidden;margin:0 0 26px}
+.qbar i{display:block;height:100%;width:0%;border-radius:99px;
+  background:linear-gradient(90deg,#f0a06f,#d9663a);transition:width .25s ease}
+.qbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:6px}
+.qnum{font-size:12.5px;letter-spacing:.14em;color:var(--ink3);font-weight:700;margin-bottom:8px}
+.qtext{font-size:24px;line-height:1.4;font-weight:700;letter-spacing:-.03em;margin:0 0 6px}
+.qsub{font-size:13.5px;color:var(--ink3);margin:0 0 22px}
+.opts{display:grid;gap:12px}
+.opt{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;text-align:left;
+  background:var(--card);border:1.5px solid var(--line2);border-radius:18px;
+  padding:18px 16px;min-height:74px;font-size:16.5px;line-height:1.45;letter-spacing:-.02em;
+  box-shadow:0 2px 10px rgba(120,90,60,.05);transition:transform .1s ease, border-color .15s ease, background .15s ease}
+.opt:active{transform:scale(.99)}
+.opt .mk{width:30px;height:30px;border-radius:10px;background:#f6ecdf;color:#a8876c;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+.opt.sel{border-color:var(--accent);background:#fff7f0}
+.opt.sel .mk{background:var(--accent);color:#fff}
+.qfoot{padding-top:18px;font-size:12.5px;color:var(--ink3);text-align:center}
+
+/* ── 결과 ── */
+#result{padding-top:calc(12px + env(safe-area-inset-top))}
+.friendband{display:flex;align-items:center;gap:10px;background:#eef7f2;border:1px solid #cfe9db;
+  color:#1f6e54;border-radius:14px;padding:11px 13px;font-size:13.5px;margin-bottom:16px;line-height:1.45}
+.friendband b{font-weight:700}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 18px;
+  box-shadow:0 10px 30px rgba(120,90,60,.08);text-align:center;position:relative;overflow:hidden}
+.rcard:before{content:"";position:absolute;inset:-40% -40% auto auto;width:240px;height:240px;
+  background:radial-gradient(circle,#ffe9d5 0%,rgba(255,233,213,0) 70%);pointer-events:none}
+.rk{font-size:12px;letter-spacing:.16em;color:var(--ink3);font-weight:700}
+.remoji{font-size:64px;line-height:1.1;margin:6px 0 2px}
+.rname{font-size:29px;font-weight:700;letter-spacing:-.04em;margin:0}
+.rcode{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;letter-spacing:.22em;
+  color:var(--accent);background:var(--accent2);border-radius:99px;padding:5px 13px}
+.rtag{font-size:16.5px;font-weight:700;color:#5c4a3d;margin:14px 0 0;letter-spacing:-.02em;line-height:1.45}
+.rdesc{font-size:14.5px;color:var(--ink2);margin:10px 0 0;line-height:1.62;text-align:left}
+
+.sec{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:17px 16px;box-shadow:0 3px 12px rgba(120,90,60,.05)}
+.sech{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink3);
+  letter-spacing:.02em;margin:0 0 12px}
+.sech .ico{font-size:15px}
+
+.axrow{margin-bottom:14px}
+.axrow:last-child{margin-bottom:0}
+.axtop{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:14px;margin-bottom:5px}
+.axlab{font-weight:700;letter-spacing:-.02em}
+.axlab small{font-weight:400;color:var(--ink3);font-size:12px;letter-spacing:0;margin-right:7px}
+.axpct{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.axbar{height:10px;border-radius:99px;background:#f2e7da;overflow:hidden}
+.axbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#f2a878,#d9663a);
+  width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
+.axother{font-size:12px;color:var(--ink3);text-align:right;margin-top:3px}
+
+.chips{display:grid;gap:9px}
+.chipu{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:center;
+  background:#fdf7f0;border:1px solid #f0e0cf;border-radius:14px;padding:10px 12px;text-align:left}
+.chipu .e{font-size:22px;text-align:center}
+.chipu .n{font-size:14.5px;font-weight:700;letter-spacing:-.02em;display:block}
+.chipu .c{font-size:11.5px;color:var(--ink3);letter-spacing:.12em;font-weight:700}
+.chipu.hard{background:#f7f4fa;border-color:#e5ddf0}
+.chipu.hard .c{color:#8a79a6}
+.creason{font-size:12.5px;color:var(--ink3);margin:10px 0 0;line-height:1.5}
+
+.routines{display:grid;gap:10px}
+.rt{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14.5px;line-height:1.5;letter-spacing:-.01em}
+.rt .d{font-size:15px}
+
+.actions{display:grid;gap:10px;margin-top:20px}
+.disclaim2{font-size:12px;color:var(--ink3);line-height:1.6;margin-top:16px;text-align:center}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+  background:#2f2a26;color:#fff;font-size:14px;padding:11px 18px;border-radius:99px;
+  opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;z-index:50;
+  max-width:88vw;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+.foot{padding:26px 0 8px;text-align:center;font-size:12px;color:var(--ink3);line-height:1.7}
+.foot a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
+
+@media (max-width:360px){
+  body{font-size:16px}
+  #app{padding:0 14px 22px}
+  h1{font-size:24px}
+  .qtext{font-size:21px}
+  .opt{font-size:15.5px;padding:16px 13px}
+  .rname{font-size:26px}
+  .remoji{font-size:56px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ───────── 인트로 ───────── -->
+  <section id="intro" class="screen">
+    <div class="hero">
+      <div class="badge-big" aria-hidden="true">🔮</div>
+      <span class="eyebrow">오리지널 16유형 · 우리가 만든 축</span>
+      <h1>나를 <em>4글자</em>로<br>알아보는 성향 테스트</h1>
+      <p class="lede">12문항, 1분. 네 가지 축으로 내 성향을 4글자와 동물 이름 하나로 알려 드립니다.</p>
+    </div>
+
+    <div class="axesbox" id="axesBox"></div>
+
+    <div class="cta">
+      <button class="btn primary" id="btnStart" type="button">시작하기 <span aria-hidden="true">→</span></button>
+      <div class="ctameta">
+        <span class="pillmini">12문항 · 약 1분</span>
+        <span class="pillmini">가입·설치 없음</span>
+        <span class="pillmini">광고 없음</span>
+        <span class="pillmini">입력란 없음</span>
+      </div>
+      <p class="disclaimer">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미로 보는 성향 참고용이고, 점수는 답변을 세는 방식이라 사람을 재단하지 못합니다. 이름·연락처 같은 개인정보를 받지도, 저장하지도 않습니다.</p>
+    </div>
+
+    <div class="foot">
+      천장지구 1004 · <a href="../">다른 무료 도구 보기</a>
+    </div>
+  </section>
+
+  <!-- ───────── 퀴즈 ───────── -->
+  <section id="quiz" class="screen" hidden>
+    <div class="qtop">
+      <button class="iconbtn" id="btnBack" type="button" aria-label="이전 질문">←</button>
+      <div class="qcount"><b id="qNow">1</b> / <span id="qAll">12</span></div>
+      <button class="iconbtn" id="btnQuit" type="button" aria-label="그만두고 처음으로">✕</button>
+    </div>
+    <div class="qbar" role="progressbar" aria-label="진행률" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="qBarWrap">
+      <i id="qBar"></i>
+    </div>
+
+    <div class="qbody">
+      <div class="qnum" id="qNum">QUESTION 01</div>
+      <h2 class="qtext" id="qText">질문</h2>
+      <p class="qsub">정답은 없어요. 더 끌리는 쪽을 누르면 됩니다.</p>
+
+      <div class="opts" id="opts">
+        <button class="opt" id="optA" type="button"><span class="mk">A</span><span id="optAText"></span></button>
+        <button class="opt" id="optB" type="button"><span class="mk">B</span><span id="optBText"></span></button>
+      </div>
+    </div>
+    <div class="qfoot">뒤로 가서 다시 골라도 됩니다</div>
+  </section>
+
+  <!-- ───────── 결과 ───────── -->
+  <section id="result" class="screen" hidden>
+    <div class="friendband" id="friendBand" hidden>
+      <span aria-hidden="true">💌</span>
+      <span>친구가 <b id="friendName">이 유형</b>을 보내왔어요. 아래 버튼으로 나도 해볼 수 있어요.</span>
+    </div>
+
+    <div class="rcard">
+      <div class="rk" id="rKicker">나의 성향 유형</div>
+      <div class="remoji" id="rEmoji">🔮</div>
+      <h2 class="rname" id="rName">유형</h2>
+      <div class="rcode" id="rCode">CODE</div>
+      <p class="rtag" id="rTag">한 줄 요약</p>
+      <p class="rdesc" id="rDesc">설명</p>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><span class="ico" aria-hidden="true">📊</span>네 가지 축으로 본 나</div>
+      <div id="axisList"></div>
+      <p class="creason" id="axisNote" hidden>친구가 고른 쪽만 보여 줍니다. 내 점수는 12문항을 마치면 나옵니다.</p>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><span class="ico" aria-hidden="true">🤝</span>잘 맞는 유형</div>
+      <div class="chips" id="bestList"></div>
+      <p class="creason" id="bestWhy"></p>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><span class="ico" aria-hidden="true">🌩</span>부딪히기 쉬운 유형</div>
+      <div class="chips" id="hardList"></div>
+      <p class="creason" id="hardWhy"></p>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><span class="ico" aria-hidden="true">🌤</span>나에게 맞는 하루 루틴</div>
+      <div class="routines" id="routineList"></div>
+    </div>
+
+    <div class="actions" id="actionsMine">
+      <button class="btn primary" id="btnPng" type="button">결과 카드 이미지로 저장</button>
+      <div class="btnrow">
+        <button class="btn ghost" id="btnCopy" type="button">글·링크 복사</button>
+        <button class="btn soft" id="btnRetry" type="button">다시 하기</button>
+      </div>
+      <p class="note">카톡에 붙여넣으면 친구는 내 유형부터 보고, 아래 버튼으로 자기 테스트를 시작합니다.</p>
+    </div>
+
+    <div class="actions" id="actionsFriend" hidden>
+      <button class="btn primary" id="btnMine" type="button">나도 테스트하기 · 12문항</button>
+      <div class="btnrow">
+        <button class="btn ghost" id="btnPng2" type="button">카드 저장</button>
+        <button class="btn ghost" id="btnCopy2" type="button">링크 복사</button>
+      </div>
+    </div>
+
+    <p class="disclaim2">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미로 보는 성향 참고용입니다.<br>문항·유형 이름·설명은 천장지구 1004가 직접 만든 것으로, 다른 검사와 문항을 공유하지 않습니다.</p>
+
+    <div class="foot">
+      천장지구 1004 · <a href="../">다른 무료 도구 보기</a>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ══════════ 1. 축과 문항 (3문항 × 4축 = 12문항, 동점 없음) ══════════ */
+  var AXES = [
+    { key:"energy", name:"에너지", ai:"🔋", a:"H", al:"함께", b:"O", bl:"혼자",
+      desc:"사람 속에서 충전 / 혼자서 충전" },
+    { key:"view", name:"보는 눈", ai:"👀", a:"R", al:"현실", b:"D", bl:"상상",
+      desc:"있는 그대로 / 있을 수 있는 것" },
+    { key:"rhythm", name:"하루 리듬", ai:"🗓", a:"A", al:"계획", b:"L", bl:"자유",
+      desc:"정해 두면 편함 / 그때그때가 편함" },
+    { key:"stress", name:"부딪혔을 때", ai:"🌊", a:"B", al:"부딪힘", b:"C", bl:"거리두기",
+      desc:"바로 말한다 / 한발 물러선다" }
+  ];
+
+  // 표시 순서는 축을 번갈아 섞어 지루하지 않게. 일부는 보기 순서를 뒤집어 찍히지 않게.
+  var QUESTIONS = [
+    { ax:0, q:"주말 하루가 통째로 비었다. 나는?", o:[
+      { t:"누구 부를까, 연락처부터 연다", p:"H" },
+      { t:"아무도 안 부르는 게 좋다", p:"O" } ] },
+    { ax:1, q:"새로 산 기계나 앱을 받으면?", o:[
+      { t:"설명서부터 순서대로 읽는다", p:"R" },
+      { t:"일단 눌러 보고 상상해 본다", p:"D" } ] },
+    { ax:2, q:"여행 전날 밤, 나는?", o:[
+      { t:"동선과 시간표를 짜 둔다", p:"A" },
+      { t:"숙소만 정하고 나머지는 간다", p:"L" } ] },
+    { ax:3, q:"누가 내 일에 대해 틀린 말을 했다?", o:[
+      { t:"그 자리에서 바로 말한다", p:"B" },
+      { t:"일단 두고, 나중에 정리해서 말한다", p:"C" } ] },
+    { ax:0, q:"힘든 일이 생겼을 때 나는?", o:[
+      { t:"사람 만나서 말하면서 푼다", p:"H" },
+      { t:"혼자 정리될 때까지 생각한다", p:"O" } ] },
+    { ax:1, q:"친구가 “나 이거 해볼까?” 하고 물었다.", o:[
+      { t:"“재밌겠다, 판 벌려”", p:"D" },
+      { t:"“돈은? 시간은? 현실적으로”", p:"R" } ] },
+    { ax:2, q:"마감이 일주일 남았다. 나는?", o:[
+      { t:"마지막 이틀에 몰아서 한다", p:"L" },
+      { t:"오늘 분량부터 나눠 놓는다", p:"A" } ] },
+    { ax:3, q:"화가 났을 때, 나는?", o:[
+      { t:"그 자리에서 말해야 풀린다", p:"B" },
+      { t:"하루 자고 나면 괜찮아진다", p:"C" } ] },
+    { ax:0, q:"모임이 끝나고 집에 오면?", o:[
+      { t:"현관문 닫는 순간이 제일 좋다", p:"O" },
+      { t:"아쉬워서 단톡방을 다시 본다", p:"H" } ] },
+    { ax:1, q:"밤에 누워서 드는 생각은?", o:[
+      { t:"내일 할 일 목록", p:"R" },
+      { t:"“만약에 내가…” 하는 상상", p:"D" } ] },
+    { ax:2, q:"약속 시간 30분 전, 나는?", o:[
+      { t:"이미 출발해서 근처에 있다", p:"A" },
+      { t:"지금 막 준비를 시작한다", p:"L" } ] },
+    { ax:3, q:"하기 싫은 부탁을 받았다?", o:[
+      { t:"“한번 해볼게요” 하고 피한다", p:"C" },
+      { t:"“이건 어렵겠어요” 바로 말한다", p:"B" } ] }
+  ];
+
+  /* ══════════ 2. 16유형 (자체 제작 — 동물 이름 + 4글자) ══════════ */
+  var TYPES = {
+    "HRAB":{ e:"☀️", n:"마당발 수달", t:"사람부터 모으고, 일은 미리 끝낸다",
+      d:"약속이 비면 오히려 심심한 사람. 모임의 총무를 자연스럽게 맡고, 계획표는 이미 머릿속에 들어 있습니다. 싫은 소리도 그 자리에서 해서 뒤끝이 없습니다. 다만 혼자 있는 시간이 길어지면 이상하게 힘이 빠집니다.",
+      r:["아침 — 오늘 만날 사람 한 명에게 먼저 연락해 보기","저녁 — 내일 할 일 세 개만 적고 나머지는 비워 두기"] },
+    "HRAC":{ e:"🌿", n:"온화한 거북", t:"웃으면서, 선은 정확하게 긋는다",
+      d:"사람 좋아하고 약속도 잘 지킵니다. 그런데 선을 넘는 순간엔 조용히 물러납니다. 화가 나도 하루 자고 나서 정리해서 말하는 쪽이라, 주변에서 “제일 어른스럽다”는 말을 자주 듣습니다.",
+      r:["아침 — 오늘 지킬 선 하나를 미리 정해 두기","저녁 — 오늘 참은 말 한 줄을 종이에 적어 두기"] },
+    "HRLB":{ e:"🔥", n:"즉흥 사자", t:"일단 부딪히고, 사람으로 푼다",
+      d:"계획표보다 발이 먼저 나갑니다. 사람 만나면서 일이 풀리고, 갈등도 정면으로 붙어서 끝냅니다. 뒤끝이 없는 대신 주변은 가끔 숨이 찹니다.",
+      r:["아침 — 오늘 제일 하고 싶은 것 하나만 정하기","저녁 — 내일 첫 약속 시간만 확인하고 나머지는 열어 두기"] },
+    "HRLC":{ e:"🍃", n:"바람 같은 여우", t:"능청스럽게, 상처 없이 빠져나간다",
+      d:"사람 사이를 가볍게 오가며 분위기를 살립니다. 정면 승부 대신 웃음으로 피하고, 싸움은 시간이 해결하게 둡니다. 정작 자기 속마음은 아무에게도 다 보여주지 않습니다.",
+      r:["아침 — 오늘 웃어넘길 일 하나를 미리 정해 두기","저녁 — 오늘 내 진짜 기분을 한 줄로 적어 보기"] },
+    "HDAB":{ e:"🌈", n:"꿈꾸는 다람쥐", t:"상상은 크게, 일정표는 촘촘하게",
+      d:"번뜩이는 아이디어를 그냥 두지 않고 계획표에 올려 하나씩 해냅니다. 사람들과 떠들다 보면 아이디어가 불어나고, 그걸 정리하는 것도 즐깁니다. 계획이 틀어지면 하루가 같이 흔들리는 게 약점입니다.",
+      r:["아침 — 떠오른 아이디어 하나를 세 단계로 쪼개기","저녁 — 못 한 일은 내일로 넘기고 스스로 칭찬하기"] },
+    "HDAC":{ e:"🕯", n:"조용한 등불", t:"상상은 크게, 말은 천천히",
+      d:"사람 곁에 있으면서도 자기 세계가 깊습니다. 머릿속엔 이미 완성된 그림이 있고, 그걸 말로 꺼내는 데는 시간이 걸립니다. 갈등은 잘 만들지 않지만, 속에 쌓이면 오래 갑니다.",
+      r:["아침 — 머릿속 그림 한 조각을 말이나 글로 꺼내 두기","저녁 — 오늘 고마웠던 사람 한 명 떠올리기"] },
+    "HDLB":{ e:"🎈", n:"들뜬 강아지", t:"번뜩이면 그 자리에서 해본다",
+      d:"아이디어가 생기면 계획표 없이 바로 시작합니다. 사람들 사이에서 에너지가 붙고, 궁금한 건 끝까지 물어봅니다. 시작은 늘 화려하고 마무리는 조금 느립니다.",
+      r:["아침 — 오늘 시작할 것 하나, 끝낼 것 하나 정하기","저녁 — 시작만 해 둔 일 하나를 10분만 마무리하기"] },
+    "HDLC":{ e:"🌙", n:"밤하늘 고래", t:"감성으로 사람을 잇는다",
+      d:"말수는 적은데 이상하게 사람이 모입니다. 분위기를 읽고, 싸움보다 여백을 택합니다. 혼자 상상하는 시간이 길고, 그 상상을 가끔 글로 꺼내 주변을 놀라게 합니다.",
+      r:["아침 — 오늘의 기분을 색이나 단어 하나로 정해 두기","저녁 — 좋았던 장면 하나를 사진이나 메모로 남기기"] },
+    "ORAB":{ e:"🦅", n:"고요한 매", t:"혼자서도, 정면으로, 끝까지",
+      d:"말은 아끼지만 할 말은 합니다. 혼자 계획하고 혼자 해내는 데 익숙하고, 부탁은 받아도 도움은 잘 안 청합니다. 겉으로는 차가워 보이지만 속은 생각이 많습니다.",
+      r:["아침 — 오늘 혼자 끝낼 일 하나를 정하기","저녁 — 도움 한 번은 일부러 청해 보기"] },
+    "ORAC":{ e:"🐢", n:"단단한 거북", t:"조용히, 내 속도로, 정확하게",
+      d:"남들 속도에 휘둘리지 않고 자기 페이스를 지킵니다. 싫은 건 싫다고 조용히 말하고, 화는 시간을 두고 삭힙니다. 한번 시작한 건 끝까지 가져갑니다.",
+      r:["아침 — 오늘의 속도(느긋·보통·빠름)를 미리 정해 두기","저녁 — 오늘 잘 지켜낸 것 하나 적기"] },
+    "ORLB":{ e:"🐗", n:"외골수 오소리", t:"내 길이면 밤새서라도 간다",
+      d:"하고 싶은 게 정해지면 계획 없이도 끝까지 팝니다. 남이 뭐라 해도 크게 흔들리지 않고, 싫은 소리도 그 자리에서 합니다. 내 일에 끼어드는 건 유독 못 참습니다.",
+      r:["아침 — 오늘 밀고 나갈 것 하나만 정하기","저녁 — 한 가지는 일부러 남에게 물어보기"] },
+    "ORLC":{ e:"🦝", n:"느긋한 너구리", t:"적당히, 알아서, 편하게",
+      d:"남 신경 안 쓰는 것 같으면서 은근히 다 보고 있습니다. 싫으면 말없이 빠지고, 화는 하루 지나면 잊습니다. 계획에 묶이는 것보다 그때그때가 편합니다.",
+      r:["아침 — 오늘 꼭 해야 할 것 하나만 정하기","저녁 — 오늘 흘려보낸 일 하나를 가볍게 넘겨 주기"] },
+    "ODAB":{ e:"🦉", n:"밤샘 부엉이", t:"새벽에 혼자 다 짠다",
+      d:"낮엔 조용하고 밤에 머리가 돕니다. 혼자 계획을 세우고, 결정은 빠르게 밀어붙입니다. 사람 많은 자리보다 한 명과 깊게 이야기하는 쪽을 좋아합니다.",
+      r:["아침 — 밤에 짠 계획 중 하나만 오늘 실행하기","저녁 — 화면 끄고 10분은 그냥 앉아 있기"] },
+    "ODAC":{ e:"🐈", n:"방구석 고양이", t:"혼자 조용히, 완성형",
+      d:"혼자 있는 시간이 곧 충전입니다. 머릿속 계획은 세밀하고, 싫은 건 말없이 피합니다. 겉으론 무심한데 챙길 사람은 조용히 다 챙깁니다.",
+      r:["아침 — 오늘 혼자만의 30분을 미리 확보하기","저녁 — 챙기고 싶은 사람에게 짧은 안부 한 줄"] },
+    "ODLB":{ e:"🐺", n:"떠돌이 늑대", t:"혼자서도 돌진한다",
+      d:"하고 싶으면 혼자서라도 판을 벌입니다. 계획은 즉석에서 짜고, 마음에 안 들면 바로 말합니다. 함께 가자는 제안은 많은데, 인원이 늘면 피곤해집니다.",
+      r:["아침 — 오늘 혼자 벌일 판 하나 정하기","저녁 — 오늘 부딪힌 사람에게 짧은 사과나 감사 한 줄"] },
+    "ODLC":{ e:"🌫", n:"안개 속 산책자", t:"머릿속에서 이미 여행 중",
+      d:"상상이 많고 혼자가 편합니다. 갈등은 피하고, 대신 마음속에 자기만의 풍경을 쌓습니다. 한 번 마음을 열면 깊고 오래 갑니다. 다만 해야 할 일은 자꾸 뒤로 밀립니다.",
+      r:["아침 — 오늘 꼭 끝낼 일 하나를 눈에 보이는 곳에 붙이기","저녁 — 머릿속 풍경을 한 줄 시로 적기"] }
+  };
+
+  var AXIS_LETTERS = [["H","O"],["R","D"],["A","L"],["B","C"]];
+
+  /* ══════════ 3. 상태 ══════════ */
+  var SITE = "https://soonsoo1004.github.io/personality-test/";
+  var state = { idx:0, answers:new Array(QUESTIONS.length).fill(null), mode:"mine", code:null, percents:null, lock:false };
+
+  var $ = function(id){ return document.getElementById(id); };
+  var intro = $("intro"), quiz = $("quiz"), result = $("result");
+
+  /* 인트로 축 카드 */
+  (function(){
+    var box = $("axesBox"), html = "";
+    AXES.forEach(function(ax){
+      html += '<div class="axis"><div class="ai" aria-hidden="true">' + ax.ai + '</div>' +
+        '<div><b>' + ax.name + ' — ' + ax.al + ' / ' + ax.bl + '</b>' +
+        '<span>' + ax.desc + '</span></div></div>';
+    });
+    box.innerHTML = html;
+  })();
+
+  function show(name){
+    intro.hidden = name !== "intro";
+    quiz.hidden = name !== "quiz";
+    result.hidden = name !== "result";
+    window.scrollTo(0, 0);
+  }
+
+  /* ══════════ 4. 퀴즈 ══════════ */
+  function renderQ(){
+    var q = QUESTIONS[state.idx];
+    $("qNow").textContent = state.idx + 1;
+    $("qAll").textContent = QUESTIONS.length;
+    $("qNum").textContent = "QUESTION " + (state.idx < 9 ? "0" : "") + (state.idx + 1);
+    $("qText").textContent = q.q;
+    $("optAText").textContent = q.o[0].t;
+    $("optBText").textContent = q.o[1].t;
+    var bar = $("qBar");
+    bar.style.width = Math.round(state.idx / QUESTIONS.length * 100) + "%";
+    $("qBarWrap").setAttribute("aria-valuenow", String(state.idx));
+    var prev = state.answers[state.idx];
+    $("optA").classList.toggle("sel", prev === 0);
+    $("optB").classList.toggle("sel", prev === 1);
+    $("btnBack").disabled = state.idx === 0;
+  }
+
+  function pick(which){
+    if (state.lock) return;
+    state.lock = true;
+    state.answers[state.idx] = which;
+    var a = $("optA"), b = $("optB");
+    a.classList.toggle("sel", which === 0);
+    b.classList.toggle("sel", which === 1);
+    window.setTimeout(function(){
+      state.lock = false;
+      if (state.idx < QUESTIONS.length - 1){ state.idx++; renderQ(); }
+      else { finish(); }
+    }, 130);
+  }
+
+  $("optA").addEventListener("click", function(){ pick(0); });
+  $("optB").addEventListener("click", function(){ pick(1); });
+  $("btnBack").addEventListener("click", function(){
+    if (state.idx > 0){ state.idx--; renderQ(); }
+  });
+  $("btnQuit").addEventListener("click", function(){
+    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+    show("intro");
+  });
+  $("btnStart").addEventListener("click", function(){
+    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+    state.mode = "mine"; state.lock = false; state.percents = null;
+    show("quiz"); renderQ();
+  });
+
+  /* ══════════ 5. 채점 ══════════ */
+  function score(){
+    var counts = AXES.map(function(){ return [0,0]; }); // [a편, b편]
+    state.answers.forEach(function(which, i){
+      var q = QUESTIONS[i];
+      var pole = q.o[which].p;
+      var ax = q.ax;
+      var pos = (pole === AXES[ax].a) ? 0 : 1;
+      counts[ax][pos]++;
+    });
+    var letters = "", percents = [];
+    AXES.forEach(function(ax, i){
+      var tot = counts[i][0] + counts[i][1];
+      var pA = tot ? Math.round(counts[i][0] / tot * 100) : 50;
+      percents.push(pA);
+      letters += (pA >= 50) ? ax.a : ax.b;   // 동점은 앞 글자 (3문항이라 실제로는 발생하지 않음)
+    });
+    return { code:letters, percents:percents };
+  }
+
+  function flip(code, idx){
+    var pair = AXIS_LETTERS[idx];
+    var cur = code.charAt(idx);
+    return code.substring(0, idx) + (cur === pair[0] ? pair[1] : pair[0]) + code.substring(idx + 1);
+  }
+
+  /* ══════════ 6. 결과 렌더 ══════════ */
+  function chipHTML(code, hard){
+    var t = TYPES[code];
+    return '<div class="chipu' + (hard ? " hard" : "") + '"><span class="e" aria-hidden="true">' + t.e + '</span>' +
+           '<span><span class="n">' + t.n + '</span><span class="c">' + code + '</span></span></div>';
+  }
+
+  function renderResult(code, opts){
+    opts = opts || {};
+    var t = TYPES[code];
+    if (!t) return;
+    state.code = code;
+
+    $("friendBand").hidden = !opts.friend;
+    if (opts.friend) $("friendName").textContent = t.n;
+    state.mode = opts.friend ? "friend" : "mine";
+    $("axisNote").hidden = !opts.friend;
+    $("actionsMine").hidden = !!opts.friend;
+    $("actionsFriend").hidden = !opts.friend;
+    $("rKicker").textContent = opts.friend ? "친구가 보낸 유형" : "나의 성향 유형";
+
+    $("rEmoji").textContent = t.e;
+    $("rName").textContent = t.n;
+    $("rCode").textContent = code;
+    $("rTag").textContent = t.t;
+    $("rDesc").textContent = t.d;
+
+    var p = opts.percents || null;
+    state.percents = p;
+    var list = $("axisList"), html = "";
+    AXES.forEach(function(ax, i){
+      if (!p){
+        var picked = (code.charAt(i) === ax.a) ? ax.al : ax.bl;
+        html += '<div class="axrow"><div class="axtop">' +
+          '<span class="axlab"><small>' + ax.name + '</small>' + picked + '</span>' +
+          '<span class="c" style="font-size:11.5px;color:var(--ink3);letter-spacing:.1em">' + code.charAt(i) + '</span>' +
+        '</div></div>';
+        return;
+      }
+      var pct = p[i];
+      var leftIsA = pct >= 50;
+      var main = leftIsA ? ax.al : ax.bl;
+      var other = leftIsA ? ax.bl : ax.al;
+      var mainPct = leftIsA ? pct : 100 - pct;
+      var fill = leftIsA ? pct : 100 - pct;
+      html += '<div class="axrow">' +
+        '<div class="axtop"><span class="axlab"><small>' + ax.name + '</small>' + main + '</span>' +
+        '<span class="axpct">' + mainPct + '%</span></div>' +
+        '<div class="axbar"><i style="width:' + fill + '%"></i></div>' +
+        '<div class="axother">' + other + ' ' + (100 - mainPct) + '%</div>' +
+      '</div>';
+    });
+    $("axisList").innerHTML = html;
+
+    var best1 = flip(flip(code, 0), 3);   // 에너지·대처 반대, 보는 눈·리듬 같음
+    var best2 = flip(flip(code, 1), 2);   // 보는 눈·리듬 반대, 에너지·대처 같음
+    var hard1 = flip(code, 2);            // 리듬만 반대
+    var hard2 = flip(code, 1);            // 보는 눈만 반대
+
+    $("bestList").innerHTML = chipHTML(best1) + chipHTML(best2);
+    $("hardList").innerHTML = chipHTML(hard1, true) + chipHTML(hard2, true);
+    $("bestWhy").textContent = "한쪽은 내 빈 곳을 정확히 채워 주고(" + TYPES[best1].n + "), 다른 한쪽은 같이 있으면 세상이 두 배로 넓어지는 쪽(" + TYPES[best2].n + ")입니다.";
+    $("hardWhy").textContent = "둘 다 나와 한 글자만 다릅니다. " + TYPES[hard1].n + "과는 하루 리듬이, " + TYPES[hard2].n + "과는 같은 말을 다르게 듣는 지점이 부딪히기 쉽습니다.";
+
+    $("routineList").innerHTML = t.r.map(function(x){
+      var i = x.indexOf(" ");
+      return '<div class="rt"><span class="d" aria-hidden="true">' + (x.charAt(0) === "아" ? "🌅" : "🌙") + '</span><span>' + x + '</span></div>';
+    }).join("");
+
+    show("result");
+  }
+
+  function finish(){
+    var r = score();
+    state.percents = r.percents;
+    try { history.replaceState(null, "", "?t=" + r.code); } catch(e){}
+    renderResult(r.code, { percents:r.percents });
+    window.scrollTo(0, 0);
+  }
+
+  /* ══════════ 7. 공유 ══════════ */
+  function toast(msg){
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    window.clearTimeout(toast._t);
+    toast._t = window.setTimeout(function(){ el.classList.remove("on"); }, 2200);
+  }
+
+  function shareText(code){
+    var t = TYPES[code];
+    var lines = [
+      "나의 성향 유형은 " + t.e + " " + t.n + " (" + code + ")",
+      "“" + t.t + "”",
+      "12문항 1분 · 나도 해보기 → " + SITE + "?t=" + code
+    ];
+    return lines.join("\n");
+  }
+
+  function copyText(txt, okMsg){
+    var done = function(){ toast(okMsg || "복사했어요. 붙여넣기만 하면 됩니다."); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(function(){ fallbackCopy(txt, done); });
+    } else { fallbackCopy(txt, done); }
+  }
+  function fallbackCopy(txt, done){
+    try{
+      var ta = document.createElement("textarea");
+      ta.value = txt;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, txt.length);
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (ok) done(); else toast("복사가 안 됐어요. 길게 눌러 복사해 주세요.");
+    }catch(e){ toast("복사가 안 됐어요. 길게 눌러 복사해 주세요."); }
+  }
+
+  $("btnCopy").addEventListener("click", function(){ copyText(shareText(state.code)); });
+  $("btnCopy2").addEventListener("click", function(){ copyText(shareText(state.code)); });
+  $("btnRetry").addEventListener("click", function(){
+    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+    state.mode = "mine";
+    try { history.replaceState(null, "", location.pathname); } catch(e){}
+    show("intro");
+  });
+  $("btnMine").addEventListener("click", function(){
+    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+    state.mode = "mine"; state.lock = false; state.percents = null;
+    try { history.replaceState(null, "", location.pathname); } catch(e){}
+    show("quiz"); renderQ();
+  });
+
+  /* ══════════ 8. 결과 카드 PNG ══════════ */
+  function roundRect(x, rx, ry, w, h, r){
+    x.beginPath();
+    x.moveTo(rx + r, ry);
+    x.arcTo(rx + w, ry, rx + w, ry + h, r);
+    x.arcTo(rx + w, ry + h, rx, ry + h, r);
+    x.arcTo(rx, ry + h, rx, ry, r);
+    x.arcTo(rx, ry, rx + w, ry, r);
+    x.closePath();
+  }
+
+  function wrapText(ctx, text, maxW){
+    var out = [], cur = "";
+    for (var i = 0; i < text.length; i++){
+      var test = cur + text.charAt(i);
+      if (ctx.measureText(test).width > maxW && cur){ out.push(cur); cur = text.charAt(i); }
+      else { cur = test; }
+    }
+    if (cur) out.push(cur);
+    return out;
+  }
+
+  function makeCard(code){
+    var t = TYPES[code];
+    var W = 1080, H = 1350;
+    var c = document.createElement("canvas");
+    c.width = W; c.height = H;
+    var x = c.getContext("2d");
+    if (!x) return null;
+
+    var g = x.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, "#fff4e6"); g.addColorStop(.55, "#fffdf9"); g.addColorStop(1, "#eef8f2");
+    x.fillStyle = g; x.fillRect(0, 0, W, H);
+
+    x.save();
+    x.globalAlpha = .55;
+    var g2 = x.createRadialGradient(880, 210, 10, 880, 210, 420);
+    g2.addColorStop(0, "#ffd9bb"); g2.addColorStop(1, "rgba(255,217,187,0)");
+    x.fillStyle = g2; x.beginPath(); x.arc(880, 210, 420, 0, Math.PI * 2); x.fill();
+    var g3 = x.createRadialGradient(180, 1180, 10, 180, 1180, 380);
+    g3.addColorStop(0, "#cdeedd"); g3.addColorStop(1, "rgba(205,238,221,0)");
+    x.fillStyle = g3; x.beginPath(); x.arc(180, 1180, 380, 0, Math.PI * 2); x.fill();
+    x.restore();
+
+    // 테두리 카드
+    x.strokeStyle = "rgba(214,170,132,.45)"; x.lineWidth = 3;
+    roundRect(x, 44, 44, W - 88, H - 88, 44); x.stroke();
+
+    x.textAlign = "center";
+    x.fillStyle = "#a08d7c";
+    x.font = '500 32px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("🔮 오리지널 16유형 성향 테스트", W / 2, 130);
+
+    x.font = '150px "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+    x.fillText(t.e, W / 2, 330);
+
+    x.fillStyle = "#2f2a26";
+    x.font = '700 88px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText(t.n, W / 2, 460);
+
+    // 코드 배지
+    x.font = '700 34px Gulim, "Noto Sans KR", sans-serif';
+    var cw = x.measureText(code).width + 90;
+    x.fillStyle = "#f7e3d6";
+    roundRect(x, (W - cw) / 2, 500, cw, 62, 31); x.fill();
+    x.fillStyle = "#c4552b";
+    x.fillText(code, W / 2, 544);
+
+    // 한 줄 요약
+    x.fillStyle = "#5c4a3d";
+    x.font = '700 42px Gulim, "Noto Sans KR", sans-serif';
+    var lines = wrapText(x, "“" + t.t + "”", W - 220);
+    var ty = 640;
+    for (var i = 0; i < lines.length && i < 2; i++){ x.fillText(lines[i], W / 2, ty + i * 56); }
+
+    // 4축 바
+    var percents = (state.code === code && state.mode === "mine" && state.percents)
+      ? state.percents : null;
+    var by = ty + Math.max(1, Math.min(lines.length, 2)) * 56 + 34;
+    AXES.forEach(function(ax, k){
+      var pct = percents ? percents[k] : (code.charAt(k) === ax.a ? 70 : 30);
+      var leftIsA = pct >= 50;
+      var main = leftIsA ? ax.al : ax.bl;
+      var mainPct = leftIsA ? pct : 100 - pct;
+      var y = by + k * 108;
+
+      x.textAlign = "left";
+      x.fillStyle = "#2f2a26";
+      x.font = '700 36px Gulim, "Noto Sans KR", sans-serif';
+      x.fillText(main + "  " + mainPct + "%", 120, y);
+      x.textAlign = "right";
+      x.fillStyle = "#a08d7c";
+      x.font = '500 28px Gulim, "Noto Sans KR", sans-serif';
+      x.fillText(ax.name, W - 120, y);
+
+      var barY = y + 22, barW = W - 240;
+      x.fillStyle = "#f1e6d8";
+      roundRect(x, 120, barY, barW, 16, 8); x.fill();
+      var fw = Math.max(16, Math.round(barW * (leftIsA ? pct : 100 - pct) / 100));
+      var bg = x.createLinearGradient(120, 0, 120 + barW, 0);
+      bg.addColorStop(0, "#f4a878"); bg.addColorStop(1, "#d9663a");
+      x.fillStyle = bg;
+      roundRect(x, 120, barY, fw, 16, 8); x.fill();
+    });
+
+    // 궁합
+    var best1 = flip(flip(code, 0), 3);
+    var hard2 = flip(code, 1);
+    x.textAlign = "left";
+    x.fillStyle = "#8d7b6b";
+    x.font = '500 30px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("찰떡궁합  " + TYPES[best1].e + " " + TYPES[best1].n, 120, 1130);
+    x.fillText("부딪히기 쉬운  " + TYPES[hard2].e + " " + TYPES[hard2].n, 120, 1182);
+
+    // 푸터
+    x.textAlign = "center";
+    x.fillStyle = "#b0a094";
+    x.font = '500 28px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("soonsoo1004.github.io/personality-test", W / 2, 1258);
+    x.font = '500 24px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("12문항 · 약 1분 · 가입 없음 · 진단이 아닌 재미용", W / 2, 1296);
+
+    return c;
+  }
+
+  function savePng(){
+    var c = makeCard(state.code);
+    if (!c){ toast("이 브라우저에서는 카드 저장이 안 됩니다."); return; }
+    var name = "성향테스트_" + state.code + "_" + TYPES[state.code].n.replace(/\s/g, "") + ".png";
+    var done = function(url, revoke){
+      var a = document.createElement("a");
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      if (revoke) window.setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+      toast("카드 이미지를 저장했어요. 사진첩을 확인해 보세요.");
+    };
+    if (c.toBlob){
+      c.toBlob(function(blob){
+        if (!blob){ toast("카드 저장에 실패했어요."); return; }
+        done(URL.createObjectURL(blob), true);
+      }, "image/png");
+    } else {
+      done(c.toDataURL("image/png"), false);
+    }
+  }
+  $("btnPng").addEventListener("click", savePng);
+  $("btnPng2").addEventListener("click", savePng);
+
+  /* ══════════ 9. 공유 링크로 들어온 경우 ══════════ */
+  (function boot(){
+    var code = null;
+    try {
+      var qs = new URLSearchParams(location.search);
+      code = (qs.get("t") || "").toUpperCase();
+    } catch(e){
+      var m = /[?&]t=([A-Za-z]{4})/.exec(location.search);
+      code = m ? m[1].toUpperCase() : null;
+    }
+    if (code && TYPES[code]){
+      renderResult(code, { friend:true });
+    } else {
+      show("intro");
+    }
+  })();
+
+})();
+</script>
+</body>
+</html>
