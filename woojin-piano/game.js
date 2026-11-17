@@ -6,6 +6,11 @@
      ③ 믹스 모드 — 피아노 70 : 계단 30
    음악: 저작권 만료 클래식·전래동요만 Web Audio 피아노 신스로 직접 합성
    외부 음원 0건 · 외부 라이브러리 0건
+
+   · 곡은 악절(parts)을 A-A'-B-A 형태로 이어 붙여 곡당 40~50초·50~78노트
+   · 계단은 좌우로 크게 벌린 지그재그(칸 간격 ≈ 계단 폭의 60%) + 카메라 추적
+     꺾이는 칸은 분홍색·↺ 배지로 표시해 방향전환이 헷갈리지 않는다
+   · 단이 오를수록 박자 간격이 약 3%씩만 짧아진다(곡이 바뀌어도 확 튀지 않음)
    ══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -29,128 +34,355 @@
   var SONGS = {
     twinkle: {
       name: '작은별', emoji: '⭐', bpm: 100, stars: 1,
-      melody: [
-        60, 1, 60, 1, 67, 1, 67, 1, 69, 1, 69, 1, 67, 2,
-        65, 1, 65, 1, 64, 1, 64, 1, 62, 1, 62, 1, 60, 2,
-        67, 1, 67, 1, 65, 1, 65, 1, 64, 1, 64, 1, 62, 2,
-        67, 1, 67, 1, 65, 1, 65, 1, 64, 1, 64, 1, 62, 2,
-        60, 1, 60, 1, 67, 1, 67, 1, 69, 1, 69, 1, 67, 2,
-        65, 1, 65, 1, 64, 1, 64, 1, 62, 1, 62, 1, 60, 2
-      ]
+      form: ['A', 'B', 'A2'],
+      parts: {
+        A: [
+          60, 1, 60, 1, 67, 1, 67, 1, 69, 1, 69, 1, 67, 2,
+          65, 1, 65, 1, 64, 1, 64, 1, 62, 1, 62, 1, 60, 2,
+          67, 1, 67, 1, 65, 1, 65, 1, 64, 1, 64, 1, 62, 2,
+          67, 1, 67, 1, 65, 1, 65, 1, 64, 1, 64, 1, 62, 2,
+          60, 1, 60, 1, 67, 1, 67, 1, 69, 1, 69, 1, 67, 2,
+          65, 1, 65, 1, 64, 1, 64, 1, 62, 1, 62, 1, 60, 2
+        ],
+        B: [
+          67, 1, 72, 1, 74, 1, 72, 1, 69, 1, 67, 1, 64, 2,
+          65, 1, 69, 1, 72, 1, 69, 1, 67, 1, 65, 1, 60, 2
+        ],
+        A2: [
+          60, 1, 60, 1, 67, 1, 67, 1, 69, 1, 69, 1, 67, 2,
+          65, 1, 65, 1, 64, 1, 64, 1, 62, 2, 60, 2
+        ]
+      }
     },
     joy: {
       name: '환희의 송가', emoji: '🌅', bpm: 104, stars: 1,
-      melody: [
-        64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
-        60, 1, 60, 1, 62, 1, 64, 1, 64, 1.5, 62, 0.5, 62, 2,
-        64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
-        60, 1, 60, 1, 62, 1, 64, 1, 62, 1.5, 60, 0.5, 60, 2,
-        62, 1, 62, 1, 64, 1, 60, 1, 62, 1, 64, 0.5, 65, 0.5, 64, 1, 60, 1,
-        62, 1, 64, 0.5, 65, 0.5, 64, 1, 62, 1, 60, 1, 62, 1, 55, 2,
-        64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
-        60, 1, 60, 1, 62, 1, 64, 1, 62, 1.5, 60, 0.5, 60, 2
-      ]
+      form: ['A', 'B', 'C', 'D'],
+      parts: {
+        A: [
+          64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
+          60, 1, 60, 1, 62, 1, 64, 1, 64, 1.5, 62, 0.5, 62, 2,
+          64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
+          60, 1, 60, 1, 62, 1, 64, 1, 62, 1.5, 60, 0.5, 60, 2
+        ],
+        B: [
+          62, 1, 62, 1, 64, 1, 60, 1, 62, 1, 64, 0.5, 65, 0.5, 64, 1, 60, 1,
+          62, 1, 64, 0.5, 65, 0.5, 64, 1, 62, 1, 60, 1, 62, 1, 55, 2
+        ],
+        C: [
+          64, 1, 64, 1, 65, 1, 67, 1, 67, 1, 65, 1, 64, 1, 62, 1,
+          60, 1, 60, 1, 62, 1, 64, 1, 62, 1.5, 60, 0.5, 60, 2
+        ],
+        D: [
+          64, 1, 65, 1, 67, 1, 69, 1, 67, 1, 65, 1, 64, 2,
+          62, 1, 64, 1, 65, 1, 62, 1, 60, 4
+        ]
+      }
     },
     mary: {
       name: '메리의 양', emoji: '🐑', bpm: 112, stars: 1,
-      melody: [
-        64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 2,
-        62, 1, 62, 1, 62, 2, 64, 1, 67, 1, 67, 2,
-        64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 1, 64, 1,
-        62, 1, 62, 1, 64, 1, 62, 1, 60, 3
-      ]
+      form: ['A', 'B', 'C', 'D', 'E'],
+      parts: {
+        A: [
+          64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 2,
+          62, 1, 62, 1, 62, 2, 64, 1, 67, 1, 67, 2
+        ],
+        B: [
+          64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 1, 64, 1,
+          62, 1, 62, 1, 64, 1, 62, 1, 60, 4
+        ],
+        C: [
+          67, 1, 67, 1, 67, 1, 67, 1, 64, 1, 64, 1, 64, 2,
+          62, 1, 64, 1, 62, 1, 60, 1, 59, 2, 60, 2
+        ],
+        D: [
+          64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 67, 2,
+          62, 1, 62, 1, 64, 1, 62, 1, 60, 4
+        ],
+        E: [
+          67, 1, 67, 1, 67, 1, 67, 1, 64, 1, 62, 1, 60, 2,
+          62, 1, 62, 1, 64, 1, 62, 1, 60, 4
+        ]
+      }
     },
     butterfly: {
       name: '나비야', emoji: '🦋', bpm: 108, stars: 1,
-      melody: [
-        67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
-        60, 1, 62, 1, 64, 1, 65, 1, 67, 1, 67, 1, 67, 2,
-        67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
-        60, 1, 64, 1, 67, 1, 67, 1, 60, 3
-      ]
+      form: ['A', 'B', 'C', 'D', 'A2'],
+      parts: {
+        A: [
+          67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+          60, 1, 62, 1, 64, 1, 65, 1, 67, 1, 67, 1, 67, 2
+        ],
+        B: [
+          67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+          60, 1, 64, 1, 67, 1, 67, 1, 60, 3
+        ],
+        C: [
+          67, 1, 69, 1, 67, 1, 64, 1, 65, 1, 64, 1, 62, 2,
+          60, 1, 62, 1, 64, 1, 65, 1, 67, 2, 64, 2
+        ],
+        D: [
+          67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+          60, 1, 62, 1, 64, 1, 65, 1, 67, 1, 64, 1, 67, 2
+        ],
+        A2: [
+          67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+          60, 1, 62, 1, 64, 1, 65, 1, 67, 1, 67, 1, 67, 2
+        ]
+      }
     },
     macdonald: {
       name: '농장 노래', emoji: '🐄', bpm: 116, stars: 1,
-      melody: [
-        67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 2,
-        71, 1, 71, 1, 69, 1, 69, 1, 67, 3,
-        62, 1, 67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 1,
-        71, 1, 71, 1, 69, 1, 69, 1, 67, 3
-      ]
+      form: ['A', 'B', 'C', 'D', 'E', 'B2'],
+      parts: {
+        A: [
+          67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 2,
+          71, 1, 71, 1, 69, 1, 69, 1, 67, 3
+        ],
+        B: [
+          62, 1, 67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 1,
+          71, 1, 71, 1, 69, 1, 69, 1, 67, 3
+        ],
+        C: [
+          62, 1, 62, 1, 62, 1, 67, 1, 69, 1, 67, 1, 64, 2,
+          62, 1, 62, 1, 62, 1, 67, 1, 65, 1, 64, 1, 62, 2
+        ],
+        D: [
+          67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 2,
+          71, 1, 71, 1, 69, 1, 69, 1, 67, 4
+        ],
+        E: [
+          62, 1, 64, 1, 67, 1, 64, 1, 62, 1, 64, 1, 67, 2,
+          69, 1, 69, 1, 67, 1, 64, 1, 62, 4
+        ],
+        B2: [
+          62, 1, 67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 1,
+          71, 1, 71, 1, 69, 1, 69, 1, 67, 3
+        ]
+      }
     },
     london: {
       name: '런던 다리', emoji: '🌉', bpm: 112, stars: 1,
-      melody: [
-        67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
-        62, 1, 64, 1, 65, 2, 64, 1, 65, 1, 67, 2,
-        67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
-        62, 1, 67, 1, 64, 1, 60, 3
-      ]
+      form: ['A', 'B', 'C', 'D', 'C2'],
+      parts: {
+        A: [
+          67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
+          62, 1, 64, 1, 65, 2, 64, 1, 65, 1, 67, 2
+        ],
+        B: [
+          67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
+          62, 1, 67, 1, 64, 1, 60, 3
+        ],
+        C: [
+          67, 1, 72, 1, 71, 1, 67, 1, 69, 1, 67, 1, 64, 2,
+          65, 1, 69, 1, 67, 1, 65, 1, 64, 2, 62, 2
+        ],
+        D: [
+          67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
+          62, 1, 64, 1, 65, 1, 62, 1, 60, 4
+        ],
+        C2: [
+          67, 1, 72, 1, 71, 1, 67, 1, 69, 1, 67, 1, 64, 2,
+          65, 1, 69, 1, 67, 1, 65, 1, 64, 2, 62, 2
+        ]
+      }
     },
     lullaby: {
       name: '자장가', emoji: '🌙', bpm: 86, stars: 2,
-      melody: [
-        64, 1, 64, 1, 67, 2, 64, 1, 64, 1, 67, 2,
-        64, 1, 67, 1, 72, 1, 71, 1, 69, 1, 69, 1, 67, 2,
-        62, 1, 64, 1, 65, 2, 62, 1, 62, 1, 64, 1, 65, 2,
-        62, 1, 65, 1, 71, 1, 69, 1, 67, 3
-      ]
+      form: ['A', 'B', 'C', 'A2'],
+      parts: {
+        A: [
+          64, 1, 64, 1, 67, 2, 64, 1, 64, 1, 67, 2,
+          64, 1, 67, 1, 72, 1, 71, 1, 69, 1, 69, 1, 67, 2
+        ],
+        B: [
+          62, 1, 64, 1, 65, 2, 62, 1, 62, 1, 64, 1, 65, 2,
+          62, 1, 65, 1, 71, 1, 69, 1, 67, 3
+        ],
+        C: [
+          67, 1, 67, 1, 67, 2, 72, 1, 71, 1, 69, 2,
+          67, 1, 64, 1, 65, 2, 62, 1, 64, 1, 60, 2
+        ],
+        A2: [
+          64, 1, 64, 1, 67, 2, 64, 1, 64, 1, 67, 2,
+          64, 1, 67, 1, 72, 1, 71, 1, 69, 1, 67, 1, 64, 2
+        ]
+      }
     },
     jingle: {
       name: '징글벨', emoji: '🔔', bpm: 118, stars: 2,
-      melody: [
-        64, 1, 64, 1, 64, 2, 64, 1, 64, 1, 64, 2,
-        64, 1, 67, 1, 60, 1, 62, 1, 64, 4,
-        65, 1, 65, 1, 65, 1, 65, 1, 65, 1, 64, 1, 64, 1, 64, 1,
-        64, 1, 62, 1, 62, 1, 64, 2, 62, 2, 67, 2
-      ]
+      form: ['A', 'B', 'C', 'D', 'C2', 'D2'],
+      parts: {
+        A: [
+          64, 1, 64, 1, 64, 2, 64, 1, 64, 1, 64, 2,
+          64, 1, 67, 1, 60, 1, 62, 1, 64, 4
+        ],
+        B: [
+          65, 1, 65, 1, 65, 1, 65, 1, 65, 1, 64, 1, 64, 1, 64, 1,
+          64, 1, 62, 1, 62, 1, 64, 2, 62, 2, 67, 2
+        ],
+        C: [
+          64, 1, 64, 1, 64, 2, 64, 1, 64, 1, 64, 2,
+          64, 1, 67, 1, 60, 1, 62, 1, 64, 4
+        ],
+        D: [
+          65, 1, 65, 1, 65, 1, 65, 1, 67, 1, 67, 1, 64, 2,
+          62, 1, 62, 1, 64, 1, 62, 1, 67, 4
+        ],
+        C2: [
+          64, 1, 64, 1, 64, 2, 64, 1, 64, 1, 64, 2,
+          64, 1, 67, 1, 60, 1, 62, 1, 64, 4
+        ],
+        D2: [
+          65, 1, 65, 1, 65, 1, 65, 1, 67, 1, 67, 1, 64, 2,
+          62, 1, 62, 1, 64, 1, 62, 1, 67, 4
+        ]
+      }
     },
     birthday: {
       name: '생일 축하', emoji: '🎂', bpm: 118, stars: 2,
-      melody: [
-        67, 0.5, 67, 0.5, 69, 1, 67, 1, 72, 1, 71, 2,
-        67, 0.5, 67, 0.5, 69, 1, 67, 1, 74, 1, 72, 2,
-        67, 0.5, 67, 0.5, 79, 1, 76, 1, 72, 1, 71, 1, 69, 2,
-        65, 0.5, 65, 0.5, 64, 1, 72, 1, 74, 1, 72, 3
-      ]
+      form: ['A', 'B', 'A2', 'C', 'B2', 'D'],
+      parts: {
+        A: [
+          67, 0.5, 67, 0.5, 69, 1, 67, 1, 72, 1, 71, 2,
+          67, 0.5, 67, 0.5, 69, 1, 67, 1, 74, 1, 72, 2
+        ],
+        B: [
+          67, 0.5, 67, 0.5, 79, 1, 76, 1, 72, 1, 71, 1, 69, 2,
+          65, 0.5, 65, 0.5, 64, 1, 72, 1, 74, 1, 72, 3
+        ],
+        A2: [
+          67, 0.5, 67, 0.5, 69, 1, 67, 1, 72, 1, 71, 2,
+          67, 0.5, 67, 0.5, 69, 1, 67, 1, 74, 1, 72, 2
+        ],
+        C: [
+          72, 1, 71, 1, 69, 1, 67, 1, 69, 1, 71, 1, 72, 2,
+          74, 1, 72, 1, 71, 1, 69, 1, 67, 4
+        ],
+        B2: [
+          67, 0.5, 67, 0.5, 79, 1, 76, 1, 72, 1, 71, 1, 69, 2,
+          65, 0.5, 65, 0.5, 64, 1, 72, 1, 74, 1, 72, 3
+        ],
+        D: [
+          72, 1, 72, 1, 71, 1, 69, 1, 67, 1, 69, 1, 71, 2,
+          72, 1, 74, 1, 72, 1, 71, 1, 67, 4
+        ]
+      }
     },
     elise: {
       name: '엘리제를 위하여', emoji: '🌷', bpm: 92, stars: 2,
-      melody: [
-        76, 0.5, 75, 0.5, 76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5, 69, 1.5,
-        60, 0.5, 64, 0.5, 69, 0.5, 71, 1,
-        64, 0.5, 68, 0.5, 71, 0.5, 72, 1,
-        76, 0.5, 75, 0.5, 76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5, 69, 1.5,
-        60, 0.5, 64, 0.5, 69, 0.5, 71, 1,
-        64, 0.5, 72, 0.5, 71, 1, 69, 2
-      ]
+      form: ['A', 'B', 'C', 'D'],
+      parts: {
+        A: [
+          76, 0.5, 75, 0.5, 76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5, 69, 1.5,
+          60, 0.5, 64, 0.5, 69, 0.5, 71, 1,
+          64, 0.5, 68, 0.5, 71, 0.5, 72, 1,
+          76, 0.5, 75, 0.5, 76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5, 69, 1.5,
+          60, 0.5, 64, 0.5, 69, 0.5, 71, 1,
+          64, 0.5, 72, 0.5, 71, 1, 69, 2
+        ],
+        B: [
+          76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5, 69, 1,
+          67, 1, 69, 1, 71, 1, 72, 1,
+          76, 1, 74, 1, 72, 1, 71, 1,
+          69, 4
+        ],
+        C: [
+          72, 1, 74, 1, 76, 1, 77, 1,
+          76, 1, 74, 1, 72, 2,
+          71, 1, 72, 1, 74, 1, 76, 1,
+          72, 4
+        ],
+        D: [
+          76, 0.5, 75, 0.5, 76, 0.5, 75, 0.5, 76, 0.5, 71, 0.5, 74, 0.5, 72, 0.5,
+          69, 1, 71, 1, 69, 2,
+          67, 1, 69, 1, 71, 1, 72, 1,
+          69, 4
+        ]
+      }
     },
     minuet: {
       name: '미뉴에트', emoji: '🎻', bpm: 104, stars: 3,
-      melody: [
-        74, 1, 67, 1, 69, 1, 71, 1, 72, 1, 74, 1, 67, 2,
-        76, 1, 72, 1, 74, 1, 76, 1, 78, 1, 79, 1, 79, 2,
-        78, 1, 76, 1, 74, 1, 79, 1, 78, 1, 76, 1,
-        74, 1, 76, 1, 78, 1, 74, 3
-      ]
+      form: ['A', 'B', 'C', 'D', 'B2'],
+      parts: {
+        A: [
+          74, 1, 67, 1, 69, 1, 71, 1, 72, 1, 74, 1, 67, 2,
+          76, 1, 72, 1, 74, 1, 76, 1, 78, 1, 79, 1, 79, 2
+        ],
+        B: [
+          78, 1, 76, 1, 74, 1, 79, 1, 78, 1, 76, 1,
+          74, 1, 76, 1, 78, 1, 74, 3
+        ],
+        C: [
+          74, 1, 71, 1, 67, 1, 71, 1, 74, 1, 76, 1, 74, 2,
+          71, 1, 74, 1, 78, 1, 76, 1, 74, 4
+        ],
+        D: [
+          79, 1, 78, 1, 76, 1, 74, 1, 72, 1, 74, 1, 76, 2,
+          74, 1, 71, 1, 67, 1, 71, 1, 74, 4
+        ],
+        B2: [
+          78, 1, 76, 1, 74, 1, 79, 1, 78, 1, 76, 1,
+          74, 1, 76, 1, 78, 1, 74, 3
+        ]
+      }
     },
     canon: {
       name: '캐논', emoji: '🌈', bpm: 96, stars: 3,
-      melody: [
-        78, 1, 76, 1, 74, 1, 73, 1,
-        71, 1, 69, 1, 71, 1, 73, 1,
-        74, 1, 73, 1, 71, 1, 69, 1,
-        67, 1, 66, 1, 67, 1, 64, 1,
-        71, 1, 69, 1, 67, 1, 66, 1,
-        64, 1, 62, 1, 64, 1, 66, 1,
-        67, 1, 66, 1, 67, 1, 69, 1,
-        71, 1, 73, 1, 74, 1, 76, 1
-      ]
+      form: ['A', 'B', 'C'],
+      parts: {
+        A: [
+          78, 1, 76, 1, 74, 1, 73, 1,
+          71, 1, 69, 1, 71, 1, 73, 1,
+          74, 1, 73, 1, 71, 1, 69, 1,
+          67, 1, 66, 1, 67, 1, 64, 1,
+          71, 1, 69, 1, 67, 1, 66, 1,
+          64, 1, 62, 1, 64, 1, 66, 1,
+          67, 1, 66, 1, 67, 1, 69, 1,
+          71, 1, 73, 1, 74, 1, 76, 1
+        ],
+        B: [
+          71, 1, 73, 1, 74, 1, 76, 1,
+          78, 1, 76, 1, 74, 1, 73, 1,
+          74, 1, 73, 1, 71, 1, 69, 1,
+          71, 1, 74, 1, 73, 2
+        ],
+        C: [
+          78, 1, 76, 1, 74, 1, 73, 1,
+          71, 1, 69, 1, 71, 1, 73, 1,
+          74, 1, 71, 1, 67, 1, 71, 1,
+          74, 4
+        ]
+      }
     }
   };
 
   var SONG_ORDER = ['twinkle', 'joy', 'mary', 'butterfly', 'macdonald', 'london',
                     'lullaby', 'jingle', 'birthday', 'elise', 'minuet', 'canon'];
+
+  /* 악절(parts)을 form 순서로 이어 붙여 한 곡의 melody([음, 박, ...])를 만든다 */
+  (function buildMelodies() {
+    for (var i = 0; i < SONG_ORDER.length; i++) {
+      var sg = SONGS[SONG_ORDER[i]];
+      if (!sg || !sg.parts) continue;
+      var flat = [];
+      for (var f = 0; f < sg.form.length; f++) {
+        var part = sg.parts[sg.form[f]] || [];
+        for (var n = 0; n < part.length; n++) flat.push(part[n]);
+      }
+      sg.melody = flat;
+      sg.beats = 0;
+      for (var m = 0; m < flat.length; m += 2) sg.beats += flat[m + 1];
+    }
+  })();
+
+  /* 스테이지 속도 곡선 — 단마다 약 3.5%씩만 빨라진다(계단식으로 확 튀지 않음) */
+  function tempoAt(stage) { return 1 + 0.035 * Math.max(0, stage - 1); }
+  /* 그 단의 실제 빠르기 — 곡 고유 빠르기는 ±5%만 반영해 단마다 고르게 빨라진다 */
+  function bpmAtStage(songId, stage) {
+    return 100 * tempoAt(stage) * Math.pow(SONGS[songId].bpm / 100, 0.18);
+  }
+  /* 떨어지는 타일이 화면 위에서 판정선까지 오는 시간 — 템포에 맞춰 부드럽게 */
+  function approachFor(beatSec) { return clamp(beatSec * 2.55, 0.8, 1.85); }
 
   var STAGES = [
     { name: '첫 걸음', emoji: '🌱' },
@@ -856,7 +1088,7 @@
     S.bestFloor = parseInt(localStorage.getItem('woojin_piano_best_floor') || '0', 10) || 0;
   } catch (e) { }
 
-  var L = { cx: 0, nearY: 0, fieldBottom: 0, laneX: 0, laneW: 0, laneTop: 0, hitY: 0, stageY: 0 };
+  var L = { cx: 0, nearY: 0, fieldBottom: 0, laneX: 0, laneW: 0, laneTop: 0, hitY: 0, stageY: 0, ls0: 52, stepW: 86, backLs: 16 };
 
   var LANES = [
     { syl: '도', midi: 60, rgb: '86,158,240', hex: '#569ef0' },
@@ -909,6 +1141,10 @@
     L.hitY = L.fieldBottom - 104;
     if (L.hitY - L.laneTop < 210) L.hitY = Math.min(L.fieldBottom - 60, L.laneTop + 210);
     L.stageY = L.fieldBottom - 4;
+    // 계단 좌우 간격·계단 폭 — 화면 폭에 맞춰 조금씩
+    L.ls0 = clamp(W * 0.145, 44, 60);
+    L.stepW = clamp(W * 0.222, 70, 104);
+    L.backLs = clamp(L.ls0 * 0.30, 12, 20);
   }
 
   function resize() {
@@ -1033,19 +1269,20 @@
 
   function rhythmBuild(songId) {
     var mel = melodyOf(songId);
-    var faster = Math.pow(1.06, S.stage - 1);
-    var beatSec = (60 / SONGS[songId].bpm) / faster;
-    var out = [], t = 1.3;
-    for (var i = 0; i < mel.length; i++) {
+    var beatSec = 60 / bpmAtStage(songId, S.stage);
+    var out = [], t = 1.4, n = mel.length;
+    for (var i = 0; i < n; i++) {
       out.push({ t: t, lane: laneOfPitch(mel[i].midi), midi: mel[i].midi, hit: 0, burstT: 0 });
-      t += mel[i].beats * beatSec;
+      // 곡이 흐르는 동안에도 아주 살짝(최대 5%)만 빨라진다 — 갑자기 확 빨라지지 않게
+      var ramp = 1 - 0.05 * (n > 1 ? i / (n - 1) : 0);
+      t += mel[i].beats * beatSec * ramp;
     }
     RH.notes = out;
     RH.ptr = 0;
     RH.t = 0;
     RH.endT = t + 1.0;
     RH.beatSec = beatSec;
-    RH.approach = clamp(1.6 - (S.stage - 1) * 0.08, 0.75, 1.6);
+    RH.approach = approachFor(beatSec);
     RH.keyFx = [0, 0, 0, 0];
     RH.clearT = 0;
   }
@@ -1087,6 +1324,12 @@
       S.cheerT = 1.1;
       showBanner('피버 타임! 점수 2배 🌈');
       playSparkle(76);
+    }
+    // 곡이 길어져도 끝까지 갈 수 있게 — 20콤보마다 하트 하나 회복(최대 3)
+    if (S.combo > 0 && S.combo % 20 === 0 && S.hearts < 3) {
+      S.hearts++;
+      playSparkle(80);
+      showBanner('하트 하나 회복! 💖');
     }
     var x = L.laneX + L.laneW * (n.lane + 0.5);
     burst(x, L.hitY, LANES[n.lane].hex, perfect ? 16 : 9, 1);
@@ -1310,6 +1553,8 @@
   /* ══════════════════════════════════════════════════════════
      ② 천국의 계단 모드 — 오르기 / 방향전환
      ══════════════════════════════════════════════════════════ */
+  var CAM_AHEAD = 7;
+
   var ST = {
     steps: [], charIdx: 0, dir: 1, sinceTurn: 0, wx: 0,
     time: 100, timeMax: 100, drain: 7.0, floor: 0,
@@ -1387,9 +1632,9 @@
     S.cheerT = 1.4;
     ST.timeMax = Math.min(100, ST.timeMax + 6);
     ST.time = ST.timeMax;
-    ST.drain = 7.0 + (S.stage - 1) * 0.55;
+    ST.drain = 7.0 + (S.stage - 1) * 0.45;
     paintBg(S.stage, true);
-    musicStart(S.song, 1 + (S.stage - 1) * 0.06);
+    musicStart(S.song, tempoAt(S.stage));
     showBanner('STAGE ' + S.stage + ' · ' + SONGS[S.song].name + ' ' + STAGES[Math.min(S.stage, 5) - 1].emoji);
     hudCache.stage = -1; hudCache.song = '';
     updateHud();
@@ -1437,8 +1682,9 @@
 
   /* 계단 화면 그리기 */
   function stairsRender(now) {
-    var top = Math.min(ST.steps.length - 1, ST.charIdx + 10);
+    var top = Math.min(ST.steps.length - 1, ST.charIdx + CAM_AHEAD);
     var k;
+    stairTrail();
     for (k = top; k >= Math.max(0, ST.charIdx - 2); k--) drawStairStep(k, now);
     // 다음 계단 안내
     drawStairHint(now);
@@ -1482,38 +1728,89 @@
     }
   }
 
+  /* 계단 한 칸의 위치·크기 — 좌우로 크게 벌어져 사선(지그재그)이 또렷하다 */
+  function stepGeo(d) {
+    if (d >= 0) {
+      var s = clamp(1.02 - 0.048 * d, 0.45, 1.04);
+      return {
+        s: s,
+        y: L.nearY - (58 * d) + 1.6 * d * d,
+        ls: L.ls0 * (0.5 + 0.5 * s)
+      };
+    }
+    return { s: 1.06, y: L.nearY + 56 * (-d), ls: L.backLs };
+  }
+
   function pathScreen(P, k) {
     if (k < 0) k = 0;
     if (k >= P.steps.length) k = P.steps.length - 1;
     var d = k - P.charIdx;
-    var s, y, ls;
-    if (d >= 0) {
-      s = clamp(1.02 - 0.052 * d, 0.42, 1.04);
-      y = L.nearY - (56 * d) + 1.45 * d * d;
-      ls = 33 * (0.5 + 0.5 * s);
-    } else {
-      s = 1.06;
-      y = L.nearY + 54 * (-d);
-      ls = 34;
-    }
-    var x = L.cx + (P.cam || 0) + (P.steps[k].wx - P.steps[P.charIdx].wx) * ls;
-    return { x: x, y: y, s: s, d: d };
+    var g = stepGeo(d);
+    var x = L.cx + (P.cam || 0) + (P.steps[k].wx - P.steps[P.charIdx].wx) * g.ls;
+    return { x: x, y: g.y, s: g.s, d: d };
   }
 
-  /* 계단이 화면 밖으로 흘러나가지 않게 카메라를 살짝 따라간다 */
+  /* 계단 전체가 화면 안에 들어오도록 카메라가 좌우로 따라간다 */
   function updateCam(P, dt) {
-    var ahead = Math.min(P.charIdx + 4, P.steps.length - 1);
-    var drift = P.steps[ahead].wx - P.steps[P.charIdx].wx;
-    var want = -clamp(drift, -3.4, 3.4) * 15;
-    P.cam = P.cam === undefined ? want : lerp(P.cam, want, clamp(dt * 3.2, 0, 1));
+    var k0 = Math.max(0, P.charIdx - 2);
+    var k1 = Math.min(P.steps.length - 1, P.charIdx + CAM_AHEAD);
+    var wc = P.steps[P.charIdx].wx, lo = 0, hi = 0;
+    for (var k = k0; k <= k1; k++) {
+      var x = (P.steps[k].wx - wc) * stepGeo(k - P.charIdx).ls;
+      if (x < lo) lo = x;
+      if (x > hi) hi = x;
+    }
+    var pad = 6, half = L.stepW * 0.6;
+    var want = W / 2 - (lo + hi) / 2 - W / 2;   // = 가운데 정렬
+    var minX = pad + half - lo;                 // 왼쪽 끝이 화면 안에 남는 최소 위치
+    var maxX = W - pad - half - hi;             // 오른쪽 끝이 화면 안에 남는 최대 위치
+    var cam = (P.cam === undefined) ? want : lerp(P.cam, want, clamp(dt * 4, 0, 1));
+    // 따라가는 도중에도 절대 화면 밖으로 나가지 않게 마지막으로 한 번 더 조여 준다
+    var cxNow = W / 2 + cam;
+    cxNow = (maxX < minX) ? (minX + maxX) / 2 : clamp(cxNow, minX, maxX);
+    P.cam = cxNow - W / 2;
+  }
+
+  /* 계단을 잇는 옅은 빛길 — 좌우로 꺾이는 모양이 하나의 길로 보인다 */
+  function stairTrail() {
+    var k0 = Math.max(0, ST.charIdx - 2);
+    var k1 = Math.min(ST.steps.length - 1, ST.charIdx + CAM_AHEAD);
+    if (k1 <= k0) return;
+    ctx.save();
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    for (var k = k0; k <= k1; k++) {
+      var p = pathScreen(ST, k);
+      if (k === k0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.strokeStyle = 'rgba(255,255,255,.30)';
+    ctx.lineWidth = 20;
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(238,250,255,.55)';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    // 꺾이는 자리마다 분홍 다이아몬드
+    for (var j = k0 + 1; j <= k1; j++) {
+      if (!ST.steps[j].turn) continue;
+      var q = pathScreen(ST, j);
+      ctx.save();
+      ctx.translate(q.x, q.y);
+      ctx.rotate(Math.PI / 4);
+      ctx.fillStyle = 'rgba(240,122,203,.9)';
+      var r = 9 * q.s;
+      ctx.fillRect(-r / 2, -r / 2, r, r);
+      ctx.restore();
+    }
+    ctx.restore();
   }
 
   function drawStairStep(k, now) {
     var st = ST.steps[k];
     var p = pathScreen(ST, k);
-    if (p.d < -2.4 || p.d > 10.5) return;
+    if (p.d < -2.4 || p.d > CAM_AHEAD + 0.6) return;
     var pal = palOf(S.stage);
-    var w = 100 * p.s, h = 26 * p.s, th = 22 * p.s;
+    var w = L.stepW * p.s, h = 24 * p.s, th = 16 * p.s;
     var isNext = (k === ST.charIdx + 1);
     var past = k <= ST.charIdx;
     var glow = st.fx || 0;
@@ -1542,9 +1839,24 @@
     rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 9 * p.s);
     ctx.fill();
 
+    // 꺾이는 칸 — 분홍으로 물들여 '방향이 바뀌는 칸'임을 한눈에
+    if (st.turn) {
+      ctx.save();
+      ctx.globalAlpha *= 0.42;
+      ctx.fillStyle = '#f07acb';
+      rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 9 * p.s);
+      ctx.fill();
+      ctx.restore();
+    }
+
     // 잔디 띠
     ctx.fillStyle = pal.grass;
     rr(ctx, p.x - w / 2 + 2 * p.s, p.y - h / 2, w - 4 * p.s, 4.5 * p.s, 3 * p.s);
+    ctx.fill();
+
+    // 앞 코 색 띠 — 버튼 색과 똑같이(오르기=파랑, 꺾기=분홍)
+    ctx.fillStyle = st.turn ? 'rgba(236,138,208,.98)' : 'rgba(74,171,240,.92)';
+    rr(ctx, p.x - w / 2 + 4 * p.s, p.y + h / 2 - 4 * p.s, w - 8 * p.s, 5 * p.s, 2.5 * p.s);
     ctx.fill();
     ctx.globalAlpha *= 0.9;
     ctx.strokeStyle = pal.edge;
@@ -1553,16 +1865,25 @@
     ctx.stroke();
     ctx.globalAlpha /= 0.9;
 
-    // 앞으로 세 칸 — 어느 버튼을 눌러야 하는지 계단 위에 표시
+    // 앞으로 세 칸 — 어느 버튼을 눌러야 하는지 계단 위에 크게 표시
     if (k > ST.charIdx && k <= ST.charIdx + 3) {
       var dd = k - ST.charIdx;
+      var bs = Math.max(0.72, p.s) * (dd === 1 ? 1.34 : 1);
       ctx.save();
-      ctx.globalAlpha *= (dd === 1 ? 0.95 : (dd === 2 ? 0.5 : 0.26));
+      ctx.globalAlpha *= (dd === 1 ? 1 : (dd === 2 ? 0.62 : 0.34));
+      // 배지 원 — 오르기(파랑) / 꺾기(분홍)
+      ctx.fillStyle = st.turn ? 'rgba(206,74,162,.97)' : 'rgba(34,108,188,.95)';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y - 1 * p.s, 12 * bs, 0, TAU);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.95)';
+      ctx.lineWidth = 2 * bs;
+      ctx.stroke();
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = '900 ' + Math.round(15 * p.s) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-      ctx.fillStyle = st.turn ? '#a83a86' : '#255f9c';
-      ctx.fillText(st.turn ? '↺' : '⬆', p.x, p.y + 1);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 ' + Math.round(16 * bs) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.fillText(st.turn ? '↺' : '⬆', p.x, p.y - 1 * p.s);
       ctx.restore();
     }
 
@@ -1617,11 +1938,11 @@
       ctx.stroke();
     }
 
-    // 다음 계단 — 노란 테두리
+    // 다음 계단 — 노란(오르기)·분홍(꺾기) 테두리
     if (isNext) {
       var pl = 0.55 + 0.45 * Math.sin(now * 0.008);
       ctx.globalAlpha = pl;
-      ctx.strokeStyle = '#ffe066';
+      ctx.strokeStyle = st.turn ? '#ff8ed8' : '#ffe066';
       ctx.lineWidth = 3 * p.s;
       ctx.shadowColor = 'rgba(255, 210, 60, .95)';
       ctx.shadowBlur = 14;
@@ -1636,15 +1957,34 @@
     if (!next || ST.over) return;
     var p = pathScreen(ST, ST.charIdx + 1);
     var c = pathScreen(ST, ST.charIdx);
-    // 현재 → 다음 계단 점선
+    var col = next.turn ? '236,138,208' : '120,205,255';
+    // 현재 → 다음 계단 진한 점선 + 화살촉(어느 쪽으로 가는지)
     ctx.save();
-    ctx.setLineDash([6, 6]);
-    ctx.strokeStyle = 'rgba(255,255,255,.55)';
-    ctx.lineWidth = 2;
+    ctx.setLineDash([9, 7]);
+    ctx.lineDashOffset = -(now * 0.035) % 16;
+    ctx.strokeStyle = 'rgba(' + col + ', .95)';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.shadowColor = 'rgba(' + col + ', .85)';
+    ctx.shadowBlur = 10;
     ctx.beginPath();
-    ctx.moveTo(c.x, c.y);
-    ctx.lineTo(p.x, p.y);
+    ctx.moveTo(c.x, c.y - 6);
+    ctx.lineTo(p.x, p.y + 4);
     ctx.stroke();
+    ctx.restore();
+    // 화살촉
+    var ang = Math.atan2(p.y - c.y, p.x - c.x);
+    var hx = p.x, hy = p.y + 4;
+    ctx.save();
+    ctx.translate(hx, hy);
+    ctx.rotate(ang);
+    ctx.fillStyle = 'rgba(' + col + ', .98)';
+    ctx.beginPath();
+    ctx.moveTo(2, 0);
+    ctx.lineTo(-13, 7.5);
+    ctx.lineTo(-13, -7.5);
+    ctx.closePath();
+    ctx.fill();
     ctx.restore();
   }
 
@@ -1659,7 +1999,6 @@
   };
 
   function turnChanceAt(stage) { return clamp(0.30 + (stage - 1) * 0.015, 0.30, 0.36); }
-  function tempoAt(stage) { return Math.pow(1.055, stage - 1); }
 
   function mixPush() {
     var mel = melodyOf(MX.genSong);
@@ -1678,7 +2017,7 @@
       else if (MX.sinceTurn >= 2 && Math.random() < turnChanceAt(MX.genStage)) turn = true;
       if (turn) { MX.dir = -MX.dir; MX.sinceTurn = 0; }
     }
-    var bpm = SONGS[MX.genSong].bpm * tempoAt(MX.genStage);
+    var bpm = bpmAtStage(MX.genSong, MX.genStage);
     var beatSec = 60 / bpm;
     var lane = laneOfPitch(cur.midi);
     var chord = false, midis = [cur.midi], lanes = [lane];
@@ -1869,7 +2208,7 @@
 
   /* 믹스 화면 그리기 */
   function mixRender(now) {
-    var top = Math.min(MX.steps.length - 1, MX.charIdx + 9);
+    var top = Math.min(MX.steps.length - 1, MX.charIdx + CAM_AHEAD);
     var k;
     for (k = Math.max(0, MX.charIdx - 2); k <= top; k++) if (k >= 1) mixRiser(k, now);
     for (k = top; k >= Math.max(0, MX.charIdx - 2); k--) mixTile(k, now);
@@ -1882,7 +2221,7 @@
 
   function mixRiser(k, now) {
     var a = pathScreen(MX, k - 1), b = pathScreen(MX, k);
-    if (b.d < -2.2 || a.d > 10.5) return;
+    if (b.d < -2.2 || a.d > CAM_AHEAD + 0.6) return;
     var h = 34 * b.s;
     ctx.save();
     ctx.globalAlpha = clamp(0.7 - Math.max(0, b.d) * 0.03, 0.28, 0.8);
@@ -1939,7 +2278,7 @@
   function mixTile(k, now) {
     var st = MX.steps[k];
     var p = pathScreen(MX, k);
-    if (p.d < -2.4 || p.d > 10.5) return;
+    if (p.d < -2.4 || p.d > CAM_AHEAD + 0.6) return;
     var isNext = k === MX.nextIdx;
     if (isNext) { mixLandingSlot(k, now); return; }
     var past = k <= MX.charIdx;
@@ -2000,7 +2339,7 @@
     var st = MX.steps[MX.nextIdx];
     if (!st) return;
     var p = pathScreen(MX, MX.nextIdx);
-    if (p.d > 10.5 || p.d < -2.4) return;
+    if (p.d > CAM_AHEAD + 0.6 || p.d < -2.4) return;
     var f = mixFallProgress();
     var dropH = 200 * Math.max(0.55, p.s);
     var ty = p.y - (1 - f) * dropH;
@@ -2176,7 +2515,7 @@
     el.pauseScreen.classList.remove('show');
     audioRestore();
     if (S.mode === 'stairs' && ST.over) { gameOver(); return; }
-    if (S.mode === 'stairs') musicStart(S.song, 1 + (S.stage - 1) * 0.06);
+    if (S.mode === 'stairs') musicStart(S.song, tempoAt(S.stage));
     lastT = 0;
   }
 
@@ -2459,7 +2798,7 @@
 
   /* E2E · 점검용 훅 */
   window.__piano = {
-    version: 3,
+    version: 4,
     screen: function () { return S.screen; },
     mode: function () { return S.mode; },
     state: S,
@@ -2469,6 +2808,30 @@
     resume: resumeGame,
     press: doAction,
     songs: function () { return SONG_ORDER.slice(); },
+    songInfo: function () {
+      return SONG_ORDER.map(function (id) {
+        var mel = melodyOf(id), beats = 0;
+        for (var i = 0; i < mel.length; i++) beats += mel[i].beats;
+        return {
+          id: id, name: SONGS[id].name, bpm: SONGS[id].bpm, notes: mel.length,
+          beats: +beats.toFixed(1), seconds: +(beats * 60 / SONGS[id].bpm).toFixed(1),
+          melody: mel.length
+        };
+      });
+    },
+    speed: function () {
+      return {
+        stage: S.stage,
+        tempo: +tempoAt(S.stage).toFixed(4),
+        beatSec: +RH.beatSec.toFixed(4),
+        approach: +RH.approach.toFixed(3),
+        notes: RH.notes.length,
+        endT: +RH.endT.toFixed(2)
+      };
+    },
+    tempoOf: function (st) { return +tempoAt(st).toFixed(4); },
+    bpmOf: function (st) { return +bpmAtStage(songAt(st), st).toFixed(2); },
+    beatOf: function (st) { return +(60 / bpmAtStage(songAt(st), st)).toFixed(4); },
     hud: function () {
       return {
         score: S.score, combo: S.combo, maxCombo: S.maxCombo, hearts: S.hearts,
@@ -2493,12 +2856,32 @@
       seekFloor: function (n) {
         while (ST.charIdx + 1 <= n) { ST.charIdx++; ST.floor = ST.charIdx; stairsPush(); }
         updateHud();
+      },
+      geo: function () {
+        var out = [];
+        var k1 = Math.min(ST.steps.length - 1, ST.charIdx + CAM_AHEAD);
+        for (var k = Math.max(0, ST.charIdx - 2); k <= k1; k++) {
+          var p = pathScreen(ST, k);
+          out.push({ k: k, d: p.d, x: +p.x.toFixed(1), y: +p.y.toFixed(1),
+            s: +p.s.toFixed(3), w: +(L.stepW * p.s).toFixed(1), turn: !!ST.steps[k].turn });
+        }
+        return { W: W, H: H, cam: +(ST.cam || 0).toFixed(1), stepW: L.stepW, ls0: +L.ls0.toFixed(2), steps: out };
       }
     },
     mix: {
       next: function () {
         var st = MX.steps[MX.nextIdx];
         return st ? { turn: st.turn, chord: st.chord, lane: st.lane, lanes: st.lanes, stage: st.stage } : null;
+      },
+      geo: function () {
+        var out = [];
+        var k1 = Math.min(MX.steps.length - 1, MX.charIdx + CAM_AHEAD);
+        for (var k = Math.max(0, MX.charIdx - 2); k <= k1; k++) {
+          if (k < 1) continue;
+          var p = pathScreen(MX, k);
+          out.push({ k: k, d: p.d, x: +p.x.toFixed(1), y: +p.y.toFixed(1), s: +p.s.toFixed(3), turn: !!MX.steps[k].turn });
+        }
+        return { W: W, H: H, cam: +(MX.cam || 0).toFixed(1), steps: out };
       }
     },
     audio: function () {
