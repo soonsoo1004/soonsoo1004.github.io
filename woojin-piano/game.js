@@ -1398,6 +1398,7 @@
   function stairsFall(reason) {
     if (ST.over) return;
     ST.over = true;
+    S.endReason = reason;
     ST.fallT = 1;
     S.fallT = 1;
     S.oopsT = 1.7;
@@ -2119,7 +2120,7 @@
     S.perfect = 0; S.judged = 0; S.fever = false;
     S.hopT = 0; S.fallT = 0; S.oopsT = 0; S.cheerT = 0; S.playT = 0;
     S.shake = 0; S.flash = 0.4;
-    S.floor = 0;
+    S.floor = 0; S.endReason = '';
     hudCache = {};
     el.judge.className = 'judge';
     el.comboBox.classList.remove('on');
@@ -2204,7 +2205,10 @@
       el.overBestLine.innerHTML = '최고 점수 <b>' + fmt(S.best[S.mode]) + '</b>점';
     }
     var title, msg;
-    if (S.mode === 'stairs') {
+    if (S.mode === 'stairs' && S.endReason === 'time') {
+      title = '시간 초과!';
+      msg = '빠르게 오를수록 시간이 늘어나요 ⏱';
+    } else if (S.mode === 'stairs') {
       if (S.floor >= 60) { title = '하늘 끝까지!'; msg = '구름을 뚫고 올라갔어요 ✨'; }
       else if (S.floor >= 30) { title = '계단 박사!'; msg = '무지개 위까지 올랐어요 🌈'; }
       else if (S.floor >= 12) { title = '잘했어요!'; msg = '다음엔 별까지 올라가요 ⭐'; }
