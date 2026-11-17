@@ -1027,7 +1027,7 @@
      ① 리듬 건반 모드 — 떨어지는 타일을 박자에 맞춰
      ══════════════════════════════════════════════════════════ */
   var RH = {
-    t: 0, notes: [], ptr: 0, endT: 1, approach: 1.4, beatSec: 0.6,
+    t: 0, notes: [], ptr: 0, endT: 1, approach: 1.6, beatSec: 0.6,
     keyFx: [0, 0, 0, 0], clearT: 0
   };
 
@@ -1045,7 +1045,7 @@
     RH.t = 0;
     RH.endT = t + 1.0;
     RH.beatSec = beatSec;
-    RH.approach = clamp(1.45 - (S.stage - 1) * 0.07, 0.72, 1.45);
+    RH.approach = clamp(1.6 - (S.stage - 1) * 0.08, 0.75, 1.6);
     RH.keyFx = [0, 0, 0, 0];
     RH.clearT = 0;
   }
@@ -1065,14 +1065,14 @@
     var n = RH.notes[RH.ptr];
     if (!n) return;
     var dt = n.t - RH.t;
-    if (dt > 0.36) return;              // 아직 멀었다 — 벌점 없음
-    if (dt < -0.34) return;
+    if (dt > 0.5) return;               // 아직 멀었다 — 벌점 없음
+    if (dt < -0.5) return;
     if (n.lane !== lane) { rhythmMiss(true); return; }
     rhythmHit(n, Math.abs(dt));
   }
 
   function rhythmHit(n, adt) {
-    var perfect = adt <= 0.13;
+    var perfect = adt <= 0.22;
     n.hit = perfect ? 2 : 1;
     RH.ptr++;
     playPiano(n.midi, 1);
@@ -1119,7 +1119,7 @@
     RH.t += dt;
     for (var i = 0; i < 4; i++) RH.keyFx[i] = Math.max(0, RH.keyFx[i] - dt * 4);
     var n = RH.notes[RH.ptr];
-    if (n && RH.t - n.t > 0.34) {
+    if (n && RH.t - n.t > 0.5) {
       rhythmMiss(false);
       if (S.screen !== 'play') return;
     }
@@ -1193,7 +1193,7 @@
     // 다음 타일 유도선 + 타일 (레인 안쪽만 그리기)
     ctx.save();
     ctx.beginPath();
-    ctx.rect(x0, top, w * 4, hit - top);
+    ctx.rect(x0, top, w * 4, (hit - top) + 34);
     ctx.clip();
 
     var nx = RH.notes[RH.ptr];
@@ -1218,6 +1218,7 @@
       var y = hit - (dy / RH.approach) * (hit - top);
       var alpha = 1;
       if (n.hit === -1) alpha = clamp(1 + dy / 0.5, 0, 0.4);
+      if (dy < 0) alpha *= clamp(1 + dy / 0.2, 0, 1);
       if (n.hit > 0) continue;
       drawRhythmTile(x0 + w * (n.lane + 0.5), y, w, n, alpha);
     }
