@@ -15,8 +15,8 @@ const WALK = 29;
 const DIG_SPEED = 34;
 const MINE_SPEED = 40;
 const MINE_MAX = 62;
-const TAP_R = 46;
-const LEM_H = 30;
+const TAP_R = 52;
+const LEM_H = 32;
 const TOOL_KEYS = ['bridge', 'dig', 'stop', 'pick', 'umbrella'];
 
 /* ── DOM ────────────────────────────────────────────── */
