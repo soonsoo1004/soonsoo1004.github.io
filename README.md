@@ -29,7 +29,7 @@ https://github.com/soonsoo1004/soonsoo1004.github.io/discussions
 - 크티 플레이스 — https://ctee.kr/place/mireunote — 무료 1종부터. 결정 3분 정리 미니 시트(0원)를 먼저 받아 볼 수 있습니다.
 - 리틀리 샵 — https://litt.ly/mireunote — 같은 0원 시트와 설치 없이 열리는 생활 도구 6종(4,900원).
 
-GitHub Sponsors 대신 위 두 곳을 후원 통로로 씁니다. 저장소의 Sponsor 버튼도 같은 곳으로 갑니다.
+후원 통로는 위 두 곳입니다. (.github/FUNDING.yml에 같은 두 주소를 적어 두었습니다.)
 
 ## 만든 사람
 
