@@ -32,15 +32,12 @@
     <span>❤️</span><span>❤️</span><span>❤️</span>
   </div>
 
-  <div class="song-tag" id="songTag">⭐ 작은별 · 1바퀴</div>
+  <div class="song-tag">
+    <span class="stage-chip" id="stageBadge">STAGE 1 🌱</span>
+    <span id="songTag">⭐ 작은별</span>
+  </div>
 
   <div class="hud-acc" id="accTag">PERFECT <b id="accNum">100</b>%</div>
-
-  <!-- 계단 길 미리보기 (지그재그) -->
-  <div class="path-bar" id="pathBar" aria-hidden="true">
-    <span class="stage-tag" id="stageTag">STAGE 1 🌱</span>
-    <div class="path-row" id="pathRow"></div>
-  </div>
 
   <!-- 콤보 -->
   <div class="combo-box" id="comboBox">
@@ -52,7 +49,7 @@
   <!-- 판정 팝업 -->
   <div class="judge" id="judge" aria-live="polite"></div>
 
-  <!-- 우측 세로 진행 바 -->
+  <!-- 우측 세로 진행 -->
   <div class="prog-wrap" id="progWrap">
     <div class="prog-flag" aria-hidden="true">TOP</div>
     <div class="prog-track">
@@ -61,13 +58,33 @@
     </div>
   </div>
 
-  <!-- 하단 곡 진행 바 -->
-  <div class="lap-bar" id="lapBar"><i id="lapFill"></i></div>
-
-  <!-- 하단 건반 -->
-  <div class="keys" id="keys"></div>
-
   <div class="banner" id="banner"></div>
+
+  <!-- 하단 조작부: 시간 게이지 · 멜로디 건반 불빛 · 오르기/방향전환 -->
+  <div class="controls" id="controls">
+    <div class="gauge" id="gauge"><i id="gaugeFill"></i></div>
+    <div class="melody" id="melody" aria-hidden="true">
+      <span data-note="도">도</span>
+      <span data-note="레">레</span>
+      <span data-note="미">미</span>
+      <span data-note="파">파</span>
+      <span data-note="솔">솔</span>
+      <span data-note="라">라</span>
+      <span data-note="시">시</span>
+    </div>
+    <div class="btn-row">
+      <button class="act turn" id="btnTurn" type="button" aria-label="방향전환">
+        <i aria-hidden="true">↺</i>
+        <b>방향전환</b>
+        <small>계단이 꺾이면</small>
+      </button>
+      <button class="act up" id="btnUp" type="button" aria-label="오르기">
+        <i aria-hidden="true">⬆</i>
+        <b>오르기</b>
+        <small>곧게 이어지면</small>
+      </button>
+    </div>
+  </div>
 
   <!-- 시작 화면 -->
   <div class="overlay show" id="startScreen">
@@ -81,8 +98,20 @@
         </div>
       </div>
 
-      <p class="sec-label">노래 고르기 <span class="sec-hint">별이 많을수록 빨라요</span></p>
-      <div class="songs" id="songPicker" role="radiogroup" aria-label="노래 고르기">
+      <div class="howto">
+        <div class="howto-row">
+          <span class="howto-ico up">⬆</span>
+          <span class="howto-txt"><b>오르기</b> — 계단이 <i>곧게</i> 이어질 때</span>
+        </div>
+        <div class="howto-row">
+          <span class="howto-ico turn">↺</span>
+          <span class="howto-txt"><b>방향전환</b> — 계단이 <i>꺾일 때</i></span>
+        </div>
+        <p class="howto-foot">누를 때마다 그 음이 피아노로 울려요 🎹 판이 오르면 다음 노래로!</p>
+      </div>
+
+      <p class="sec-label">시작할 노래 <span class="sec-hint">별이 많을수록 빨라요</span></p>
+      <div class="songs" id="songPicker" role="radiogroup" aria-label="시작할 노래">
         <button class="song is-on" type="button" data-song="twinkle" role="radio" aria-checked="true">
           <span class="song-emoji">⭐</span><span class="song-name">작은별</span><span class="song-stars">★</span>
         </button>
@@ -121,19 +150,8 @@
         </button>
       </div>
 
-      <p class="sec-label">건반 고르기</p>
-      <div class="modes" id="modePicker" role="radiogroup" aria-label="건반 고르기">
-        <button class="mode-btn" type="button" data-lanes="3" role="radio" aria-checked="false">
-          <span class="mode-emoji">🎈</span><b>3건반</b><small>아이용</small>
-        </button>
-        <button class="mode-btn is-on" type="button" data-lanes="4" role="radio" aria-checked="true">
-          <span class="mode-emoji">🎹</span><b>4건반</b><small>기본</small>
-        </button>
-      </div>
-
-      <button class="cta" id="startBtn" type="button">피아노 시작!</button>
+      <button class="cta" id="startBtn" type="button">계단 오르기 시작!</button>
       <p class="best-line">최고 점수 <b id="bestNum">0</b>점</p>
-      <p class="tip">빛나는 계단이 내려오면 그 방향 건반을 톡!</p>
     </div>
   </div>
 
@@ -146,8 +164,9 @@
       <div class="over-stats">
         <div class="ov-stat"><span>점수</span><b id="overScore">0</b></div>
         <div class="ov-stat"><span>최고 콤보</span><b id="overCombo">0</b></div>
-        <div class="ov-stat"><span>최고 점수</span><b id="overBest">0</b></div>
+        <div class="ov-stat"><span>판</span><b id="overStage">STAGE 1</b></div>
       </div>
+      <p class="over-best">최고 점수 <b id="overBest">0</b>점</p>
       <button class="cta" id="retryBtn" type="button">한 번 더!</button>
       <button class="ghost-btn" id="menuBtn" type="button">노래 바꾸기</button>
     </div>
