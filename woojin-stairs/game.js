@@ -230,7 +230,7 @@
     burst(px, py - 6, feverOn ? 8 : 4, feverOn
       ? ['#ffd76a', '#ffe9a8', '#fff6d0', '#ffb347']
       : ['rgba(255,255,255,0.95)', 'rgba(180,225,255,0.9)'], feverOn ? 1 : 0.6);
-    floatText(px + (S.dir > 0 ? 26 : -26), py - 74, '+' + gain, feverOn ? '#e8a832' : '#ff7a59');
+    floatText(px + (S.dir > 0 ? 26 : -26), py - 74, '+' + gain, feverOn ? '#c07a00' : '#e04a1c');
 
     if (feverOn && !wasFever) { sfx.fever(); toast('피버! 반짝반짝 ✨'); }
     if (!feverOn && wasFever) { }
@@ -954,12 +954,12 @@
       var kk = 1 - ft.life / ft.max;
       ctx.save();
       ctx.globalAlpha = clamp(kk, 0, 1);
-      ctx.fillStyle = ft.col;
-      ctx.font = 'bold 17px Gulim, "굴림", system-ui, sans-serif';
+      ctx.font = 'bold 18px Gulim, "굴림", system-ui, sans-serif';
       ctx.textAlign = 'center';
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = 'rgba(255,255,255,0.95)';
       ctx.strokeText(ft.text, ft.x, ft.y);
+      ctx.fillStyle = ft.col;
       ctx.fillText(ft.text, ft.x, ft.y);
       ctx.restore();
     }
