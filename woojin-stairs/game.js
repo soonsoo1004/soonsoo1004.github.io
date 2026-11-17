@@ -879,7 +879,7 @@
       ctx.restore();
 
       /* 하늘 성 */
-      drawCastle(W * 0.5, H * 0.20 + Math.sin(t * 0.6) * 3, Math.min(W / 420, 1.0), 0.95 * a4, t);
+      drawCastle(W * 0.72, H * 0.30 + Math.sin(t * 0.6) * 3, Math.min(W / 520, 0.82), 0.9 * a4, t);
 
       for (var q = 0; q < 5; q++) {
         var cx4 = ((q * 0.24 * W + t * (5 + q * 2)) % (W + 400)) - 200;
