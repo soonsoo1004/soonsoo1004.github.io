@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow, noarchive" />
+<meta name="googlebot" content="noindex, nofollow, noarchive" />
+<meta name="referrer" content="no-referrer" />
+<meta name="theme-color" content="#bfe3ff" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<title>우진이 구조대</title>
+<link rel="icon" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="manifest" href="manifest.json" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+
+  <header class="hud">
+    <div class="lvl-badge" aria-label="레벨">
+      <span class="lvl-star">★</span>
+      <span class="lvl-lbl">LEVEL</span>
+      <b id="levelNum">1</b>
+    </div>
+
+    <div class="badge time" id="timeBadge">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7.6V12l3 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M9.4 3.2h5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <span class="tx"><i>TIME</i><b id="timeNum">01:30</b></span>
+    </div>
+
+    <div class="badge saved">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4.2" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/><path d="M6 4.6c3.4-1.8 6.6 1.4 10 0v7.2c-3.4 1.4-6.6-1.8-10 0z" fill="currentColor"/></svg>
+      <span class="tx"><i>SAVED</i><b><em id="savedNum">0</em>/<em id="needNum">6</em></b></span>
+    </div>
+
+    <div class="hud-btns">
+      <button class="icon-btn" id="speedBtn" type="button" aria-label="2배속">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 8l9 8-9 8z" fill="currentColor"/><path d="M17 8l9 8-9 8z" fill="currentColor" opacity=".55"/></svg>
+      </button>
+      <button class="icon-btn" id="muteBtn" type="button" aria-label="소리 끄기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="wave" d="M16.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path class="mute-x" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="pauseBtn" type="button" aria-label="일시정지">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="6" width="3.6" height="12" rx="1.4" fill="currentColor"/><rect x="13.4" y="6" width="3.6" height="12" rx="1.4" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="stage-wrap" id="stageWrap">
+    <canvas id="stageCanvas"></canvas>
+    <div class="stage-name" id="stageName">첫걸음</div>
+    <div class="hint" id="hint"></div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <div class="skills" id="skills">
+    <div class="skills-label">SKILLS</div>
+    <div class="skill-row">
+      <button class="skill" type="button" data-tool="bridge" style="--tint:#f3c07a">
+        <span class="cnt" id="c-bridge">0</span>
+        <svg class="s-ico" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="5" y="17" width="10" height="6" rx="1.2" fill="#c98d5a"/><rect x="16" y="17" width="10" height="6" rx="1.2" fill="#b8794a"/>
+          <rect x="10" y="9" width="10" height="6" rx="1.2" fill="#d9a06a"/><rect x="10" y="9" width="10" height="1.4" rx=".7" fill="#eebd8c"/>
+          <rect x="5" y="17" width="10" height="1.4" rx=".7" fill="#eebd8c"/><rect x="16" y="17" width="10" height="1.4" rx=".7" fill="#eebd8c"/>
+        </svg>
+        <span class="s-lbl">벽돌다리</span>
+      </button>
+      <button class="skill" type="button" data-tool="dig" style="--tint:#e9cf9a">
+        <span class="cnt" id="c-dig">0</span>
+        <svg class="s-ico" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 4v14" stroke="#8a6a4f" stroke-width="3" stroke-linecap="round"/>
+          <path d="M9 17h14l-2.2 8H11.2z" fill="#9fb0d6"/>
+          <path d="M8.4 17h15.2" stroke="#7c8cb4" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span class="s-lbl">땅파기</span>
+      </button>
+      <button class="skill" type="button" data-tool="stop" style="--tint:#ffb3b3">
+        <span class="cnt" id="c-stop">0</span>
+        <svg class="s-ico" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M11.5 5h9l6 6v9l-6 6h-9l-6-6v-9z" fill="#ff7b7b"/>
+          <path d="M11.5 5h9l6 6v9l-6 6h-9l-6-6v-9z" fill="none" stroke="#fff" stroke-width="2"/>
+          <path d="M10.5 16h11" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+        </svg>
+        <span class="s-lbl">길막기</span>
+      </button>
+      <button class="skill" type="button" data-tool="pick" style="--tint:#c9b8f5">
+        <span class="cnt" id="c-pick">0</span>
+        <svg class="s-ico" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M9 24L22 11" stroke="#8a6a4f" stroke-width="3" stroke-linecap="round"/>
+          <path d="M14 5c5 1 9 4 11 9-4-2-9-2-13 0-1-4 0-7 2-9z" fill="#b9b2d6"/>
+          <path d="M14 5c5 1 9 4 11 9" fill="none" stroke="#8d84b3" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <span class="s-lbl">곡괭이</span>
+      </button>
+      <button class="skill" type="button" data-tool="umbrella" style="--tint:#ffcf7a">
+        <span class="cnt" id="c-umbrella">0</span>
+        <svg class="s-ico" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M3 16a13 13 0 0 1 26 0z" fill="#ff9a4d"/>
+          <path d="M3 16a13 13 0 0 1 26 0" fill="none" stroke="#e07a2c" stroke-width="1.6"/>
+          <path d="M16 16v9a3 3 0 0 0 6 0" fill="none" stroke="#8a6a4f" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="s-lbl">우산</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 시작 -->
+  <div class="overlay show" id="startScreen">
+    <div class="card start-card">
+      <div class="title-wrap">
+        <img class="title-lem" src="assets/woojin-cheer.png" alt="" />
+        <div>
+          <p class="kicker">오리지널 퍼즐</p>
+          <h1>우진이 구조대</h1>
+          <p class="sub">미니 우진이들을 초록 문으로!</p>
+        </div>
+      </div>
+      <p class="sec-label">스테이지 고르기</p>
+      <div class="stage-list" id="stageList"></div>
+      <button class="cta" id="startBtn" type="button">구조 시작!</button>
+      <p class="tip" id="startTip">도구를 고르고, 우진이를 톡! 하면 돼요</p>
+    </div>
+  </div>
+
+  <!-- 일시정지 -->
+  <div class="overlay" id="pauseScreen">
+    <div class="card small-card">
+      <p class="pause-emoji">☁️</p>
+      <h2>잠깐 쉬는 중</h2>
+      <p class="sub">준비되면 다시 구조해요</p>
+      <button class="cta" id="resumeBtn" type="button">계속하기</button>
+      <div class="row">
+        <button class="ghost-btn" id="resetBtn" type="button">다시 하기</button>
+        <button class="ghost-btn" id="menuBtn" type="button">스테이지</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 성공 -->
+  <div class="overlay" id="clearScreen">
+    <div class="card small-card clear-card">
+      <img class="result-face" src="assets/woojin-cheer.png" alt="" />
+      <h2>구조 성공!</h2>
+      <p class="sub" id="clearMsg">우진이들이 초록 문으로 들어갔어요</p>
+      <div class="result-stats">
+        <div><span>구출</span><b id="clearSaved">0</b></div>
+        <div><span>보석</span><b id="clearGems">0</b></div>
+        <div><span>점수</span><b id="clearScore">0</b></div>
+      </div>
+      <button class="cta" id="nextBtn" type="button">다음 스테이지</button>
+      <button class="ghost-btn" id="clearMenuBtn" type="button">스테이지 고르기</button>
+    </div>
+  </div>
+
+  <!-- 실패 -->
+  <div class="overlay" id="failScreen">
+    <div class="card small-card">
+      <img class="result-face" src="assets/woojin-oops.png" alt="" />
+      <h2 id="failTitle">조금 아쉬워요</h2>
+      <p class="sub" id="failMsg">다시 한 번 해 볼까요?</p>
+      <button class="cta" id="retryBtn" type="button">다시 하기</button>
+      <button class="ghost-btn" id="failMenuBtn" type="button">스테이지 고르기</button>
+    </div>
+  </div>
+
+</div>
+<script src="game.js"></script>
+</body>
+</html>
