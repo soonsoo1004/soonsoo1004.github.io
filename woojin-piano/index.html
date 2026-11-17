@@ -60,29 +60,19 @@
 
   <div class="banner" id="banner"></div>
 
-  <!-- 하단 조작부: 시간 게이지 · 멜로디 건반 불빛 · 오르기/방향전환 -->
+  <!-- 하단 조작부: 시간 게이지 · 방향전환(계단 30%) · 피아노 4건반(70%) -->
   <div class="controls" id="controls">
     <div class="gauge" id="gauge"><i id="gaugeFill"></i></div>
-    <div class="melody" id="melody" aria-hidden="true">
-      <span data-note="도">도</span>
-      <span data-note="레">레</span>
-      <span data-note="미">미</span>
-      <span data-note="파">파</span>
-      <span data-note="솔">솔</span>
-      <span data-note="라">라</span>
-      <span data-note="시">시</span>
-    </div>
-    <div class="btn-row">
-      <button class="act turn" id="btnTurn" type="button" aria-label="방향전환">
-        <i aria-hidden="true">↺</i>
-        <b>방향전환</b>
-        <small>계단이 꺾이면</small>
-      </button>
-      <button class="act up" id="btnUp" type="button" aria-label="오르기">
-        <i aria-hidden="true">⬆</i>
-        <b>오르기</b>
-        <small>곧게 이어지면</small>
-      </button>
+    <button class="turn-bar" id="btnTurn" type="button" aria-label="방향전환">
+      <i aria-hidden="true">↺</i>
+      <b>방향전환</b>
+      <small>계단이 꺾였을 때만</small>
+    </button>
+    <div class="key-row" id="keyRow">
+      <button class="pkey k0" id="key0" data-lane="0" type="button" aria-label="도 건반"><i aria-hidden="true"></i><b>도</b></button>
+      <button class="pkey k1" id="key1" data-lane="1" type="button" aria-label="레 건반"><i aria-hidden="true"></i><b>레</b></button>
+      <button class="pkey k2" id="key2" data-lane="2" type="button" aria-label="미 건반"><i aria-hidden="true"></i><b>미</b></button>
+      <button class="pkey k3" id="key3" data-lane="3" type="button" aria-label="솔 건반"><i aria-hidden="true"></i><b>솔</b></button>
     </div>
   </div>
 
@@ -100,14 +90,14 @@
 
       <div class="howto">
         <div class="howto-row">
-          <span class="howto-ico up">⬆</span>
-          <span class="howto-txt"><b>오르기</b> — 계단이 <i>곧게</i> 이어질 때</span>
+          <span class="howto-ico up">🎹</span>
+          <span class="howto-txt"><b>건반 치기 70%</b> — 내려오는 타일의 음(도·레·미·솔)을 쳐요</span>
         </div>
         <div class="howto-row">
           <span class="howto-ico turn">↺</span>
-          <span class="howto-txt"><b>방향전환</b> — 계단이 <i>꺾일 때</i></span>
+          <span class="howto-txt"><b>방향전환 30%</b> — 3~4칸마다 계단이 <i>꺾이면</i> ↺</span>
         </div>
-        <p class="howto-foot">누를 때마다 그 음이 피아노로 울려요 🎹 판이 오르면 다음 노래로!</p>
+        <p class="howto-foot">건반을 치면 그 음이 피아노로 울려요 🎹 판이 오르면 다음 노래로!</p>
       </div>
 
       <p class="sec-label">시작할 노래 <span class="sec-hint">별이 많을수록 빨라요</span></p>
@@ -150,7 +140,7 @@
         </button>
       </div>
 
-      <button class="cta" id="startBtn" type="button">계단 오르기 시작!</button>
+      <button class="cta" id="startBtn" type="button">건반 톡톡! 시작</button>
       <p class="best-line">최고 점수 <b id="bestNum">0</b>점</p>
     </div>
   </div>

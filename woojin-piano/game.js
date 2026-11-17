@@ -839,7 +839,13 @@
   var bannerEl = document.getElementById('banner');
   var gaugeFillEl = document.getElementById('gaugeFill');
   var gaugeEl = document.getElementById('gauge');
-  var melodyEl = document.getElementById('melody');
+  var turnBtnEl = document.getElementById('btnTurn');
+  var keyEls = [
+    document.getElementById('key0'),
+    document.getElementById('key1'),
+    document.getElementById('key2'),
+    document.getElementById('key3')
+  ];
   var startScreen = document.getElementById('startScreen');
   var overScreen = document.getElementById('overScreen');
   var pauseScreen = document.getElementById('pauseScreen');
@@ -884,6 +890,25 @@
   var SOLFA_BASE = ['도', '레', '미', '파', '솔', '라', '시'];
   function noteNameOf(m) { return SOLFA[((m % 12) + 12) % 12]; }
 
+  /* ══════ 피아노 4건반 레인 — 도 · 레 · 미 · 솔 ══════
+     곡의 7음(도레미파솔라시)을 가장 가까운 건반 하나로 모아, 떨어지는 타일의
+     음을 그대로 칠 수 있게 한다. 거의 모든 곡이 흰건반만 쓰므로 소리도 자연스럽다. */
+  var LANES = [
+    { syl: '도', midi: 60, rgb: '86,158,240' },
+    { syl: '레', midi: 62, rgb: '86,206,196' },
+    { syl: '미', midi: 64, rgb: '240,180,90' },
+    { syl: '솔', midi: 67, rgb: '186,140,232' }
+  ];
+  function laneOfPitch(midi) {
+    var pc = ((midi % 12) + 12) % 12, best = 0, bd = 99;
+    for (var i = 0; i < LANES.length; i++) {
+      var d = Math.abs(pc - (LANES[i].midi % 12));
+      if (d > 6) d = 12 - d;
+      if (d < bd) { bd = d; best = i; }
+    }
+    return best;
+  }
+
   /* ══════ 게임 상태 ══════ */
   var G = {
     mode: 'menu',
@@ -891,7 +916,7 @@
     score: 0, best: 0, combo: 0, maxCombo: 0, lives: 3,
     perfect: 0, judged: 0,
     steps: [], charIdx: 0, nextIdx: 1,
-    genStage: 1, genSong: 'twinkle', notePtr: 0, runLeft: 3, dir: 1, wx: 0,
+    genStage: 1, genSong: 'twinkle', notePtr: 0, runLeft: 3, sinceTurn: 0, dir: 1, wx: 0,
     timeLeft: 0, timeLimit: 1,
     fever: false, hopT: 0, fallT: 0, respawnT: 0,
     oopsT: 0, cheerT: 0, playT: 0,
@@ -901,11 +926,8 @@
   };
   try { G.best = parseInt(localStorage.getItem('woojin_piano_best') || '0', 10) || 0; } catch (e) { }
 
-  /* ══════ 계단 길 생성 ══════ */
-  function runLenFor(stage) {
-    var lo = Math.max(2, 4 - Math.floor(stage / 3));
-    return lo + Math.floor(Math.random() * 3);
-  }
+  /* ══════ 계단 길 생성 — 피아노 70 : 계단(꺾임) 30 ══════ */
+  function turnChanceAt(stage) { return clamp(0.30 + (stage - 1) * 0.015, 0.30, 0.36); }
 
   function pushStep() {
     var mel = melodyOf(G.genSong);
@@ -914,24 +936,27 @@
       G.genSong = songAt(G.genStage);
       G.notePtr = 0;
       mel = melodyOf(G.genSong);
-      G.runLeft = 2;
+      G.sinceTurn = 0;
     }
     var cur = mel[G.notePtr];
     var turn = false;
     if (G.steps.length > 2) {
-      G.runLeft--;
-      if (G.runLeft <= 0) {
-        turn = true;
-        G.dir = -G.dir;
-        G.runLeft = runLenFor(G.genStage);
-      }
+      G.sinceTurn++;
+      if (G.sinceTurn >= 5) turn = true;
+      else if (G.sinceTurn >= 2 && Math.random() < turnChanceAt(G.genStage)) turn = true;
+      if (turn) { G.dir = -G.dir; G.sinceTurn = 0; }
     }
     var bpm = SONGS[G.genSong].bpm * tempoAt(G.genStage);
     var beatSec = 60 / bpm;
-    var chord = false, midis = [cur.midi];
+    var lane = laneOfPitch(cur.midi);
+    var chord = false, midis = [cur.midi], lanes = [lane];
     if (G.genStage >= 3 && !turn && G.notePtr + 1 < mel.length && Math.random() < 0.17) {
-      chord = true;
-      midis.push(mel[G.notePtr + 1].midi);
+      var l2 = laneOfPitch(mel[G.notePtr + 1].midi);
+      if (l2 !== lane) {
+        chord = true;
+        midis.push(mel[G.notePtr + 1].midi);
+        lanes.push(l2);
+      }
     }
     var beats = cur.beats + (chord ? mel[G.notePtr + 1].beats : 0);
     var limit = clamp(beatSec * beats * 2.1, 0.6, 1.9 / tempoAt(G.genStage) + 0.5);
@@ -939,7 +964,7 @@
     G.steps.push({
       k: G.steps.length, dir: G.dir, turn: turn, wx: G.wx,
       stage: G.genStage, song: G.genSong,
-      midi: cur.midi, midis: midis, chord: chord,
+      midi: cur.midi, midis: midis, chord: chord, lane: lane, lanes: lanes,
       limit: limit, noteName: noteNameOf(cur.midi),
       fall: 0
     });
@@ -954,8 +979,8 @@
   function resetPath(songId) {
     G.song = songId; G.startSong = songId;
     G.stage = 1; G.genStage = 1; G.genSong = songId;
-    G.notePtr = 0; G.dir = 1; G.runLeft = 3; G.wx = 0;
-    G.steps = [{ k: 0, dir: 1, turn: false, wx: 0, stage: 1, song: songId, midi: null, midis: [], chord: false, limit: 1, noteName: '', fall: 0 }];
+    G.notePtr = 0; G.dir = 1; G.runLeft = 3; G.sinceTurn = 0; G.wx = 0;
+    G.steps = [{ k: 0, dir: 1, turn: false, wx: 0, stage: 1, song: songId, midi: null, midis: [], chord: false, lane: 0, lanes: [], limit: 1, noteName: '', fall: 0 }];
     G.charIdx = 0; G.nextIdx = 1;
     ensureSteps(14);
     G.timeLimit = G.steps[1].limit;
@@ -1038,11 +1063,44 @@
     ctx.restore();
   }
 
+  /* 착지 자리 — 떨어지는 건반 타일이 내려앉을 계단 */
+  function drawLandingSlot(k, now) {
+    var st = G.steps[k];
+    var p = stepScreen(k);
+    var w = 92 * p.s, h = 28 * p.s;
+    var fc = st.turn ? '236,158,215' : LANES[st.lane || 0].rgb;
+    var pulse = 0.5 + 0.5 * Math.sin(now * 0.007);
+    var f0 = fallProgress();
+    var ringA = 0.18 + 0.55 * f0;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(' + fc + ',' + ringA.toFixed(3) + ')';
+    ctx.lineWidth = 2 + 2.4 * f0;
+    ctx.shadowColor = 'rgba(' + fc + ', .85)';
+    ctx.shadowBlur = 8 + 18 * f0;
+    ctx.beginPath();
+    ctx.ellipse(p.x, p.y + 8 * p.s, (46 + 24 * f0) * p.s, (10 + 5 * f0) * p.s, 0, 0, TAU);
+    ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = clamp(1 - Math.max(0, p.d) * 0.03, 0.7, 1);
+    ctx.fillStyle = 'rgba(' + fc + ', .10)';
+    rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 8 * p.s);
+    ctx.fill();
+    ctx.setLineDash([7 * p.s, 5 * p.s]);
+    ctx.strokeStyle = 'rgba(' + fc + ',' + (0.42 + 0.32 * pulse).toFixed(3) + ')';
+    ctx.lineWidth = 2.2 * p.s;
+    rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 8 * p.s);
+    ctx.stroke();
+    ctx.restore();
+  }
+
   function drawTile(k, now) {
     var st = G.steps[k];
     var p = stepScreen(k);
     if (p.d < -2.4 || p.d > 10.5) return;
     var isNext = k === G.nextIdx;
+    if (isNext) { drawLandingSlot(k, now); return; }
     var past = k <= G.charIdx;
     var w = 92 * p.s, h = 28 * p.s;
     var col = st.midi ? stepColor(st) : '#9fc6e8';
@@ -1106,26 +1164,113 @@
       ctx.restore();
     }
 
-    // 다음 계단 표시
-    if (isNext) {
-      var pulse = 0.5 + 0.5 * Math.sin(now * 0.008);
-      ctx.strokeStyle = 'rgba(255, 214, 90,' + (0.55 + 0.4 * pulse) + ')';
-      ctx.lineWidth = 2.4 * p.s;
-      ctx.shadowColor = 'rgba(255, 205, 80, .95)';
-      ctx.shadowBlur = 16 * p.s;
-      rr(ctx, p.x - w / 2 - 3 * p.s, p.y - h / 2 - 3 * p.s, w + 6 * p.s, h + 6 * p.s, 10 * p.s);
+    // 다음 계단 자리는 drawLandingSlot이 그린다
+    ctx.restore();
+  }
+
+  function fallProgress() {
+    if (G.mode !== 'playing' || !(G.timeLimit > 0)) return 0;
+    return clamp(1 - G.timeLeft / G.timeLimit, 0, 1);
+  }
+
+  /* 하단 조작부에서 타일을 맞이하는 자리 (건반 또는 방향전환 바) */
+  function anchorOf(st) {
+    if (st && st.turn && turnBtnEl) {
+      var r = turnBtnEl.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top, w: r.width, rgb: '236,158,215' };
+    }
+    var idx = st ? (st.lane || 0) : 0;
+    var el = keyEls[idx];
+    if (el) {
+      var q = el.getBoundingClientRect();
+      return { x: q.left + q.width / 2, y: q.top, w: q.width, rgb: LANES[idx].rgb };
+    }
+    return { x: L.cx, y: L.fieldBottom, w: 80, rgb: '255,255,255' };
+  }
+
+  /* 떨어지는 피아노 건반 타일 — 계단 자리로 내려와 착지선에서 치면 PERFECT */
+  function drawFallingTile(now) {
+    if (G.mode !== 'playing' || G.fallT > 0 || G.respawnT > 0) return;
+    var st = G.steps[G.nextIdx];
+    if (!st) return;
+    var p = stepScreen(G.nextIdx);
+    if (p.d > 10.5 || p.d < -2.4) return;
+    var f = fallProgress();
+    var dropH = 200 * Math.max(0.55, p.s);
+    var ty = p.y - (1 - f) * dropH;
+    var s2 = p.s * (0.86 + 0.14 * f);
+    var a = anchorOf(st);
+    var col = st.turn ? '236,158,215' : LANES[st.lane].rgb;
+
+    // 빛줄기 — 어느 건반을 칠지 한눈에
+    var lg = ctx.createLinearGradient(a.x, a.y, p.x, ty);
+    lg.addColorStop(0, 'rgba(' + col + ', .62)');
+    lg.addColorStop(0.45, 'rgba(' + col + ', .26)');
+    lg.addColorStop(1, 'rgba(' + col + ', .04)');
+    ctx.save();
+    ctx.fillStyle = lg;
+    ctx.beginPath();
+    ctx.moveTo(a.x - a.w * 0.42, a.y + 2);
+    ctx.lineTo(a.x + a.w * 0.42, a.y + 2);
+    ctx.lineTo(p.x + 26 * s2, ty);
+    ctx.lineTo(p.x - 26 * s2, ty);
+    ctx.closePath();
+    ctx.fill();
+    // 심지 — 가는 밝은 선
+    ctx.strokeStyle = 'rgba(' + col + ', ' + (0.5 + 0.35 * f).toFixed(3) + ')';
+    ctx.lineWidth = 2.2;
+    ctx.shadowColor = 'rgba(' + col + ', .9)';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y + 2);
+    ctx.lineTo(p.x, ty);
+    ctx.stroke();
+    ctx.restore();
+
+    // 건반 타일
+    var w = 96 * s2, h = 31 * s2;
+    ctx.save();
+    ctx.shadowColor = 'rgba(' + col + ', .9)';
+    ctx.shadowBlur = 16 * s2;
+    var tg = ctx.createLinearGradient(0, ty - h / 2, 0, ty + h / 2);
+    if (st.turn) {
+      tg.addColorStop(0, '#ffe9f7'); tg.addColorStop(0.58, '#f8b6e4'); tg.addColorStop(1, '#dd88c6');
+    } else {
+      tg.addColorStop(0, '#fffef6'); tg.addColorStop(0.55, '#fff7d2'); tg.addColorStop(1, '#ffe6a0');
+    }
+    ctx.fillStyle = tg;
+    rr(ctx, p.x - w / 2, ty - h / 2, w, h, 9 * s2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = st.turn ? 'rgba(198,86,160,.95)' : 'rgba(255,190,54,.95)';
+    ctx.lineWidth = 2.2 * s2;
+    rr(ctx, p.x - w / 2, ty - h / 2, w, h, 9 * s2);
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (st.turn) {
+      // 계단 꺾임 타일 — 지그재그 + ↺
+      ctx.strokeStyle = '#b3458f';
+      ctx.lineWidth = 2.6 * s2;
+      ctx.beginPath();
+      ctx.moveTo(p.x - w * 0.30, ty + h * 0.20);
+      ctx.lineTo(p.x - w * 0.10, ty + h * 0.02);
+      ctx.lineTo(p.x + w * 0.06, ty + h * 0.20);
+      ctx.lineTo(p.x + w * 0.24, ty + h * 0.02);
       ctx.stroke();
-      ctx.restore();
-      ctx.save();
-      ctx.globalAlpha = 0.9;
-      // '?' — 어떤 판단인지는 계단 모양으로 읽는다
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.font = '900 ' + Math.round(15 * p.s) + 'px "Apple SD Gothic Neo", sans-serif';
-      ctx.fillStyle = '#c98a00';
-      ctx.fillText(st.chord ? '♪♪' : '?', p.x, p.y - h * 0.85);
-      ctx.restore();
-      return;
+      ctx.font = '900 ' + Math.round(14 * s2) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#8c2f6c';
+      ctx.fillText('↺ 꺾임', p.x, ty - h * 0.16);
+    } else {
+      // 검은 건반 장식
+      ctx.fillStyle = 'rgba(26,24,56,.9)';
+      rr(ctx, p.x - w * 0.15, ty - h / 2 - 3 * s2, w * 0.30, h * 0.46, 3 * s2);
+      ctx.fill();
+      var lbl = st.chord ? (LANES[st.lanes[0]].syl + '+' + LANES[st.lanes[1]].syl) : LANES[st.lane].syl;
+      ctx.font = '900 ' + Math.round(16 * s2) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#8a5600';
+      ctx.fillText(lbl, p.x, ty + h * 0.20);
     }
     ctx.restore();
   }
@@ -1290,22 +1435,21 @@
         stageBadgeEl.classList.toggle('pro', G.stage >= 4);
       }
     }
-    // 다음 음 표시
+    // 다음 타일의 음 — 하단 건반에 불빛이 들어온다
     var nx = G.steps[G.nextIdx];
-    var nm = nx ? (nx.chord ? nx.noteName + '+' + noteNameOf(nx.midis[1]) : nx.noteName) : '';
-    if (hudCache.note !== nm) {
-      hudCache.note = nm;
+    var hint = nx ? (nx.turn ? 'turn' : 'lane' + nx.lane) : '';
+    if (hudCache.note !== hint) {
+      hudCache.note = hint;
       updateMelody(nx);
     }
   }
 
   function updateMelody(nx) {
-    if (!melodyEl) return;
-    var base = nx ? nx.noteName.replace('♯', '') : '';
-    var keys = melodyEl.children;
-    for (var i = 0; i < keys.length; i++) {
-      keys[i].classList.toggle('on', keys[i].dataset.note === base);
+    for (var i = 0; i < keyEls.length; i++) {
+      if (!keyEls[i]) continue;
+      keyEls[i].classList.toggle('hint', !!nx && !nx.turn && nx.lane === i);
     }
+    if (turnBtnEl) turnBtnEl.classList.toggle('hint', !!nx && !!nx.turn);
   }
 
   /* ══════ 입력 ══════ */
@@ -1316,23 +1460,23 @@
     audioInit();
     G.lastInput = action;
 
+    // 화음 타일 — 두 건반을 0.3초 안에 같이
     if (st.chord) {
       var nowMs = performance.now();
-      G.pressBuf = G.pressBuf.filter(function (p) { return nowMs - p.t < 260; });
+      G.pressBuf = G.pressBuf.filter(function (p) { return nowMs - p.t < 300; });
       G.pressBuf.push({ a: action, t: nowMs });
-      var hasU = false, hasT = false;
-      for (var i = 0; i < G.pressBuf.length; i++) {
-        if (G.pressBuf[i].a === 'up') hasU = true;
-        if (G.pressBuf[i].a === 'turn') hasT = true;
+      var got = true;
+      for (var i = 0; i < st.lanes.length; i++) {
+        var has = false;
+        for (var j = 0; j < G.pressBuf.length; j++) if (G.pressBuf[j].a === 'lane' + st.lanes[i]) has = true;
+        if (!has) got = false;
       }
-      if (hasU && hasT) {
-        G.pressBuf = [];
-        hitStep(st, true);
-      }
+      if (got) { G.pressBuf = []; hitStep(st, true); }
       return;
     }
 
-    if (action === (st.turn ? 'turn' : 'up')) hitStep(st, false);
+    var want = st.turn ? 'turn' : ('lane' + st.lane);
+    if (action === want) hitStep(st, false);
     else failStep('wrong');
   }
 
@@ -1342,7 +1486,8 @@
       playPiano(midis[i], i === 0 ? 1 : 0.88);
     }
     var ratio = G.timeLimit > 0 ? G.timeLeft / G.timeLimit : 1;
-    var perfect = ratio > 0.55;
+    // 타일이 착지선에 가깝게 내려왔을 때 누를수록 PERFECT
+    var perfect = (1 - ratio) >= 0.55;
     var pts = (perfect ? 120 : 80) * (st.chord ? 1.6 : 1) * (G.fever ? 2 : 1);
     G.score += Math.round(pts);
     G.combo++;
@@ -1469,13 +1614,12 @@
     drawCloud(ctx, W - drift * 0.8, H * 0.62, 0.9, 0.18);
 
     if (G.mode !== 'menu') {
-      drawPredictor(now);
       var top = Math.min(G.steps.length - 1, G.charIdx + 9);
       var k;
       for (k = Math.max(0, G.charIdx - 2); k <= top; k++) if (k >= 1) drawRiser(k, now);
       for (k = top; k >= Math.max(0, G.charIdx - 2); k--) drawTile(k, now);
       drawCharacter(now);
-      if (G.fallT <= 0) drawTile(G.nextIdx, now);
+      drawFallingTile(now);
       drawParts();
     } else {
       drawCharacter(now);
@@ -1536,7 +1680,7 @@
     updateHud();
     measure();
     var info = STAGES[0];
-    showBanner('출발! 계단을 읽고 올라요 ' + info.emoji);
+    showBanner('건반을 톡톡! 계단을 올라요 ' + info.emoji);
   }
 
   function gameOver() {
@@ -1609,8 +1753,10 @@
     document.getElementById('pauseMenuBtn').addEventListener('click', toMenu);
     document.getElementById('pauseBtn').addEventListener('click', pauseGame);
 
-    holdBtn(document.getElementById('btnUp'), 'up');
     holdBtn(document.getElementById('btnTurn'), 'turn');
+    for (var ki = 0; ki < keyEls.length; ki++) {
+      if (keyEls[ki]) holdBtn(keyEls[ki], 'lane' + ki);
+    }
 
     var muteBtn = document.getElementById('muteToggle');
     if (muteBtn) {
@@ -1643,9 +1789,10 @@
     document.addEventListener('keydown', function (e) {
       if (G.mode !== 'playing') return;
       var k = e.key;
-      if (k === 'ArrowUp' || k === ' ' || k === 'w' || k === 'W') {
-        e.preventDefault(); press('up');
-      } else if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'a' || k === 'd' || k === 'Enter') {
+      var laneMap = { '1': 0, '2': 1, '3': 2, '4': 3, 'a': 0, 's': 1, 'd': 2, 'f': 3, 'A': 0, 'S': 1, 'D': 2, 'F': 3 };
+      if (laneMap[k] !== undefined) {
+        e.preventDefault(); press('lane' + laneMap[k]);
+      } else if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'k' || k === 'K' || k === 'Enter') {
         e.preventDefault(); press('turn');
       }
     });
@@ -1678,7 +1825,16 @@
       var st = G.steps[G.nextIdx];
       if (!st) return null;
       return { k: st.k, turn: st.turn, chord: st.chord, stage: st.stage, song: st.song,
+               lane: st.lane, lanes: st.lanes, syl: st.turn ? '↺' : LANES[st.lane].syl,
                note: st.noteName, midis: st.midis, limit: st.limit, x: stepScreen(G.nextIdx).x, y: stepScreen(G.nextIdx).y };
+    },
+    lanes: function () { return LANES.map(function (l) { return l.syl; }); },
+    turnSample: function (n) {
+      var from = G.steps.length;
+      ensureSteps(from + (n || 400));
+      var turns = 0, tot = 0;
+      for (var i = from; i < G.steps.length; i++) { tot++; if (G.steps[i].turn) turns++; }
+      return { total: tot, turns: turns, ratio: tot ? turns / tot : 0 };
     },
     at: function (k) { return { ...G.steps[k], ...stepScreen(k) } },
     songs: function () { return SONG_ORDER.slice(); },
