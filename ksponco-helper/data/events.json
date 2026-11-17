@@ -1,0 +1,117 @@
+{
+  "ok": true,
+  "fetched_at": "2026-11-17T14:51+09:00",
+  "source": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoList?mid=a20301010100",
+  "dataset": "한국체육산업개발주식회사_올림픽공원 공연정보",
+  "count": 12,
+  "items": [
+    {
+      "place": "올림픽공원 우리금융아트홀",
+      "title": "최현우 30주년 기념 공연 - LEGACY",
+      "begin": "2026-11-28",
+      "end": "2027-01-03",
+      "period": "2026-11-28 ~ 2027-01-03",
+      "time": "수목금 19시 30분 / 토 15시, 19시 / 일 14시 (일자별 공연 시간 변동 있으며, 상세페이지 참고 부탁드립니다. )",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5136"
+    },
+    {
+      "place": "KSPO DOME",
+      "title": "[서울] 2026 조용필 ＆ 위대한탄생 콘서트",
+      "begin": "2026-11-27",
+      "end": "2026-11-29",
+      "period": "2026-11-27 ~ 2026-11-29",
+      "time": "2026년 11월 27일(금) 오후 7시 2026년 11월 28일(토) 오후 6시 2026년 11월 29일(일) 오후 5시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5159"
+    },
+    {
+      "place": "올림픽홀",
+      "title": "2026 다이나믹 듀오 단독 콘서트 ＂가끔씩 오래 보자＂ - 서울",
+      "begin": "2026-11-27",
+      "end": "2026-11-29",
+      "period": "2026-11-27 ~ 2026-11-29",
+      "time": "2026년 11월 27일(금) 8PM / 2026년 11월 28일(토) 6PM / 2026년 11월 29일(일) 5PM",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5168"
+    },
+    {
+      "place": "KSPO DOME",
+      "title": "2026-27 로이킴 LIVE TOUR ［R:O:Y］ in SEOUL",
+      "begin": "2026-11-21",
+      "end": "2026-11-22",
+      "period": "2026-11-21 ~ 2026-11-22",
+      "time": "2026.11.21.(SAT) 6PM 2026.11.22.(SUN) 5PM",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5158"
+    },
+    {
+      "place": "올림픽홀",
+      "title": "2026 CRAVITY CONCERT 〈SONOROUS〉 in Seoul",
+      "begin": "2026-11-14",
+      "end": "2026-11-15",
+      "period": "2026-11-14 ~ 2026-11-15",
+      "time": "2026년 11월 14일(토) ~ 11월 15(일) 토 오후 6시 / 일 오후 4시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5167"
+    },
+    {
+      "place": "KSPO DOME",
+      "title": "TOMORROW X TOGETHER WORLD TOUR 〈STEAL THE WIND〉 IN SEOUL",
+      "begin": "2026-11-13",
+      "end": "2026-11-15",
+      "period": "2026-11-13 ~ 2026-11-15",
+      "time": "11월 13일 금 7PM(KST) 11월 14일 토 6PM(KST) 1월 15일 일 5PM(KST)",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5165"
+    },
+    {
+      "place": "올림픽공원 우리금융아트홀",
+      "title": "코리아발레스타즈 호두까기인형",
+      "begin": "2026-11-07",
+      "end": "2026-11-08",
+      "period": "2026-11-07 ~ 2026-11-08",
+      "time": "11월 7일(토) 16시 / 11월 8일(일) 16시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5169"
+    },
+    {
+      "place": "올림픽홀",
+      "title": "2026 박재정 콘서트 - 기록",
+      "begin": "2026-11-07",
+      "end": "2026-11-08",
+      "period": "2026-11-07 ~ 2026-11-08",
+      "time": "2026년 11월 7일(토) 18:00 / 2026년 11월 8일(금) 17:00",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5166"
+    },
+    {
+      "place": "KSPO DOME",
+      "title": "EXO PLANET #6 - EXhOrizon [dot] -",
+      "begin": "2026-11-06",
+      "end": "2026-11-08",
+      "period": "2026-11-06 ~ 2026-11-08",
+      "time": "금 오후 7시 / 토 오후 6시 / 일 오후 5시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5157"
+    },
+    {
+      "place": "KSPO DOME",
+      "title": "2026 WOODZ WORLD TOUR Archive. 1 : Completed",
+      "begin": "2026-10-31",
+      "end": "2026-11-01",
+      "period": "2026-10-31 ~ 2026-11-01",
+      "time": "토 오후 6시 / 일 오후 5시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5164"
+    },
+    {
+      "place": "올림픽홀",
+      "title": "2026 ONEW CONCERT [ONEW THE LIVE : Q] IN SEOUL",
+      "begin": "2026-10-30",
+      "end": "2026-11-01",
+      "period": "2026-10-30 ~ 2026-11-01",
+      "time": "금 오후 7시 28분 / 토 오후 5시 / 일 오후 4시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5156"
+    },
+    {
+      "place": "올림픽공원 우리금융아트홀",
+      "title": "2026 심규선 단독 콘서트［SANCTUARY］",
+      "begin": "2026-10-24",
+      "end": "2026-11-01",
+      "period": "2026-10-24 ~ 2026-11-01",
+      "time": "2026년 10월 24일 토요일 오후 6시 2026년 10월 25일 일요일 오후 5시 2026년 10월 31일 토요일 오후 6시 2026년 11월 1일 일요일 오후 5시",
+      "url": "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoView.es?mid=a20301010100&evtSeq=5155"
+    }
+  ]
+}

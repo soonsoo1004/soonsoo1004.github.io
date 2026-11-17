@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>올팍 지금 — 올림픽공원, 지금 가도 될까?</title>
+<meta name="description" content="올림픽공원에 가기 전 30초. 실시간 주차 현황과 공연·행사 일정을 한국체육산업개발(주) 공공데이터로 한 화면에 보여 줍니다. 가입·광고·추적 없음.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#ffffff; --ink:#15181d; --ink-2:#4a515c; --line:#dfe3ea;
+    --brand:#0b5cad; --brand-ink:#ffffff;
+    --ok:#0f7a3d; --ok-bg:#e7f6ec;
+    --warn:#8a5a00; --warn-bg:#fff4dc;
+    --hot:#a33a00; --hot-bg:#ffeade;
+    --full:#a01b1b; --full-bg:#ffe6e6;
+    --radius:16px; --tap:48px;
+    --fs:1rem;
+  }
+  html{font-size:100%}
+  html[data-fs="s"]{font-size:87.5%}
+  html[data-fs="m"]{font-size:100%}
+  html[data-fs="l"]{font-size:118%}
+  html[data-fs="xl"]{font-size:137%}
+  html[data-contrast="high"]{
+    --bg:#000; --card:#000; --ink:#fff; --ink-2:#fff; --line:#fff;
+    --brand:#ffd400; --brand-ink:#000;
+    --ok:#7dffb0; --ok-bg:#000; --warn:#ffd400; --warn-bg:#000;
+    --hot:#ffb27a; --hot-bg:#000; --full:#ff9090; --full-bg:#000;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#101318; --card:#181c23; --ink:#f2f4f7; --ink-2:#b9c0cb; --line:#2b323c; --brand:#7cb8ff; --brand-ink:#08121e;
+      --ok:#8fe3ad; --ok-bg:#0f2418; --warn:#ffd98a; --warn-bg:#2a2109; --hot:#ffb894; --hot-bg:#2b1608; --full:#ff9c9c; --full-bg:#2b0f0f;}
+  }
+  html[data-contrast="high"], html[data-theme="light"]{color-scheme:light}
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-size:var(--fs);
+    font-family:"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Noto Sans CJK KR","Noto Sans KR",system-ui,-apple-system,sans-serif;
+    line-height:1.65; -webkit-text-size-adjust:100%;
+    word-break:keep-all;
+  }
+  a{color:var(--brand); text-underline-offset:3px}
+  :focus-visible{outline:3px solid var(--brand); outline-offset:2px; border-radius:6px}
+  .wrap{max-width:44rem; margin:0 auto; padding:0 1rem 4rem}
+  header.top{padding:1.1rem 0 .6rem}
+  .brandline{display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap}
+  .brandline h1{font-size:1.35rem; margin:0; letter-spacing:-.02em}
+  .brandline p{margin:0; color:var(--ink-2); font-size:.9rem}
+  .skip{position:absolute; left:-999px}
+  .skip:focus{left:.5rem; top:.5rem; background:var(--card); padding:.6rem .9rem; border-radius:10px; z-index:50}
+  /* 화면 설정 */
+  .tools{display:flex; gap:.4rem; flex-wrap:wrap; margin:.8rem 0 1rem}
+  .tools button{
+    min-height:var(--tap); min-width:var(--tap); padding:.55rem .8rem; border-radius:999px;
+    border:1px solid var(--line); background:var(--card); color:var(--ink);
+    font:inherit; font-size:.92rem; font-weight:600; cursor:pointer;
+  }
+  .tools button[aria-pressed="true"]{background:var(--brand); color:var(--brand-ink); border-color:var(--brand)}
+  /* 결론 카드 */
+  .verdict{border-radius:var(--radius); padding:1.15rem 1.1rem; border:1px solid var(--line); background:var(--card)}
+  .verdict .label{font-size:.85rem; font-weight:700; letter-spacing:.02em; color:var(--ink-2)}
+  .verdict .status{display:inline-flex; align-items:center; gap:.4rem; margin:.35rem 0 .2rem; padding:.28rem .7rem; border-radius:999px; font-weight:800; font-size:1rem}
+  .verdict .big{font-size:2.6rem; font-weight:800; letter-spacing:-.03em; line-height:1.15; margin:.4rem 0 .1rem}
+  .verdict .big small{font-size:1rem; font-weight:700; color:var(--ink-2); margin-left:.3rem}
+  .verdict .say{font-size:1.12rem; font-weight:700; margin:.5rem 0 .2rem}
+  .verdict .detail{color:var(--ink-2); font-size:.92rem; margin:.2rem 0 0}
+  .s-ok{background:var(--ok-bg); color:var(--ok); border-color:var(--ok)}
+  .s-warn{background:var(--warn-bg); color:var(--warn); border-color:var(--warn)}
+  .s-hot{background:var(--hot-bg); color:var(--hot); border-color:var(--hot)}
+  .s-full{background:var(--full-bg); color:var(--full); border-color:var(--full)}
+  .meter{height:14px; border-radius:999px; background:var(--line); overflow:hidden; margin:.8rem 0 .4rem}
+  .meter span{display:block; height:100%; width:0; background:var(--ok); transition:width .5s ease}
+  .scale{display:flex; justify-content:space-between; font-size:.78rem; color:var(--ink-2); white-space:nowrap}
+  .scale span{flex:0 0 auto}
+  .scale span:last-child{text-align:right}
+  .rowmeta{display:flex; justify-content:space-between; align-items:center; gap:.6rem; margin-top:.8rem; flex-wrap:wrap}
+  .stamp{font-size:.82rem; color:var(--ink-2)}
+  .refresh{min-height:var(--tap); padding:.5rem 1rem; border-radius:12px; border:1px solid var(--brand); background:transparent; color:var(--brand); font:inherit; font-weight:700; cursor:pointer}
+  /* 섹션 */
+  section{margin:1.4rem 0}
+  h2{font-size:1.12rem; margin:0 0 .6rem; letter-spacing:-.01em}
+  h2 .sub{display:block; font-size:.85rem; font-weight:500; color:var(--ink-2); margin-top:.15rem}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:1rem}
+  ul.clean{list-style:none; margin:0; padding:0}
+  #today-line{margin:0 0 .85rem; padding-bottom:.75rem; border-bottom:1px solid var(--line); font-size:1.02rem}
+  ul.clean li{padding:.8rem 0; border-top:1px solid var(--line)}
+  ul.clean li:first-child{border-top:0; padding-top:.1rem}
+  .ev-title{font-weight:700; margin:0}
+  .ev-meta{color:var(--ink-2); font-size:.88rem; margin:.15rem 0 0}
+  .ev-when{font-variant-numeric:tabular-nums}
+  .tag{display:inline-block; font-size:.78rem; font-weight:700; padding:.12rem .5rem; border-radius:6px; background:var(--brand); color:var(--brand-ink); margin-left:.35rem; vertical-align:2px}
+  .tag.today{background:var(--ok); color:#04240f}
+  .empty{color:var(--ink-2); margin:.2rem 0}
+  .steps{margin:.3rem 0 0; padding-left:1.2rem}
+  .steps li{margin:.45rem 0}
+  .kv{width:100%; border-collapse:collapse; font-size:.9rem}
+  .kv th, .kv td{border-top:1px solid var(--line); padding:.55rem .35rem; text-align:left; vertical-align:top}
+  .kv th{width:34%; font-weight:700; color:var(--ink-2)}
+  .kv tr:first-child th, .kv tr:first-child td{border-top:0}
+  .note{font-size:.85rem; color:var(--ink-2)}
+  .banner{border:1px solid var(--line); border-left:5px solid var(--brand); background:var(--card); border-radius:12px; padding:.8rem .9rem; font-size:.92rem}
+  footer{margin-top:2.2rem; border-top:1px solid var(--line); padding-top:1rem; font-size:.85rem; color:var(--ink-2)}
+  footer p{margin:.35rem 0}
+  .lg{display:flex; gap:.6rem; flex-wrap:wrap; align-items:center}
+  .lg button{font:inherit; font-size:.85rem; padding:.4rem .7rem; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer; min-height:40px}
+  [hidden]{display:none !important}
+  @media (min-width:48rem){
+    .wrap{padding:0 1.5rem 4rem}
+    .verdict .big{font-size:3.2rem}
+  }
+  @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important} }
+  @media print{.tools,.refresh,.lg{display:none} body{background:#fff; color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 바로 가기</a>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brandline">
+      <h1>올팍 지금</h1>
+      <p>올림픽공원, 지금 가도 될까?</p>
+    </div>
+    <div class="tools" role="group" aria-label="화면 설정">
+      <button type="button" id="fs-down" aria-label="글자 작게">가−</button>
+      <button type="button" id="fs-up" aria-label="글자 크게">가+</button>
+      <button type="button" id="contrast" aria-pressed="false">고대비</button>
+      <button type="button" id="read" aria-pressed="false">큰 글씨 모드</button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <div class="banner" id="banner" hidden></div>
+
+    <!-- 결론 -->
+    <section aria-labelledby="now-h">
+      <h2 id="now-h" class="sr-only" hidden>지금 주차 상황</h2>
+      <div class="verdict" id="verdict">
+        <p class="label">지금 올림픽공원 주차장 (동2문·남2문·북2문)</p>
+        <div class="status s-warn" id="status" aria-live="polite">확인 중</div>
+        <p class="big" id="count">— <small>/ 2,200대</small></p>
+        <div class="meter" aria-hidden="true"><span id="bar"></span></div>
+        <div class="scale"><span>0%</span><span>50%</span><span>70%</span><span>90% 만차</span></div>
+        <p class="say" id="say">실시간 값을 불러오는 중입니다.</p>
+        <div class="rowmeta">
+          <span class="stamp" id="stamp">—</span>
+          <button class="refresh" type="button" id="reload">다시 확인</button>
+        </div>
+      </div>
+      <p class="note" style="margin:.55rem 0 0">
+        기준은 기관이 공개한 그대로입니다. 2,200대 = 기관 「주차장 예상 이용률 안내」 표기, 90% 이상 만차·70% 이상 혼잡·50% 이상 다소혼잡 = 같은 페이지의 표기.
+      </p>
+    </section>
+
+    <!-- 공연 -->
+    <section aria-labelledby="ev-h">
+      <h2 id="ev-h">공연·행사 일정 <span class="sub">한국체육산업개발(주) 공연정보 공공데이터 · 대관·행사 일정 포함</span></h2>
+      <div class="card">
+        <p id="today-line" class="ev-title">오늘 일정을 확인하는 중입니다.</p>
+        <p class="note" id="ev-head" style="margin:0 0 .1rem">가까운 일정</p>
+        <ul class="clean" id="ev-list" aria-label="다음 공연과 행사"></ul>
+        <p class="stamp" id="ev-stamp" style="margin:.7rem 0 0">—</p>
+      </div>
+      <p class="note" style="margin:.55rem 0 0">
+        공연이 있는 날은 시작 2시간 전부터 주차장이 먼저 찹니다. 이 문장은 기관 안내를 옮긴 것이 아니라, 아래 「주차장 예상 이용률 안내」 페이지에서 시간대별 예상치를 직접 확인하라는 뜻입니다.
+      </p>
+    </section>
+
+    <!-- 무장애 -->
+    <section aria-labelledby="acc-h">
+      <h2 id="acc-h">휠체어·고령 방문객 안내 <span class="sub">기관이 공개한 안내문에서 그대로 옮겼습니다</span></h2>
+      <div class="card">
+        <p style="margin:.1rem 0 .5rem"><strong>만남의 광장까지 휠체어로</strong></p>
+        <ol class="steps">
+          <li>동2문으로 입차합니다.</li>
+          <li>그래피티의 벽 주차장을 이용합니다.</li>
+          <li>주차장 안 올림픽공원역에 가까운 쪽 경사로로 만남의 광장에 이릅니다.</li>
+        </ol>
+        <p class="note" style="margin:.6rem 0 0">출처: 한국체육산업개발(주) 올림픽공원 「주차 안내」</p>
+        <ul class="clean" style="margin-top:.8rem">
+          <li>
+            <p class="ev-title">주차요금 장애인 50% 할인</p>
+            <p class="ev-meta">현장에서 차량등록증·복지카드 등 서류를 주차관리 사무실에 제출하면 적용됩니다(기관 안내).</p>
+          </li>
+          <li>
+            <p class="ev-title">공연장별 가장 가까운 주차장</p>
+            <p class="ev-meta">올림픽홀은 P2 · 올림픽홀 지하주차장이 가장 가깝다고 기관이 안내합니다. 나머지 공연장도 같은 표에 정리돼 있습니다.</p>
+          </li>
+          <li>
+            <p class="ev-title">사람에게 물어보기</p>
+            <p class="ev-meta">올팍 안내센터 <a href="tel:024101114">02-410-1114</a> · 공공데이터 담당 <a href="tel:0221803504">02-2180-3504</a></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 데이터 -->
+    <section aria-labelledby="data-h">
+      <h2 id="data-h">이 화면이 쓰는 공공데이터 <span class="sub">3종 모두 한국체육산업개발(주) 개방 데이터입니다</span></h2>
+      <div class="card">
+        <table class="kv">
+          <caption class="note" style="text-align:left; padding-bottom:.4rem">형식·갱신·라이선스는 공공데이터포털과 기관 개방목록에서 확인한 값입니다.</caption>
+          <tbody>
+            <tr>
+              <th scope="row">올림픽공원 실시간 주차현황</th>
+              <td>API(JSON) · 실시간 · 무료<br><a href="https://www.ksponco.or.kr/pubData/64?mid=a10106020000" target="_blank" rel="noopener">기관 개방목록 64번</a> · 공공데이터포털 등록</td>
+            </tr>
+            <tr>
+              <th scope="row">올림픽공원 공연정보</th>
+              <td>LINK형 오픈API(XML) · 업데이트 주기 실시간 · 공공저작물 출처표시(제1유형)<br><a href="https://www.data.go.kr/data/3037877/openapi.do" target="_blank" rel="noopener">data.go.kr/data/3037877</a></td>
+            </tr>
+            <tr>
+              <th scope="row">올림픽공원 대관정보</th>
+              <td>시설 대관·행사 일정 · 이용허락범위 제한 없음<br><a href="https://www.data.go.kr/data/15015212/openapi.do" target="_blank" rel="noopener">data.go.kr/data/15015212</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin:.8rem 0 0">
+          주차 대수와 공연 일정은 화면을 열 때 기관 API·기관 페이지에서 브라우저가 직접 받아 그립니다. 연결이 안 되면 마지막으로 받아 둔 값과 그 시각을 그대로 보여 줍니다(값을 지어내지 않습니다).
+        </p>
+      </div>
+    </section>
+
+    <!-- 이 화면에 대해 -->
+    <section aria-labelledby="about-h">
+      <h2 id="about-h">이 화면에 대해</h2>
+      <div class="card">
+        <ul class="clean">
+          <li><p class="ev-title">가입·설치·광고·추적 0</p><p class="ev-meta">쿠키를 심지 않고, 입력받는 값이 없습니다.</p></li>
+          <li><p class="ev-title">한 손으로, 큰 글씨로</p><p class="ev-meta">글자 크기 4단계·고대비·48px 버튼. 화면 낭독기에서 순서대로 읽히도록 만들었습니다.</p></li>
+          <li><p class="ev-title">숫자는 확인한 것만</p><p class="ev-meta">주차 대수와 공연 일정은 기관 데이터에서 온 값이고, 확인한 시각을 함께 적습니다. 혼잡을 예측해 단정하지 않습니다.</p></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p><strong>올팍 지금</strong> — 2026년도 공공데이터 활용 경진대회 출품작(한국체육산업개발(주)).</p>
+    <p>AI 비서 린다와 사람 운영자가 만들었습니다. 데이터 출처는 위 표와 같고, 화면은 무료로 열립니다.</p>
+    <p class="note">이 페이지는 기관 공식 서비스가 아닙니다. 주차 대수·일정은 기관이 공개한 값을 그대로 보여 주며, 최종 안내는 기관 홈페이지와 현장 안내를 따릅니다.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var API = "https://www.ksponco.or.kr/online/main/parkingorsApi.do?apiKey=PARKING21803504";
+  var CAP = 2200;
+  var el = {
+    status: document.getElementById("status"),
+    count: document.getElementById("count"),
+    bar: document.getElementById("bar"),
+    say: document.getElementById("say"),
+    stamp: document.getElementById("stamp"),
+    reload: document.getElementById("reload"),
+    banner: document.getElementById("banner"),
+    todayLine: document.getElementById("today-line"),
+    evList: document.getElementById("ev-list")
+  };
+
+  /* ---------- 화면 설정 ---------- */
+  var SIZES = ["s","m","l","xl"], sizeIdx = 1;
+  var root = document.documentElement;
+  function applySize(){
+    root.setAttribute("data-fs", SIZES[sizeIdx]);
+    document.getElementById("fs-up").disabled = sizeIdx === SIZES.length - 1;
+    document.getElementById("fs-down").disabled = sizeIdx === 0;
+  }
+  document.getElementById("fs-up").addEventListener("click", function(){ if(sizeIdx < SIZES.length-1){ sizeIdx++; applySize(); } });
+  document.getElementById("fs-down").addEventListener("click", function(){ if(sizeIdx > 0){ sizeIdx--; applySize(); } });
+  var cBtn = document.getElementById("contrast");
+  cBtn.addEventListener("click", function(){
+    var on = root.getAttribute("data-contrast") === "high";
+    if(on){ root.removeAttribute("data-contrast"); } else { root.setAttribute("data-contrast","high"); }
+    cBtn.setAttribute("aria-pressed", String(!on));
+  });
+  var rBtn = document.getElementById("read");
+  rBtn.addEventListener("click", function(){
+    var on = sizeIdx === SIZES.length-1;
+    sizeIdx = on ? 1 : SIZES.length-1;
+    applySize();
+    rBtn.setAttribute("aria-pressed", String(!on));
+  });
+  applySize();
+
+  /* ---------- 주차 ---------- */
+  function fmt(n){ return n.toLocaleString("ko-KR"); }
+  function grade(p){
+    if(p >= 90) return {cls:"s-full", label:"만차에 가까움", say:"차로 가면 오래 기다릴 수 있습니다. 8호선 올림픽공원역을 쓰는 편이 낫습니다.", color:"var(--full)"};
+    if(p >= 70) return {cls:"s-hot", label:"혼잡", say:"자리를 찾기 어려울 수 있습니다. 조금 이르게 도착하거나 대중교통을 섞어 쓰세요.", color:"var(--hot)"};
+    if(p >= 50) return {cls:"s-warn", label:"다소 혼잡", say:"들어갈 수는 있지만 입구에서 잠시 기다릴 수 있습니다.", color:"var(--warn)"};
+    return {cls:"s-ok", label:"여유", say:"지금은 자리가 넉넉합니다.", color:"var(--ok)"};
+  }
+  function paint(payload, live){
+    var n = payload.count, p = Math.round(n / CAP * 100);
+    var g = grade(p);
+    el.count.innerHTML = fmt(n) + ' <small>/ 2,200대</small> <small>· ' + p + '%</small>';
+    el.status.className = "status " + g.cls;
+    el.status.textContent = g.label;
+    el.say.textContent = g.say;
+    el.bar.style.width = Math.min(100, p) + "%";
+    el.bar.style.background = g.color;
+    el.stamp.textContent = live ? ("방금 기관 API에서 받았습니다 · " + (payload.at || "")) : ("실시간 연결이 안 돼 저장된 값을 보여 줍니다 · " + (payload.at || ""));
+    if(!live){ el.banner.hidden = false; el.banner.textContent = "지금은 기관 API에 연결하지 못해 마지막으로 받아 둔 주차 값을 보여 줍니다. 시각을 확인해 주세요."; }
+  }
+  function nowKst(){
+    var d = new Date(Date.now() + 9*3600*1000);
+    var p = function(x){ return String(x).padStart(2,"0"); };
+    return d.getUTCFullYear() + "-" + p(d.getUTCMonth()+1) + "-" + p(d.getUTCDate()) + " " + p(d.getUTCHours()) + ":" + p(d.getUTCMinutes());
+  }
+  function loadParking(){
+    el.status.className = "status s-warn";
+    el.status.textContent = "확인 중";
+    el.say.textContent = "실시간 값을 불러오는 중입니다.";
+    el.reload.disabled = true;
+    fetch(API, {cache:"no-store"})
+      .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.json(); })
+      .then(function(rows){
+        var n = rows && rows[0] && rows[0].parking_sum;
+        if(typeof n !== "number") throw new Error("no value");
+        paint({count:n, at:nowKst()}, true);
+        el.banner.hidden = true;
+      })
+      .catch(function(){
+        fetch("data/parking.json", {cache:"no-store"})
+          .then(function(r){ return r.json(); })
+          .then(function(snap){
+            if(snap && typeof snap.count === "number"){ paint({count:snap.count, at:(snap.fetched_at||"").replace("T"," ")}, false); }
+            else { fallbackEmpty(); }
+          })
+          .catch(fallbackEmpty);
+      })
+      .then(function(){ el.reload.disabled = false; });
+    function fallbackEmpty(){
+      el.status.className = "status s-warn";
+      el.status.textContent = "확인 못 함";
+      el.count.innerHTML = "값 없음";
+      el.say.textContent = "지금은 주차 대수를 받지 못했습니다. 잠시 뒤 「다시 확인」을 눌러 주세요.";
+      el.stamp.textContent = "—";
+      el.bar.style.width = "0";
+    }
+  }
+  el.reload.addEventListener("click", loadParking);
+
+  /* ---------- 공연 ---------- */
+  function todayStr(){
+    var d = new Date(Date.now() + 9*3600*1000);
+    var p = function(x){ return String(x).padStart(2,"0"); };
+    return d.getUTCFullYear() + "-" + p(d.getUTCMonth()+1) + "-" + p(d.getUTCDate());
+  }
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function render(todayOnly, items, stamp){
+    var t = todayStr();
+    var live = items.filter(function(e){ return e.begin <= t && t <= e.end; });
+    var next = items.filter(function(e){ return e.end >= t; }).sort(function(a,b){ return a.begin < b.begin ? -1 : 1; }).slice(0,6);
+    if(live.length){
+      el.todayLine.textContent = "오늘(" + t + ") 공연·행사 " + live.length + "건이 있습니다.";
+    } else {
+      el.todayLine.textContent = "오늘(" + t + ")은 공연·행사 일정이 없습니다.";
+    }
+    var list = live.length ? live : next;
+    var head = document.getElementById("ev-head");
+    if(head){ head.textContent = live.length ? "오늘 일정" : "가까운 일정"; }
+    el.evList.innerHTML = list.map(function(e){
+      var isLive = e.begin <= t && t <= e.end;
+      return '<li><p class="ev-title"><a href="' + esc(e.url) + '" target="_blank" rel="noopener">' + esc(e.title) + '</a>' + (isLive ? '<span class="tag today">오늘</span>' : '') + '</p>' +
+             '<p class="ev-meta"><span class="ev-when">' + esc(e.period) + '</span> · ' + esc(e.place) + '</p>' +
+             (e.time ? '<p class="ev-meta">' + esc(e.time) + '</p>' : '') + '</li>';
+    }).join("");
+    if(!list.length){ el.evList.innerHTML = '<li><p class="empty">표시할 일정을 받지 못했습니다.</p></li>'; }
+    if(stamp){ el.todayLine.setAttribute("data-stamp", stamp); }
+  }
+  var EVENT_PAGE = "https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoList?mid=a20301010100";
+  function parseEventsHtml(html){
+    var doc = new DOMParser().parseFromString(html, "text/html");
+    var out = [], nodes = doc.querySelectorAll("a.item");
+    for(var i=0; i<nodes.length; i++){
+      var a = nodes[i];
+      var t = a.querySelector(".title"), dt = a.querySelector(".date");
+      if(!t || !dt) continue;
+      var period = (dt.textContent || "").replace(/\s+/g, " ").trim();
+      var parts = period.split("~");
+      var place = a.querySelector(".place"), tm = a.querySelector(".time");
+      var href = a.getAttribute("href") || "";
+      out.push({
+        place: place ? place.textContent.trim() : "",
+        title: t.textContent.trim(),
+        period: period,
+        begin: (parts[0] || "").trim(),
+        end: (parts[1] || parts[0] || "").trim(),
+        time: tm ? tm.textContent.replace(/\s+/g, " ").trim() : "",
+        url: href.indexOf("http") === 0 ? href : "https://www.ksponco.or.kr" + href
+      });
+    }
+    return out;
+  }
+  function eventsFail(msg){
+    el.todayLine.textContent = msg;
+    el.evList.innerHTML = '<li><p class="empty">기관 「일정안내」 페이지에서 직접 확인하세요: <a href="' + EVENT_PAGE + '" target="_blank" rel="noopener">올림픽공원 일정안내</a></p></li>';
+  }
+  function snapshotEvents(){
+    fetch("data/events.json", {cache:"no-store"})
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(d && d.items && d.items.length){
+          render(false, d.items, d.fetched_at);
+          var n = document.getElementById("ev-stamp");
+          if(n){ n.textContent = "지금은 기관 페이지에 연결하지 못해 저장된 일정(" + (d.fetched_at || "").replace("T", " ") + ")을 보여 줍니다."; }
+        } else { eventsFail("공연 일정을 지금은 받지 못했습니다."); }
+      })
+      .catch(function(){ eventsFail("공연 일정을 지금은 받지 못했습니다."); });
+  }
+  fetch(EVENT_PAGE, {cache:"no-store"})
+    .then(function(r){ if(!r.ok) throw new Error("http " + r.status); return r.text(); })
+    .then(function(html){
+      var items = parseEventsHtml(html);
+      if(!items.length) throw new Error("empty");
+      render(false, items, nowKst());
+      var n = document.getElementById("ev-stamp");
+      if(n){ n.textContent = "기관 페이지에서 방금 받았습니다 · " + nowKst(); }
+    })
+    .catch(snapshotEvents);
+
+  loadParking();
+})();
+</script>
+</body>
+</html>
