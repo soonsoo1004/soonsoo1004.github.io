@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#05060f">
+<title>네온 블록 콤보 — 광고 없는 8×8 블록 퍼즐</title>
+<meta name="description" content="가입·설치·광고·결제 없이 브라우저에서 바로 하는 8×8 네온 크리스탈 블록 퍼즐. 블록 회전 3회, 되돌리기 1회, 다중 줄 클리어 콤보 파티클.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://soonsoo1004.github.io/games/neon-block-combo.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="천장지구 1004 · AI 놀이터">
+<meta property="og:title" content="네온 블록 콤보 — 무광고 8×8 블록 퍼즐">
+<meta property="og:description" content="블록을 끌어 놓으면 손가락 위로 떠오르고, 줄이 완성되면 네온으로 빛납니다. 회전 3회·되돌리기 1회·콤보 배율. 광고 0, 하트 0, 결제 0.">
+<meta property="og:url" content="https://soonsoo1004.github.io/games/neon-block-combo.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="네온 블록 콤보 — 광고 없는 8×8 블록 퍼즐">
+<meta name="twitter:description" content="회전 3회 · 되돌리기 1회 · 콤보 배율 · 네온 크리스탈 파티클. 파일 하나짜리 HTML, 인터넷 없이도 실행.">
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#04050c;}
+  body{overflow:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;}
+  #nbc{position:fixed;inset:0;height:100vh;height:100dvh;display:flex;flex-direction:column;
+    padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);
+    background:
+      radial-gradient(120% 70% at 50% -12%, rgba(60,90,220,.38) 0%, rgba(8,10,26,0) 62%),
+      radial-gradient(90% 60% at 104% 104%, rgba(220,40,190,.20) 0%, rgba(8,10,26,0) 56%),
+      linear-gradient(180deg,#070a18 0%,#05060f 48%,#04040a 100%);
+    color:#e8f6ff;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;}
+  .nbc-hud{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:8px 12px 2px;min-height:52px;}
+  .nbc-score{display:flex;flex-direction:column;line-height:1.05;min-width:0;}
+  .nbc-score b{font-size:26px;font-weight:800;letter-spacing:-.02em;
+    background:linear-gradient(180deg,#ffffff,#8fe9ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 18px rgba(60,220,255,.35);}
+  .nbc-score span{font-size:11px;color:#7f93b8;letter-spacing:.02em;}
+  .nbc-score span i{font-style:normal;color:#a9e7ff;}
+  .nbc-combo{margin-left:auto;font-size:12px;font-weight:700;letter-spacing:.04em;color:#6f83a8;
+    padding:5px 9px;border-radius:999px;border:1px solid rgba(120,200,255,.16);background:rgba(120,200,255,.05);
+    transition:color .2s,border-color .2s,box-shadow .2s;white-space:nowrap;}
+  .nbc-combo.on{color:#0a1020;border-color:transparent;
+    background:linear-gradient(180deg,#7dffd1,#25d9ff);
+    box-shadow:0 0 18px rgba(60,240,220,.55);}
+  .nbc-tools{display:flex;gap:6px;flex:0 0 auto;}
+  .nbc-ico{width:34px;height:34px;padding:0;border-radius:11px;font-size:14px;line-height:1;
+    border:1px solid rgba(130,190,255,.18);background:rgba(18,26,50,.72);color:#cfe6ff;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,border-color .15s,transform .08s;}
+  .nbc-ico:active{transform:scale(.94);}
+  .nbc-ico.off{color:#54637e;border-color:rgba(120,150,190,.12);background:rgba(14,18,34,.6);}
+  .nbc-ico{position:relative;}
+  .nbc-ico .sl{display:none;}
+  .nbc-ico.off .sl{display:block;}
+  .nbc-ico.off .w1,.nbc-ico.off .w2{display:none;}
+  .nbc-ico svg{display:block;}
+  .nbc-stage{position:relative;flex:1 1 auto;min-height:0;overflow:hidden;}
+  #nbcCv{position:absolute;inset:0;display:block;touch-action:none;cursor:pointer;}
+  .nbc-bar{flex:0 0 auto;display:flex;gap:10px;padding:6px 12px 12px;}
+  .nbc-btn{flex:1 1 0;min-width:0;height:52px;border-radius:16px;border:1px solid rgba(130,190,255,.20);
+    background:linear-gradient(180deg,rgba(30,44,84,.95),rgba(16,24,48,.95));
+    color:#dff1ff;font-size:15px;font-weight:700;letter-spacing:-.01em;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:7px;transition:transform .08s,background .15s,border-color .15s;
+    font-family:inherit;}
+  .nbc-btn:active{transform:scale(.97);}
+  .nbc-btn[disabled]{opacity:.38;cursor:default;}
+  .nbc-btn b{font-weight:800;font-size:13px;min-width:20px;height:20px;border-radius:7px;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:rgba(80,230,255,.18);color:#8ef0ff;border:1px solid rgba(80,230,255,.32);}
+  .nbc-btn[disabled] b{background:rgba(140,160,190,.12);color:#8fa3bd;border-color:rgba(140,160,190,.2);}
+  .nbc-btn.hot{border-color:rgba(80,255,215,.55);box-shadow:0 0 16px rgba(50,240,200,.28);}
+  #nbcToast{position:absolute;left:50%;bottom:12px;transform:translate(-50%,6px);
+    background:rgba(8,14,30,.92);border:1px solid rgba(120,200,255,.28);color:#cdeaff;
+    font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;pointer-events:none;
+    transition:opacity .2s,transform .2s;white-space:nowrap;z-index:6;}
+  #nbcToast.on{opacity:1;transform:translate(-50%,0);}
+  .nbc-ov{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;padding:22px;text-align:center;
+    background:radial-gradient(80% 60% at 50% 40%,rgba(10,18,40,.94),rgba(3,4,10,.97));
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);}
+  .nbc-ov.hide{display:none;}
+  .nbc-ov h1{margin:0;font-size:27px;font-weight:900;letter-spacing:-.03em;line-height:1.15;
+    background:linear-gradient(100deg,#8ef7ff 0%,#c69bff 48%,#ff7de3 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;}
+  .nbc-ov p{margin:0;font-size:13.5px;line-height:1.62;color:#a8bcd8;max-width:330px;}
+  .nbc-ov ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px;max-width:330px;width:100%;}
+  .nbc-ov li{font-size:12.5px;line-height:1.5;color:#9fb4d2;text-align:left;padding:9px 12px;border-radius:12px;
+    background:rgba(24,36,70,.55);border:1px solid rgba(120,190,255,.13);}
+  .nbc-ov li b{color:#8ef0ff;}
+  .nbc-go{margin-top:4px;min-width:190px;height:54px;border-radius:17px;border:0;cursor:pointer;
+    font-family:inherit;font-size:17px;font-weight:900;letter-spacing:-.01em;color:#04121a;
+    background:linear-gradient(180deg,#8ffff0,#28d8ff 60%,#39a8ff);
+    box-shadow:0 8px 26px rgba(45,200,255,.36);transition:transform .08s;}
+  .nbc-go:active{transform:scale(.97);}
+  .nbc-sub{font-size:11.5px;color:#6d80a0;letter-spacing:.02em;}
+  .nbc-big{font-size:44px;font-weight:900;letter-spacing:-.03em;line-height:1;
+    background:linear-gradient(180deg,#ffffff,#87e9ff);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .nbc-row{display:flex;gap:10px;width:100%;max-width:330px;}
+  .nbc-row .nbc-go{flex:1;min-width:0;font-size:15px;height:50px;}
+  .nbc-ghost{background:linear-gradient(180deg,rgba(70,90,140,.9),rgba(30,40,70,.9));color:#dceaff;
+    box-shadow:none;border:1px solid rgba(140,180,230,.3);}
+</style>
+</head>
+<body>
+<div id="nbc">
+  <header class="nbc-hud">
+    <div class="nbc-score">
+      <b id="nbcScore">0</b>
+      <span>최고 <i id="nbcBest">0</i></span>
+    </div>
+    <div class="nbc-combo" id="nbcCombo">콤보 0</div>
+    <div class="nbc-tools">
+      <button class="nbc-ico" id="nbcSound" aria-label="소리 켜기 또는 끄기" aria-pressed="true"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M4.5 9.2h3.1L12 5.4v13.2l-4.4-3.8H4.5z" fill="currentColor"/><path class="w1" d="M15.4 9.1a4.2 4.2 0 0 1 0 5.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="w2" d="M18.1 6.6a8 8 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="sl" d="M15.5 8.6l5 6.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      <button class="nbc-ico" id="nbcHaptic" aria-label="진동 켜기 또는 끄기" aria-pressed="true"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect x="8.6" y="4.2" width="6.8" height="15.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 8.4c-1.2 1.6-1.2 5.6 0 7.2M3 6.2c-2 2.6-2 9 0 11.6M19 8.4c1.2 1.6 1.2 5.6 0 7.2M21 6.2c2 2.6 2 9 0 11.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      <button class="nbc-ico" id="nbcPause" aria-label="일시정지"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="7" y="5.5" width="3.6" height="13" rx="1.4" fill="currentColor"/><rect x="13.4" y="5.5" width="3.6" height="13" rx="1.4" fill="currentColor"/></svg></button>
+      <button class="nbc-ico" id="nbcRestart" aria-label="새로 시작"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.6-5.4" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path d="M19.4 4.6v4.2h-4.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </header>
+
+  <div class="nbc-stage" id="nbcStage">
+    <canvas id="nbcCv"></canvas>
+    <div id="nbcToast"></div>
+
+    <div class="nbc-ov" id="nbcOvStart">
+      <h1>네온 블록 콤보</h1>
+      <p>8×8 판에 네온 크리스탈 블록을 채우고<br>가로·세로 줄을 터뜨리는 퍼즐입니다.</p>
+      <ul>
+        <li><b>끌어서 놓기</b> — 블록을 판 위로 밀면 손가락 위쪽에 떠서 칸이 다 보입니다.</li>
+        <li><b>회전</b> — 아래 회전 버튼, 판당 3회(콤보마다 +1, 최대 5). 블록을 한 번 탭하면 그 블록이 돌아갑니다.</li>
+        <li><b>되돌리기</b> — 판당 1회. 방금 놓은 수를 그대로 무릅니다.</li>
+        <li><b>콤보</b> — 연속으로 줄을 터뜨릴수록 배율이 붙고 소리도 올라갑니다.</li>
+        <li>광고 0 · 하트 0 · 결제 0. 판이 꽉 차서 놓을 곳이 없으면 끝납니다.</li>
+      </ul>
+      <button class="nbc-go" id="nbcStart">시작하기</button>
+      <div class="nbc-sub">인터넷 없이도 실행 · 기록은 이 기기에만 저장</div>
+    </div>
+
+    <div class="nbc-ov hide" id="nbcOvPause">
+      <h1>잠깐 쉬는 중</h1>
+      <p>판은 그대로 멈춰 있습니다. 이어서 하세요.</p>
+      <button class="nbc-go" id="nbcResume">계속하기</button>
+      <div class="nbc-row">
+        <button class="nbc-go nbc-ghost" id="nbcPauseRestart">새로 시작</button>
+      </div>
+    </div>
+
+    <div class="nbc-ov hide" id="nbcOvOver">
+      <h1 id="nbcOverTitle">판이 가득 찼습니다</h1>
+      <div class="nbc-big" id="nbcOverScore">0</div>
+      <p id="nbcOverSub">최고 0 · 최대 콤보 0</p>
+      <div class="nbc-row">
+        <button class="nbc-go" id="nbcAgain">다시 하기</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="nbc-bar">
+    <button class="nbc-btn" id="nbcRotate">회전 <b id="nbcRotN">3</b></button>
+    <button class="nbc-btn" id="nbcUndo">되돌리기 <b id="nbcUndoN">1</b></button>
+  </footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ───────────────────────── 상수 ───────────────────────── */
+var N = 8;
+var COLORS = ['#25e8ff','#ff45e0','#9b6bff','#a9ff45','#ffc640','#4f8bff'];
+var BEST_KEY = 'nbc_best_v1', MUTE_KEY = 'nbc_mute_v1', HAP_KEY = 'nbc_hap_v1';
+
+/* 블록 모양(원본): '1'=칸, '.'=빈칸 */
+var RAW = [
+  ['1'], ['11'], ['1|1'], ['111'], ['1|1|1'], ['1111'], ['11111'],
+  ['1|1|1|1'], ['1|1|1|1|1'],
+  ['11|11'], ['111|111'], ['11|11|11'], ['111|111|111'],
+  ['1.|1.|11'], ['111|1..'], ['11|.1|.1'], ['..1|111'],
+  ['.1|.1|11'], ['111|..1'], ['11|1.|1.'], ['1..|111'],
+  ['1..|1..|111'], ['111|1..|1..'], ['111|..1|..1'], ['..1|..1|111'],
+  ['111|.1.'], ['.1.|111'], ['1.|11|1.'], ['.1|11|.1'],
+  ['.11|11.'], ['11.|.11'], ['1.|11|.1'], ['.1|11|1.'],
+  ['11|1.'], ['11|.1'], ['1.|11'], ['.1|11']
+];
+
+var SHAPES = RAW.map(function(entry, idx){
+  var rows = String(entry).split('|');
+  var cells = [], h = rows.length, w = 0, r, c, line;
+  for (r = 0; r < h; r++){ w = Math.max(w, rows[r].length); }
+  for (r = 0; r < h; r++){
+    line = rows[r];
+    for (c = 0; c < line.length; c++){ if (line.charAt(c) === '1') cells.push([r, c]); }
+  }
+  return { key: rows.join('|'), w: w, h: h, cells: cells, n: cells.length, idx: idx };
+}).filter(function(s){ return s.n > 0; });
+
+function shapeWeight(s){ return s.n <= 2 ? 2.6 : s.n <= 3 ? 2.2 : s.n <= 4 ? 1.5 : 1; }
+
+/* ───────────────────────── DOM ───────────────────────── */
+function $(id){ return document.getElementById(id); }
+var cv = $('nbcCv'), ctx = cv.getContext('2d');
+var elScore = $('nbcScore'), elBest = $('nbcBest'), elCombo = $('nbcCombo');
+var elRotN = $('nbcRotN'), elUndoN = $('nbcUndoN');
+var btnRot = $('nbcRotate'), btnUndo = $('nbcUndo');
+var ovStart = $('nbcOvStart'), ovPause = $('nbcOvPause'), ovOver = $('nbcOvOver');
+var elToast = $('nbcToast');
+
+/* ───────────────────────── 상태 ───────────────────────── */
+var G = {
+  phase: 'start',           /* start | play | pause | over */
+  board: new Int8Array(N * N),
+  tray: [null, null, null],
+  sel: -1,
+  score: 0,
+  best: 0,
+  combo: 0,
+  bestCombo: 0,
+  rot: 3,
+  undo: 1,
+  undoSnap: null,
+  particles: [],
+  texts: [],
+  flashes: [],
+  shake: 0,
+  time: 0,
+  muted: false,
+  haptic: true,
+  drag: null,
+  lastTap: { i: -1, t: 0 }
+};
+
+var DPR = 1;
+var LAY = { w: 0, h: 0, bx: 0, by: 0, cell: 0, slotW: 0, trayY: 0, trayCell: 0, trayH: 0 };
+var boardLayer = document.createElement('canvas');
+var bctx = boardLayer.getContext('2d');
+
+/* ───────────────────────── 유틸 ───────────────────────── */
+function clamp(v, a, b){ return v < a ? a : v > b ? b : v; }
+function hex2rgb(h){
+  return [parseInt(h.substr(1,2),16), parseInt(h.substr(3,2),16), parseInt(h.substr(5,2),16)];
+}
+function rgba(hex, a){ var c = hex2rgb(hex); return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+function mix(hex, target, t){
+  var a = hex2rgb(hex), b = hex2rgb(target);
+  return 'rgb(' + Math.round(a[0]+(b[0]-a[0])*t) + ',' + Math.round(a[1]+(b[1]-a[1])*t) + ',' + Math.round(a[2]+(b[2]-a[2])*t) + ')';
+}
+function rr(c, x, y, w, h, r){
+  r = Math.min(r, w / 2, h / 2);
+  c.beginPath();
+  c.moveTo(x + r, y);
+  c.arcTo(x + w, y, x + w, y + h, r);
+  c.arcTo(x + w, y + h, x, y + h, r);
+  c.arcTo(x, y + h, x, y, r);
+  c.arcTo(x, y, x + w, y, r);
+  c.closePath();
+}
+
+/* ───────────────────────── 오디오 ───────────────────────── */
+var AC = null, MG = null, voices = [];
+
+function audio(){
+  if (G.muted) return null;
+  if (!AC){
+    try {
+      var C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return null;
+      AC = new C();
+      MG = AC.createGain();
+      MG.gain.value = 0.45;
+      MG.connect(AC.destination);
+    } catch (e){ AC = null; return null; }
+  }
+  if (AC.state === 'suspended'){ try { AC.resume(); } catch (e){} }
+  return AC;
+}
+function tone(freq, dur, type, vol, delay, slideTo){
+  var a = audio(); if (!a) return;
+  try {
+    var t0 = a.currentTime + (delay || 0);
+    var o = a.createOscillator(), g = a.createGain();
+    o.type = type || 'triangle';
+    o.frequency.setValueAtTime(freq, t0);
+    if (slideTo) o.frequency.exponentialRampToValueAtTime(Math.max(30, slideTo), t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(Math.max(0.0002, vol || 0.1), t0 + 0.014);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(MG);
+    o.start(t0); o.stop(t0 + dur + 0.03);
+    voices.push(o);
+    o.onended = function(){
+      var k = voices.indexOf(o); if (k >= 0) voices.splice(k, 1);
+      try { o.disconnect(); g.disconnect(); } catch (e){}
+    };
+  } catch (e){}
+}
+function sfxPlace(){ tone(300, 0.055, 'triangle', 0.06); tone(520, 0.05, 'sine', 0.045, 0.01); }
+function sfxRotate(){ tone(680, 0.05, 'square', 0.035, 0, 900); }
+function sfxUndo(){ tone(420, 0.09, 'sine', 0.07, 0, 240); }
+function sfxClear(lines, combo){
+  var base = 523.25 * Math.pow(2, Math.min(combo - 1, 8) / 12);
+  var n = Math.min(6, Math.max(lines, 1) + 1);
+  for (var i = 0; i < n; i++){
+    tone(base * Math.pow(2, i / 12) * (i % 2 ? 1.5 : 1), 0.16, 'sine', 0.07, i * 0.045, 0);
+    tone(base * 0.5 * Math.pow(2, i / 12), 0.13, 'triangle', 0.035, i * 0.045, 0);
+  }
+}
+function sfxOver(){ tone(392, 0.2, 'sine', 0.09, 0); tone(311, 0.2, 'sine', 0.09, 0.13); tone(233, 0.34, 'sine', 0.09, 0.26, 150); }
+function buzz(ms){
+  if (!G.haptic || !navigator.vibrate) return;
+  try {
+    var ua = navigator.userActivation;
+    if (ua && ua.isActive === false) return;
+    navigator.vibrate(ms);
+  } catch (e){}
+}
+function stopAllSound(){
+  for (var i = 0; i < voices.length; i++){ try { voices[i].stop(); } catch (e){} }
+  voices.length = 0;
+  if (AC && AC.state === 'suspended'){ try { AC.resume(); } catch (e){} }
+}
+
+/* ───────────────────────── 블록 만들기 ───────────────────────── */
+function weightedShape(){
+  var total = 0, i;
+  for (i = 0; i < SHAPES.length; i++) total += shapeWeight(SHAPES[i]);
+  var r = Math.random() * total;
+  for (i = 0; i < SHAPES.length; i++){
+    r -= shapeWeight(SHAPES[i]);
+    if (r <= 0) return SHAPES[i];
+  }
+  return SHAPES[0];
+}
+function smallShape(){
+  var pool = SHAPES.filter(function(s){ return s.n <= 3; });
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+function makePiece(shape){
+  return {
+    key: shape.key, w: shape.w, h: shape.h,
+    cells: shape.cells.map(function(a){ return [a[0], a[1]]; }),
+    n: shape.n, color: (Math.random() * COLORS.length) | 0
+  };
+}
+function newTray(){
+  var a = [weightedShape(), weightedShape(), weightedShape()];
+  var hasSmall = false, i;
+  for (i = 0; i < 3; i++) if (a[i].n <= 3) hasSmall = true;
+  if (!hasSmall) a[Math.floor(Math.random() * 3)] = smallShape();
+  return [makePiece(a[0]), makePiece(a[1]), makePiece(a[2])];
+}
+function cellsKey(cells){
+  return cells.map(function(a){ return a[0] + ',' + a[1]; }).sort().join(';');
+}
+function rotateCells(p){
+  var h0 = p.h, out = p.cells.map(function(rc){ return [rc[1], h0 - 1 - rc[0]]; });
+  return { cells: out, w: p.h, h: p.w };
+}
+function cellsInBounds(cells, w, h){
+  for (var i = 0; i < cells.length; i++){
+    var r = cells[i][0], c = cells[i][1];
+    if (r < 0 || r >= h || c < 0 || c >= w) return false;
+  }
+  return true;
+}
+
+/* ───────────────────────── 맞춤·판정 ───────────────────────── */
+function fits(board, cells, row, col){
+  for (var i = 0; i < cells.length; i++){
+    var r = row + cells[i][0], c = col + cells[i][1];
+    if (r < 0 || r >= N || c < 0 || c >= N) return false;
+    if (board[r * N + c]) return false;
+  }
+  return true;
+}
+function anyFit(board, p){
+  if (!p) return false;
+  for (var r = 0; r <= N - p.h; r++)
+    for (var c = 0; c <= N - p.w; c++)
+      if (fits(board, p.cells, r, c)) return true;
+  return false;
+}
+function trayHasMove(p){
+  if (!p) return true;
+  return anyFit(G.board, p);
+}
+function fullLines(board){
+  var rows = [], cols = [], r, c, ok;
+  for (r = 0; r < N; r++){
+    ok = true;
+    for (c = 0; c < N; c++) if (!board[r * N + c]) { ok = false; break; }
+    if (ok) rows.push(r);
+  }
+  for (c = 0; c < N; c++){
+    ok = true;
+    for (r = 0; r < N; r++) if (!board[r * N + c]) { ok = false; break; }
+    if (ok) cols.push(c);
+  }
+  return { rows: rows, cols: cols, count: rows.length + cols.length };
+}
+function emptyCount(board){
+  var n = 0;
+  for (var i = 0; i < board.length; i++) if (!board[i]) n++;
+  return n;
+}
+
+/* ───────────────────────── 레이아웃 ───────────────────────── */
+function computeLayout(w, h){
+  var pad = clamp(w * 0.032, 8, 16);
+  var bp = 5;
+  var k = 0.5;
+  var gap = clamp(w * 0.03, 8, 16);
+  var label = 16;
+  var maxBoard = Math.min(w - 2 * pad - 2 * bp, 470);
+  var cellW = maxBoard / N;
+  var cellH = (h - 2 * pad - gap - label - 2 * bp) / (N + 5 * k);
+  var cell = Math.max(16, Math.min(cellW, cellH));
+  var boardPx = cell * N;
+  var trayH = 5 * k * cell;
+  var totalH = boardPx + gap + label + trayH;
+  var top = pad + Math.max(0, (h - 2 * pad - totalH) / 2);
+  LAY.w = w; LAY.h = h;
+  LAY.cell = cell;
+  LAY.bx = Math.round((w - boardPx) / 2);
+  LAY.by = Math.round(top);
+  LAY.slotW = boardPx / 3;
+  LAY.trayY = Math.round(LAY.by + boardPx + gap + label);
+  LAY.trayH = trayH;
+  LAY.trayCell = Math.min(cell * k, LAY.slotW / 5.15);
+}
+
+function resizeAll(){
+  var stage = $('nbcStage');
+  var w = stage.clientWidth, h = stage.clientHeight;
+  if (w < 20 || h < 20) return;
+  DPR = Math.min(window.devicePixelRatio || 1, 3);
+  cv.width = Math.round(w * DPR);
+  cv.height = Math.round(h * DPR);
+  cv.style.width = w + 'px';
+  cv.style.height = h + 'px';
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  computeLayout(w, h);
+  drawBoardLayer();
+}
+
+/* ───────────────────────── 그리기: 판 레이어 ───────────────────────── */
+function drawBoardLayer(){
+  if (!LAY.w) return;
+  boardLayer.width = Math.round(LAY.w * DPR);
+  boardLayer.height = Math.round(LAY.h * DPR);
+  var c = bctx;
+  c.setTransform(DPR, 0, 0, DPR, 0, 0);
+  c.clearRect(0, 0, LAY.w, LAY.h);
+  var cs = LAY.cell, bx = LAY.bx, by = LAY.by, size = cs * N;
+
+  /* 판 바닥 */
+  c.save();
+  c.shadowColor = 'rgba(70,200,255,.30)';
+  c.shadowBlur = 22;
+  var g = c.createLinearGradient(bx, by, bx + size, by + size);
+  g.addColorStop(0, 'rgba(16,24,50,.92)');
+  g.addColorStop(1, 'rgba(9,12,28,.92)');
+  c.fillStyle = g;
+  rr(c, bx - 6, by - 6, size + 12, size + 12, cs * 0.30);
+  c.fill();
+  c.restore();
+  c.strokeStyle = 'rgba(110,200,255,.20)';
+  c.lineWidth = 1;
+  rr(c, bx - 6, by - 6, size + 12, size + 12, cs * 0.30);
+  c.stroke();
+
+  /* 빈 칸 */
+  var r, cc, x, y;
+  for (r = 0; r < N; r++){
+    for (cc = 0; cc < N; cc++){
+      x = bx + cc * cs; y = by + r * cs;
+      c.fillStyle = 'rgba(124,192,255,.062)';
+      rr(c, x + cs * 0.08, y + cs * 0.08, cs * 0.84, cs * 0.84, cs * 0.2);
+      c.fill();
+      c.strokeStyle = 'rgba(126,196,255,.13)';
+      c.lineWidth = 1;
+      rr(c, x + cs * 0.08, y + cs * 0.08, cs * 0.84, cs * 0.84, cs * 0.2);
+      c.stroke();
+    }
+  }
+
+  /* 채워진 칸 */
+  for (r = 0; r < N; r++){
+    for (cc = 0; cc < N; cc++){
+      var v = G.board[r * N + cc];
+      if (!v) continue;
+      crystal(c, bx + cc * cs, by + r * cs, cs, COLORS[v - 1], 1, 1);
+    }
+  }
+}
+
+function crystal(c, x, y, cs, color, alpha, glow){
+  var pad = cs * 0.075, s = cs - pad * 2;
+  c.save();
+  c.globalAlpha = alpha;
+  if (glow){
+    c.shadowColor = color;
+    c.shadowBlur = cs * 0.42 * glow;
+  }
+  var g = c.createLinearGradient(x + pad, y + pad, x + pad, y + pad + s);
+  g.addColorStop(0, mix(color, '#ffffff', 0.42));
+  g.addColorStop(0.46, color);
+  g.addColorStop(1, mix(color, '#080b20', 0.30));
+  c.fillStyle = g;
+  rr(c, x + pad, y + pad, s, s, cs * 0.22);
+  c.fill();
+  c.shadowBlur = 0;
+  c.strokeStyle = rgba(color, 0.55);
+  c.lineWidth = Math.max(1, cs * 0.035);
+  rr(c, x + pad, y + pad, s, s, cs * 0.22);
+  c.stroke();
+  /* 크리스탈 면 */
+  c.strokeStyle = 'rgba(255,255,255,.5)';
+  c.lineWidth = Math.max(1, cs * 0.045);
+  c.beginPath();
+  c.moveTo(x + pad + s * 0.18, y + pad + s * 0.24);
+  c.lineTo(x + pad + s * 0.72, y + pad + s * 0.24);
+  c.stroke();
+  c.strokeStyle = 'rgba(4,16,31,.28)';
+  c.beginPath();
+  c.moveTo(x + pad + s * 0.18, y + pad + s * 0.80);
+  c.lineTo(x + pad + s * 0.82, y + pad + s * 0.80);
+  c.stroke();
+  c.restore();
+}
+
+/* ───────────────────────── 그리기: 트레이 ───────────────────────── */
+function slotRect(i){
+  var x = LAY.bx + i * LAY.slotW;
+  return { x: x, w: LAY.slotW, y: LAY.trayY, h: LAY.trayH };
+}
+function trayScale(p){
+  var s = LAY.cell * 0.66;
+  var dim = Math.max(p.w, p.h);
+  if (dim * s > LAY.slotW * 0.82) s = LAY.slotW * 0.82 / dim;
+  if (dim * s > LAY.trayH * 0.90) s = LAY.trayH * 0.90 / dim;
+  return s;
+}
+function pieceBox(p, slot, ts){
+  var pw = p.w * ts, ph = p.h * ts;
+  return { x: slot.x + (slot.w - pw) / 2, y: slot.y + (LAY.trayH - ph) / 2, w: pw, h: ph };
+}
+function drawTray(){
+  for (var i = 0; i < 3; i++){
+    var slot = slotRect(i);
+    var p = G.tray[i];
+    var dead = p && !trayHasMove(p);
+    /* 슬롯 배경 */
+    ctx.save();
+    if (G.sel === i){
+      ctx.shadowColor = 'rgba(90,240,255,.55)';
+      ctx.shadowBlur = 14;
+    }
+    ctx.fillStyle = G.sel === i ? 'rgba(60,220,255,.13)' : 'rgba(120,190,255,.055)';
+    rr(ctx, slot.x + slot.w * 0.04, slot.y, slot.w * 0.92, slot.h, 14);
+    ctx.fill();
+    ctx.restore();
+    if (G.sel === i){
+      ctx.strokeStyle = 'rgba(110,245,255,.65)';
+      ctx.lineWidth = 1.4;
+      rr(ctx, slot.x + slot.w * 0.04, slot.y, slot.w * 0.92, slot.h, 14);
+      ctx.stroke();
+    }
+    if (!p) continue;
+    var ts = trayScale(p);
+    var bx = pieceBox(p, slot, ts);
+    var v = p.color;
+    var alpha = dead ? 0.32 : 1;
+    for (var k = 0; k < p.cells.length; k++){
+      crystal(ctx, bx.x + p.cells[k][1] * ts, bx.y + p.cells[k][0] * ts, ts, COLORS[v], alpha, dead ? 0 : 0.8);
+    }
+  }
+}
+
+/* ───────────────────────── 그리기: 드래그·고스트 ───────────────────────── */
+function dragPos(){
+  var d = G.drag;
+  if (!d) return null;
+  return { x: d.x, y: d.y };
+}
+function dragTarget(){
+  var d = G.drag;
+  if (!d) return null;
+  var col = Math.round((d.x - LAY.bx) / LAY.cell);
+  var row = Math.round((d.y - LAY.by) / LAY.cell);
+  return { row: row, col: col };
+}
+function drawLineHint(rows, cols, pulse){
+  var cs = LAY.cell, i, y, x;
+  ctx.save();
+  var m = 5;
+  for (i = 0; i < rows.length; i++){
+    y = LAY.by + rows[i] * cs;
+    ctx.fillStyle = 'rgba(160,255,244,' + (0.10 + 0.10 * pulse) + ')';
+    rr(ctx, LAY.bx - m, y - 3, cs * N + m * 2, cs + 6, 14);
+    ctx.fill();
+    ctx.shadowColor = 'rgba(120,255,235,1)';
+    ctx.shadowBlur = 26;
+    ctx.strokeStyle = 'rgba(225,255,252,' + (0.72 + 0.28 * pulse) + ')';
+    ctx.lineWidth = 3;
+    rr(ctx, LAY.bx - m, y - 3, cs * N + m * 2, cs + 6, 14);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(120,255,235,' + (0.35 + 0.3 * pulse) + ')';
+    ctx.lineWidth = 8;
+    rr(ctx, LAY.bx - m, y - 3, cs * N + m * 2, cs + 6, 14);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+  for (i = 0; i < cols.length; i++){
+    x = LAY.bx + cols[i] * cs;
+    ctx.fillStyle = 'rgba(160,255,244,' + (0.10 + 0.10 * pulse) + ')';
+    rr(ctx, x - 3, LAY.by - m, cs + 6, cs * N + m * 2, 14);
+    ctx.fill();
+    ctx.shadowColor = 'rgba(120,255,235,1)';
+    ctx.shadowBlur = 26;
+    ctx.strokeStyle = 'rgba(225,255,252,' + (0.72 + 0.28 * pulse) + ')';
+    ctx.lineWidth = 3;
+    rr(ctx, x - 3, LAY.by - m, cs + 6, cs * N + m * 2, 14);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(120,255,235,' + (0.35 + 0.3 * pulse) + ')';
+    ctx.lineWidth = 8;
+    rr(ctx, x - 3, LAY.by - m, cs + 6, cs * N + m * 2, 14);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+  ctx.restore();
+}
+
+function drawGhost(){
+  var d = G.drag;
+  if (!d) return;
+  var t = dragTarget();
+  var p = d.piece;
+  var ok = fits(G.board, p.cells, t.row, t.col);
+  var cs = LAY.cell;
+  var pulse = 0.5 + 0.5 * Math.sin(G.time * 7);
+  var ln = { rows: [], cols: [], count: 0 };
+  if (ok){
+    var tmp = new Int8Array(G.board);
+    for (var i = 0; i < p.cells.length; i++){
+      var r = t.row + p.cells[i][0], c = t.col + p.cells[i][1];
+      if (r >= 0 && r < N && c >= 0 && c < N) tmp[r * N + c] = p.color + 1;
+    }
+    ln = fullLines(tmp);
+    /* 배치될 자리 고스트 */
+    for (var j = 0; j < p.cells.length; j++){
+      var rr2 = t.row + p.cells[j][0], cc2 = t.col + p.cells[j][1];
+      crystal(ctx, LAY.bx + cc2 * cs, LAY.by + rr2 * cs, cs, COLORS[p.color], 0.46, 0.6);
+    }
+    /* 완성될 줄 발광 예고 (고스트 위에) */
+    if (ln.count) drawLineHint(ln.rows, ln.cols, pulse);
+  } else {
+    /* 놓을 수 없음: 붉은 외곽선 */
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255,90,120,.75)';
+    ctx.lineWidth = 2;
+    for (var k2 = 0; k2 < p.cells.length; k2++){
+      var r3 = t.row + p.cells[k2][0], c3 = t.col + p.cells[k2][1];
+      if (r3 < 0 || r3 >= N || c3 < 0 || c3 >= N) continue;
+      if (G.board[r3 * N + c3]) continue;
+      rr(ctx, LAY.bx + c3 * cs + 3, LAY.by + r3 * cs + 3, cs - 6, cs - 6, cs * 0.2);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  /* 손가락 위에 떠 있는 블록 */
+  var ts = cs;
+  for (var m = 0; m < p.cells.length; m++){
+    crystal(ctx, d.x + p.cells[m][1] * ts, d.y + p.cells[m][0] * ts, ts, COLORS[p.color], 0.96, 1.3);
+  }
+  /* 착지 안내선 */
+  if (ok){
+    ctx.save();
+    ctx.strokeStyle = 'rgba(120,240,255,.22)';
+    ctx.setLineDash([5, 6]);
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(d.x + ts / 2, d.y + ts / 2);
+    ctx.lineTo(LAY.bx + t.col * cs + ts / 2, LAY.by + t.row * cs + ts / 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+/* ───────────────────────── 파티클 ───────────────────────── */
+function spawnCrystals(row, col, colorHex, count){
+  var cs = LAY.cell;
+  var cx = LAY.bx + col * cs + cs / 2;
+  var cy = LAY.by + row * cs + cs / 2;
+  for (var i = 0; i < count; i++){
+    var ang = Math.random() * Math.PI * 2;
+    var sp = 70 + Math.random() * 230;
+    G.particles.push({
+      x: cx + (Math.random() - 0.5) * cs * 0.5,
+      y: cy + (Math.random() - 0.5) * cs * 0.5,
+      vx: Math.cos(ang) * sp,
+      vy: Math.sin(ang) * sp - 90,
+      life: 0.42 + Math.random() * 0.36,
+      max: 0.78,
+      size: cs * (0.11 + Math.random() * 0.15),
+      rot: Math.random() * Math.PI,
+      vr: (Math.random() - 0.5) * 9,
+      color: colorHex
+    });
+  }
+  if (G.particles.length > 300) G.particles.splice(0, G.particles.length - 300);
+}
+function updateParticles(dt){
+  var out = [];
+  for (var i = 0; i < G.particles.length; i++){
+    var p = G.particles[i];
+    p.life -= dt;
+    if (p.life <= 0) continue;
+    p.x += p.vx * dt;
+    p.y += p.vy * dt;
+    p.vy += 820 * dt;
+    p.vx *= (1 - 2.2 * dt);
+    p.rot += p.vr * dt;
+    out.push(p);
+  }
+  G.particles = out;
+  for (var j = G.texts.length - 1; j >= 0; j--){
+    var t = G.texts[j];
+    t.life -= dt; t.y -= 44 * dt;
+    if (t.life <= 0) G.texts.splice(j, 1);
+  }
+  for (var k = G.flashes.length - 1; k >= 0; k--){
+    G.flashes[k].life -= dt;
+    if (G.flashes[k].life <= 0) G.flashes.splice(k, 1);
+  }
+  if (G.shake > 0) G.shake = Math.max(0, G.shake - dt * 3.4);
+}
+function drawParticles(){
+  if (!G.particles.length) return;
+  ctx.save();
+  var mx = LAY.cell * 0.6;
+  ctx.beginPath();
+  ctx.rect(LAY.bx - mx, LAY.by - mx, LAY.cell * N + mx * 2, LAY.cell * N + mx * 2);
+  ctx.clip();
+  ctx.globalCompositeOperation = 'lighter';
+  for (var i = 0; i < G.particles.length; i++){
+    var p = G.particles[i];
+    var a = clamp(p.life / p.max, 0, 1);
+    ctx.globalAlpha = a * 0.95;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.fillStyle = p.color;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur = p.size * 3.2;
+    ctx.beginPath();
+    ctx.moveTo(0, -p.size);
+    ctx.lineTo(p.size * 0.8, 0);
+    ctx.lineTo(0, p.size);
+    ctx.lineTo(-p.size * 0.8, 0);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+  ctx.restore();
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 0;
+}
+function drawTexts(){
+  if (!G.texts.length) return;
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (var i = 0; i < G.texts.length; i++){
+    var t = G.texts[i];
+    var a = clamp(t.life / t.max, 0, 1);
+    ctx.globalAlpha = a;
+    ctx.font = '800 ' + Math.round(LAY.cell * 0.52) + 'px -apple-system,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif';
+    ctx.fillStyle = t.color;
+    ctx.shadowColor = t.color;
+    ctx.shadowBlur = 12;
+    ctx.fillText(t.text, t.x, t.y);
+  }
+  ctx.restore();
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 0;
+}
+function drawFlashes(){
+  for (var i = 0; i < G.flashes.length; i++){
+    var f = G.flashes[i];
+    var a = clamp(f.life / f.max, 0, 1);
+    ctx.save();
+    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalAlpha = a * 0.5;
+    ctx.fillStyle = '#ffffff';
+    rr(ctx, f.x, f.y, f.w, f.h, 10);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+/* ───────────────────────── 그리기: 전체 ───────────────────────── */
+function draw(){
+  if (!LAY.w) return;
+  var sh = G.shake > 0 ? G.shake : 0;
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  ctx.clearRect(0, 0, LAY.w, LAY.h);
+  if (sh > 0){
+    ctx.translate((Math.random() - 0.5) * sh * 7, (Math.random() - 0.5) * sh * 7);
+  }
+  ctx.drawImage(boardLayer, 0, 0, LAY.w, LAY.h);
+  drawFlashes();
+  drawGhost();
+  drawTray();
+  drawParticles();
+  drawTexts();
+}
+
+/* ───────────────────────── HUD ───────────────────────── */
+function fmt(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function syncHud(){
+  elScore.textContent = fmt(G.score);
+  elBest.textContent = fmt(G.best);
+  elCombo.textContent = G.combo > 1
+    ? '콤보 ' + G.combo + ' ×' + (1 + Math.min(G.combo - 1, 9) * 0.25).toFixed(2).replace(/\.?0+$/, '')
+    : '콤보 0';
+  if (G.combo > 1){
+    elCombo.classList.add('on');
+  } else {
+    elCombo.classList.remove('on');
+  }
+  elRotN.textContent = G.rot;
+  elUndoN.textContent = G.undo;
+  btnRot.disabled = !(G.phase === 'play');
+  btnUndo.disabled = !(G.phase === 'play' && G.undo > 0 && !!G.undoSnap);
+  btnRot.classList.toggle('hot', G.phase === 'play' && !!G.tray[G.sel]);
+}
+
+var toastTimer = null;
+function toast(msg){
+  elToast.textContent = msg;
+  elToast.classList.add('on');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ elToast.classList.remove('on'); }, 1500);
+}
+
+/* ───────────────────────── 게임 진행 ───────────────────────── */
+function snapshotNow(){
+  return {
+    board: new Int8Array(G.board),
+    tray: G.tray.map(function(p){
+      return p ? { key: p.key, w: p.w, h: p.h, n: p.n, color: p.color,
+        cells: p.cells.map(function(a){ return [a[0], a[1]]; }) } : null;
+    }),
+    score: G.score,
+    combo: G.combo,
+    rot: G.rot,
+    bestCombo: G.bestCombo
+  };
+}
+
+function newGame(){
+  G.board = new Int8Array(N * N);
+  G.tray = newTray();
+  G.sel = -1;
+  G.score = 0;
+  G.combo = 0;
+  G.bestCombo = 0;
+  G.rot = 3;
+  G.undo = 1;
+  G.undoSnap = null;
+  G.particles.length = 0;
+  G.texts.length = 0;
+  G.flashes.length = 0;
+  G.shake = 0;
+  G.drag = null;
+  G.phase = 'play';
+  stopAllSound();
+  ovStart.classList.add('hide');
+  ovPause.classList.add('hide');
+  ovOver.classList.add('hide');
+  drawBoardLayer();
+  syncHud();
+  resizeAll();
+}
+
+function placeAt(slot, row, col){
+  if (G.phase !== 'play') return false;
+  var p = G.tray[slot];
+  if (!p) return false;
+  if (!fits(G.board, p.cells, row, col)) return false;
+
+  var snap = null;
+  if (G.undo > 0) snap = snapshotNow();
+  var i, r, c;
+  for (i = 0; i < p.cells.length; i++){
+    r = row + p.cells[i][0]; c = col + p.cells[i][1];
+    G.board[r * N + c] = p.color + 1;
+  }
+  G.undoSnap = snap;
+  G.tray[slot] = null;
+  if (G.sel === slot) G.sel = -1;
+
+  G.score += p.n * 2;
+
+  /* 줄 정리 */
+  var ln = fullLines(G.board);
+  var cleared = 0;
+  if (ln.count > 0){
+    var set = {};
+    var a, idx;
+    for (a = 0; a < ln.rows.length; a++){
+      for (c = 0; c < N; c++) set[ln.rows[a] * N + c] = true;
+    }
+    for (a = 0; a < ln.cols.length; a++){
+      for (r = 0; r < N; r++) set[r * N + ln.cols[a]] = true;
+    }
+    G.combo += 1;
+    if (G.combo > G.bestCombo) G.bestCombo = G.combo;
+
+    var keys = Object.keys(set);
+    cleared = keys.length;
+    for (i = 0; i < keys.length; i++){
+      idx = parseInt(keys[i], 10);
+      var rr2 = Math.floor(idx / N), cc2 = idx % N;
+      spawnCrystals(rr2, cc2, COLORS[G.board[idx] - 1], 8);
+      G.board[idx] = 0;
+    }
+    var mult = 1 + Math.min(G.combo - 1, 9) * 0.25;
+    var base = cleared * 10 + (ln.count > 1 ? (ln.count - 1) * 130 : 0);
+    var gain = Math.round(base * mult);
+    var perfect = emptyCount(G.board) === 0;
+    if (perfect) gain += 600;
+    G.score += gain;
+
+    var midX = LAY.bx + LAY.cell * N / 2;
+    var midY = LAY.by + LAY.cell * (row + 0.5);
+    G.texts.push({ text: '+' + fmt(gain), x: midX, y: midY, life: 0.85, max: 0.85,
+      color: ln.count > 1 ? '#9dffe8' : '#bfe7ff' });
+    if (ln.count > 1){
+      G.texts.push({ text: ln.count + '줄 동시!', x: midX, y: midY - LAY.cell * 0.8,
+        life: 0.95, max: 0.95, color: '#ffd6ff' });
+    }
+    if (G.combo > 1){
+      G.texts.push({ text: '콤보 x' + G.combo, x: midX, y: midY + LAY.cell * 0.9,
+        life: 0.9, max: 0.9, color: '#ff9df0' });
+    }
+    if (perfect){
+      G.texts.push({ text: '퍼펙트 클리어!', x: midX, y: midY - LAY.cell * 1.6,
+        life: 1.2, max: 1.2, color: '#ffe89d' });
+    }
+    /* 지워진 칸 전체에 흰 발광 */
+    for (a = 0; a < ln.rows.length; a++){
+      G.flashes.push({ x: LAY.bx, y: LAY.by + ln.rows[a] * LAY.cell, w: LAY.cell * N,
+        h: LAY.cell, life: 0.18, max: 0.18 });
+    }
+    for (a = 0; a < ln.cols.length; a++){
+      G.flashes.push({ x: LAY.bx + ln.cols[a] * LAY.cell, y: LAY.by, w: LAY.cell,
+        h: LAY.cell * N, life: 0.18, max: 0.18 });
+    }
+    if (ln.count > 1) G.shake = 0.9;
+    else G.shake = Math.max(G.shake, 0.35);
+    if (G.rot < 5) G.rot = Math.min(5, G.rot + 1);
+    sfxClear(ln.count, G.combo);
+    buzz(ln.count > 1 ? [18, 30, 26] : 18);
+  } else {
+    G.combo = 0;
+    sfxPlace();
+    buzz(8);
+  }
+
+  if (G.best < G.score){
+    G.best = G.score;
+    try { localStorage.setItem(BEST_KEY, String(G.best)); } catch (e){}
+  }
+
+  drawBoardLayer();
+
+  /* 트레이 리필 */
+  var anyLeft = false;
+  for (i = 0; i < 3; i++) if (G.tray[i]) anyLeft = true;
+  if (!anyLeft) G.tray = newTray();
+
+  syncHud();
+  checkOver();
+  return true;
+}
+
+function checkOver(){
+  var i, movable = false;
+  for (i = 0; i < 3; i++){
+    if (G.tray[i] && anyFit(G.board, G.tray[i])){ movable = true; break; }
+  }
+  if (movable) return false;
+  gameOver();
+  return true;
+}
+
+function gameOver(){
+  G.phase = 'over';
+  G.drag = null;
+  G.sel = -1;
+  stopAllSound();
+  sfxOver();
+  if (G.best < G.score){
+    G.best = G.score;
+    try { localStorage.setItem(BEST_KEY, String(G.best)); } catch (e){}
+  }
+  $('nbcOverScore').textContent = fmt(G.score);
+  $('nbcOverSub').textContent = '최고 ' + fmt(G.best) + ' · 최대 콤보 ' + G.bestCombo;
+  $('nbcOverTitle').textContent = G.bestCombo >= 3 ? '콤보 ' + G.bestCombo + '까지 갔습니다' : '판이 가득 찼습니다';
+  ovOver.classList.remove('hide');
+  syncHud();
+}
+
+function rotateSelected(){
+  if (G.phase !== 'play') return;
+  var i = G.sel;
+  if (i < 0 || !G.tray[i]){
+    for (var k = 0; k < 3; k++){
+      if (G.tray[k]) { i = k; G.sel = k; break; }
+    }
+  }
+  var p = G.tray[i];
+  if (!p) return;
+  var rot = rotateCells(p);
+  if (cellsKey(rot.cells) === cellsKey(p.cells)){
+    toast('이 블록은 돌려도 같습니다');
+    return;
+  }
+  if (G.rot <= 0){
+    toast('회전은 콤보로만 충전됩니다');
+    return;
+  }
+  G.rot -= 1;
+  G.tray[i] = { key: p.key, w: rot.w, h: rot.h, cells: rot.cells, n: p.n, color: p.color };
+  sfxRotate();
+  buzz(6);
+  syncHud();
+}
+
+function doUndo(){
+  if (G.phase !== 'play'){ return; }
+  if (G.undo <= 0 || !G.undoSnap) return;
+  var s = G.undoSnap;
+  G.board = new Int8Array(s.board);
+  G.tray = s.tray.map(function(p){
+    return p ? { key: p.key, w: p.w, h: p.h, n: p.n, color: p.color,
+      cells: p.cells.map(function(a){ return [a[0], a[1]]; }) } : null;
+  });
+  G.score = s.score;
+  G.combo = s.combo;
+  G.rot = s.rot;
+  G.bestCombo = s.bestCombo;
+  G.undo = 0;
+  G.undoSnap = null;
+  G.sel = -1;
+  G.particles.length = 0;
+  G.texts.length = 0;
+  G.flashes.length = 0;
+  sfxUndo();
+  drawBoardLayer();
+  syncHud();
+  toast('한 수 되돌렸습니다');
+}
+
+function pauseGame(){
+  if (G.phase !== 'play') return;
+  G.phase = 'pause';
+  G.drag = null;
+  stopAllSound();
+  ovPause.classList.remove('hide');
+  syncHud();
+}
+function resumeGame(){
+  if (G.phase !== 'pause') return;
+  G.phase = 'play';
+  ovPause.classList.add('hide');
+  syncHud();
+}
+
+/* ───────────────────────── 입력 ───────────────────────── */
+function localPt(e){
+  var r = cv.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+function slotAt(x, y){
+  for (var i = 0; i < 3; i++){
+    var s = slotRect(i);
+    if (x >= s.x - 4 && x <= s.x + s.w + 4 && y >= s.y - 12 && y <= s.y + s.h + 14) return i;
+  }
+  return -1;
+}
+function grabInfo(p, slot, px, py, ts){
+  var bx = pieceBox(p, slot, ts);
+  var gx = clamp((px - bx.x) / ts, 0, Math.max(0, p.w - 0.001));
+  var gy = clamp((py - bx.y) / ts, 0, Math.max(0, p.h - 0.001));
+  return { gx: gx, gy: gy };
+}
+
+function onDown(e){
+  if (G.phase !== 'play') return;
+  if (e.pointerType === 'mouse' && e.button !== 0) return;
+  if (G.drag) return;
+  var p0 = localPt(e);
+  var i = slotAt(p0.x, p0.y);
+  if (i < 0 || !G.tray[i]) return;
+  var piece = G.tray[i];
+  var ts = trayScale(piece);
+  var gi = grabInfo(piece, slotRect(i), p0.x, p0.y, ts);
+  var lift = (e.pointerType === 'mouse') ? LAY.cell * 0.30 : LAY.cell * 1.15;
+  G.drag = {
+    slot: i, piece: piece, pid: e.pointerId,
+    x: p0.x - gi.gx * LAY.cell,
+    y: p0.y - gi.gy * LAY.cell - lift,
+    startX: p0.x, startY: p0.y, moved: false, t0: Date.now(),
+    lift: lift, gx: gi.gx, gy: gi.gy
+  };
+  G.sel = i;
+  try { cv.setPointerCapture(e.pointerId); } catch (err){}
+  if (e.preventDefault) e.preventDefault();
+  syncHud();
+}
+
+function onMove(e){
+  var d = G.drag;
+  if (!d || e.pointerId !== d.pid) return;
+  var p0 = localPt(e);
+  d.x = p0.x - d.gx * LAY.cell;
+  d.y = p0.y - d.gy * LAY.cell - d.lift;
+  if (!d.moved && Math.abs(p0.x - d.startX) + Math.abs(p0.y - d.startY) > 6) d.moved = true;
+  if (e.preventDefault) e.preventDefault();
+}
+
+function onUp(e){
+  var d = G.drag;
+  if (!d || e.pointerId !== d.pid) return;
+  G.drag = null;
+  try { cv.releasePointerCapture(e.pointerId); } catch (err){}
+  var p0 = localPt(e);
+  var dur = Date.now() - d.t0;
+  if (!d.moved && dur < 420){
+    /* 탭: 선택 / 두 번 탭: 회전 */
+    var now = Date.now();
+    if (G.lastTap.i === d.slot && now - G.lastTap.t < 330){
+      G.sel = d.slot;
+      rotateSelected();
+      G.lastTap = { i: -1, t: 0 };
+    } else {
+      G.sel = d.slot;
+      G.lastTap = { i: d.slot, t: now };
+      syncHud();
+    }
+    return;
+  }
+  var col = Math.round((d.x - LAY.bx) / LAY.cell);
+  var row = Math.round((d.y - LAY.by) / LAY.cell);
+  if (!fits(G.board, d.piece.cells, row, col)){
+    col = Math.round((p0.x - d.gx * LAY.cell - LAY.bx) / LAY.cell);
+    row = Math.round((p0.y - d.gy * LAY.cell - d.lift - LAY.by) / LAY.cell);
+  }
+  if (!fits(G.board, d.piece.cells, row, col)){
+    toast('여기에는 놓을 수 없습니다');
+    syncHud();
+    return;
+  }
+  placeAt(d.slot, row, col);
+}
+
+function onCancel(e){
+  var d = G.drag;
+  if (!d || e.pointerId !== d.pid) return;
+  G.drag = null;
+  try { cv.releasePointerCapture(e.pointerId); } catch (err){}
+}
+
+cv.addEventListener('pointerdown', onDown, { passive: false });
+cv.addEventListener('pointermove', onMove, { passive: false });
+cv.addEventListener('pointerup', onUp);
+cv.addEventListener('pointercancel', onCancel);
+cv.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('gesturestart', function(e){ e.preventDefault(); });
+
+/* ───────────────────────── 버튼 ───────────────────────── */
+$('nbcStart').addEventListener('click', function(){ audio(); newGame(); });
+$('nbcResume').addEventListener('click', resumeGame);
+$('nbcPauseRestart').addEventListener('click', function(){ stopAllSound(); newGame(); });
+$('nbcAgain').addEventListener('click', function(){ audio(); newGame(); });
+$('nbcPause').addEventListener('click', function(){
+  if (G.phase === 'play') pauseGame();
+  else if (G.phase === 'pause') resumeGame();
+});
+$('nbcRestart').addEventListener('click', function(){
+  if (G.phase === 'start') { audio(); newGame(); return; }
+  stopAllSound(); newGame();
+  toast('새 판을 시작했습니다');
+});
+btnRot.addEventListener('click', rotateSelected);
+btnUndo.addEventListener('click', doUndo);
+
+function setMuted(m){
+  G.muted = m;
+  var b = $('nbcSound');
+  b.classList.toggle('off', m);
+  b.setAttribute('aria-pressed', m ? 'false' : 'true');
+  if (m) stopAllSound();
+  try { localStorage.setItem(MUTE_KEY, m ? '1' : '0'); } catch (e){}
+}
+$('nbcSound').addEventListener('click', function(){ setMuted(!G.muted); if (!G.muted) { audio(); tone(660, 0.06, 'sine', 0.05); } });
+
+function setHaptic(on){
+  G.haptic = on;
+  var b = $('nbcHaptic');
+  b.classList.toggle('off', !on);
+  b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  try { localStorage.setItem(HAP_KEY, on ? '1' : '0'); } catch (e){}
+  if (on) buzz(10);
+}
+$('nbcHaptic').addEventListener('click', function(){ setHaptic(!G.haptic); });
+
+/* ───────────────────────── 루프 ───────────────────────── */
+var lastT = 0;
+function frame(t){
+  var dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 0.016;
+  lastT = t;
+  G.time += dt;
+  updateParticles(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+
+var rzTimer = null;
+function scheduleResize(){
+  if (rzTimer) clearTimeout(rzTimer);
+  rzTimer = setTimeout(function(){
+    var old = LAY.cell;
+    resizeAll();
+    if (G.drag && old) G.drag = null;
+  }, 90);
+}
+
+/* ───────────────────────── 시작 ───────────────────────── */
+try {
+  var bv = parseInt(localStorage.getItem(BEST_KEY) || '0', 10);
+  if (bv > 0) G.best = bv;
+  G.muted = localStorage.getItem(MUTE_KEY) === '1';
+  var hp = localStorage.getItem(HAP_KEY);
+  G.haptic = hp === null ? true : hp === '1';
+} catch (e){}
+setMuted(G.muted);
+setHaptic(G.haptic);
+
+resizeAll();
+window.addEventListener('resize', scheduleResize);
+window.addEventListener('orientationchange', scheduleResize);
+if (window.visualViewport) window.visualViewport.addEventListener('resize', scheduleResize);
+syncHud();
+requestAnimationFrame(frame);
+
+/* 테스트용 핸들 */
+window.__nbc = {
+  G: G,
+  LAY: LAY,
+  cellsKey: cellsKey,
+  api: {
+    newGame: newGame, placeAt: placeAt, rotateSelected: rotateSelected, doUndo: doUndo,
+    fits: fits, anyFit: anyFit, checkOver: checkOver, gameOver: gameOver,
+    pause: pauseGame, resume: resumeGame, resize: resizeAll, syncHud: syncHud,
+    setMuted: setMuted, setHaptic: setHaptic, slotRect: slotRect, toast: toast,
+    fullLines: fullLines, shapeCount: SHAPES.length, rotatePiece: rotateCells,
+    cellsInBounds: cellsInBounds, trayScale: trayScale
+  }
+};
+})();
+</script>
+</body>
+</html>
