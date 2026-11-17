@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f6f9">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="가게 전화주문 단골 장부 — 번호 뒷 4자리·주소로 1초 검색, 단골 메뉴·메모 원터치 추가, 배달 전달용 문구 원터치 복사, CSV·JSON 기기 백업. 서버 전송 0건, 모든 기록은 사장님 브라우저에만 저장됩니다.">
+<title>가게 전화주문 단골 장부 — 뒷 4자리로 1초 검색, 서버 전송 0건</title>
+<link rel="canonical" href="https://soonsoo1004.github.io/phonebook/">
+<link rel="icon" href="../favicon.ico">
+<style>
+:root{
+  --ink:#151a22; --ink2:#3d4553; --dim:#6b7480; --dim2:#8b939f;
+  --line:#e3e7ee; --line2:#eef1f6; --bg:#f4f6f9; --card:#ffffff; --soft:#f7f9fc;
+  --accent:#2f6bff; --accent-soft:#eaf0ff; --accent-line:#cfdcff;
+  --ok:#0f7a55; --ok-soft:#eaf8f1; --warn:#9a5308; --warn-soft:#fdf6ec; --warn-line:#f0dcc2;
+  --danger:#bb2b2b; --danger-soft:#fdeeee; --danger-line:#f3cccc;
+  --r:16px; --shadow:0 1px 2px rgba(16,24,40,.05), 0 8px 22px rgba(16,24,40,.055);
+  --tap:44px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Gulim","굴림","돋움",Dotum,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px; line-height:1.5; letter-spacing:-.01em;
+  -webkit-text-size-adjust:100%; -webkit-tap-highlight-color:transparent;
+  word-break:keep-all; overflow-wrap:anywhere;
+}
+button{font:inherit;color:inherit;cursor:pointer}
+input,textarea{font:inherit}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.shell{max-width:560px;margin:0 auto;padding:0 12px 118px}
+@media (min-width:760px){.shell{max-width:800px}}
+
+/* ── 상단 가게 정보 ── */
+.top{display:flex;align-items:center;gap:11px;padding:16px 2px 12px}
+.mark{width:42px;height:42px;flex:0 0 auto;border-radius:13px;display:grid;place-items:center;
+  background:var(--accent);color:#fff;font-size:20px;box-shadow:0 7px 18px rgba(47,107,255,.28)}
+.hw{min-width:0;flex:1}
+.top h1{margin:0;font-size:19px;line-height:1.25;font-weight:700;letter-spacing:-.025em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .sub{margin:2px 0 0;font-size:12.5px;color:var(--dim)}
+.telbtn{flex:0 0 auto;min-height:38px;padding:0 12px;border-radius:11px;border:1px solid var(--line);
+  background:#fff;font-size:13px;font-weight:700;color:var(--accent);display:inline-flex;align-items:center;gap:4px;text-decoration:none}
+
+/* ── 개인정보 안내 (최상단 고정 안내) ── */
+.privacy{display:flex;gap:9px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+  border-left:4px solid var(--accent);border-radius:12px;padding:11px 12px;margin:0 0 10px}
+.privacy .lk{font-size:15px;line-height:1.25;flex:0 0 auto}
+.privacy p{margin:0;font-size:12.5px;line-height:1.55;color:var(--ink2)}
+.storewarn{display:flex;gap:8px;background:var(--warn-soft);border:1px solid var(--warn-line);color:var(--warn);
+  border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:12.5px;line-height:1.5}
+
+/* ── 검색 ── */
+.searchwrap{position:sticky;top:0;z-index:20;padding:8px 0 6px;
+  background:linear-gradient(var(--bg) 76%,rgba(244,246,249,0))}
+.search{position:relative;display:flex;align-items:center}
+.search .mag{position:absolute;left:14px;font-size:16px;opacity:.5;pointer-events:none}
+.search input{width:100%;height:52px;border:1.5px solid var(--line);border-radius:14px;background:#fff;
+  padding:0 46px 0 40px;font-size:16.5px;color:var(--ink);outline:none;box-shadow:var(--shadow)}
+.search input::placeholder{color:var(--dim2);font-size:15px}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3.5px var(--accent-soft)}
+.search .clr{position:absolute;right:6px;width:38px;height:38px;border:0;border-radius:11px;
+  background:transparent;font-size:15px;color:var(--dim);display:grid;place-items:center}
+.search .clr[hidden]{display:none}
+
+.status{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:2px 3px 9px;
+  font-size:12px;color:var(--dim)}
+.status b{color:var(--ink2);font-variant-numeric:tabular-nums}
+
+/* ── 단골 카드 ── */
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:760px){.grid{grid-template-columns:1fr 1fr;align-items:start}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:13px 13px 11px;
+  box-shadow:var(--shadow);animation:pop .16s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card.hit{margin-bottom:0}
+.r1{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.r1 h2{margin:0;font-size:16.5px;font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.tail{font-size:12.5px;font-weight:700;color:var(--accent);background:var(--accent-soft);
+  border:1px solid var(--accent-line);border-radius:8px;padding:2px 7px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.badge{font-size:10.5px;color:var(--warn);background:var(--warn-soft);border:1px solid var(--warn-line);
+  border-radius:999px;padding:1px 7px;white-space:nowrap}
+.addr{margin:6px 0 0;font-size:13.5px;line-height:1.45;color:var(--ink2)}
+.tel{margin:4px 0 0;font-size:12.5px;color:var(--dim);font-variant-numeric:tabular-nums;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tel a{color:var(--accent);text-decoration:none;font-weight:700;font-size:12px;
+  border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:8px;padding:2px 7px}
+.menus{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0 0}
+.mchip{font-size:12.5px;line-height:1.4;background:var(--soft);border:1px solid var(--line2);
+  border-radius:999px;padding:3px 9px;max-width:100%}
+.mchip.flash{background:var(--ok-soft);border-color:#c9ecd9;color:var(--ok)}
+mark.hl{background:#fff0b8;color:inherit;border-radius:3px;padding:0 1px}
+.nomenu{margin:9px 0 0;font-size:12.5px;color:var(--dim2)}
+.memo{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--ink2);background:var(--soft);
+  border-radius:10px;padding:7px 9px}
+.memo .k{display:inline-block;font-size:10.5px;font-weight:700;color:var(--dim);margin-right:5px;
+  border:1px solid var(--line);border-radius:6px;padding:0 4px;vertical-align:1px}
+.acts{display:flex;gap:6px;margin-top:11px}
+.acts button{min-height:var(--tap);border-radius:11px;border:1px solid var(--line);background:#fff;
+  font-size:14px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;gap:5px;font-weight:700}
+.acts .copy{flex:1 1 auto;background:var(--accent);border-color:var(--accent);color:#fff;
+  box-shadow:0 6px 16px rgba(47,107,255,.26)}
+.acts .copy:active{transform:translateY(1px)}
+.acts .edit{flex:0 0 auto;color:var(--ink2)}
+.quick{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+.quick .qlbl{display:block;font-size:11px;color:var(--dim);margin-bottom:6px;font-weight:700;letter-spacing:0}
+.qrow{display:flex;flex-wrap:wrap;gap:5px}
+.qchip{min-height:34px;font-size:12.5px;border:1px dashed var(--line);background:#fff;border-radius:999px;
+  padding:0 10px;color:var(--ink2);display:inline-flex;align-items:center;gap:3px;max-width:100%}
+.qchip .p{color:var(--accent);font-weight:700}
+.qchip:active{background:var(--accent-soft);border-color:var(--accent-line)}
+
+/* ── 비어 있을 때 ── */
+.empty{background:#fff;border:1px dashed var(--line);border-radius:var(--r);padding:22px 16px;text-align:center}
+.empty .ic{font-size:26px;line-height:1}
+.empty h2{margin:8px 0 6px;font-size:16px}
+.empty p{margin:0;font-size:13px;line-height:1.65;color:var(--dim)}
+.empty .steps{text-align:left;max-width:330px;margin:12px auto 0;font-size:12.5px;color:var(--ink2);
+  background:var(--soft);border-radius:12px;padding:10px 12px;line-height:1.7}
+.empty .row{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+
+.btn{min-height:var(--tap);padding:0 15px;border-radius:12px;border:1px solid var(--line);background:#fff;
+  font-size:14px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 16px rgba(47,107,255,.26)}
+.btn.soft{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+.btn.danger{color:var(--danger);background:#fff;border-color:var(--danger-line)}
+.btn:active{transform:translateY(1px)}
+
+/* ── 백업·초기화 ── */
+details.box{background:#fff;border:1px solid var(--line);border-radius:var(--r);margin-top:14px;overflow:hidden}
+details.box>summary{list-style:none;cursor:pointer;padding:14px;font-size:14px;font-weight:700;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:var(--tap)}
+details.box>summary::-webkit-details-marker{display:none}
+details.box>summary .ar{color:var(--dim);font-size:12px;transition:.15s}
+details.box[open]>summary .ar{transform:rotate(180deg)}
+details.box>summary .sm{font-weight:400;color:var(--dim);font-size:12px;margin-left:6px}
+.boxin{padding:0 14px 15px}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:359px){.bgrid{grid-template-columns:1fr}}
+.bgrid .btn{width:100%}
+.hint{margin:10px 0 0;font-size:12px;line-height:1.6;color:var(--dim)}
+.hint b{color:var(--ink2)}
+.sep{height:1px;background:var(--line2);margin:14px 0}
+.confirm{background:var(--danger-soft);border:1px solid var(--danger-line);border-radius:12px;padding:11px 12px;margin-top:9px}
+.confirm p{margin:0 0 9px;font-size:12.5px;line-height:1.55;color:#7d2020}
+.confirm .row{display:flex;gap:6px;flex-wrap:wrap}
+.confirm .btn{min-height:40px;font-size:12.5px;padding:0 11px;flex:1 1 auto}
+
+/* ── 하단 고정 추가 버튼 ── */
+.bottombar{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:9px 12px calc(9px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.94);border-top:1px solid var(--line);backdrop-filter:blur(10px)}
+.bottombar .inner{max-width:560px;margin:0 auto;display:flex;gap:8px}
+@media (min-width:760px){.bottombar .inner{max-width:800px}}
+.bottombar .add{flex:1;min-height:50px;border:0;border-radius:14px;background:var(--accent);color:#fff;
+  font-size:16.5px;font-weight:700;letter-spacing:-.02em;box-shadow:0 8px 20px rgba(47,107,255,.3)}
+.bottombar .add:active{transform:translateY(1px)}
+
+/* ── 토스트 ── */
+#toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));z-index:80;
+  transform:translateX(-50%) translateY(10px);opacity:0;pointer-events:none;
+  display:flex;align-items:center;gap:10px;max-width:calc(100% - 26px);
+  background:#1a2130;color:#fff;font-size:13.5px;line-height:1.45;padding:11px 14px;border-radius:12px;
+  box-shadow:0 12px 30px rgba(10,14,22,.3);transition:opacity .16s,transform .16s}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+#toast .msg{min-width:0}
+#toast button{flex:0 0 auto;background:transparent;border:0;color:#8fc0ff;font-size:13.5px;font-weight:700;padding:6px 2px}
+
+/* ── 입력 시트 ── */
+.sheetwrap{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
+.sheetwrap[hidden]{display:none}
+.dim{position:absolute;inset:0;background:rgba(10,14,22,.45)}
+.sheet{position:relative;width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#fff;
+  border-radius:20px 20px 0 0;padding:0 16px calc(20px + env(safe-area-inset-bottom));
+  box-shadow:0 -12px 40px rgba(10,14,22,.28);animation:up .18s ease-out}
+@keyframes up{from{transform:translateY(16px);opacity:.55}to{transform:none;opacity:1}}
+@media (min-width:640px){.sheetwrap{align-items:center}.sheet{border-radius:20px;max-height:88vh}}
+.grab{position:sticky;top:0;background:#fff;padding:8px 0 6px;margin:0 -16px;text-align:center;z-index:1}
+.grab i{display:inline-block;width:38px;height:4px;border-radius:99px;background:var(--line)}
+.sheet h2{margin:2px 0 13px;font-size:17px;letter-spacing:-.02em}
+.f{margin-bottom:13px}
+.f>label{display:block;font-size:12.5px;font-weight:700;color:var(--dim);margin-bottom:5px}
+.f .tip{font-weight:400;color:var(--dim2);font-size:11.5px;margin-left:4px}
+.f input,.f textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;background:#fff;
+  padding:11px 12px;font-size:16px;color:var(--ink);outline:none;line-height:1.45}
+.f textarea{resize:vertical;min-height:62px}
+.f input:focus,.f textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3.5px var(--accent-soft)}
+.two{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:520px){.two{grid-template-columns:1.05fr 1fr;gap:12px}}
+.mrow{display:flex;gap:7px}
+.mrow input{flex:1;min-width:0}
+.mrow .btn{flex:0 0 auto;padding:0 13px}
+.mlist{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.mlist:empty{display:none}
+.mtag{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;background:var(--soft);
+  border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 10px;max-width:100%}
+.mtag span{min-width:0}
+.mtag button{width:22px;height:22px;flex:0 0 auto;border:0;border-radius:50%;background:#eceff4;
+  color:var(--dim);font-size:12px;display:grid;place-items:center;padding:0}
+.presets{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.presets button{font-size:12px;border:1px dashed var(--line);background:#fff;border-radius:999px;
+  padding:6px 10px;color:var(--ink2);min-height:33px}
+.presets button:active{background:var(--accent-soft);border-color:var(--accent-line)}
+.sheet .acts2{display:flex;gap:8px;margin-top:4px;position:sticky;bottom:0;background:#fff;padding:10px 0 2px}
+.sheet .acts2 .btn{flex:1;min-height:50px;font-size:16px}
+.sheet .del{width:100%;min-height:var(--tap);margin-top:9px}
+
+footer.foot{padding:22px 2px 4px;font-size:12px;line-height:1.7;color:var(--dim)}
+footer.foot .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+footer.foot a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="top">
+    <div class="mark" aria-hidden="true">☎</div>
+    <div class="hw">
+      <h1 id="shopName">우리 가게</h1>
+      <p class="sub">전화주문 단골 장부 · 이 브라우저에만 저장</p>
+    </div>
+    <a class="telbtn" id="shopTel" href="#" hidden>가게 전화</a>
+  </div>
+
+  <div class="privacy" role="note" aria-label="개인정보 안내">
+    <span class="lk" aria-hidden="true">🔒</span>
+    <p id="noticeText">모든 고객 번호·주소는 사장님 기기(브라우저)에만 저장되며 개발자·외부로 전송되지 않습니다. 첫 주문 시 고객 안내 후 기록하세요.</p>
+  </div>
+
+  <div class="storewarn" id="storeWarn" hidden>
+    <span aria-hidden="true">⚠️</span>
+    <span>이 브라우저에서 저장이 막혀 있습니다(시크릿 모드 등). 기록이 남지 않으니 일반 창에서 열어 주세요.</span>
+  </div>
+
+  <div class="searchwrap">
+    <div class="search">
+      <span class="mag" aria-hidden="true">🔍</span>
+      <label class="sr" for="q">단골 찾기 — 번호 뒷 4자리, 주소, 이름</label>
+      <input id="q" type="text" autocomplete="off" autocorrect="off" spellcheck="false"
+             placeholder="번호 뒷 4자리 · 주소 · 이름">
+      <button class="clr" id="qClear" type="button" aria-label="검색어 지우기" hidden>✕</button>
+    </div>
+  </div>
+
+  <div class="status">
+    <span id="countTxt">단골 0명</span>
+    <span id="savedTxt"></span>
+  </div>
+
+  <main id="list" class="grid"></main>
+  <p class="sr" id="live" aria-live="polite"></p>
+
+  <section id="empty" class="empty" hidden>
+    <div class="ic" aria-hidden="true">📒</div>
+    <h2 id="emptyTitle">장부가 비어 있습니다</h2>
+    <p id="emptyBody">전화가 오면 번호 뒷 4자리와 주소, 단골 메뉴만 한 번 적어 두세요.<br>다음 전화부터는 4자리만 치면 바로 나옵니다.</p>
+    <div class="steps" id="emptySteps">
+      ① 아래 <b>＋ 새 단골</b>을 눌러 번호 뒷 4자리와 주소를 적습니다.<br>
+      ② 그 손님이 자주 시키는 메뉴를 함께 저장합니다.<br>
+      ③ 다음에 전화가 오면 4자리만 쳐서 찾고, <b>배달 전달 복사</b>로 문자에 붙입니다.
+    </div>
+    <div class="row" id="emptyRow">
+      <button class="btn primary" id="emptyAdd" type="button">＋ 첫 단골 적기</button>
+      <button class="btn soft" id="emptySample" type="button">가상 샘플 3건 체험하기</button>
+    </div>
+  </section>
+
+  <details class="box" id="backupBox">
+    <summary>
+      <span>백업 · 초기화 <span class="sm">CSV · JSON</span></span>
+      <span class="ar" aria-hidden="true">▾</span>
+    </summary>
+    <div class="boxin">
+      <div class="bgrid">
+        <button class="btn" id="expJson" type="button">JSON으로 백업</button>
+        <button class="btn" id="expCsv" type="button">CSV로 백업</button>
+        <button class="btn" id="impJson" type="button">백업 파일 불러오기</button>
+        <button class="btn" id="sampleBtn" type="button">가상 샘플 3건 체험</button>
+        <button class="btn" id="sampleClear" type="button" hidden>샘플 지우기</button>
+      </div>
+      <input type="file" id="fileInput" accept=".json,application/json" class="sr" tabindex="-1" aria-hidden="true">
+      <p class="hint">
+        <b>JSON</b>은 이 장부 그대로 다시 불러올 수 있고, <b>CSV</b>는 엑셀이나 스프레드시트에서 열어 봅니다.
+        백업 파일에는 고객 번호·주소가 그대로 들어 있으니, 사장님 기기나 사장님만 쓰는 저장 공간에 두세요.
+      </p>
+      <div class="sep"></div>
+      <div class="bgrid" style="grid-template-columns:1fr">
+        <button class="btn danger" id="resetBtn" type="button">전체 초기화</button>
+      </div>
+      <div class="confirm" id="resetConfirm" hidden>
+        <p id="resetMsg">장부를 모두 지웁니다. 되돌릴 수 없습니다.</p>
+        <div class="row">
+          <button class="btn" id="resetBackup" type="button">백업하고 지우기</button>
+          <button class="btn danger" id="resetDo" type="button">그냥 지우기</button>
+          <button class="btn" id="resetCancel" type="button">취소</button>
+        </div>
+      </div>
+      <p class="hint">
+        브라우저 기록이나 사이트 데이터를 지우면 장부도 함께 지워집니다. 한 달에 한 번, 손님 없는 시간에
+        <b>JSON으로 백업</b>을 눌러 파일을 남겨 두시면 안전합니다.
+      </p>
+    </div>
+  </details>
+
+  <footer class="foot">
+    <div>설치 없이 브라우저에서 바로 쓰는 장부입니다. 광고·추적·회원가입 없고, 입력한 내용이 어디로도 나가지 않습니다.
+      휴대폰 브라우저에서 <b>홈 화면에 추가</b>해 두면 앱처럼 열립니다.</div>
+    <div class="links">
+      <a href="../">천장지구 1004 홈</a>
+      <a href="https://litt.ly/mireunote/sale/55iBANv" target="_blank" rel="noopener">내 가게 이름을 입힌 맞춤 제작</a>
+    </div>
+  </footer>
+
+</div>
+
+<div class="bottombar">
+  <div class="inner">
+    <button class="add" id="addBtn" type="button">＋ 새 단골 적기</button>
+  </div>
+</div>
+
+<!-- 입력 시트 -->
+<div class="sheetwrap" id="sheet" hidden>
+  <div class="dim" id="sheetDim"></div>
+  <form class="sheet" id="form" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" novalidate>
+    <div class="grab" aria-hidden="true"><i></i></div>
+    <h2 id="sheetTitle">새 단골 적기</h2>
+
+    <div class="f">
+      <label for="fName">호칭 <span class="tip">손님이 부르는 이름이면 충분합니다</span></label>
+      <input id="fName" type="text" autocomplete="off" placeholder="예) 101동 아주머니, 김 대리">
+    </div>
+
+    <div class="two">
+      <div class="f">
+        <label for="fTel">연락처 <span class="tip">뒷 4자리만 적어도 됩니다</span></label>
+        <input id="fTel" type="tel" inputmode="numeric" autocomplete="off" placeholder="예) 4821">
+      </div>
+      <div class="f">
+        <label for="fAddr">주소 <span class="tip">동·호수까지</span></label>
+        <input id="fAddr" type="text" autocomplete="off" placeholder="예) 101동 1004호">
+      </div>
+    </div>
+
+    <div class="f">
+      <label for="fMenu">단골 메뉴 <span class="tip">적고 ＋ 또는 Enter</span></label>
+      <div class="mrow">
+        <input id="fMenu" type="text" autocomplete="off" placeholder="예) 짜장면 곱빼기">
+        <button class="btn soft" id="menuAdd" type="button">＋</button>
+      </div>
+      <div class="mlist" id="fMenus"></div>
+    </div>
+
+    <div class="f">
+      <label for="fMemo">메모 <span class="tip">배달 요청·손님 특징</span></label>
+      <textarea id="fMemo" rows="2" placeholder="예) 벨 대신 전화 주세요"></textarea>
+      <div class="presets" id="fPresets"></div>
+    </div>
+
+    <div class="acts2">
+      <button class="btn" id="cancelBtn" type="button">취소</button>
+      <button class="btn primary" id="saveBtn" type="submit">저장</button>
+    </div>
+    <button class="btn danger del" id="delBtn" type="button" hidden>이 단골 지우기</button>
+  </form>
+</div>
+
+<div id="toast" role="status" aria-live="polite"><span class="msg"></span><button type="button" id="toastUndo" hidden>되돌리기</button></div>
+
+<noscript>
+  <p style="padding:16px;background:#fff;border:1px solid #e3e7ee;border-radius:12px;margin:12px;font-size:14px;line-height:1.6">
+    이 장부는 브라우저 안에서만 동작합니다. JavaScript를 허용해 주시면 바로 쓸 수 있습니다.
+  </p>
+</noscript>
+
+<script>
+(function(){
+"use strict";
+
+/* ==========================================================================
+   ▣ BRAND — 가게 정보. 맞춤 제작에서는 이 여섯 줄만 고치면 됩니다.
+   ========================================================================== */
+var BRAND = {
+  shopName:    "우리 가게",                                     // 가게 이름
+  shopTel:     "",                                              // 가게 대표번호(숫자만). 비우면 버튼 숨김
+  accent:      "#2f6bff",                                       // 강조색
+  notice:      "모든 고객 번호·주소는 사장님 기기(브라우저)에만 저장되며 개발자·외부로 전송되지 않습니다. 첫 주문 시 고객 안내 후 기록하세요.",
+  copyTitle:   "배달 주문",                                     // 복사 첫 줄
+  memoPresets: ["벨 대신 전화 주세요","공동현관 비번은 문자로 주세요","경비실에 맡겨 주세요","문 앞에 두고 가 주세요","수저·저가락 빼 주세요","반찬은 빼 주세요"]
+};
+
+/* ── 저장소 ─────────────────────────────────────────────────────────────── */
+var KEY = "cj-phonebook-v1";
+var state = { items: [], q: "", savedAt: 0, storageOk: true };
+
+function $(id){ return document.getElementById(id); }
+function digits(v){ return String(v==null?"":v).replace(/[^0-9]/g,""); }
+function txt(v){ return String(v==null?"":v).replace(/\s+/g," ").trim(); }
+function uid(){ return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function esc(v){ return String(v==null?"":v).replace(/[&<>"']/g, function(c){
+  return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]; }); }
+
+function fmtTel(d){
+  d = digits(d);
+  if(d.length===11) return d.slice(0,3)+"-"+d.slice(3,7)+"-"+d.slice(7);
+  if(d.length===10) return d.slice(0,3)+"-"+d.slice(3,6)+"-"+d.slice(6);
+  if(d.length===8)  return d.slice(0,4)+"-"+d.slice(4);
+  return d;
+}
+function maskTel(d){
+  d = digits(d);
+  if(d.length>=9) return d.slice(0,3)+"-****-"+d.slice(-4);
+  return fmtTel(d);
+}
+
+function normItem(o){
+  if(!o || typeof o!=="object") return null;
+  var tel = digits(o.phone||"");
+  var tail = digits(o.tail||"");
+  if(tail.length>4 && !tel) tel = tail;
+  if(!tail && tel.length>=4) tail = tel.slice(-4);
+  var menus = Array.isArray(o.menus) ? o.menus.map(txt).filter(Boolean).slice(0,40) : [];
+  var it = {
+    id: txt(o.id) || uid(),
+    name: txt(o.name),
+    tail: tail.slice(-4),
+    phone: tel.length>4 ? tel : "",
+    addr: txt(o.addr),
+    menus: menus,
+    memo: txt(o.memo),
+    sample: !!o.sample,
+    ct: Number(o.ct) || Date.now(),
+    at: Number(o.at) || Date.now()
+  };
+  if(!it.name && !it.tail && !it.addr) return null;
+  return it;
+}
+
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(!raw){ return []; }
+    var d = JSON.parse(raw);
+    var arr = Array.isArray(d) ? d : (d && Array.isArray(d.items) ? d.items : []);
+    if(d && d.at) state.savedAt = Number(d.at) || 0;
+    return arr.map(normItem).filter(Boolean);
+  }catch(e){
+    state.storageOk = false;
+    var w = $("storeWarn"); if(w) w.hidden = false;
+    return [];
+  }
+}
+function save(){
+  try{
+    localStorage.setItem(KEY, JSON.stringify({ v:1, at:Date.now(), items:state.items }));
+    state.savedAt = Date.now();
+    state.storageOk = true;
+    $("storeWarn").hidden = true;
+    paintSaved();
+    return true;
+  }catch(e){
+    state.storageOk = false;
+    $("storeWarn").hidden = false;
+    toast("저장이 되지 않았습니다. 시크릿 모드가 아닌지 확인해 주세요.");
+    return false;
+  }
+}
+function find(id){
+  for(var i=0;i<state.items.length;i++){ if(state.items[i].id===id) return state.items[i]; }
+  return null;
+}
+function tailOf(it){ return it.tail || digits(it.phone).slice(-4); }
+
+/* ── 토스트 ── */
+var toastT = null, undoFn = null;
+function toast(msg, undo){
+  var t = $("toast");
+  t.querySelector(".msg").textContent = msg;
+  undoFn = undo || null;
+  $("toastUndo").hidden = !undo;
+  t.classList.add("on");
+  clearTimeout(toastT);
+  toastT = setTimeout(function(){ t.classList.remove("on"); undoFn=null; }, undo ? 6200 : 3200);
+}
+$("toastUndo").addEventListener("click", function(){
+  var f = undoFn; undoFn = null;
+  $("toast").classList.remove("on");
+  if(f){ try{ f(); }catch(e){} }
+});
+
+/* ── 검색 ── */
+function hayOf(it){
+  return [it.name, it.addr, it.menus.join(" "), it.memo, tailOf(it), digits(it.phone)].join(" ").toLowerCase();
+}
+function matchToken(it, t){
+  var hay = hayOf(it);
+  if(/^[0-9]+$/.test(t)){
+    var d = digits(hay);
+    return d.indexOf(t) >= 0;
+  }
+  return hay.indexOf(t) >= 0;
+}
+
+/* ── 형광펜 ── */
+function hi(text, tokens){
+  var s = String(text==null?"":text);
+  var frag = document.createDocumentFragment();
+  if(!tokens || !tokens.length || !s){ frag.appendChild(document.createTextNode(s)); return frag; }
+  var lower = s.toLowerCase(), marks = [];
+  tokens.forEach(function(tk){
+    if(!tk) return;
+    var q = tk.toLowerCase(), from = 0, i;
+    while((i = lower.indexOf(q, from)) >= 0 && marks.length < 40){
+      marks.push([i, i+q.length]); from = i + q.length;
+    }
+  });
+  if(!marks.length){ frag.appendChild(document.createTextNode(s)); return frag; }
+  marks.sort(function(a,b){ return a[0]-b[0]; });
+  var merged = [marks[0].slice()];
+  for(var k=1;k<marks.length;k++){
+    var m = marks[k], cur = merged[merged.length-1];
+    if(m[0] <= cur[1]){ cur[1] = Math.max(cur[1], m[1]); }
+    else { merged.push(m.slice()); }
+  }
+  var pos = 0;
+  merged.forEach(function(m){
+    if(m[0] > pos) frag.appendChild(document.createTextNode(s.slice(pos, m[0])));
+    var mk = document.createElement("mark");
+    mk.className = "hl"; mk.textContent = s.slice(m[0], m[1]);
+    frag.appendChild(mk); pos = m[1];
+  });
+  if(pos < s.length) frag.appendChild(document.createTextNode(s.slice(pos)));
+  return frag;
+}
+
+/* ── 카드 안 빠른 추가 후보 ── */
+function quickCandidates(it){
+  var freq = {}, order = {};
+  state.items.forEach(function(o){
+    (o.menus||[]).forEach(function(m){
+      if(!freq[m]) order[m] = Object.keys(order).length;
+      freq[m] = (freq[m]||0) + 1;
+    });
+  });
+  var menus = Object.keys(freq)
+            .filter(function(m){ return it.menus.indexOf(m) < 0; })
+            .sort(function(a,b){ return (freq[b]-freq[a]) || (order[a]-order[b]); })
+            .slice(0,3)
+            .map(function(m){ return { kind:"menu", v:m }; });
+  var memos = (BRAND.memoPresets||[])
+            .filter(function(m){ return (it.memo||"").indexOf(m) < 0; })
+            .slice(0,2)
+            .map(function(m){ return { kind:"memo", v:m }; });
+  return menus.concat(memos);
+}
+
+/* ── 카드 만들기 ── */
+function card(it, tokens){
+  var a = document.createElement("article");
+  a.className = "card";
+  a.setAttribute("data-id", it.id);
+
+  var r1 = document.createElement("div"); r1.className = "r1";
+  var h = document.createElement("h2");
+  h.appendChild(hi(it.name || "이름 없음", tokens));
+  r1.appendChild(h);
+  var tl = document.createElement("span");
+  tl.className = "tail";
+  tl.appendChild(hi("끝 " + (tailOf(it) || "----"), tokens));
+  r1.appendChild(tl);
+  if(it.sample){ var bd = document.createElement("span"); bd.className="badge"; bd.textContent="샘플"; r1.appendChild(bd); }
+  a.appendChild(r1);
+
+  if(it.addr){
+    var p = document.createElement("p"); p.className = "addr";
+    p.appendChild(hi(it.addr, tokens)); a.appendChild(p);
+  }
+  if(it.phone){
+    var t = document.createElement("p"); t.className = "tel";
+    t.appendChild(hi(maskTel(it.phone), tokens));
+    var call = document.createElement("a");
+    call.href = "tel:" + it.phone; call.textContent = "전화 걸기";
+    t.appendChild(call);
+    a.appendChild(t);
+  }
+
+  if(it.menus.length){
+    var menus = document.createElement("div"); menus.className = "menus";
+    it.menus.forEach(function(m){
+      var c = document.createElement("span"); c.className = "mchip"; c.textContent = m;
+      menus.appendChild(c);
+    });
+    a.appendChild(menus);
+  } else {
+    var nn = document.createElement("p");
+    nn.className = "nomenu";
+    nn.textContent = "단골 메뉴는 아직 없습니다 — 아래 빠른 추가나 수정으로 넣으세요.";
+    a.appendChild(nn);
+  }
+
+  if(it.memo){
+    var mm = document.createElement("p"); mm.className = "memo";
+    var k = document.createElement("span"); k.className = "k"; k.textContent = "요청";
+    mm.appendChild(k); mm.appendChild(hi(it.memo, tokens));
+    a.appendChild(mm);
+  }
+
+  var acts = document.createElement("div"); acts.className = "acts";
+  var copy = document.createElement("button");
+  copy.type = "button"; copy.className = "copy"; copy.setAttribute("data-act","copy");
+  copy.textContent = "📋 배달 전달 복사";
+  acts.appendChild(copy);
+  var edit = document.createElement("button");
+  edit.type = "button"; edit.className = "edit"; edit.setAttribute("data-act","edit");
+  edit.textContent = "✏️ 수정";
+  acts.appendChild(edit);
+  a.appendChild(acts);
+
+  var qs = quickCandidates(it);
+  if(qs.length){
+    var q = document.createElement("div"); q.className = "quick";
+    var ql = document.createElement("span"); ql.className = "qlbl"; ql.textContent = "한 번 눌러 바로 추가";
+    q.appendChild(ql);
+    var row = document.createElement("div"); row.className = "qrow";
+    qs.forEach(function(c){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "qchip";
+      b.setAttribute("data-act", c.kind === "menu" ? "qmenu" : "qmemo");
+      b.setAttribute("data-val", c.v);
+      var pl = document.createElement("span"); pl.className = "p"; pl.textContent = "＋";
+      b.appendChild(pl);
+      b.appendChild(document.createTextNode(c.v));
+      row.appendChild(b);
+    });
+    q.appendChild(row);
+    a.appendChild(q);
+  }
+  return a;
+}
+
+/* ── 목록 그리기 ── */
+function paintSaved(){
+  var el = $("savedTxt");
+  if(!state.items.length){ el.textContent = ""; return; }
+  var d = new Date(state.savedAt || Date.now());
+  var hh = ("0"+d.getHours()).slice(-2), mi = ("0"+d.getMinutes()).slice(-2);
+  el.textContent = "마지막 저장 " + hh + ":" + mi;
+}
+function render(){
+  var tokens = state.q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  var all = state.items.slice().sort(function(a,b){ return b.at - a.at; });
+  var shown = tokens.length ? all.filter(function(it){
+    return tokens.every(function(t){ return matchToken(it, t); });
+  }) : all;
+
+  var list = $("list");
+  list.textContent = "";
+  shown.forEach(function(it){ list.appendChild(card(it, tokens)); });
+
+  var total = state.items.length;
+  $("countTxt").textContent = tokens.length
+    ? "찾은 " + shown.length + "명 / 전체 " + total + "명"
+    : "단골 " + total + "명";
+  $("live").textContent = tokens.length ? shown.length + "명 찾았습니다" : "단골 " + total + "명";
+  paintSaved();
+  paintSampleBtns();
+  paintEmpty(shown.length, tokens.length);
+}
+
+function paintEmpty(shown, searching){
+  var box = $("empty");
+  if(shown > 0){ box.hidden = true; return; }
+  box.hidden = false;
+  var row = $("emptyRow"), steps = $("emptySteps");
+  if(searching){
+    $("emptyTitle").textContent = "찾는 단골이 없습니다";
+    $("emptyBody").innerHTML = "‘" + esc(state.q) + "’로는 나오지 않았습니다.<br>번호 뒷 4자리만 다시 쳐 보시거나, 새로 적어 두세요.";
+    steps.hidden = true;
+    row.innerHTML = '<button class="btn" type="button" data-act="clearq">검색어 지우기</button>' +
+                    '<button class="btn primary" type="button" data-act="add">＋ 새 단골 적기</button>';
+  } else {
+    $("emptyTitle").textContent = "장부가 비어 있습니다";
+    $("emptyBody").innerHTML = "전화가 오면 번호 뒷 4자리와 주소, 단골 메뉴만 한 번 적어 두세요.<br>다음 전화부터는 4자리만 치면 바로 나옵니다.";
+    steps.hidden = false;
+    row.innerHTML = '<button class="btn primary" type="button" data-act="add">＋ 첫 단골 적기</button>' +
+                    '<button class="btn soft" type="button" data-act="sample">가상 샘플 3건 체험하기</button>';
+    paintSampleBtns();
+  }
+}
+function paintSampleBtns(){
+  var has = state.items.some(function(it){ return it.sample; });
+  $("sampleClear").hidden = !has;
+}
+
+/* ── 복사 ── */
+function copyText(text){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    return navigator.clipboard.writeText(text).then(function(){ return true; }, function(){ return legacyCopy(text); });
+  }
+  return Promise.resolve(legacyCopy(text));
+}
+function legacyCopy(text){
+  try{
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly","");
+    ta.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;opacity:0";
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, ta.value.length);
+    var ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  }catch(e){ return false; }
+}
+function copyFor(it){
+  var L = [];
+  var head = (BRAND.shopName && BRAND.shopName !== "우리 가게") ? "[" + BRAND.shopName + "] " : "";
+  L.push(head + (BRAND.copyTitle || "배달 주문"));
+  L.push("호칭: " + (it.name || "—"));
+  L.push("연락: " + (it.phone ? fmtTel(it.phone) : "끝 4자리 " + (tailOf(it) || "-")));
+  if(it.addr) L.push("주소: " + it.addr);
+  if(it.menus.length) L.push("메뉴: " + it.menus.join(" / "));
+  if(it.memo) L.push("요청: " + it.memo);
+  copyText(L.join("\n")).then(function(ok){
+    if(ok) toast("복사했습니다 — 문자·메신저에 붙여넣으세요");
+    else toast("자동 복사가 안 됩니다. 화면의 내용을 길게 눌러 복사해 주세요");
+  });
+}
+
+/* ── 단골 추가/수정 시트 ── */
+var editing = null, draftMenus = [];
+
+function renderDraft(){
+  var box = $("fMenus");
+  box.textContent = "";
+  draftMenus.forEach(function(m, i){
+    var tag = document.createElement("span"); tag.className = "mtag";
+    var sp = document.createElement("span"); sp.textContent = m;
+    var x = document.createElement("button");
+    x.type = "button"; x.textContent = "✕"; x.setAttribute("aria-label", m + " 빼기");
+    x.setAttribute("data-i", String(i));
+    tag.appendChild(sp); tag.appendChild(x);
+    box.appendChild(tag);
+  });
+}
+function renderPresets(){
+  var box = $("fPresets");
+  box.textContent = "";
+  (BRAND.memoPresets || []).forEach(function(m){
+    var b = document.createElement("button");
+    b.type = "button"; b.textContent = "＋ " + m; b.setAttribute("data-val", m);
+    box.appendChild(b);
+  });
+}
+function addDraftMenu(v){
+  v = txt(v).replace(/,$/,"");
+  if(!v) return;
+  if(draftMenus.indexOf(v) >= 0){ toast("이미 넣은 메뉴입니다."); return; }
+  draftMenus.push(v);
+  renderDraft();
+}
+
+function openSheet(it){
+  editing = it ? it.id : null;
+  $("sheetTitle").textContent = it ? "단골 고치기" : "새 단골 적기";
+  $("fName").value = it ? it.name : "";
+  $("fTel").value  = it ? (it.phone ? fmtTel(it.phone) : it.tail) : "";
+  $("fAddr").value = it ? it.addr : "";
+  $("fMemo").value = it ? it.memo : "";
+  $("fMenu").value = "";
+  draftMenus = it ? it.menus.slice() : [];
+  renderDraft(); renderPresets();
+  $("delBtn").hidden = !it;
+  $("sheet").hidden = false;
+  document.body.style.overflow = "hidden";
+  setTimeout(function(){ try{ $("fName").focus(); }catch(e){} }, 80);
+}
+function closeSheet(){
+  $("sheet").hidden = true;
+  document.body.style.overflow = "";
+  editing = null;
+  try{ $("addBtn").focus(); }catch(e){}
+}
+function commit(){
+  var name = txt($("fName").value);
+  var tel  = digits($("fTel").value);
+  var addr = txt($("fAddr").value);
+  var memo = txt($("fMemo").value);
+  if(!name && !tel && !addr){
+    toast("호칭·연락처·주소 중 하나는 적어 주세요.");
+    $("fName").focus(); return;
+  }
+  var tail = tel ? tel.slice(-4) : "";
+  if(!tail && !name && !addr){ toast("호칭을 적어 주세요."); $("fName").focus(); return; }
+  var cur = editing ? find(editing) : null;
+  var item = {
+    id: cur ? cur.id : uid(),
+    name: name,
+    tail: tail,
+    phone: tel.length > 4 ? tel : "",
+    addr: addr,
+    menus: draftMenus.slice(),
+    memo: memo,
+    sample: cur ? !!cur.sample : false,
+    ct: cur ? cur.ct : Date.now(),
+    at: Date.now()
+  };
+  if(!item.name && !item.tail && !item.addr){ toast("내용을 적어 주세요."); return; }
+  if(cur){ var idx = state.items.indexOf(cur); state.items[idx] = item; }
+  else { state.items.unshift(item); }
+  save(); render(); closeSheet();
+  toast(cur ? "고쳐서 저장했습니다" : "단골로 저장했습니다");
+  if(!cur){ try{ $("q").focus(); }catch(e){} }
+}
+
+/* ── 원터치 추가 ── */
+function addQuick(id, kind, val){
+  var it = find(id); if(!it) return;
+  var prevMenus = it.menus.slice(), prevMemo = it.memo, prevAt = it.at;
+  if(kind === "menu"){
+    if(it.menus.indexOf(val) >= 0){ toast("이미 단골 메뉴에 있습니다."); return; }
+    it.menus.push(val);
+  } else {
+    if((it.memo||"").indexOf(val) >= 0){ toast("이미 메모에 있습니다."); return; }
+    it.memo = it.memo ? it.memo + " · " + val : val;
+  }
+  it.at = Date.now(); save(); render();
+  toast((kind==="menu" ? "‘"+val+"’ 넣었습니다" : "메모에 ‘"+val+"’ 넣었습니다"), function(){
+    var x = find(id); if(!x) return;
+    x.menus = prevMenus; x.memo = prevMemo; x.at = prevAt; save(); render();
+  });
+}
+
+/* ── 샘플 ── */
+function sampleItems(){
+  var t = Date.now();
+  return [
+    { id:"sample-1", name:"샘플 ① 101동 아주머니", tail:"0001",
+      addr:"샘플시 예시구 가상로 101, 101동 1004호",
+      menus:["짜장면 곱빼기","군만두"], memo:"벨 대신 전화 주세요",
+      sample:true, ct:t-86400000*6, at:t-3600000*4 },
+    { id:"sample-2", name:"샘플 ② 옆 건물 사무실", tail:"2734",
+      addr:"샘플시 예시구 가상로 103, 3층 사무실",
+      menus:["짬뽕 2그릇","탕수육 소"], memo:"공동현관 비번은 문자로 주세요",
+      sample:true, ct:t-86400000*3, at:t-3600000*26 },
+    { id:"sample-3", name:"샘플 ③ 가상 상가", tail:"0042",
+      addr:"샘플시 예시구 예시길 7, 1층",
+      menus:["볶음밥","계란국"], memo:"수저·저가락 빼 주세요",
+      sample:true, ct:t-86400000*1, at:t-3600000*50 }
+  ];
+}
+function addSamples(){
+  var added = 0;
+  sampleItems().forEach(function(s){
+    if(!find(s.id)){ state.items.push(normItem(s)); added++; }
+  });
+  if(!added){ toast("샘플은 이미 들어 있습니다."); return; }
+  save(); render();
+  toast("가상 샘플 " + added + "건을 넣었습니다. 다 보신 뒤 ‘샘플 지우기’로 지우세요.");
+}
+function clearSamples(){
+  var before = state.items.filter(function(it){ return it.sample; });
+  if(!before.length){ toast("지울 샘플이 없습니다."); return; }
+  state.items = state.items.filter(function(it){ return !it.sample; });
+  save(); render();
+  toast("샘플 " + before.length + "건을 지웠습니다", function(){
+    state.items = state.items.concat(before); save(); render();
+  });
+}
+
+/* ── 백업 ── */
+function stamp(){
+  var d = new Date();
+  function p(n){ return ("0"+n).slice(-2); }
+  return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate()) + "-" + p(d.getHours()) + p(d.getMinutes());
+}
+function download(name, text, mime){
+  try{
+    var blob = new Blob([text], { type: mime + ";charset=utf-8" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); a.parentNode && a.parentNode.removeChild(a); }, 500);
+    return true;
+  }catch(e){ return false; }
+}
+function exportJson(){
+  if(!state.items.length){ toast("백업할 단골이 없습니다."); return; }
+  var data = { app:"가게 전화주문 단골 장부", v:1, exportedAt:new Date().toISOString(), count:state.items.length, items:state.items };
+  var ok = download("단골장부-" + stamp() + ".json", JSON.stringify(data, null, 2), "application/json");
+  toast(ok ? "JSON 백업 파일을 내려받았습니다 (" + state.items.length + "건)" : "파일을 만들지 못했습니다");
+}
+function csvCell(v){
+  v = (v==null ? "" : String(v));
+  return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+}
+function exportCsv(){
+  if(!state.items.length){ toast("백업할 단골이 없습니다."); return; }
+  var head = ["호칭","연락처","뒷4자리","주소","단골메뉴","메모","최근수정"];
+  var rows = [head.join(",")];
+  state.items.slice().sort(function(a,b){ return b.at-a.at; }).forEach(function(it){
+    rows.push([
+      csvCell(it.name), csvCell(it.phone ? fmtTel(it.phone) : ""), csvCell(tailOf(it)),
+      csvCell(it.addr), csvCell(it.menus.join(" / ")), csvCell(it.memo),
+      csvCell(new Date(it.at).toLocaleString("ko-KR"))
+    ].join(","));
+  });
+  var ok = download("단골장부-" + stamp() + ".csv", "\ufeff" + rows.join("\r\n"), "text/csv");
+  toast(ok ? "CSV 백업 파일을 내려받았습니다 (" + state.items.length + "건)" : "파일을 만들지 못했습니다");
+}
+function importJson(file){
+  var fr = new FileReader();
+  fr.onload = function(){
+    var arr;
+    try{
+      var d = JSON.parse(String(fr.result));
+      arr = Array.isArray(d) ? d : (d && Array.isArray(d.items) ? d.items : null);
+      if(!arr) throw new Error("shape");
+    }catch(e){ toast("이 파일은 장부 백업 파일이 아닙니다."); return; }
+    var items = arr.map(normItem).filter(Boolean);
+    if(!items.length){ toast("불러올 단골이 없습니다."); return; }
+    var by = {}, added = 0, upd = 0;
+    state.items.forEach(function(it){ by[it.id] = it; });
+    items.forEach(function(it){
+      var cur = by[it.id];
+      if(!cur){ by[it.id] = it; added++; }
+      else if((it.at||0) > (cur.at||0)){ by[it.id] = it; upd++; }
+    });
+    state.items = Object.keys(by).map(function(k){ return by[k]; });
+    save(); render();
+    toast("불러왔습니다 · 새로 " + added + "건, 갱신 " + upd + "건");
+  };
+  fr.onerror = function(){ toast("파일을 읽지 못했습니다."); };
+  fr.readAsText(file, "utf-8");
+}
+
+/* ── 초기화 ── */
+function clearAll(){
+  var before = state.items.slice();
+  state.items = [];
+  save(); render();
+  $("resetConfirm").hidden = true;
+  $("resetBtn").hidden = false;
+  state.q = ""; $("q").value = ""; $("qClear").hidden = true;
+  render();
+  toast("장부를 초기화했습니다", function(){
+    state.items = before; save(); render();
+  });
+}
+
+/* ── 이벤트 ── */
+$("q").addEventListener("input", function(){
+  state.q = this.value;
+  $("qClear").hidden = !this.value;
+  render();
+});
+$("qClear").addEventListener("click", function(){
+  $("q").value = ""; state.q = ""; $("qClear").hidden = true; render(); $("q").focus();
+});
+
+$("list").addEventListener("click", function(e){
+  var btn = e.target.closest ? e.target.closest("[data-act]") : null;
+  if(!btn) return;
+  var c = btn.closest(".card");
+  var it = c ? find(c.getAttribute("data-id")) : null;
+  var act = btn.getAttribute("data-act");
+  if(act === "copy" && it) copyFor(it);
+  else if(act === "edit" && it) openSheet(it);
+  else if(act === "qmenu" && it) addQuick(it.id, "menu", btn.getAttribute("data-val"));
+  else if(act === "qmemo" && it) addQuick(it.id, "memo", btn.getAttribute("data-val"));
+});
+
+$("emptyRow").addEventListener("click", function(e){
+  var btn = e.target.closest ? e.target.closest("[data-act]") : null;
+  if(!btn) return;
+  var act = btn.getAttribute("data-act");
+  if(act === "add") openSheet(null);
+  else if(act === "sample") addSamples();
+  else if(act === "clearq"){ $("q").value=""; state.q=""; $("qClear").hidden=true; render(); }
+});
+
+$("addBtn").addEventListener("click", function(){ openSheet(null); });
+$("sheetDim").addEventListener("click", closeSheet);
+$("cancelBtn").addEventListener("click", closeSheet);
+
+$("form").addEventListener("submit", function(e){ e.preventDefault(); commit(); });
+$("menuAdd").addEventListener("click", function(){ addDraftMenu($("fMenu").value); $("fMenu").value=""; $("fMenu").focus(); });
+$("fMenu").addEventListener("keydown", function(e){
+  if(e.key === "Enter"){ e.preventDefault(); addDraftMenu(this.value); this.value=""; }
+});
+$("fMenus").addEventListener("click", function(e){
+  var x = e.target.closest ? e.target.closest("button[data-i]") : null;
+  if(!x) return;
+  draftMenus.splice(parseInt(x.getAttribute("data-i"),10), 1);
+  renderDraft();
+});
+$("fPresets").addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest("button[data-val]") : null;
+  if(!b) return;
+  var v = b.getAttribute("data-val"), memo = $("fMemo");
+  if(memo.value.indexOf(v) >= 0){ toast("이미 메모에 있습니다."); return; }
+  memo.value = memo.value.trim() ? memo.value.trim() + " · " + v : v;
+  memo.focus();
+});
+$("delBtn").addEventListener("click", function(){
+  var it = editing ? find(editing) : null;
+  if(!it) return;
+  var label = it.name || ("끝 " + tailOf(it));
+  if(!window.confirm("‘" + label + "’ 단골을 장부에서 지웁니다. 되돌릴 수 없습니다.")) return;
+  var idx = state.items.indexOf(it);
+  var removed = state.items.splice(idx, 1)[0];
+  save(); render(); closeSheet();
+  toast("지웠습니다", function(){ state.items.push(removed); save(); render(); });
+});
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape" && !$("sheet").hidden) closeSheet();
+});
+
+$("expJson").addEventListener("click", exportJson);
+$("expCsv").addEventListener("click", exportCsv);
+$("impJson").addEventListener("click", function(){ $("fileInput").value = ""; $("fileInput").click(); });
+$("fileInput").addEventListener("change", function(){ if(this.files && this.files[0]) importJson(this.files[0]); });
+$("sampleBtn").addEventListener("click", addSamples);
+$("sampleClear").addEventListener("click", clearSamples);
+$("resetBtn").addEventListener("click", function(){
+  $("resetMsg").textContent = "장부 " + state.items.length + "건을 모두 지웁니다. 되돌릴 수 없습니다.";
+  $("resetConfirm").hidden = false;
+  $("resetBtn").hidden = true;
+});
+$("resetCancel").addEventListener("click", function(){
+  $("resetConfirm").hidden = true; $("resetBtn").hidden = false;
+});
+$("resetBackup").addEventListener("click", function(){ exportJson(); clearAll(); });
+$("resetDo").addEventListener("click", clearAll);
+
+/* ── 브랜드 적용 ── */
+document.documentElement.style.setProperty("--accent", BRAND.accent);
+$("shopName").textContent = BRAND.shopName || "우리 가게";
+document.title = (BRAND.shopName && BRAND.shopName !== "우리 가게" ? BRAND.shopName + " · " : "") + "가게 전화주문 단골 장부";
+$("noticeText").textContent = BRAND.notice;
+if(BRAND.shopTel){
+  var st = $("shopTel");
+  st.href = "tel:" + digits(BRAND.shopTel);
+  st.textContent = "☎ " + fmtTel(BRAND.shopTel);
+  st.hidden = false;
+}
+
+/* ── 시작 ── */
+state.items = load();
+render();
+if(state.savedAt) paintSaved();
+})();
+</script>
+</body>
+</html>
