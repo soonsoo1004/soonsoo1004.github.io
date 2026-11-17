@@ -199,9 +199,10 @@ const LEVELS = [
       { x: 0, y: 300, w: 150, h: 22, m: MAT.GRASS },
       { x: 230, y: 300, w: 160, h: 26, m: MAT.STONE },
       { x: 352, y: 216, w: 38, h: 184, m: MAT.STONE },
-      { x: 0, y: 400, w: 390, h: 80, m: MAT.GRASS }
+      { x: 0, y: 400, w: 150, h: 80, m: MAT.GRASS },
+      { x: 230, y: 400, w: 160, h: 80, m: MAT.GRASS }
     ],
-    ponds: [{ x: 150, y: 432, w: 80, h: 48 }],
+    ponds: [{ x: 146, y: 408, w: 88, h: 72 }],
     gems: [{ x: 190, y: 284 }, { x: 300, y: 380 }],
     deco: [{ t: 'mush', x: 26, y: 150 }, { t: 'clover', x: 100, y: 300 }, { t: 'mush', x: 60, y: 400 }, { t: 'flower', x: 250, y: 400 }, { t: 'rock', x: 372, y: 400 }]
   }
