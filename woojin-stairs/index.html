@@ -21,20 +21,29 @@
   <canvas id="stage"></canvas>
 
   <div class="hud">
-    <div class="hud-row">
-      <div class="stat"><b id="floorNum">0</b><i>층</i></div>
-      <div class="stat score"><b id="scoreNum">0</b><i>점</i></div>
-      <div class="spacer"></div>
-      <button id="muteBtn" class="mute" type="button" aria-label="소리 끄기">🔊</button>
+    <div class="panel">
+      <div class="floor-line"><b id="floorNum">0</b><span class="unit">층</span></div>
+      <div class="score-line"><b id="scoreNum">0</b><span class="unit">점</span></div>
+      <div class="gauge"><div class="gauge-fill" id="gaugeFill"></div></div>
     </div>
-    <div class="gauge"><div class="gauge-fill" id="gaugeFill"></div></div>
+    <button id="muteBtn" class="mute" type="button" aria-label="소리 끄기">🔊</button>
   </div>
 
+  <div id="comboTag" class="combo-tag"></div>
+  <div id="banner" class="banner"></div>
   <div id="toast" class="toast"></div>
 
   <div id="pad" class="pad">
-    <button id="turnBtn" class="pad-btn turn" type="button"><span class="ico">↺</span><span class="lbl">방향전환</span></button>
-    <button id="climbBtn" class="pad-btn climb" type="button"><span class="ico">↑</span><span class="lbl">오르기</span></button>
+    <button id="turnBtn" class="pad-btn turn" type="button">
+      <span class="shine"></span>
+      <span class="ico">↺</span>
+      <span class="lbl">방향전환</span>
+    </button>
+    <button id="climbBtn" class="pad-btn climb" type="button">
+      <span class="shine"></span>
+      <span class="ico">⤒</span>
+      <span class="lbl">오르기</span>
+    </button>
   </div>
 
   <div id="overlay" class="overlay">
