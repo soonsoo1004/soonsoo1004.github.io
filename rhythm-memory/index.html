@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<title>톡톡 리듬 암기 — 게임하며 외우는 계이름·영단어·직업용어</title>
+<meta name="description" content="음표·영단어·직업 기초용어가 리듬 타고 내려오면 큰 버튼을 톡톡! 놀면서 저절로 외워지는 무료 리듬 암기 게임. 내 단어장도 바로 넣을 수 있어요." />
+<meta name="keywords" content="리듬게임, 암기게임, 계이름, 악보 읽기, 영단어 암기, 직업용어, 무료 웹게임" />
+<meta name="theme-color" content="#0a0e20" />
+<meta property="og:title" content="톡톡 리듬 암기 — 게임하며 외우는 계이름·영단어" />
+<meta property="og:description" content="리듬 타고 내려오는 문제를 큰 버튼으로 톡톡! 계이름·영단어·직업용어가 저절로 외워지는 무료 웹게임." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0e20'/%3E%3Ccircle cx='24' cy='44' r='7' fill='%235ee7ff'/%3E%3Crect x='29' y='14' width='5' height='30' rx='2' fill='%235ee7ff'/%3E%3Cpath d='M34 14c10 2 14 6 12 14' stroke='%23ff7ad9' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <!-- ══════════ 홈 ══════════ -->
+  <section id="home" class="screen on">
+    <div class="home-head">
+      <div class="logo"><span class="logo-dot"></span>톡톡 리듬 암기</div>
+      <p class="sub">리듬 타고 내려오면, 큰 버튼으로 <b>톡!</b><br />손은 놀고 머리는 외운다</p>
+    </div>
+
+    <div class="modes">
+      <button class="mode-card staff" data-mode="staff" type="button">
+        <span class="mc-ico">🎼</span>
+        <span class="mc-txt"><b>악보 계이름</b><i>음표를 보고 계이름 건반</i></span>
+        <span class="mc-best" id="best-staff">최고 0</span>
+      </button>
+      <button class="mode-card word" data-mode="word" type="button">
+        <span class="mc-ico">🔤</span>
+        <span class="mc-txt"><b>기초 영단어</b><i>필수 단어 50 · 뜻 맞히기</i></span>
+        <span class="mc-best" id="best-word">최고 0</span>
+      </button>
+      <button class="mode-card term" data-mode="term" type="button">
+        <span class="mc-ico">🚗</span>
+        <span class="mc-txt"><b>직업·안전 용어</b><i>교통표지·물류·바리스타</i></span>
+        <span class="mc-best" id="best-term">최고 0</span>
+      </button>
+      <button class="mode-card mine" data-mode="custom" type="button">
+        <span class="mc-ico">📝</span>
+        <span class="mc-txt"><b>내 암기장</b><i>외울 단어 직접 넣기</i></span>
+        <span class="mc-best" id="best-custom">준비</span>
+      </button>
+    </div>
+
+    <div class="steps">
+      <div><b>1</b>모드 고르기</div>
+      <div><b>2</b>문제가 내려옴</div>
+      <div><b>3</b>정답 버튼 톡!</div>
+    </div>
+
+    <div class="home-foot">
+      <button id="muteBtn" class="ghost" type="button">🔊 소리 켜짐</button>
+      <button id="deckBtn" class="ghost" type="button">✏️ 단어장 편집</button>
+    </div>
+    <p class="tiny">설치·로그인·광고 없음 · 무료 · 내 기록은 이 기기에만 저장</p>
+  </section>
+
+  <!-- ══════════ 게임 ══════════ -->
+  <section id="game" class="screen">
+    <div class="hud">
+      <button id="homeBtn" class="hud-btn" type="button" aria-label="홈">←</button>
+      <div class="mode-chip" id="modeChip">🎼 계이름</div>
+      <div class="hud-stats">
+        <div class="score" id="scoreEl">0</div>
+        <div class="hearts" id="heartsEl" aria-label="남은 하트">❤❤❤</div>
+      </div>
+    </div>
+
+    <div class="hud2">
+      <button id="muteBtn2" class="hud-btn small" type="button" aria-label="소리">🔊</button>
+      <div class="prog"><i id="progFill"></i></div>
+      <span class="prog-txt" id="progTxt">1/30</span>
+      <button id="pauseBtn" class="hud-btn small" type="button" aria-label="일시정지">❚❚</button>
+    </div>
+
+    <div id="stage">
+      <div id="tile" class="tile">
+        <div id="tileBody"></div>
+      </div>
+      <div id="hitline"><span>톡!</span></div>
+      <div id="comboWrap" class="combo"><b id="comboNum">0</b><span>COMBO</span></div>
+      <div id="feverBadge" class="fever">FEVER ×2</div>
+      <div id="pop" class="pop"></div>
+    </div>
+
+    <div id="answers" class="answers"></div>
+  </section>
+
+  <!-- ══════════ 결과 ══════════ -->
+  <section id="result" class="screen">
+    <div class="res-card">
+      <div class="res-top">
+        <span class="res-mode" id="resMode">🎼 계이름</span>
+        <div class="res-score" id="resScore">0</div>
+        <div class="res-badge" id="resBadge">NEW BEST!</div>
+      </div>
+      <div class="res-stats">
+        <div><b id="resAcc">0%</b><span>정답률</span></div>
+        <div><b id="resCombo">0</b><span>최대 콤보</span></div>
+        <div><b id="resCorrect">0</b><span>맞힌 개수</span></div>
+      </div>
+      <div class="review">
+        <div class="review-h">📝 오늘의 복습 노트 <span id="reviewCount">0</span></div>
+        <ul id="reviewList"></ul>
+      </div>
+      <div class="res-btns">
+        <button id="againBtn" class="big primary" type="button">한 번 더!</button>
+        <button id="toHomeBtn" class="big ghost" type="button">모드 고르기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 내 암기장 ══════════ -->
+  <section id="deck" class="screen">
+    <div class="deck-head">
+      <button id="deckBack" class="hud-btn" type="button" aria-label="뒤로">←</button>
+      <h2>내 암기장</h2>
+      <button id="deckSave" class="save" type="button">저장</button>
+    </div>
+    <p class="deck-help">
+      외우고 싶은 걸 <b>한 줄에 하나</b>, <code>단어:뜻</code> 으로 적어 주세요.<br />
+      4줄 이상이면 바로 리듬게임이 돼요. (이 기기에 자동 저장)
+    </p>
+    <textarea id="deckInput" spellcheck="false" placeholder="apple:사과&#10;water:물&#10;remember:기억하다&#10;안전모:머리를 보호하는 장비"></textarea>
+    <div class="deck-row">
+      <button id="deckSample" class="ghost" type="button">예시 채우기</button>
+      <span class="deck-count" id="deckCount">0줄</span>
+    </div>
+    <button id="deckPlay" class="big primary" type="button">이 단어장으로 게임 시작</button>
+    <p class="tiny">줄 수가 4개보다 적으면 4지선다를 만들 수 없어요.</p>
+  </section>
+
+  <!-- ══════════ 일시정지 ══════════ -->
+  <div id="toast" class="toast"></div>
+  <div id="pauseOv" class="overlay">
+    <div class="ov-card">
+      <h3>잠깐 쉬어 갈까요?</h3>
+      <p>여기까지 <b id="pauseScore">0</b>점</p>
+      <button id="resumeBtn" class="big primary" type="button">계속하기</button>
+      <button id="restartBtn" class="big ghost" type="button">처음부터</button>
+      <button id="quitBtn" class="big ghost" type="button">그만두기</button>
+    </div>
+  </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>
