@@ -405,7 +405,8 @@ function measure(){
   GAP = clamp(PLAY.h/6.6, 46, 104);
   COLW = Math.min(W.w*0.288, 114);
   PLATW = COLW*0.96;
-  PR = clamp(Math.min(GAP*0.40, W.w*0.088), 18, 36);
+  // v3.1: 캐릭터 24% 축소 — 390px 기준 반지름 34.3 → 26.2px(전체 ~62px). v2보다 크고 v3보다 아담하게
+  PR = clamp(Math.min(GAP*0.40, W.w*0.088), 18, 36) * 0.765;
   BASEY = PLAY.top + PLAY.h*0.765;
 }
 
@@ -1077,7 +1078,7 @@ function wrongWay(){
   if(S.shields>0){
     S.shields--;
     S.combo = 0;
-    S.shake = Math.min(1, S.shake+0.7);
+    S.shake = Math.min(0.32, S.shake+0.21);   // v3.1: 흔들림 30% 수준
     var p = S.plats[S.floor];
     p.life = Math.max(p.life, p.lifeMax*0.75);
     Snd.shield();
@@ -1093,7 +1094,7 @@ function startFall(kind){
   if(S.fall) return;
   S.fall = { x0:S.px, y0:S.py, vy:-95, t:0, spin:0, kind:kind||'collapse' };
   S.combo = 0;
-  S.shake = 1;
+  S.shake = 0.32;   // v3.1: 흔들림 30% 수준
   Snd.wrong();
   if(kind==='collapse'){
     var p = S.plats[S.floor];
@@ -1164,7 +1165,7 @@ function landOn(i){
   // 착지 타격: 충격파 고리 + 별·하트·스파클 + 카메라 쉐이크
   addRing(S.px, S.py + 5, clamp(0.5 + S.combo/18, 0.6, 1.35));
   burst(S.px, S.py, 26 + Math.min(S.combo, 10));
-  S.shake = Math.max(S.shake, 0.75);
+  S.shake = Math.max(S.shake, 0.22);   // v3.1: 착지 흔들림 30%(0.75→0.22) — 어지럼 방지
   S.landFx = 1;
   Snd.land(S.combo);
   if(S.buffer){
@@ -1951,9 +1952,9 @@ function frame(ts){
     sx = (Math.random()-0.5)*9*S.shake;
     sy = (Math.random()-0.5)*9*S.shake;
   }
-  // 착지 카메라 펀치 — 살짝 꿀렸다 스프링처럼 돌아온다
-  if(S.punchT < 0.5){
-    sy += 6.5*Math.exp(-S.punchT*11)*Math.cos(S.punchT*34);
+  // 착지 카메라 펀치 — v3.1: 6.5 → 1.95px(30%), 감쇠도 빠르게 해서 위아래 출렁임을 없앤다
+  if(S.punchT < 0.4){
+    sy += 1.95*Math.exp(-S.punchT*15)*Math.cos(S.punchT*34);
   }
   ctx.save();
   ctx.translate(sx,sy);
@@ -1967,11 +1968,11 @@ function frame(ts){
   ctx.restore();
 
   if(S.flash>0){
-    ctx.fillStyle = 'rgba(255,230,250,'+(S.flash*0.26)+')';
+    ctx.fillStyle = 'rgba(255,230,250,'+(S.flash*0.12)+')';
     ctx.fillRect(0,0,W.w,W.h);
   }
   if(S.landFx>0){
-    ctx.fillStyle = 'rgba(198,244,255,'+(S.landFx*0.15)+')';
+    ctx.fillStyle = 'rgba(198,244,255,'+(S.landFx*0.08)+')';
     ctx.fillRect(0,0,W.w,W.h);
   }
 
