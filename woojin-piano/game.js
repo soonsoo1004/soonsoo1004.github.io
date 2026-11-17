@@ -65,7 +65,107 @@
       ]
     }
   };
+
   var SONG_ORDER = ['twinkle', 'joy', 'elise', 'canon'];
+
+  /* ══════ 곡 확장 — 전부 저작권 만료(퍼블릭 도메인) 원곡, 외부 음원 0건 ══════ */
+  SONGS.twinkle.stars = 1;
+  SONGS.joy.stars = 1;
+  SONGS.elise.stars = 2;
+  SONGS.canon.stars = 3;
+
+  SONGS.mary = {
+    name: '메리의 양', emoji: '🐑', bpm: 112, stars: 1,
+    melody: [
+      64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 2,
+      62, 1, 62, 1, 62, 2, 64, 1, 67, 1, 67, 2,
+      64, 1, 62, 1, 60, 1, 62, 1, 64, 1, 64, 1, 64, 1, 64, 1,
+      62, 1, 62, 1, 64, 1, 62, 1, 60, 3
+    ]
+  };
+
+  SONGS.butterfly = {
+    name: '나비야', emoji: '🦋', bpm: 108, stars: 1,
+    melody: [
+      67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+      60, 1, 62, 1, 64, 1, 65, 1, 67, 1, 67, 1, 67, 2,
+      67, 1, 64, 1, 64, 2, 65, 1, 62, 1, 62, 2,
+      60, 1, 64, 1, 67, 1, 67, 1, 60, 3
+    ]
+  };
+
+  SONGS.macdonald = {
+    name: '농장 노래', emoji: '🐄', bpm: 116, stars: 1,
+    melody: [
+      67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 2,
+      71, 1, 71, 1, 69, 1, 69, 1, 67, 3,
+      62, 1, 67, 1, 67, 1, 67, 1, 62, 1, 64, 1, 64, 1, 62, 1,
+      71, 1, 71, 1, 69, 1, 69, 1, 67, 3
+    ]
+  };
+
+  SONGS.london = {
+    name: '런던 다리', emoji: '🌉', bpm: 112, stars: 1,
+    melody: [
+      67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
+      62, 1, 64, 1, 65, 2, 64, 1, 65, 1, 67, 2,
+      67, 1, 69, 1, 67, 1, 65, 1, 64, 1, 65, 1, 67, 2,
+      62, 1, 67, 1, 64, 1, 60, 3
+    ]
+  };
+
+  SONGS.lullaby = {
+    name: '자장가', emoji: '🌙', bpm: 86, stars: 2,
+    melody: [
+      64, 1, 64, 1, 67, 2, 64, 1, 64, 1, 67, 2,
+      64, 1, 67, 1, 72, 1, 71, 1, 69, 1, 69, 1, 67, 2,
+      62, 1, 64, 1, 65, 2, 62, 1, 62, 1, 64, 1, 65, 2,
+      62, 1, 65, 1, 71, 1, 69, 1, 67, 3
+    ]
+  };
+
+  SONGS.jingle = {
+    name: '징글벨', emoji: '🔔', bpm: 118, stars: 2,
+    melody: [
+      64, 1, 64, 1, 64, 2, 64, 1, 64, 1, 64, 2,
+      64, 1, 67, 1, 60, 1, 62, 1, 64, 4,
+      65, 1, 65, 1, 65, 1, 65, 1, 65, 1, 64, 1, 64, 1, 64, 1,
+      64, 1, 62, 1, 62, 1, 64, 2, 62, 2, 67, 2
+    ]
+  };
+
+  SONGS.birthday = {
+    name: '생일 축하', emoji: '🎂', bpm: 118, stars: 2,
+    melody: [
+      67, 0.5, 67, 0.5, 69, 1, 67, 1, 72, 1, 71, 2,
+      67, 0.5, 67, 0.5, 69, 1, 67, 1, 74, 1, 72, 2,
+      67, 0.5, 67, 0.5, 79, 1, 76, 1, 72, 1, 71, 1, 69, 2,
+      65, 0.5, 65, 0.5, 64, 1, 72, 1, 74, 1, 72, 3
+    ]
+  };
+
+  SONGS.minuet = {
+    name: '미뉴에트', emoji: '🎻', bpm: 104, stars: 3,
+    melody: [
+      74, 1, 67, 1, 69, 1, 71, 1, 72, 1, 74, 1, 67, 2,
+      76, 1, 72, 1, 74, 1, 76, 1, 78, 1, 79, 1, 79, 2,
+      78, 1, 76, 1, 74, 1, 79, 1, 78, 1, 76, 1,
+      74, 1, 76, 1, 78, 1, 74, 3
+    ]
+  };
+
+  SONG_ORDER = ['twinkle', 'joy', 'mary', 'butterfly', 'macdonald', 'london',
+                'lullaby', 'jingle', 'birthday', 'elise', 'minuet', 'canon'];
+
+  /* ══════ 스테이지 (프로 티어) ══════ */
+  var STAGES = [
+    { name: '첫 걸음', emoji: '🌱' },
+    { name: '구름 길', emoji: '☁️' },
+    { name: '무지개', emoji: '🌈' },
+    { name: '프로', emoji: '👑' },
+    { name: '전설', emoji: '⭐' }
+  ];
+
 
   var LANE_COLORS = [
     { main: '#4d8dff', light: '#dbe9ff', dark: '#1f4fc4' },
@@ -102,6 +202,9 @@
   var songTagEl = document.getElementById('songTag');
   var accNumEl = document.getElementById('accNum');
   var nextRowEl = document.getElementById('nextRow');
+  var pathRowEl = document.getElementById('pathRow');
+  var pathBarEl = document.getElementById('pathBar');
+  var stageTagEl = document.getElementById('stageTag');
   var lapFillEl = document.getElementById('lapFill');
   var bannerEl = document.getElementById('banner');
   var startScreen = document.getElementById('startScreen');
@@ -225,11 +328,30 @@
     o.start(t0); o.stop(t0 + 0.2);
   }
 
-  /* ══════ 이미지 ══════ */
-  var sprite = new Image();
-  var spriteReady = false;
-  sprite.onload = function () { spriteReady = true; };
-  sprite.src = 'assets/woojin-body.png';
+  /* ══════ 이미지 — 동화풍 4포즈 (배경 투명 PNG) ══════ */
+  var SPRITE_DEF = {
+    run:   { src: 'assets/woojin-run.png',   ax: 0.50 },
+    cheer: { src: 'assets/woojin-cheer.png', ax: 0.50 },
+    play:  { src: 'assets/woojin-play.png',  ax: 0.335 },
+    oops:  { src: 'assets/woojin-oops.png',  ax: 0.50 }
+  };
+  var spriteSet = {};
+  (function () {
+    for (var key in SPRITE_DEF) {
+      if (!Object.prototype.hasOwnProperty.call(SPRITE_DEF, key)) continue;
+      (function (k) {
+        var im = new Image();
+        var rec = { img: im, ready: false, ax: SPRITE_DEF[k].ax, ar: 0.46 };
+        im.onload = function () {
+          rec.ready = true;
+          if (im.naturalWidth && im.naturalHeight) rec.ar = im.naturalWidth / im.naturalHeight;
+        };
+        im.src = SPRITE_DEF[k].src;
+        spriteSet[k] = rec;
+      })(key);
+    }
+  })();
+  var sprite = null, spriteReady = false;
 
   /* ══════ 게임 상태 ══════ */
   var state = {
@@ -260,7 +382,15 @@
     beatPulse: 0,
     feverGlow: 0,
     startedAt: 0,
-    pausedAccum: 0
+    pausedAccum: 0,
+    charLane: 1.5,         // 몸이 서 있는 계단 레인(실수)
+    charTarget: 1.5,
+    hop: 0,                // 계단 오르기 점프
+    playT: 0,              // 건반 연주 포즈 남은 시간
+    cheerT: 0,             // 환호 포즈
+    oopsT: 0,              // 아차 포즈
+    stage: 1,
+    pathLanes: []          // 다음 계단 길
   };
   try { state.best = parseInt(localStorage.getItem('woojin_piano_best') || '0', 10) || 0; } catch (e) { }
 
@@ -1078,49 +1208,66 @@
   /* ══════ 우진이 (계단 위) ══════ */
   function drawCharacter(now) {
     var s = state;
-    var prog = s.climbShown;
-    var d = lerp(0.9, 0.115, prog);
+    var d = lerp(0.9, 0.115, s.climbShown);
     var p = persp(d);
-    var h = lerp(100, 240, Math.pow(clamp(d, 0, 1), 0.9));
-    var w = h * (231 / 620);
+    var h = lerp(100, 232, Math.pow(clamp(d, 0, 1), 0.9));
+    var pose = currentPose();
+    var rec = spriteSet[pose] || spriteSet.run;
+    var ar = rec.ar || 0.46;
+    var w = h * ar;
 
     var beatLen = 60 / (s.bpmNow || 100);
     var bp = s.mode === 'playing' ? ((s.songTime / beatLen) % 1) : ((now / 900) % 1);
-    var bob = Math.abs(Math.sin(Math.PI * bp)) * (3 + 10 * p.s);
-    var tilt = Math.sin(TAU * bp) * 0.06 * (0.5 + p.s);
-    var cheer = s.cheer > 0 ? s.cheer : 0;
-    var jump = cheer * 18 * p.s;
+    var bob = Math.abs(Math.sin(Math.PI * bp)) * (3 + 9 * p.s);
+    var hopP = s.hop > 0 ? Math.sin(clamp(s.hop, 0, 1) * Math.PI) : 0;
+    var hop = hopP * (16 + 13 * p.s);
+    var sway = s.oopsT > 0 ? Math.sin(now * 0.028) * 3.4 * s.oopsT : 0;
+    var tilt = Math.sin(TAU * bp) * 0.05 * (0.5 + p.s) - 0.07 * s.oopsT;
 
-    var feetY = p.y - 2 - bob - jump;
-    var cx = L.cx;
+    var baseX = L.cx + laneRatioAt(s.charLane) * p.half;
+    var feetY = p.y - 2 - bob - hop;
 
     // 그림자
     ctx.save();
-    ctx.globalAlpha = 0.18 + 0.1 * p.s;
+    ctx.globalAlpha = 0.16 + 0.12 * p.s;
     ctx.fillStyle = 'rgba(40, 100, 165, .6)';
     ctx.beginPath();
-    ctx.ellipse(cx, p.y + 3, w * 0.46, Math.max(2, 5.5 * p.s), 0, 0, TAU);
+    ctx.ellipse(baseX, p.y + 3, Math.max(4, w * 0.34), Math.max(2, 5 * p.s), 0, 0, TAU);
     ctx.fill();
     ctx.restore();
 
     // 후광
-    var hg = ctx.createRadialGradient(cx, feetY - h * 0.42, 4, cx, feetY - h * 0.42, h * 0.62);
-    hg.addColorStop(0, s.fever ? 'rgba(255, 248, 205, .38)' : 'rgba(255,255,255,.26)');
+    var cx = baseX + sway;
+    var hg = ctx.createRadialGradient(cx, feetY - h * 0.42, 4, cx, feetY - h * 0.42, h * 0.64);
+    hg.addColorStop(0, s.fever ? 'rgba(255, 248, 205, .42)' : 'rgba(255,255,255,.26)');
     hg.addColorStop(1, 'rgba(255,255,255,0)');
     ctx.fillStyle = hg;
     ctx.beginPath();
-    ctx.arc(cx, feetY - h * 0.42, h * 0.62, 0, TAU);
+    ctx.arc(cx, feetY - h * 0.42, h * 0.64, 0, TAU);
     ctx.fill();
+
+    // 착지 먼지 링
+    if (s.hop > 0.72) {
+      var kk = (s.hop - 0.72) / 0.28;
+      ctx.save();
+      ctx.globalAlpha = 0.5 * kk;
+      ctx.strokeStyle = 'rgba(255, 255, 255, .95)';
+      ctx.lineWidth = 2.2;
+      ctx.beginPath();
+      ctx.ellipse(baseX, p.y + 2, w * (0.3 + 0.5 * (1 - kk)), 6 + 8 * (1 - kk), 0, 0, TAU);
+      ctx.stroke();
+      ctx.restore();
+    }
 
     ctx.save();
     ctx.translate(cx, feetY);
     ctx.rotate(tilt);
-    if (spriteReady) {
+    if (rec.ready) {
       ctx.imageSmoothingQuality = 'high';
-      ctx.shadowColor = 'rgba(24, 70, 130, .38)';
+      ctx.shadowColor = 'rgba(24, 70, 130, .34)';
       ctx.shadowBlur = 12 * p.s + 4;
-      ctx.shadowOffsetY = 5 * p.s;
-      ctx.drawImage(sprite, -w / 2, -h, w, h);
+      ctx.shadowOffsetY = 4 * p.s;
+      ctx.drawImage(rec.img, -w * rec.ax, -h, w, h);
     } else {
       ctx.fillStyle = '#cfe8ff';
       rr(ctx, -w / 2, -h, w, h, 10);
@@ -1129,12 +1276,12 @@
     ctx.restore();
 
     // 피버 왕관 + 별빛
-    if (s.fever) {
+    if (s.fever || pose === 'cheer') {
       var cy = feetY - h - 4;
       ctx.save();
       ctx.translate(cx, cy);
       ctx.rotate(Math.sin(now * 0.004) * 0.12);
-      var cs = Math.max(0.55, 1.1 * p.s);
+      var cs = Math.max(0.5, 1.0 * p.s);
       ctx.scale(cs, cs);
       ctx.fillStyle = '#ffd84a';
       ctx.shadowColor = 'rgba(255, 210, 60, .95)';
@@ -1157,7 +1304,7 @@
 
       for (var i = 0; i < 5; i++) {
         var a = now * 0.0022 + i * (TAU / 5);
-        var rx = cx + Math.cos(a) * (w * 0.72 + 10);
+        var rx = cx + Math.cos(a) * (w * 0.6 + 10);
         var ry = feetY - h * 0.55 + Math.sin(a) * 16;
         drawStar(ctx, rx, ry, 4 + Math.sin(a * 2) * 1.6, 5, 'rgba(255, 250, 200, .95)');
       }
@@ -1420,6 +1567,100 @@
 
   /* ══════ 렌더 루프 ══════ */
   var lastT = 0;
+  /* ══════ 계단 방향 헬퍼 ══════ */
+  function laneRatioAt(v) {
+    var n = state.lanes || 4;
+    var i = clamp(Math.floor(v), 0, n - 1);
+    var f = clamp(v - i, 0, 1);
+    var a = L.laneRatio[i] || 0;
+    var b = L.laneRatio[Math.min(n - 1, i + 1)] || 0;
+    return a + (b - a) * f;
+  }
+
+  function currentPose() {
+    var s = state;
+    if (s.mode === 'over') return 'oops';
+    if (s.oopsT > 0) return 'oops';
+    if (s.cheerT > 0) return 'cheer';
+    if (s.playT > 0) return 'play';
+    return 'run';
+  }
+
+  function stageOf(lap) { return Math.min(STAGES.length, 1 + (lap || 0)); }
+
+  function updateStageTag() {
+    if (!stageTagEl) return;
+    var st = state.stage || 1;
+    var info = STAGES[st - 1] || STAGES[0];
+    stageTagEl.textContent = 'STAGE ' + st + ' ' + info.emoji;
+    stageTagEl.classList.toggle('pro', st >= 4);
+  }
+
+  /* 계단 길 — 다가오는 음표들을 잇는 빛의 리본 */
+  function drawPathRibbon(now) {
+    var s = state;
+    if (s.mode !== 'playing') return;
+    var pts = [];
+    for (var i = 0; i < s.notes.length && pts.length < 10; i++) {
+      var n = s.notes[i];
+      if (n.st !== 0) continue;
+      var pp = notePos(n, now);
+      if (pp.d < -0.05 || pp.d > 1.15) continue;
+      pts.push({ x: pp.x, y: pp.y, lane: n.lane, sc: pp.s });
+    }
+    if (pts.length < 2) return;
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var j = 1; j < pts.length; j++) ctx.lineTo(pts[j].x, pts[j].y);
+    ctx.strokeStyle = 'rgba(255, 255, 255, .58)';
+    ctx.shadowColor = 'rgba(140, 232, 255, .95)';
+    ctx.shadowBlur = 18;
+    ctx.lineWidth = 9;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    ctx.strokeStyle = 'rgba(150, 236, 255, .92)';
+    ctx.lineWidth = 3.0;
+    ctx.setLineDash([5, 8]);
+    ctx.stroke();
+    ctx.restore();
+
+    for (var m = 0; m < pts.length; m++) {
+      var q = pts[m];
+      var rad = clamp(5 + 8 * q.sc, 3.5, 13);
+      ctx.save();
+      ctx.globalAlpha = m === 0 ? 0.95 : 0.4;
+      drawStar(ctx, q.x, q.y - rad * 1.6, rad, 4, m === 0 ? '#ffffff' : hexA(LANE_COLORS[q.lane % 4].light, .95));
+      ctx.restore();
+    }
+  }
+
+  /* 매 프레임: 몸 이동·포즈 타이머·스테이지 */
+  function updateExtras(dt) {
+    var s = state;
+    var k = Math.min(1, dt * 11);
+    s.charLane += (s.charTarget - s.charLane) * k;
+    s.hop = Math.max(0, s.hop - dt * 3.4);
+    s.playT = Math.max(0, s.playT - dt);
+    s.cheerT = Math.max(0, s.cheerT - dt);
+    s.oopsT = Math.max(0, s.oopsT - dt);
+
+    var st = stageOf(s.lap);
+    if (st !== s.stage) {
+      s.stage = st;
+      updateStageTag();
+      if (s.mode === 'playing' && st > 1) {
+        var info = STAGES[st - 1];
+        showBanner('STAGE ' + st + ' · ' + info.name + ' ' + info.emoji);
+        s.flash = Math.max(s.flash, 0.4);
+        s.cheerT = 1.2;
+        playSparkle(74);
+      }
+    }
+  }
+
   function frame(now) {
     requestAnimationFrame(frame);
     var dt = lastT ? Math.min(0.05, (now - lastT) / 1000) : 0.016;
@@ -1485,6 +1726,7 @@
     s.cheer = Math.max(0, s.cheer - dt * 3.4);
     s.feverGlow += ((s.fever ? 1 : 0) - s.feverGlow) * Math.min(1, dt * 3);
 
+    updateExtras(dt);
     updateParts(dt);
     updateFloaters(now, dt);
     updateHud();
@@ -1527,6 +1769,7 @@
 
     if (state.mode !== 'menu') {
       drawStairs(now);
+      drawPathRibbon(now);
       drawCharacter(now);
       for (var i = 0; i < state.notes.length; i++) drawNoteTile(state.notes[i], state.songTime);
       drawParts();
@@ -1537,6 +1780,15 @@
       drawStairs(now);
       drawCharacter(now);
       drawFloaters();
+    }
+
+    if (state.stage >= 4 && state.mode !== 'menu') {
+      var pg = ctx.createLinearGradient(0, 0, 0, H);
+      pg.addColorStop(0, 'rgba(255, 222, 140, .13)');
+      pg.addColorStop(0.55, 'rgba(255, 222, 140, 0)');
+      pg.addColorStop(1, 'rgba(255, 196, 96, .11)');
+      ctx.fillStyle = pg;
+      ctx.fillRect(0, 0, W, H);
     }
 
     if (state.flash > 0.01) {
@@ -1610,22 +1862,38 @@
   function updateNext() {
     var s = state;
     if (s.mode !== 'playing') {
-      if (hudCache.next !== '') { hudCache.next = ''; nextRowEl.innerHTML = ''; }
+      if (hudCache.next !== '') { hudCache.next = ''; if (pathRowEl) pathRowEl.innerHTML = ''; }
       return;
     }
     var pick = [], i;
-    for (i = 0; i < s.notes.length && pick.length < 3; i++) {
+    for (i = 0; i < s.notes.length && pick.length < 5; i++) {
       if (s.notes[i].st === 0) pick.push(s.notes[i]);
     }
-    var sig = '';
-    for (i = 0; i < pick.length; i++) sig += pick[i].lane + ',';
+    s.pathLanes = [];
+    for (i = 0; i < pick.length; i++) s.pathLanes.push(pick[i].lane);
+
+    // 다음 계단 = 건반 불빛
+    var hot = pick.length ? pick[0].lane : -1;
+    var warm = pick.length > 1 ? pick[1].lane : -1;
+    var kids = keysEl.children;
+    for (i = 0; i < kids.length; i++) {
+      kids[i].classList.toggle('hot', i === hot);
+      kids[i].classList.toggle('warm', i !== hot && i === warm);
+    }
+
+    var sig = s.pathLanes.join(',');
     if (sig === hudCache.next) return;
     hudCache.next = sig;
+    if (!pathRowEl) return;
+    var labels = LANE_LABELS[s.lanes] || LANE_LABELS[4];
     var html = '';
     for (i = 0; i < pick.length; i++) {
-      html += '<span class="next-tile l' + (pick[i].lane % 4) + '">♪</span>';
+      var arrow = '↑';
+      if (i > 0) arrow = pick[i].lane > pick[i - 1].lane ? '↗' : (pick[i].lane < pick[i - 1].lane ? '↖' : '↑');
+      html += '<span class="path-chip l' + (pick[i].lane % 4) + (i === 0 ? ' first' : '') + '">' +
+        '<i>' + arrow + '</i><b>' + (labels[pick[i].lane] || '♪') + '</b></span>';
     }
-    nextRowEl.innerHTML = html;
+    pathRowEl.innerHTML = html;
   }
 
   function updateHud() {
@@ -1704,6 +1972,13 @@
     s.lapHits++;
     s.cheer = 1;
 
+    // 맞춘 계단으로 방향을 틀어 점프·상승
+    s.charTarget = n.lane;
+    s.hop = 1;
+    s.oopsT = 0;
+    if (s.fever) s.cheerT = Math.max(s.cheerT, 0.5);
+    if (q === 'PERFECT' && s.combo % 5 === 0) s.playT = 0.6;
+
     if (!s.fever && s.combo >= 10) {
       s.fever = true;
       showBanner('피버 타임! 점수 2배 🌈');
@@ -1740,6 +2015,8 @@
     s.lives--;
     setHeartsBreak(s.lives);
     judgeShow('Miss', 'miss');
+    s.oopsT = 1.15;
+    s.hop = 0.35;
     s.shake = 1;
     playThud();
     if (s.lives <= 0) gameOver();
@@ -1777,6 +2054,7 @@
         s.lives--;
         setHeartsBreak(s.lives);
         judgeShow('Miss', 'miss');
+        s.oopsT = Math.max(s.oopsT, 0.8);
         s.shake = 0.8;
         var p = persp(1);
         burst(L.laneX[lane], p.y, '#ffd0e0', 8, 0.8);
@@ -1871,6 +2149,8 @@
     s.lap = 0; s.lapHits = 0; s.climb = 0; s.climbShown = 0;
     s.songTime = 0; s.chartEnd = 0; s.notes = []; s.loops = [];
     s.lastWrong = -9; s.shake = 0; s.flash = 0.4; s.cheer = 0;
+    s.stage = 1; s.charLane = (s.lanes - 1) / 2; s.charTarget = (s.lanes - 1) / 2;
+    s.hop = 0; s.playT = 0; s.cheerT = 0; s.oopsT = 0; s.pathLanes = [];
     s.bpm = SONGS[s.song].bpm; s.bpmNow = s.bpm;
     s.laneMeta = buildLaneMeta(s.song, s.lanes);
     generateLoop();
@@ -1882,8 +2162,8 @@
     overScreen.classList.remove('show');
     pauseScreen.classList.remove('show');
     progWrapEl.classList.add('on');
-    var npEl = document.getElementById('nextPanel');
-    if (npEl) npEl.classList.add('on');
+    if (pathBarEl) pathBarEl.classList.add('on');
+    updateStageTag();
     comboBoxEl.classList.remove('on');
     judgeEl.className = 'judge';
 
@@ -1900,8 +2180,9 @@
     var s = state;
     s.mode = 'over';
     progWrapEl.classList.remove('on');
-    var npEl2 = document.getElementById('nextPanel');
-    if (npEl2) npEl2.classList.remove('on');
+    if (pathBarEl) pathBarEl.classList.remove('on');
+    s.cheerT = 0; s.playT = 0;
+    s.oopsT = 2.5;
     if (s.score > s.best) {
       s.best = s.score;
       try { localStorage.setItem('woojin_piano_best', String(s.best)); } catch (e) { }
@@ -1916,14 +2197,17 @@
     else { title = '한 번 더!'; msg = '천천히 눌러도 괜찮아요 🎈'; }
     document.getElementById('overTitle').textContent = title;
     document.getElementById('overMsg').textContent = msg;
+    var faceEl = document.querySelector('#overScreen .over-face');
+    if (faceEl) faceEl.src = s.score >= 1500 ? 'assets/woojin-cheer.png' : 'assets/woojin-oops.png';
     setTimeout(function () { overScreen.classList.add('show'); }, 420);
   }
 
   function toMenu() {
     state.mode = 'menu';
     progWrapEl.classList.remove('on');
-    var npEl3 = document.getElementById('nextPanel');
-    if (npEl3) npEl3.classList.remove('on');
+    if (pathBarEl) pathBarEl.classList.remove('on');
+    state.stage = 1;
+    updateStageTag();
     comboBoxEl.classList.remove('on');
     overScreen.classList.remove('show');
     pauseScreen.classList.remove('show');
@@ -1998,6 +2282,9 @@
 
   function setLanes(n) {
     state.lanes = n;
+    var mid = (n - 1) / 2;
+    state.charTarget = Math.min(mid, Math.max(0, state.charTarget));
+    state.charLane = state.charTarget;
     var btns = document.querySelectorAll('#modePicker .mode-btn');
     for (var i = 0; i < btns.length; i++) {
       var on = parseInt(btns[i].dataset.lanes, 10) === n;
@@ -2029,6 +2316,14 @@
   window.__piano = {
     state: state,
     tap: tapLane,
+    pose: currentPose,
+    stage: function () { return state.stage; },
+    songs: function () { return SONG_ORDER.slice(); },
+    sprites: function () {
+      var out = {};
+      for (var k in spriteSet) out[k] = !!spriteSet[k].ready;
+      return out;
+    },
     setLanes: setLanes,
     start: startGame,
     toMenu: toMenu,

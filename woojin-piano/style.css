@@ -663,3 +663,125 @@ body { position: fixed; inset: 0; }
   box-shadow: 0 0 10px rgba(255, 200, 90, .95);
   transition: width .2s linear;
 }
+
+/* ══════════════════════════════════════════════════════════
+   피아노 50 : 계단 50 융합 개편 — 계단 길·스테이지·12곡
+   ══════════════════════════════════════════════════════════ */
+
+/* 건반 레인 색을 계단 타일 색과 통일 */
+.key[data-lane="0"] { --lane: #4d8dff; }
+.key[data-lane="1"] { --lane: #a86bff; }
+.key[data-lane="2"] { --lane: #ff6fbe; }
+.key[data-lane="3"] { --lane: #ffcf4d; }
+
+/* 다음 계단 건반 불빛 */
+.key.hot {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 7px 0 var(--lane), 0 0 0 3px rgba(255, 255, 255, .8),
+              0 0 26px var(--lane), inset 0 3px 0 #fff, inset 0 -8px 12px rgba(140, 185, 220, .35);
+}
+.key.hot::after { opacity: .95; height: 7px; }
+.key.hot .name { opacity: 1; color: #2b5a8c; }
+.key.warm {
+  box-shadow: 0 7px 0 #a4c3dc, 0 0 16px rgba(190, 235, 255, .85),
+              inset 0 3px 0 #fff, inset 0 -8px 12px rgba(140, 185, 220, .35);
+}
+
+/* 계단 길 미리보기 */
+.path-bar {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  top: calc(env(safe-area-inset-top, 0px) + 88px);
+  display: flex; align-items: center; gap: 7px;
+  padding: 4px 9px 4px 5px;
+  border-radius: 14px;
+  background: rgba(14, 34, 84, .42);
+  border: 1px solid rgba(255, 255, 255, .24);
+  box-shadow: 0 3px 12px rgba(6, 20, 50, .3), inset 0 1px 0 rgba(255, 255, 255, .25);
+  opacity: 0;
+  transition: opacity .3s;
+  z-index: 5;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.path-bar.on { opacity: 1; }
+.stage-tag {
+  font-size: 9.5px; font-weight: 900; letter-spacing: .3px;
+  color: #e6f7ff;
+  background: rgba(70, 160, 240, .5);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 9px;
+  padding: 3px 6px;
+}
+.stage-tag.pro {
+  background: linear-gradient(180deg, #ffd75e, #f0a51e);
+  color: #4a2c00;
+  box-shadow: 0 0 12px rgba(255, 210, 90, .85);
+}
+.path-row { display: flex; align-items: center; gap: 5px; }
+.path-chip {
+  position: relative;
+  width: 25px; height: 25px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, .88);
+  box-shadow: 0 2px 6px rgba(6, 20, 50, .35), inset 0 1px 0 rgba(255, 255, 255, .6);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  transform: translateY(3px);
+  transition: transform .18s ease-out;
+}
+.path-chip:nth-child(even) { transform: translateY(-3px); }
+.path-chip i {
+  position: absolute; top: -8px; left: 50%;
+  transform: translateX(-50%);
+  font-style: normal; font-size: 8px; font-weight: 900;
+  color: #eaf7ff;
+  text-shadow: 0 1px 2px rgba(0, 20, 60, .6);
+}
+.path-chip b { font-size: 11px; font-weight: 900; }
+.path-chip.first {
+  transform: translateY(0) scale(1.18);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .75), 0 0 15px rgba(150, 240, 255, .95);
+  animation: chipPulse .68s ease-in-out infinite;
+}
+@keyframes chipPulse {
+  0%, 100% { transform: translateY(0) scale(1.18); }
+  50% { transform: translateY(-2px) scale(1.24); }
+}
+.path-chip.l0 { background: linear-gradient(180deg, #7fb2ff, #3768e0); }
+.path-chip.l1 { background: linear-gradient(180deg, #c79bff, #8244d8); }
+.path-chip.l2 { background: linear-gradient(180deg, #ff9bcf, #d94f95); }
+.path-chip.l3 { background: linear-gradient(180deg, #ffe08a, #e0a41e); }
+
+/* 12곡 픽커 — 별 난이도 */
+.songs { grid-template-columns: 1fr 1fr; gap: 6px; }
+.song {
+  grid-template-columns: auto 1fr auto;
+  column-gap: 5px;
+  padding: 7px 8px;
+}
+.song-name { grid-column: auto; margin-top: 0; font-size: 12px; }
+.song-stars {
+  font-size: 9px; font-weight: 900; letter-spacing: -.4px;
+  color: #f0b429;
+}
+.song.is-on .song-stars { color: #d98600; }
+.sec-hint {
+  margin-left: 5px;
+  font-size: 9.5px; font-weight: 700; color: #a8bdd4;
+}
+
+/* 게임오버 우진이 — 아차 표정 전신 */
+.over-face {
+  width: 92px; height: 114px;
+  border-radius: 18px;
+  object-fit: contain;
+  background: linear-gradient(180deg, #f7fcff, #e3f2ff);
+  border: 2px solid #fff;
+}
+.card-sprite { width: 74px; }
+
+/* 계단 길 칩 — 화살표 여백 확보 */
+.path-bar { padding-top: 8px; padding-bottom: 5px; }
+.path-chip i { top: -9px; font-size: 9px; }
