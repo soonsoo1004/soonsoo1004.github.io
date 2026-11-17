@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f4f6fb">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="진로선택 20고개 — 질문 20개를 누르면 내게 맞는 직무 유형 3가지와 3주 첫걸음, 무료로 배울 수 있는 곳까지 정리해 드립니다. 고민·선택은 12문항과 점수표로 정리합니다. 설치·회원가입 없이 폰에서 바로, 입력값은 서버로 보내지 않습니다.">
+<title>진로선택 20고개 — 질문 20개로 내 직무 3가지 찾기</title>
+<link rel="canonical" href="https://soonsoo1004.github.io/career-20q/">
+<link rel="icon" href="../favicon.ico">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="천장지구 1004">
+<meta property="og:title" content="진로선택 20고개 — 질문 20개로 내 직무 3가지 찾기">
+<meta property="og:description" content="질문 20개를 누르면 맞는 직무 유형 3가지와 3주 첫걸음. 고민은 12문항과 점수표로. 무료·광고 없음·서버 전송 0건.">
+<meta property="og:url" content="https://soonsoo1004.github.io/career-20q/">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="진로선택 20고개 — 내 직무 3가지 찾기">
+<meta name="twitter:description" content="질문 20개로 진로 정리, 12문항과 점수표로 고민 정리. 무료·가입 없음.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "진로선택 20고개",
+  "url": "https://soonsoo1004.github.io/career-20q/",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "Any (browser)",
+  "inLanguage": "ko",
+  "description": "질문 20개로 성향·몸 상태·근무 조건을 정리해 맞는 직무 유형 3가지와 3주 첫걸음을 보여 주고, 고민은 12문항과 결정 점수표로 정리하는 무료 웹도구."
+}
+</script>
+<style>
+:root{
+  --ink:#17202c; --ink2:#39465a; --dim:#69748a; --dim2:#8b95a8;
+  --line:#e3e8f1; --line2:#eef2f8; --bg:#f4f6fb; --card:#ffffff; --soft:#f7f9fd;
+  --accent:#2f62d8; --accent-deep:#1f47a8; --accent-soft:#eaf0ff; --accent-line:#cfdcff;
+  --warm:#c2761a; --warm-soft:#fdf4e7; --warm-line:#f0dcc0;
+  --mint:#0e7a5f; --mint-soft:#e9f7f2; --mint-line:#c6ebdf;
+  --r:18px; --tap:52px;
+  --shadow:0 1px 2px rgba(16,24,40,.05), 0 8px 24px rgba(16,24,40,.06);
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0}
+body{
+  font-family:Gulim,"굴림","Noto Sans KR","Malgun Gothic",system-ui,-apple-system,sans-serif;
+  background:var(--bg); color:var(--ink); font-size:16px; line-height:1.62;
+  -webkit-text-size-adjust:100%;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrapx{max-width:520px; margin:0 auto; padding:0 16px}
+header.bar{
+  position:sticky; top:0; z-index:20; background:rgba(244,246,251,.94);
+  backdrop-filter:saturate(1.2) blur(8px); border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
+}
+.bar-in{display:flex; align-items:center; gap:10px; height:58px}
+.iconbtn{
+  width:var(--tap); height:var(--tap); min-width:var(--tap); border:0; border-radius:14px;
+  background:transparent; color:var(--ink2); font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.iconbtn:disabled{opacity:.28; cursor:default}
+.progwrap{flex:1; height:10px; background:#e6ebf4; border-radius:99px; overflow:hidden}
+.progfill{height:100%; width:0%; background:linear-gradient(90deg,#3b73ea,#2f62d8); border-radius:99px; transition:width .22s ease}
+.progtxt{font-size:13px; color:var(--dim); min-width:44px; text-align:right; font-variant-numeric:tabular-nums}
+main{display:block; padding:20px 0 40px}
+
+/* 홈 */
+.hero{padding:14px 0 6px}
+.kicker{display:inline-block; font-size:12px; letter-spacing:.14em; color:var(--accent); font-weight:700; margin-bottom:8px}
+h1{font-size:27px; line-height:1.32; margin:0 0 10px; letter-spacing:-.02em}
+h1 em{font-style:normal; color:var(--accent-deep)}
+.lede{color:var(--ink2); font-size:15.5px; margin:0 0 18px}
+.pick{
+  display:block; width:100%; text-align:left; background:var(--card); border:1.5px solid var(--line);
+  border-radius:var(--r); padding:18px 18px 16px; margin-bottom:14px; cursor:pointer;
+  box-shadow:var(--shadow); transition:transform .12s ease, border-color .12s ease;
+  font-family:inherit; color:inherit;
+}
+.pick:active{transform:scale(.985); border-color:var(--accent-line)}
+.pick .row1{display:flex; align-items:center; gap:12px; margin-bottom:6px}
+.pick .em{font-size:30px; line-height:1}
+.pick .tt{display:block; font-size:19px; font-weight:700; letter-spacing:-.01em}
+.pick .meta{display:block; font-size:13px; color:var(--dim); margin-top:2px; font-weight:400}
+.pick .dd{font-size:15px; color:var(--ink2); margin:6px 0 0}
+.pick .go{display:block; margin-top:12px; font-size:14px; color:var(--accent); font-weight:700}
+.note{font-size:13px; color:var(--dim); line-height:1.65}
+.small{margin-top:18px; padding:14px 16px; background:var(--soft); border:1px solid var(--line); border-radius:14px}
+.foot{margin-top:22px; font-size:12.5px; color:var(--dim2); line-height:1.7}
+
+/* 질문 */
+.qbox{min-height:52vh; display:flex; flex-direction:column; justify-content:center}
+.qmeta{font-size:13.5px; color:var(--dim); margin-bottom:8px; font-weight:700; letter-spacing:.02em}
+h2.q{font-size:22px; line-height:1.45; margin:0 0 20px; letter-spacing:-.02em; word-break:keep-all}
+.opts{display:flex; flex-direction:column; gap:10px}
+.opt{
+  display:flex; align-items:center; gap:12px; width:100%; min-height:var(--tap);
+  padding:14px 16px; background:var(--card); border:1.5px solid var(--line); border-radius:14px;
+  font-family:inherit; font-size:16.5px; color:var(--ink); text-align:left; cursor:pointer;
+  transition:border-color .12s, background .12s, transform .1s; line-height:1.45; word-break:keep-all;
+}
+.opt:active{transform:scale(.99)}
+.opt .k{
+  width:26px; height:26px; min-width:26px; border-radius:9px; background:var(--accent-soft);
+  color:var(--accent-deep); font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.opt[aria-pressed="true"]{border-color:var(--accent); background:var(--accent-soft)}
+.opt.sel{border-color:var(--accent); background:var(--accent-soft)}
+.hint{font-size:13px; color:var(--dim2); margin-top:14px}
+
+/* 입력 */
+.field{margin-bottom:14px}
+.field label{display:block; font-size:14px; font-weight:700; color:var(--ink2); margin-bottom:6px}
+.field input{
+  width:100%; min-height:var(--tap); padding:12px 14px; font-family:inherit; font-size:16px;
+  border:1.5px solid var(--line); border-radius:13px; background:var(--card); color:var(--ink);
+}
+.field input:focus{outline:none; border-color:var(--accent)}
+.field .sub{font-size:12.5px; color:var(--dim2); margin-top:5px}
+.optgrid{display:flex; flex-direction:column; gap:10px}
+
+/* 점수표 */
+.mcard{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:14px 14px 12px; margin-bottom:12px; box-shadow:var(--shadow)}
+.mcard h3{font-size:16.5px; margin:0 0 10px; display:flex; gap:8px; align-items:center; word-break:keep-all}
+.mcard h3 .bdg{width:26px; height:26px; border-radius:9px; background:var(--accent-soft); color:var(--accent-deep); font-size:13px; display:flex; align-items:center; justify-content:center; font-weight:700}
+.crow{display:block; padding:10px 0; border-top:1px solid var(--line2)}
+.crow:first-of-type{border-top:0}
+.clabel{font-size:14.5px; color:var(--ink2); line-height:1.4; word-break:keep-all; margin-bottom:7px}
+.scale{display:flex; gap:6px}
+.scale button{
+  flex:1; height:46px; border-radius:11px; border:1.5px solid var(--line); background:#fff;
+  color:var(--dim); font-family:inherit; font-size:15.5px; font-weight:700; cursor:pointer; padding:0;
+}
+.scale button[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+.scale button:active{transform:scale(.96)}
+.memo{margin-top:8px}
+.memo input{width:100%; min-height:44px; padding:10px 12px; font-family:inherit; font-size:14.5px; border:1.5px solid var(--line); border-radius:11px; background:var(--soft); color:var(--ink)}
+.memo input:focus{outline:none; border-color:var(--accent-line); background:#fff}
+.scalehead{display:none}
+
+/* 버튼 */
+.btn{
+  display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-height:54px;
+  border-radius:15px; border:1.5px solid var(--accent); background:var(--accent); color:#fff;
+  font-family:inherit; font-size:16.5px; font-weight:700; cursor:pointer; padding:12px 16px;
+  transition:transform .1s, opacity .12s; letter-spacing:-.01em;
+}
+.btn:active{transform:scale(.99)}
+.btn[disabled]{opacity:.42; cursor:default}
+.btn.ghost{background:#fff; color:var(--accent-deep); border-color:var(--accent-line)}
+.btn.mute{background:#fff; color:var(--ink2); border-color:var(--line)}
+.btnrow{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.btnrow.one{grid-template-columns:1fr}
+.mt{margin-top:12px}
+
+/* 결과 */
+.reshead{background:linear-gradient(160deg,#eef3ff,#f7f9ff); border:1px solid var(--accent-line); border-radius:20px; padding:18px; margin-bottom:16px}
+.reshead .rk{font-size:12.5px; font-weight:700; color:var(--accent); letter-spacing:.1em}
+.reshead h2{font-size:23px; margin:6px 0 6px; letter-spacing:-.02em; line-height:1.35; word-break:keep-all}
+.reshead p{margin:0; font-size:14.5px; color:var(--ink2)}
+.job{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:16px; margin-bottom:12px; box-shadow:var(--shadow)}
+.job.first{border-color:var(--accent-line)}
+.job .jh{display:flex; align-items:flex-start; gap:10px; margin-bottom:8px}
+.job .rank{
+  width:30px; height:30px; min-width:30px; border-radius:10px; background:var(--accent-soft); color:var(--accent-deep);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px;
+}
+.job.first .rank{background:var(--accent); color:#fff}
+.job .jn{display:block; font-size:18px; font-weight:700; line-height:1.35; word-break:keep-all}
+.job .jd{display:block; font-size:14px; color:var(--dim); margin-top:4px; word-break:keep-all; line-height:1.5}
+.job .lab{font-size:12.5px; font-weight:700; color:var(--accent-deep); margin:12px 0 5px; letter-spacing:.02em}
+.job ul{margin:0; padding-left:18px}
+.job li{font-size:14.5px; color:var(--ink2); margin:3px 0; word-break:keep-all}
+.job .why li{color:var(--ink2)}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px}
+.chipx{font-size:12.5px; padding:5px 9px; border-radius:9px; background:var(--warm-soft); color:var(--warm); border:1px solid var(--warm-line); line-height:1.4}
+.lk{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.lk a{
+  font-size:13.5px; padding:9px 12px; border-radius:11px; background:var(--soft);
+  border:1px solid var(--line); color:var(--accent-deep); text-decoration:none; font-weight:700;
+}
+.crisis{background:#fff5f5; border:1.5px solid #f3cccc; border-radius:var(--r); padding:16px; margin-bottom:14px}
+.crisis h3{margin:0 0 6px; font-size:16.5px; color:#a92626}
+.crisis p{margin:0 0 10px; font-size:14.5px; color:#6b3333; word-break:keep-all}
+.crisis a{display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:0 18px; border-radius:12px; background:#c62f2f; color:#fff; text-decoration:none; font-weight:700; font-size:16px}
+.secttl{font-size:13px; font-weight:700; color:var(--dim); letter-spacing:.06em; margin:20px 0 8px}
+.sumopts{display:flex; flex-direction:column; gap:8px}
+.sumopt{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 14px; background:var(--card); border:1.5px solid var(--line); border-radius:13px}
+.sumopt.top{border-color:var(--accent); background:var(--accent-soft)}
+.sumopt .sn{font-size:15px; font-weight:700; word-break:keep-all}
+.sumopt .sv{font-size:15px; font-weight:700; color:var(--accent-deep); font-variant-numeric:tabular-nums; white-space:nowrap}
+.act{background:var(--card); border:1.5px solid var(--line); border-radius:var(--r); padding:15px 16px; margin-bottom:10px}
+.act .al{font-size:12.5px; font-weight:700; letter-spacing:.04em; color:var(--accent); margin-bottom:4px}
+.act .at{font-size:15.6px; color:var(--ink); word-break:keep-all; line-height:1.55}
+.act.warm{background:var(--warm-soft); border-color:var(--warm-line)}
+.act.warm .al{color:var(--warm)}
+.act.mint{background:var(--mint-soft); border-color:var(--mint-line)}
+.act.mint .al{color:var(--mint)}
+details.summary{background:var(--soft); border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-top:14px}
+details.summary summary{cursor:pointer; font-size:14px; font-weight:700; color:var(--ink2)}
+details.summary ol{margin:10px 0 0; padding-left:20px}
+details.summary li{font-size:13.5px; color:var(--ink2); margin:4px 0; word-break:keep-all}
+.privacy{font-size:12.5px; color:var(--dim2); margin-top:14px; line-height:1.65}
+.toast{
+  position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom)); transform:translate(-50%,20px);
+  background:#1b2432; color:#fff; font-size:14px; padding:12px 18px; border-radius:12px; opacity:0;
+  transition:opacity .18s, transform .18s; pointer-events:none; z-index:60; max-width:88vw; text-align:center;
+}
+.toast.on{opacity:1; transform:translate(-50%,0)}
+.hidden{display:none !important}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+@media (max-width:360px){
+  h1{font-size:24px} h2.q{font-size:20px} .opt{font-size:15.5px}
+  .scale button{height:44px; font-size:15px}
+}
+</style>
+</head>
+<body>
+<header class="bar" id="topbar">
+  <div class="wrapx bar-in">
+    <button class="iconbtn" id="backBtn" type="button" aria-label="뒤로">←</button>
+    <div class="progwrap" id="progWrap"><div class="progfill" id="progFill"></div></div>
+    <span class="progtxt" id="progTxt"></span>
+  </div>
+</header>
+
+<main>
+  <div class="wrapx">
+
+    <!-- 홈 -->
+    <section id="scr-home" class="screen">
+      <div class="hero">
+        <span class="kicker">20 QUESTIONS</span>
+        <h1>질문 <em>20개</em>로<br>내 진로와 고민을 정리합니다</h1>
+        <p class="lede">가입도 설치도 없이, 폰에서 2분. 답을 누르면 정리된 카드가 나옵니다.</p>
+      <button class="pick" id="goCareer" type="button">
+        <span class="row1"><span class="em">🧭</span><span><span class="tt">진로·직무 20고개</span><span class="meta">20문항 · 약 2분</span></span></span>
+        <span class="dd">성향·몸 상태·근무 조건을 묻고, 맞는 직무 유형 3가지와 3주 첫걸음, 무료로 배울 수 있는 곳을 보여 드립니다.</span>
+        <span class="go">시작하기 →</span>
+      </button>
+      <button class="pick" id="goWorry" type="button">
+        <span class="row1"><span class="em">🧩</span><span><span class="tt">고민·선택 정리</span><span class="meta">12문항 + 점수표 · 약 2분</span></span></span>
+        <span class="dd">머릿속에서 맴도는 고민을 12개 질문으로 나눈 뒤, 내 기준으로 선택지를 채점해 '오늘 할 1가지'로 정리합니다.</span>
+        <span class="go">시작하기 →</span>
+      </button>
+      <div class="small note">
+        이 도구는 <b>진단·상담·법률 자문이 아닙니다.</b> 성향과 상황을 스스로 정리하는 참고용 도구입니다.
+        힘든 마음이 이어지면 <b>109</b>(자살예방 상담전화)로 연락해 보세요.
+      </div>
+      <p class="foot">입력한 내용은 서버로 보내지 않고 이 브라우저 안에서만 계산합니다. 광고·회원가입 없음.</p>
+      </div>
+    </section>
+
+    <!-- 질문 -->
+    <section id="scr-quiz" class="screen hidden">
+      <div class="qbox">
+        <div class="qmeta" id="qMeta"></div>
+        <h2 class="q" id="qText" aria-live="polite"></h2>
+        <div class="opts" id="optList" role="group" aria-label="답 고르기"></div>
+        <p class="hint" id="qHint">답을 고르면 바로 다음 질문으로 넘어갑니다.</p>
+      </div>
+    </section>
+
+    <!-- 고민 입력 -->
+    <section id="scr-setup" class="screen hidden">
+      <div class="qbox">
+        <div class="qmeta">고민·선택 정리 · 준비</div>
+        <h2 class="q">어떤 고민인가요?</h2>
+        <div class="field">
+          <label for="worryTitle">고민 한 줄 (선택)</label>
+          <input id="worryTitle" type="text" maxlength="60" placeholder="예: 지금 하는 일을 그만둘까" autocomplete="off">
+          <div class="sub">이름·전화번호·주소 같은 개인정보는 적지 마세요. 이 기기 밖으로 나가지 않습니다.</div>
+        </div>
+        <div class="field">
+          <label for="optA">선택지 A</label>
+          <input id="optA" type="text" maxlength="24" placeholder="예: 지금 그만둔다" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="optB">선택지 B</label>
+          <input id="optB" type="text" maxlength="24" placeholder="예: 6개월 더 해 본다" autocomplete="off">
+        </div>
+        <div id="optCExtra" class="field hidden">
+          <label for="optC">선택지 C (선택)</label>
+          <input id="optC" type="text" maxlength="24" placeholder="예: 다른 곳을 알아본다" autocomplete="off">
+        </div>
+        <div class="btnrow">
+          <button class="btn mute" id="addC" type="button">선택지 하나 더</button>
+          <button class="btn" id="startWorry" type="button">시작하기</button>
+        </div>
+        <p class="hint">선택지를 비워 두면 'A안·B안'으로 진행합니다.</p>
+      </div>
+    </section>
+
+    <!-- 점수표 -->
+    <section id="scr-matrix" class="screen hidden">
+      <div class="qmeta">내 기준으로 채점 · 1(낮음) ~ 5(높음)</div>
+      <h2 class="q" id="matrixTitle">선택지를 네 가지 기준으로 채점해 주세요</h2>
+      <div id="matrixList"></div>
+      <button class="btn mt" id="finishMatrix" type="button" disabled>결과 보기</button>
+      <p class="hint">점수는 정답이 아닙니다. 지금 내가 느끼는 정도를 그대로 고르면 됩니다.</p>
+    </section>
+
+    <!-- 결과 -->
+    <section id="scr-result" class="screen hidden">
+      <div id="resultBody"></div>
+      <div class="btnrow">
+        <button class="btn ghost" id="copyBtn" type="button">결과 복사</button>
+        <button class="btn ghost" id="imgBtn" type="button">이미지로 저장</button>
+      </div>
+      <div class="btnrow">
+        <button class="btn mute" id="restartBtn" type="button">다시하기</button>
+        <button class="btn mute" id="switchBtn" type="button">다른 정리</button>
+      </div>
+      <p class="privacy" id="resultNote">성향 참고용입니다. 실제 채용 조건·지원 자격은 공고와 기관 안내에서 확인해 주세요. 입력한 내용은 이 브라우저에서만 계산했고 어디에도 저장하지 않았습니다.</p>
+    </section>
+
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><div class="wrapx"><p>이 도구는 브라우저의 JavaScript를 켜야 동작합니다.</p></div></noscript>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ───────── 직무 유형 ───────── */
+  var CL = {
+    write:{e:"📝", n:"글·콘텐츠", d:"읽고 쓰고 다듬는 일 — 카피, 블로그·상세페이지 글, 교정, 대본",
+      phys:1, ppl:1, desk:3,
+      why:"문장을 고르고 다듬는 쪽에 답이 모였습니다.",
+      steps:["내가 잘 아는 주제 하나로 800자 글을 써 본다","쓴 글을 소리 내어 읽고 고칠 곳 다섯 군데를 표시한다","재능마켓에서 '글쓰기' 상품 세 개를 보고 내 한 줄 소개를 적는다"],
+      links:[["K-MOOC 강좌","https://www.kmooc.kr"],["고용24 훈련과정","https://www.work24.go.kr"]]},
+    data:{e:"📊", n:"정리·데이터 사무", d:"표와 목록을 만들고 확인하는 일 — 입력·검수, 사무보조, 문서 관리",
+      phys:1, ppl:1, desk:3,
+      why:"꼼꼼하게 모으고 맞춰 보는 일에 강점이 모였습니다.",
+      steps:["오늘 쓴 영수증과 메모를 표 하나로 옮겨 본다","스프레드시트에서 합계와 정렬을 하나씩 따라 해 본다","주변 가게 하나에 '장부 정리 도와드릴까요' 하고 물어본다"],
+      links:[["고용24 훈련과정","https://www.work24.go.kr"],["K-MOOC 강좌","https://www.kmooc.kr"]]},
+    craft:{e:"🔧", n:"만들고 고치는 손작업", d:"손으로 조립·수선·포장하고 만드는 일 — 공예, 제과, 수선",
+      phys:2, ppl:1, desk:1,
+      why:"손으로 직접 만들고 고치는 쪽에 답이 모였습니다.",
+      steps:["집에 있는 물건 하나를 분해해 다시 조립해 본다","동네 공방이나 제과점에 체험 수업이 있는지 물어본다","만든 것 하나를 사진으로 남기고 다음에 고칠 점을 적는다"],
+      links:[["한국폴리텍 훈련과정","https://www.kopo.ac.kr"],["고용24 훈련과정","https://www.work24.go.kr"]]},
+    care:{e:"🤝", n:"돌봄·안내", d:"사람을 맞고 살피는 일 — 안내데스크, 돌봄보조, 도서관·복지관 지원",
+      phys:2, ppl:3, desk:1,
+      why:"사람을 대하고 살피는 쪽에 답이 모였습니다.",
+      steps:["가까운 복지관·도서관의 자원봉사 안내를 찾아본다","안내 문구를 소리 내어 읽으며 말투를 다듬어 본다","하루 세 사람에게 먼저 인사하고 무엇을 도울지 물어본다"],
+      links:[["고용24 채용·훈련","https://www.work24.go.kr"],["한국장애인고용공단","https://www.kead.or.kr"]]},
+    field:{e:"🛵", n:"움직이는 현장", d:"밖에서 몸을 움직이는 일 — 배달·물류, 시설·환경 관리, 안전 안내",
+      phys:3, ppl:2, desk:1,
+      why:"몸을 움직이며 현장에서 처리하는 쪽에 답이 모였습니다.",
+      steps:["내 이동 수단으로 갈 수 있는 거리와 시간을 적어 둔다","동네 시설관리·물류 채용 공고 세 개를 읽어 본다","한 곳에 전화해 근무 시간과 하는 일을 물어본다"],
+      links:[["고용24 채용정보","https://www.work24.go.kr"],["고용노동부 안내","https://www.moel.go.kr"]]},
+    tech:{e:"⚙️", n:"설비·품질·기술", d:"기계와 공정을 다루는 일 — 설비 운전·점검, 품질검사, 정비보조",
+      phys:2, ppl:1, desk:1,
+      why:"기계와 원리를 다루는 쪽에 답이 모였습니다.",
+      steps:["집 안 전기·수도 설비를 하나씩 살펴보고 이름을 적는다","폴리텍과 고용24에서 설비·품질 과정 목록을 본다","작은 고장 하나를 직접 고쳐 본다"],
+      links:[["한국폴리텍 훈련과정","https://www.kopo.ac.kr"],["고용24 훈련과정","https://www.work24.go.kr"]]},
+    teach:{e:"🗣️", n:"가르치고 설명", d:"알려주고 이끄는 일 — 강사·해설, 학습지도, 교육 운영 보조",
+      phys:1, ppl:3, desk:2,
+      why:"설명하고 알려주는 쪽에 답이 모였습니다.",
+      steps:["내가 아는 것 하나를 5분 분량으로 설명해 본다","주변 사람에게 배운 것을 한 번 가르쳐 본다","평생학습관·복지관의 강사 모집 공고를 찾아본다"],
+      links:[["K-MOOC 강좌","https://www.kmooc.kr"],["고용24 채용·훈련","https://www.work24.go.kr"]]},
+    digital:{e:"💻", n:"디지털 제작", d:"화면으로 만드는 일 — 웹·앱 기획 보조, 영상 편집, 디자인, SNS 운영",
+      phys:1, ppl:1, desk:3,
+      why:"화면으로 만들고 다루는 쪽에 답이 모였습니다.",
+      steps:["휴대폰으로 짧은 영상 하나를 편집해 본다","무료 편집·디자인 도구의 기본 기능 세 개를 익힌다","내 작업물 한 개를 온라인에 올려 본다"],
+      links:[["K-MOOC 강좌","https://www.kmooc.kr"],["고용24 훈련과정","https://www.work24.go.kr"]]}
+  };
+  var CL_ORDER = ["write","data","craft","care","field","tech","teach","digital"];
+
+  /* ───────── 진로 20문항 ───────── */
+  var QS = [
+    {s:"요즘 덜 힘든 일", q:"요즘 하루 중, 이 중에서 제일 덜 힘든 건?",
+     o:[{t:"글 쓰고 정리하기", w:{write:2,data:1}},
+        {t:"손으로 만들고 고치기", w:{craft:3}},
+        {t:"사람 만나 이야기하기", w:{care:2,teach:2}},
+        {t:"혼자 화면 보며 작업하기", w:{digital:3,data:1}}]},
+    {s:"몸 상태", q:"몸으로는 어느 쪽이 편한가요?",
+     o:[{t:"오래 앉아 있는 게 낫다", w:{write:1,data:2,digital:2}},
+        {t:"서서 움직이는 게 낫다", w:{field:2,craft:2,tech:1}},
+        {t:"무거운 건 들면 안 된다", w:{write:1,data:2,care:1}, tag:"phys"},
+        {t:"아직은 골고루 괜찮다", w:{craft:1,field:1,tech:2}}]},
+    {s:"사람 만나는 정도", q:"하루에 사람을 얼마나 만나고 싶나요?",
+     o:[{t:"하루 종일 사람과 있고 싶다", w:{care:3,teach:3}},
+        {t:"하루 몇 명이면 충분하다", w:{care:2,field:1}},
+        {t:"거의 혼자가 좋다", w:{write:2,data:2,digital:2}, tag:"alone"},
+        {t:"한 사람과 깊게 이야기하고 싶다", w:{care:2,teach:1,write:1}}]},
+    {s:"무엇을 만들 때 좋은가", q:"무엇을 만들 때 기분이 좋아지나요?",
+     o:[{t:"문장과 이야기", w:{write:3}},
+        {t:"표와 목록", w:{data:3}},
+        {t:"손에 잡히는 물건", w:{craft:3}},
+        {t:"화면 속 그림과 영상", w:{digital:3}}]},
+    {s:"배우는 방식", q:"새로운 걸 배울 때 어떤 방식이 편한가요?",
+     o:[{t:"글·영상 보고 혼자 따라 하기", w:{digital:2,data:1,write:1}},
+        {t:"누가 옆에서 알려주기", w:{craft:1,care:1,tech:1}},
+        {t:"해보면서 몸으로 익히기", w:{craft:2,field:1,tech:2}},
+        {t:"정해진 순서표대로 하기", w:{data:2,tech:1,care:1}}]},
+    {s:"집중되는 시간", q:"하루 중 머리가 잘 돌아가는 때는?",
+     o:[{t:"아침", w:{field:1,write:1,data:1}},
+        {t:"낮", w:{care:1,teach:1,craft:1}},
+        {t:"저녁·밤", w:{write:1,digital:1,data:1}},
+        {t:"매일 다르다", w:{field:1,digital:1,craft:1}}]},
+    {s:"일할 때 힘든 것", q:"일할 때 제일 힘든 건 무엇인가요?",
+     o:[{t:"사람 기분 맞추기", w:{write:1,data:1,digital:1}, tag:"alone"},
+        {t:"같은 일이 반복되는 것", w:{teach:1,care:1,digital:2}},
+        {t:"몸이 힘든 것", w:{write:2,data:2,digital:1}, tag:"phys"},
+        {t:"혼자 오래 있는 것", w:{care:2,teach:2,field:1}}]},
+    {s:"돈이 급한 정도", q:"지금 형편은 어느 쪽에 가깝나요?",
+     o:[{t:"이번 달 안에 뭐라도 시작해야 한다", w:{field:2,craft:1,care:1}, tag:"quick"},
+        {t:"3개월 안에 자리를 잡고 싶다", w:{data:1,tech:1,digital:1}},
+        {t:"반년은 배우며 갈 수 있다", w:{write:1,digital:1,tech:1}},
+        {t:"오래 갈 길을 보고 싶다", w:{write:1,digital:1,teach:1}}]},
+    {s:"설명하는 방식", q:"누군가에게 설명할 때 나는?",
+     o:[{t:"말로 하면 금방", w:{teach:3}},
+        {t:"글로 쓰면 더 잘된다", w:{write:2,teach:1}},
+        {t:"그림이나 표로 그린다", w:{digital:2,data:1}},
+        {t:"직접 보여준다", w:{craft:2,care:1,tech:1}}]},
+    {s:"일이 꼬였을 때", q:"일이 꼬였을 때 나는?",
+     o:[{t:"혼자 원인을 찾는다", w:{tech:2,digital:2,data:1}},
+        {t:"사람에게 물어본다", w:{care:2,teach:1}},
+        {t:"손으로 직접 해본다", w:{craft:2,field:1}},
+        {t:"일단 적어서 정리한다", w:{write:2,data:2}}]},
+    {s:"실내·야외", q:"일하는 자리는 어디가 편한가요?",
+     o:[{t:"실내 고정된 자리", w:{data:2,write:1,care:1,digital:1}},
+        {t:"실내지만 돌아다니는 자리", w:{craft:1,tech:1,care:1}},
+        {t:"바깥바람 쐬며", w:{field:3}},
+        {t:"상관없다", w:{craft:1,tech:1}}]},
+    {s:"기계·장비", q:"기계나 장비를 다루는 건 어떤가요?",
+     o:[{t:"좋다, 만지면 안다", w:{tech:3,craft:1}},
+        {t:"배우면 할 만하다", w:{tech:1,craft:1}},
+        {t:"어렵고 부담스럽다", w:{write:2,data:1,care:1}},
+        {t:"화면·프로그램이 더 편하다", w:{digital:2,data:2}}]},
+    {s:"잘한다는 말", q:"주변에서 내게 가장 많이 하는 말은?",
+     o:[{t:"글 잘 쓴다", w:{write:3}},
+        {t:"꼼꼼하다", w:{data:3}},
+        {t:"손재주 있다", w:{craft:3}},
+        {t:"설명 잘한다", w:{teach:3}}]},
+    {s:"3시간이 생긴다면", q:"하루 3시간이 갑자기 생긴다면?",
+     o:[{t:"배우는 데 쓴다", w:{digital:1,tech:1,write:1}, tag:"study"},
+        {t:"돈 되는 일을 해본다", w:{write:1,digital:1,craft:1}},
+        {t:"푹 쉰다", w:{}, tag:"rest"},
+        {t:"가족과 보낸다", w:{care:1}}]},
+    {s:"사람 앞에 서는 것", q:"사람들 앞에 서는 건 어떤가요?",
+     o:[{t:"괜찮다", w:{teach:2,digital:1}},
+        {t:"목소리만은 괜찮다", w:{teach:1,digital:1}},
+        {t:"뒤에서 돕고 싶다", w:{tech:1,data:1,craft:1}},
+        {t:"사람들 앞은 힘들다", w:{write:2,data:2,digital:1}, tag:"alone"}]},
+    {s:"일 받는 방식", q:"일을 받을 때 어느 쪽이 편한가요?",
+     o:[{t:"정해진 매뉴얼대로", w:{data:2,tech:1,care:1}},
+        {t:"목표만 주면 알아서", w:{write:2,digital:2}},
+        {t:"짧게 자주 확인하며", w:{care:2,craft:1}},
+        {t:"결과만 보여주면 된다", w:{tech:1,field:1,digital:1}}]},
+    {s:"공부 여력", q:"공부에 쓸 수 있는 여력은?",
+     o:[{t:"짧은 강의라면 들을 수 있다", w:{data:1,digital:1}},
+        {t:"몇 달 과정도 해볼 만하다", w:{tech:1,craft:1,care:1}},
+        {t:"시험·자격은 부담된다", w:{craft:1,field:1,care:1}, tag:"nolicense"},
+        {t:"지금은 시간 내기 어렵다", w:{field:2,craft:1}, tag:"nolicense"}]},
+    {s:"5년 뒤 모습", q:"5년 뒤 내 모습에 가까운 건?",
+     o:[{t:"내 이름으로 글·작품이 남아 있다", w:{write:2,digital:2}},
+        {t:"한 분야 기술자로 불린다", w:{tech:3,craft:1}},
+        {t:"사람들에게 기억되는 사람", w:{care:2,teach:2}},
+        {t:"조용히 내 자리를 지키고 있다", w:{data:2,field:1,craft:1}}]},
+    {s:"지금 바로 할 수 있는 것", q:"지금 당장 시작할 수 있는 건?",
+     o:[{t:"집에서 하는 일", w:{write:2,data:2,digital:2}},
+        {t:"가까운 곳 출퇴근", w:{care:1,craft:1,tech:1}},
+        {t:"오토바이·차로 이동", w:{field:3}},
+        {t:"아직 아무것도 못 정했다", w:{}, tag:"lost"}]},
+    {s:"꼭 지키고 싶은 것", q:"일하면서 꼭 지키고 싶은 것은?",
+     o:[{t:"몸이 아프지 않게", w:{write:1,data:1,care:1}, tag:"phys"},
+        {t:"사람에게 지치지 않게", w:{write:1,data:1,digital:1}, tag:"alone"},
+        {t:"시간을 내 마음대로", w:{digital:1,write:1,field:1}, tag:"timefree"},
+        {t:"안정적으로 오래", w:{data:1,tech:1,care:1}, tag:"stable"}]}
+  ];
+
+  /* ───────── 고민 12문항 ───────── */
+  var WQ = [
+    {k:"when", q:"이 고민, 언제까지 정해야 하나요?",
+     o:["이미 마음이 정해져 있다","이번 주 안에 정해야 한다","한 달 안에 정하면 된다","언제든 천천히 정해도 된다"]},
+    {k:"control", q:"내가 바꿀 수 있는 부분인가요?",
+     o:["거의 다 내가 정한다","일부는 내가 정한다","내가 어쩌기 어렵다","잘 모르겠다"]},
+    {k:"reverse", q:"잘못됐을 때 되돌릴 수 있나요?",
+     o:["쉽게 되돌릴 수 있다","어렵지만 되돌릴 수 있다","거의 되돌리기 어렵다","모르겠다"]},
+    {k:"info", q:"결정에 필요한 정보는 충분한가요?",
+     o:["충분히 알고 있다","조금 더 알면 된다","거의 모른다","어디서 알아야 할지 모르겠다"]},
+    {k:"feel", q:"마음이 걸리는 게 결론을 막고 있나요?",
+     o:["그렇다, 마음이 크다","반반이다","아니다, 사실이 문제다","모르겠다"]},
+    {k:"cost", q:"시간이나 돈이 많이 드나요?",
+     o:["많이 든다","조금 든다","거의 안 든다","아직 모른다"]},
+    {k:"people", q:"남들 의견이 결론을 흔드나요?",
+     o:["크게 흔든다","조금 흔든다","거의 안 흔든다","듣지 않는 편이다"]},
+    {k:"worst", q:"가장 나쁜 경우를 감당할 수 있나요?",
+     o:["대체로 감당된다","어렵지만 방법이 있다","거의 어렵다","생각하고 싶지 않다"]},
+    {k:"mood", q:"요즘 내 몸과 마음은 어떤가요?",
+     o:["괜찮은 편이다","조금 지쳐 있다","많이 무겁다","견딜 수 없이 힘들고 사라지고 싶다"]},
+    {k:"repeat", q:"이 고민, 예전에도 있었나요?",
+     o:["처음 생긴 일이다","계속 이어져 왔다","비슷한 일이 반복된다","기억이 잘 안 난다"]},
+    {k:"delay", q:"결정을 미루면 어떻게 되나요?",
+     o:["별일 없다","기회가 조금 줄어든다","문제가 커진다","모르겠다"]},
+    {k:"want", q:"지금 내가 진짜 원하는 건?",
+     o:["답을 정하고 싶다","머리를 정리하고 싶다","다른 사람 얘기를 듣고 싶다","일단 쉬고 싶다"]}
+  ];
+
+  var CRIT = [
+    {k:"good", n:"기대되는 좋은 점", s:"좋아질 것"},
+    {k:"able", n:"감당 가능성", s:"내 힘으로 할 수 있나"},
+    {k:"back", n:"되돌리기 쉬움", s:"잘못되면 돌아올 수 있나"},
+    {k:"miss", n:"1년 뒤 아쉬움", s:"안 하면 얼마나 아쉬울까"}
+  ];
+
+  /* ───────── 상태 ───────── */
+  var st = {track:null, qi:0, ans:[], tags:{}, w:{title:"", opts:[], ans:[], sc:{}}};
+  var $ = function(id){ return document.getElementById(id); };
+  var scr = {home:$("scr-home"), quiz:$("scr-quiz"), setup:$("scr-setup"), matrix:$("scr-matrix"), result:$("scr-result")};
+
+  function show(name){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.toggle("hidden", k !== name); });
+    $("topbar").classList.toggle("hidden", name === "home");
+    window.scrollTo(0,0);
+  }
+  function toast(msg){
+    var t = $("toast"); t.textContent = msg; t.classList.add("on");
+    clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove("on"); }, 1900);
+  }
+  function setProg(cur, total){
+    var pct = total ? Math.round(cur / total * 100) : 0;
+    $("progFill").style.width = pct + "%";
+    $("progTxt").textContent = total ? (cur + "/" + total) : "";
+    $("progWrap").setAttribute("role","progressbar");
+    $("progWrap").setAttribute("aria-valuenow", String(cur));
+    $("progWrap").setAttribute("aria-valuemin","0");
+    $("progWrap").setAttribute("aria-valuemax", String(total));
+    $("progWrap").setAttribute("aria-label","진행 " + cur + "/" + total);
+  }
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+
+  /* ───────── 진로 진행 ───────── */
+  function startCareer(){
+    st.track = "career"; st.qi = 0; st.ans = []; st.tags = {};
+    $("backBtn").disabled = false;
+    show("quiz"); renderQ();
+  }
+  function renderQ(){
+    var q = QS[st.qi];
+    setProg(st.qi + 1, QS.length);
+    $("qMeta").textContent = "진로·직무 20고개 · " + (st.qi + 1) + "번째 질문";
+    $("qText").textContent = q.q;
+    var box = $("optList"); box.innerHTML = "";
+    q.o.forEach(function(o, i){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt";
+      b.setAttribute("aria-pressed", st.ans[st.qi] === i ? "true" : "false");
+      b.innerHTML = '<span class="k">' + "ABCD".charAt(i) + "</span><span>" + esc(o.t) + "</span>";
+      b.addEventListener("click", function(){ pickCareer(i); });
+      box.appendChild(b);
+    });
+    $("qHint").textContent = st.qi === 0 ? "답을 고르면 바로 다음 질문으로 넘어갑니다." : "이전 질문으로 돌아가려면 왼쪽 위 화살표를 누르세요.";
+  }
+  function pickCareer(i){
+    st.ans[st.qi] = i;
+    var o = QS[st.qi].o[i];
+    if (o && o.tag) st.tags[o.tag] = true;
+    if (st.qi < QS.length - 1){ st.qi++; renderQ(); }
+    else { careerResult(); }
+  }
+
+  function careerResult(){
+    var sc = {}, ev = {};
+    CL_ORDER.forEach(function(k){ sc[k] = 0; ev[k] = []; });
+    QS.forEach(function(q, i){
+      var o = q.o[st.ans[i]]; if (!o) return;
+      Object.keys(o.w).forEach(function(k){
+        if (sc[k] === undefined) return;
+        sc[k] += o.w[k];
+        if (o.w[k] >= 2) ev[k].push({qi:i, t:o.t, w:o.w[k]});
+      });
+    });
+    var order = CL_ORDER.slice().sort(function(a, b){
+      return sc[b] - sc[a] || CL_ORDER.indexOf(a) - CL_ORDER.indexOf(b);
+    });
+    var top = order.slice(0, 3);
+    var t = st.tags;
+    setProg(QS.length, QS.length);
+
+    var html = '<div class="reshead"><div class="rk">내 결과 · 진로·직무 20고개</div>' +
+      "<h2>답이 가리킨 직무 유형 3가지</h2><p>20개 답에서 점수가 가장 많이 모인 순서입니다. 1위부터 3주 첫걸음을 적어 두었습니다.</p></div>";
+
+    top.forEach(function(k, idx){
+      var c = CL[k];
+      var notes = [];
+      if (t.phys && c.phys >= 2) notes.push("몸에 부담이 갈 수 있음 · 무거운 것·오래 서기를 확인");
+      if (t.alone && c.ppl >= 3) notes.push("사람을 많이 상대하는 일 · 하루 몇 명인지 확인");
+      if (c.desk >= 3) notes.push("오래 앉아 화면을 보는 일");
+      if (t.nolicense && (k === "tech" || k === "care")) notes.push("자격·면허가 필요한 자리인지 공고에서 확인");
+      var whys = ev[k].slice(0, 2).map(function(x){
+        return "‘" + esc(QS[x.qi].s) + "’ → ‘" + esc(x.t) + "’";
+      });
+      if (!whys.length) whys = [c.why];
+      html += '<div class="job' + (idx === 0 ? " first" : "") + '">' +
+        '<div class="jh"><span class="rank">' + (idx + 1) + '</span><span><span class="jn">' + c.e + " " + esc(c.n) + "</span>" +
+        '<span class="jd">' + esc(c.d) + "</span></span></div>" +
+        '<div class="lab">왜 여기에 점수가 모였나</div><ul class="why">' +
+        whys.map(function(w){ return "<li>" + w + "</li>"; }).join("") + "</ul>";
+      if (notes.length){
+        html += '<div class="chips">' + notes.map(function(n){
+          return '<span class="chipx">⚠ ' + esc(n) + "</span>";
+        }).join("") + "</div>";
+      }
+      html += '<div class="lab">3주 첫걸음</div><ul>' + c.steps.map(function(s){
+        return "<li>" + esc(s) + "</li>";
+      }).join("") + "</ul>" +
+      '<div class="lab">배울 수 있는 곳</div><div class="lk">' +
+      c.links.map(function(l){ return '<a href="' + l[1] + '" target="_blank" rel="noopener">' + esc(l[0]) + " ↗</a>"; }).join("") +
+      "</div></div>";
+    });
+
+    html += '<p class="privacy">‘배울 수 있는 곳’은 정부·공공기관 공식 누리집입니다. 과정과 지원 자격, 비용은 기관 안내에서 본인 조건으로 확인해 주세요. 이 결과는 성향 참고용이며 적성 판정이 아닙니다.</p>';
+
+    var rows = QS.map(function(q, i){
+      return "<li>" + esc(q.q) + " → <b>" + esc(q.o[st.ans[i]].t) + "</b></li>";
+    }).join("");
+    html += '<details class="summary"><summary>내가 고른 답 20개 보기</summary><ol>' + rows + "</ol></details>";
+
+    $("resultBody").innerHTML = html;
+    $("resultNote").textContent = "성향 참고용입니다. 실제 채용 조건·지원 자격은 공고와 기관 안내에서 확인해 주세요. 입력한 내용은 이 브라우저에서만 계산했고 어디에도 저장하지 않았습니다.";
+    $("switchBtn").textContent = "고민 정리로";
+    $("switchBtn").setAttribute("data-go","worry");
+    $("restartBtn").setAttribute("data-go","career");
+    st.mode = "career";
+    st.result = {kind:"career", top:top, sc:sc, ev:ev, tags:t};
+    show("result");
+  }
+
+  /* ───────── 고민 진행 ───────── */
+  function startWorrySetup(){
+    st.track = "worry";
+    $("worryTitle").value = ""; $("optA").value = ""; $("optB").value = ""; $("optC").value = "";
+    $("optCExtra").classList.add("hidden");
+    $("backBtn").disabled = false;
+    setProg(0, 0);
+    show("setup");
+  }
+  function beginWorry(){
+    var a = $("optA").value.trim() || "A안";
+    var b = $("optB").value.trim() || "B안";
+    var c = $("optCExtra").classList.contains("hidden") ? "" : $("optC").value.trim();
+    st.w = {title:$("worryTitle").value.trim(), opts:[a, b], ans:[], sc:{}};
+    if (c) st.w.opts.push(c);
+    st.qi = 0;
+    show("quiz"); renderWQ();
+  }
+  function renderWQ(){
+    var q = WQ[st.qi];
+    setProg(st.qi + 1, WQ.length);
+    $("qMeta").textContent = "고민·선택 정리 · " + (st.qi + 1) + "번째 질문";
+    $("qText").textContent = q.q;
+    var box = $("optList"); box.innerHTML = "";
+    q.o.forEach(function(t, i){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt";
+      b.setAttribute("aria-pressed", st.w.ans[st.qi] === i ? "true" : "false");
+      b.innerHTML = '<span class="k">' + "ABCD".charAt(i) + "</span><span>" + esc(t) + "</span>";
+      b.addEventListener("click", function(){ pickWorry(i); });
+      box.appendChild(b);
+    });
+    $("qHint").textContent = "정답은 없습니다. 지금 내 상태에 가까운 쪽을 고르세요.";
+  }
+  function pickWorry(i){
+    st.w.ans[st.qi] = i;
+    if (st.qi < WQ.length - 1){ st.qi++; renderWQ(); }
+    else { buildMatrix(); }
+  }
+  function ans(k){ return st.w.ans[WQ.map(function(x){ return x.k; }).indexOf(k)]; }
+
+  /* ───────── 점수표 ───────── */
+  function buildMatrix(){
+    setProg(WQ.length, WQ.length);
+    var list = $("matrixList"); list.innerHTML = "";
+    $("matrixTitle").textContent = "‘" + (st.w.title || "이 고민") + "’의 선택지를 채점해 주세요";
+    st.w.sc = {};
+    st.w.opts.forEach(function(name, oi){
+      st.w.sc[oi] = {};
+      var card = document.createElement("div"); card.className = "mcard";
+      card.innerHTML = "<h3><span class='bdg'>" + "ABCD".charAt(oi) + "</span><span>" + esc(name) + "</span></h3>";
+      CRIT.forEach(function(c){
+        var row = document.createElement("div"); row.className = "crow";
+        var lab = document.createElement("div"); lab.className = "clabel";
+        lab.innerHTML = esc(c.n) + '<br><span style="font-size:11.5px;color:var(--dim2)">' + esc(c.s) + "</span>";
+        var sc = document.createElement("div"); sc.className = "scale";
+        sc.setAttribute("role","group");
+        sc.setAttribute("aria-label", name + " " + c.n);
+        for (var v = 1; v <= 5; v++){
+          (function(v){
+            var b = document.createElement("button");
+            b.type = "button"; b.textContent = String(v);
+            b.setAttribute("aria-pressed","false");
+            b.setAttribute("data-oi", oi); b.setAttribute("data-ck", c.k);
+            b.addEventListener("click", function(){
+              st.w.sc[oi][c.k] = v;
+              var sibs = sc.querySelectorAll("button");
+              for (var i = 0; i < sibs.length; i++){
+                sibs[i].setAttribute("aria-pressed", sibs[i] === b ? "true" : "false");
+              }
+              checkMatrix();
+            });
+            sc.appendChild(b);
+          })(v);
+        }
+        row.appendChild(lab); row.appendChild(sc);
+        card.appendChild(row);
+      });
+      card.insertAdjacentHTML("beforeend", '<div class="memo"><input type="text" maxlength="40" data-memo-good="' + oi + '" placeholder="좋은 점 한 줄 (선택)"></div>' +
+        '<div class="memo"><input type="text" maxlength="40" data-memo-bad="' + oi + '" placeholder="걸리는 점 한 줄 (선택)"></div>');
+      card.insertAdjacentHTML("beforeend", '<div class="scalehead"><span>1 낮음</span><span>5 높음</span></div>');
+      list.appendChild(card);
+    });
+    $("finishMatrix").disabled = true;
+    show("matrix");
+  }
+  function checkMatrix(){
+    var need = st.w.opts.length * CRIT.length, got = 0;
+    Object.keys(st.w.sc).forEach(function(oi){
+      CRIT.forEach(function(c){ if (st.w.sc[oi][c.k]) got++; });
+    });
+    $("finishMatrix").disabled = got < need;
+    $("finishMatrix").textContent = got < need ? "결과 보기 (" + got + "/" + need + ")" : "결과 보기";
+  }
+
+  /* ───────── 고민 결과 ───────── */
+  function worryResult(){
+    var opts = st.w.opts, sc = st.w.sc;
+    var totals = opts.map(function(name, oi){
+      var sum = 0;
+      CRIT.forEach(function(c){ sum += (sc[oi] && sc[oi][c.k]) || 0; });
+      return {name:name, total:sum, sc:sc[oi]};
+    });
+    var rank = totals.map(function(x, i){ return i; }).sort(function(a, b){ return totals[b].total - totals[a].total; });
+    var best = totals[rank[0]];
+    var tie = totals.length > 1 && totals[rank[0]].total === totals[rank[1]].total;
+    var gear = {};
+    WQ.forEach(function(q){ gear[q.k] = st.w.ans[WQ.indexOf(q)]; });
+    var crisis = gear.mood === 3;
+
+    var html = "";
+    if (crisis){
+      html += '<div class="crisis"><h3>먼저 이것만 기억해 주세요</h3>' +
+        "<p>지금 많이 힘들다면, 결정보다 사람과 이야기하는 게 먼저입니다. 109는 24시간 연결되는 자살예방 상담전화입니다. 이 화면은 진단이 아닙니다.</p>" +
+        '<a href="tel:109">109에 전화하기</a></div>';
+    }
+
+    html += '<div class="reshead"><div class="rk">내 결과 · 고민·선택 정리</div>' +
+      "<h2>" + (st.w.title ? "‘" + esc(st.w.title) + "’" : "내 고민") + "</h2>" +
+      "<p>네 가지 기준으로 채점한 점수와, 오늘 할 수 있는 한 가지를 정리했습니다.</p></div>";
+
+    html += '<div class="secttl">선택지 점수 (각 20점 만점)</div><div class="sumopts">';
+    totals.forEach(function(x, i){
+      html += '<div class="sumopt' + (i === rank[0] && !tie ? " top" : "") + '"><span class="sn">' + "ABCD".charAt(i) + ". " + esc(x.name) +
+        '</span><span class="sv">' + x.total + " / 20</span></div>";
+    });
+    html += "</div>";
+    if (tie && totals.length > 1){
+      html += '<p class="privacy">두 안의 점수가 같습니다. ‘1년 뒤 아쉬움’ 점수를 다시 보면 갈릴 수 있습니다. 같다면 지금은 정하지 않아도 괜찮습니다.</p>';
+    } else {
+      html += '<p class="privacy">점수가 높은 쪽은 <b>' + esc(best.name) + "</b>입니다. 다만 점수는 내가 매긴 기준의 합일 뿐, 정답은 아닙니다.</p>";
+    }
+
+    /* 장단점 */
+    var goodNames = [], badNames = [];
+    CRIT.forEach(function(c){
+      var v = (best.sc && best.sc[c.k]) || 0;
+      if (v >= 4) goodNames.push(c.n + " " + v + "점");
+      if (v <= 2) badNames.push(c.n + " " + v + "점");
+    });
+    var memoGood = document.querySelector('[data-memo-good="' + rank[0] + '"]');
+    var memoBad = document.querySelector('[data-memo-bad="' + rank[0] + '"]');
+    var mg = memoGood ? memoGood.value.trim() : "";
+    var mb = memoBad ? memoBad.value.trim() : "";
+    html += '<div class="secttl">장점과 걸리는 점 · ' + esc(best.name) + "</div>";
+    html += '<div class="act mint"><div class="al">좋은 점</div><div class="at">' +
+      (goodNames.length ? goodNames.join(", ") + "에서 높게 보셨습니다." : "기준마다 4점 이상은 없었습니다.") +
+      (mg ? "<br>적어 두신 좋은 점: " + esc(mg) : "") + "</div></div>";
+    html += '<div class="act warm"><div class="al">걸리는 점</div><div class="at">' +
+      (badNames.length ? badNames.join(", ") + "에서 낮게 보셨습니다." : "기준마다 2점 이하는 없었습니다.") +
+      (mb ? "<br>적어 두신 걸리는 점: " + esc(mb) : "") + "</div></div>";
+
+    /* 3가지 행동 */
+    var a1, a2, a3;
+    if (gear.want === 3) a1 = "오늘은 결정하지 않기. 10분만 아무것도 하지 않고 앉아 있기";
+    else if (gear.info >= 2) a1 = "정하기 전에, 필요한 정보 한 가지만 종이에 적기";
+    else if (gear.feel === 0) a1 = "마음이 걸리는 것을 한 줄로 적어 보기";
+    else if (gear.control >= 2) a1 = "바꿀 수 있는 부분과 바꿀 수 없는 부분을 두 칸으로 나눠 적기";
+    else a1 = "정한 것을 한 문장으로 적어 두기";
+
+    if (gear.reverse === 2) a2 = "되돌릴 수 있는 범위가 어디까지인지 먼저 확인하기";
+    else if (gear.cost <= 1) a2 = "실제로 드는 시간과 돈을 종이에 적어 보기";
+    else if (gear.people === 0) a2 = "나와 다른 의견 하나만 골라 끝까지 들어보기";
+    else if (gear.worst === 3) a2 = "가장 나쁜 경우에 도움을 청할 사람 한 명 떠올리기";
+    else a2 = "작게 시험해 볼 방법 하나를 정해 해보기";
+
+    if (gear.control === 2) a3 = "내가 바꿀 수 없는 부분";
+    else if (gear.people <= 1) a3 = "남들의 시선";
+    else if (gear.repeat >= 1) a3 = "오래 끌어온 불안";
+    else if (gear.worst === 3) a3 = "아직 일어나지 않은 최악의 상상";
+    else a3 = "지금 정하지 않아도 되는 먼 미래의 일";
+
+    html += '<div class="secttl">그래서, 이렇게 해보세요</div>';
+    html += '<div class="act"><div class="al">오늘 할 1가지</div><div class="at">' + esc(a1) + "</div></div>";
+    html += '<div class="act"><div class="al">이번 주에 확인할 1가지</div><div class="at">' + esc(a2) + "</div></div>";
+    html += '<div class="act mint"><div class="al">내려놓아도 되는 걱정 1가지</div><div class="at">' + esc(a3) + "</div></div>";
+
+    var tags = [];
+    if (gear.info >= 2) tags.push("정보가 부족한 고민");
+    if (gear.feel === 0) tags.push("마음이 먼저 지친 고민");
+    if (gear.control >= 2) tags.push("내 손 밖의 일이 섞인 고민");
+    if (gear.reverse <= 1) tags.push("되돌리기 어려워 신중해야 하는 고민");
+    if (gear.repeat >= 1) tags.push("반복되는 고민");
+    if (gear.want >= 2) tags.push("정리만 해도 되는 고민");
+    html += '<div class="secttl">이 고민의 성격</div><div class="chips">' +
+      (tags.length ? tags.slice(0, 4).map(function(x){ return '<span class="chipx" style="background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-deep)">' + esc(x) + "</span>"; }).join("")
+        : '<span class="chipx">한 가지로 묶기 어려운 고민</span>') + "</div>";
+
+    var rows = WQ.map(function(q, i){
+      return "<li>" + esc(q.q) + " → <b>" + esc(q.o[st.w.ans[i]]) + "</b></li>";
+    }).join("");
+    html += '<details class="summary"><summary>내가 고른 답 12개 보기</summary><ol>' + rows + "</ol></details>";
+    html += '<p class="privacy">이 화면은 진단·상담·법률 자문이 아닙니다. 스스로 정리하는 참고용입니다. 힘든 마음이 이어지면 109(자살예방 상담전화)로 연락해 보세요.</p>';
+
+    $("resultBody").innerHTML = html;
+    $("resultNote").textContent = "입력한 고민과 선택지는 이 브라우저에서만 계산했고 어디에도 저장하지 않았습니다.";
+    $("switchBtn").textContent = "진로 20고개로";
+    $("switchBtn").setAttribute("data-go","career");
+    $("restartBtn").setAttribute("data-go","worry");
+    st.mode = "worry";
+    st.result = {kind:"worry", totals:totals, rank:rank, best:best, tie:tie, a1:a1, a2:a2, a3:a3, crisis:crisis, title:st.w.title};
+    setProg(WQ.length, WQ.length);
+    show("result");
+  }
+
+  /* ───────── 복사 ───────── */
+  function resultText(){
+    var r = st.result;
+    if (!r) return "";
+    var L = [];
+    if (r.kind === "career"){
+      L.push("내 진로·직무 20고개 결과");
+      L.push("");
+      r.top.forEach(function(k, i){
+        var c = CL[k];
+        L.push((i + 1) + ". " + c.e + " " + c.n + " — " + c.d);
+        var whys = (r.ev[k] || []).slice(0, 2).map(function(x){ return "‘" + QS[x.qi].s + "’ → ‘" + x.t + "’"; });
+        L.push("   왜: " + (whys.length ? whys.join(" / ") : c.why));
+        L.push("   3주 첫걸음: " + c.steps.join(" → "));
+        L.push("   배우는 곳: " + c.links.map(function(l){ return l[0] + " " + l[1]; }).join(" / "));
+        L.push("");
+      });
+      L.push("성향 참고용입니다. 채용 조건·지원 자격은 공고와 기관 안내에서 확인하세요.");
+    } else {
+      L.push(r.title ? "내 고민 정리: " + r.title : "내 고민 정리 결과");
+      L.push("");
+      r.totals.forEach(function(x, i){ L.push("ABCD".charAt(i) + ". " + x.name + " — " + x.total + "/20"); });
+      L.push("");
+      L.push("오늘 할 1가지: " + r.a1);
+      L.push("이번 주에 확인할 1가지: " + r.a2);
+      L.push("내려놓아도 되는 걱정: " + r.a3);
+      L.push("");
+      L.push("진단·상담이 아닌 정리 도구입니다. 힘든 마음이 이어지면 109.");
+    }
+    L.push("");
+    L.push("soonsoo1004.github.io/career-20q");
+    return L.join("\n");
+  }
+  function copyResult(){
+    var txt = resultText();
+    var done = function(){ toast("결과를 복사했어요"); };
+    var fail = function(){
+      var ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      toast(ok ? "결과를 복사했어요" : "복사가 막혔어요. 길게 눌러 선택해 주세요");
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done).catch(fail);
+    } else { fail(); }
+  }
+
+  /* ───────── 이미지 저장 ───────── */
+  function wrapLines(ctx, text, maxW){
+    var out = [], line = "";
+    for (var i = 0; i < text.length; i++){
+      var ch = text.charAt(i);
+      if (ch === "\n"){ out.push(line); line = ""; continue; }
+      var test = line + ch;
+      if (ctx.measureText(test).width > maxW && line){ out.push(line); line = ch; }
+      else line = test;
+    }
+    out.push(line);
+    return out;
+  }
+  function saveImage(){
+    var r = st.result; if (!r) return;
+    var W = 1080, PAD = 72, maxW = W - PAD * 2;
+    var blocks = [];
+    if (r.kind === "career"){
+      blocks.push({type:"kicker", text:"진로·직무 20고개"});
+      blocks.push({type:"title", text:"내게 맞는 직무 유형 3가지"});
+      r.top.forEach(function(k, i){
+        var c = CL[k];
+        blocks.push({type:"job", text:(i + 1) + ". " + c.e + " " + c.n});
+        blocks.push({type:"body", text:c.d});
+        blocks.push({type:"body", text:"3주 첫걸음: " + c.steps.join(" / ")});
+      });
+      blocks.push({type:"small", text:"성향 참고용 · soonsoo1004.github.io/career-20q"});
+    } else {
+      blocks.push({type:"kicker", text:"고민·선택 정리"});
+      blocks.push({type:"title", text:r.title || "내 고민 정리"});
+      r.totals.forEach(function(x, i){
+        blocks.push({type:"body", text:"ABCD".charAt(i) + ". " + x.name + " — " + x.total + "/20"});
+      });
+      blocks.push({type:"job", text:"오늘 할 1가지"});
+      blocks.push({type:"body", text:r.a1});
+      blocks.push({type:"job", text:"이번 주 확인 1가지"});
+      blocks.push({type:"body", text:r.a2});
+      blocks.push({type:"job", text:"내려놓아도 되는 걱정"});
+      blocks.push({type:"body", text:r.a3});
+      blocks.push({type:"small", text:"진단·상담이 아닌 정리 도구 · soonsoo1004.github.io/career-20q"});
+    }
+    var c = document.createElement("canvas");
+    var ctx = c.getContext("2d");
+    function fontFor(b){
+      if (b.type === "title") return "700 56px Gulim, 'Noto Sans KR', gulim, sans-serif";
+      if (b.type === "job") return "700 38px Gulim, 'Noto Sans KR', gulim, sans-serif";
+      if (b.type === "kicker") return "700 28px Gulim, 'Noto Sans KR', gulim, sans-serif";
+      if (b.type === "small") return "400 25px Gulim, 'Noto Sans KR', gulim, sans-serif";
+      return "400 31px Gulim, 'Noto Sans KR', gulim, sans-serif";
+    }
+    // 1패스: 줄 계산
+    var laid = [], y = 0;
+    blocks.forEach(function(b){
+      ctx.font = fontFor(b);
+      var lh = b.type === "title" ? 74 : (b.type === "job" ? 52 : (b.type === "small" ? 38 : 44));
+      var lines = wrapLines(ctx, b.text, maxW);
+      laid.push({b:b, lines:lines, lh:lh});
+      y += lines.length * lh + (b.type === "job" ? 16 : 12);
+    });
+    var H = Math.max(1200, 150 + y + 90);
+    c.width = W; c.height = H;
+    var g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, "#f7f9ff"); g.addColorStop(1, "#eef3ff");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(28, 28, W - 56, H - 56);
+    ctx.strokeStyle = "#dbe4f5"; ctx.lineWidth = 2; ctx.strokeRect(28, 28, W - 56, H - 56);
+    var cy = 120;
+    laid.forEach(function(it){
+      ctx.font = fontFor(it.b);
+      ctx.fillStyle = it.b.type === "kicker" ? "#2f62d8" : (it.b.type === "title" ? "#17202c" : (it.b.type === "job" ? "#1f47a8" : (it.b.type === "small" ? "#8b95a8" : "#39465a")));
+      it.lines.forEach(function(ln){
+        ctx.fillText(ln, PAD, cy);
+        cy += it.lh;
+      });
+      cy += it.b.type === "job" ? 16 : 12;
+    });
+    var name = (r.kind === "career" ? "진로20고개_결과.png" : "고민정리_결과.png");
+    try {
+      c.toBlob(function(blob){
+        if (!blob){ toast("이미지를 만들지 못했어요"); return; }
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+        toast("이미지로 저장했어요");
+      }, "image/png");
+    } catch (e){
+      var a2 = document.createElement("a");
+      a2.href = c.toDataURL("image/png"); a2.download = name; a2.click();
+      toast("이미지로 저장했어요");
+    }
+  }
+
+  /* ───────── 이벤트 ───────── */
+  $("goCareer").addEventListener("click", startCareer);
+  $("goWorry").addEventListener("click", startWorrySetup);
+  $("addC").addEventListener("click", function(){
+    $("optCExtra").classList.remove("hidden"); $("optC").focus();
+  });
+  $("startWorry").addEventListener("click", beginWorry);
+  $("finishMatrix").addEventListener("click", worryResult);
+  $("copyBtn").addEventListener("click", copyResult);
+  $("imgBtn").addEventListener("click", saveImage);
+  $("restartBtn").addEventListener("click", function(){
+    var g = this.getAttribute("data-go");
+    if (g === "worry") startWorrySetup(); else startCareer();
+  });
+  $("switchBtn").addEventListener("click", function(){
+    var g = this.getAttribute("data-go");
+    if (g === "worry") startWorrySetup(); else startCareer();
+  });
+  $("backBtn").addEventListener("click", function(){
+    var vis = function(k){ return !scr[k].classList.contains("hidden"); };
+    if (vis("quiz")){
+      if (st.track === "career"){
+        if (st.qi > 0){ st.qi--; renderQ(); } else { show("home"); $("backBtn").disabled = true; setProg(0,0); }
+      } else {
+        if (st.qi > 0){ st.qi--; renderWQ(); } else { show("setup"); setProg(0,0); }
+      }
+      return;
+    }
+    if (vis("matrix")){ st.qi = WQ.length - 1; show("quiz"); renderWQ(); return; }
+    if (vis("setup")){ show("home"); $("backBtn").disabled = true; setProg(0,0); return; }
+    if (vis("result")){
+      if (st.mode === "career") show("home"); else show("home");
+      $("backBtn").disabled = true; setProg(0,0); return;
+    }
+  });
+
+  /* 처음 상태 */
+  $("backBtn").disabled = true;
+  setProg(0,0);
+  show("home");
+})();
+</script>
+</body>
+</html>
