@@ -1,0 +1,8 @@
+# 무료 도구와 라운지를 광고 없이 유지하는 데 씁니다.
+# GitHub Sponsors 대신 외부 스토어·후원 링크를 씁니다.
+# 형식 근거: docs.github.com "Displaying a sponsor button in your repository"
+#   custom: [LINK1, ..., LINK4] · 최대 4개 · ":"가 들어가면 따옴표로 감싼다
+# 2026-11-17 확인. 상품·가격은 README와 사이트 Packs 절 참고.
+custom:
+  - "https://ctee.kr/place/mireunote"
+  - "https://litt.ly/mireunote"
