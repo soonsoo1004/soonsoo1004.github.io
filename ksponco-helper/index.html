@@ -75,6 +75,7 @@
   .meter span{display:block; height:100%; width:0; background:var(--ok); transition:width .5s ease}
   .scale{display:flex; justify-content:space-between; font-size:.78rem; color:var(--ink-2); white-space:nowrap}
   .scale span{flex:0 0 auto}
+  .nowrap{white-space:nowrap}
   .scale span:last-child{text-align:right}
   .rowmeta{display:flex; justify-content:space-between; align-items:center; gap:.6rem; margin-top:.8rem; flex-wrap:wrap}
   .stamp{font-size:.82rem; color:var(--ink-2)}
@@ -299,7 +300,7 @@
   function paint(payload, live){
     var n = payload.count, p = Math.round(n / CAP * 100);
     var g = grade(p);
-    el.count.innerHTML = fmt(n) + ' <small>/ 2,200대</small> <small>· ' + p + '%</small>';
+    el.count.innerHTML = fmt(n) + ' <small>/ 2,200대</small> <small class="nowrap">· ' + p + '%</small>';
     el.status.className = "status " + g.cls;
     el.status.textContent = g.label;
     el.say.textContent = g.say;
