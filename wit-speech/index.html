@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>위트 화법 연습소 — 같은 말도 조금 더 센스 있게</title>
+<meta name="description" content="어색한 첫인사, 부탁 거절, 늦은 사과, 단톡방 정적까지 상황 10가지를 고르면 흔한 대답과 위트 있는 대답 3가지를 나란히 보여 줍니다. 왜 통하는지 한 줄 원리와 빈칸 채우기 패턴으로 직접 만들어 보고, 마음에 드는 한 줄은 카드 이미지로 저장하거나 복사할 수 있습니다. 가입·설치·광고 없이 브라우저에서만 동작합니다.">
+<meta name="author" content="천장지구 1004">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="위트 화법 연습소 — 같은 말도 조금 더 센스 있게">
+<meta property="og:description" content="상황 10가지 × 위트 대답 3가지(부드러운 유머·따뜻한 센스·담백한 재치). 원리 한 줄, 빈칸 패턴 연습, 한 줄 카드 저장.">
+<meta property="og:locale" content="ko_KR">
+<style>
+:root{
+  --bg:#f5f5f7; --bg2:#ffffff; --card:#ffffff; --card2:#f7f7f9;
+  --ink:#1d1d1f; --ink2:#5f5f66; --ink3:#8e8e93;
+  --line:rgba(0,0,0,.08); --line2:rgba(0,0,0,.14);
+  --blue:#0071e3; --blue-d:#0062c4; --blue-soft:#eaf3fe;
+  --warm:#b96a12; --warm-soft:#fdf3e6;
+  --green:#1d8a5b; --green-soft:#eaf6f0;
+  --r:24px; --r-s:18px; --r-xs:14px;
+  --sans:Gulim,"GulimChe","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 14px 34px rgba(0,0,0,.055);
+  --shadow-s:0 1px 2px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;
+  touch-action:manipulation;min-height:100dvh;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input{font-family:inherit}
+a{color:var(--blue);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 72px}
+
+/* ── hero ── */
+header.top{padding:38px 0 18px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.06em;
+  color:var(--warm);background:var(--warm-soft);border-radius:999px;padding:6px 13px;font-weight:700}
+h1{font-size:34px;line-height:1.28;letter-spacing:-.02em;margin:16px 0 12px;font-weight:700}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:17px;color:var(--ink2);margin:0 0 20px;max-width:34em}
+.privacy{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.55;color:var(--ink2);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);padding:13px 15px;box-shadow:var(--shadow-s)}
+.privacy b{color:var(--ink)}
+.privacy .lk{font-size:15px;line-height:1.35;flex:0 0 auto}
+
+/* ── section ── */
+section{margin-top:32px}
+.sec-h{display:flex;align-items:baseline;gap:10px;margin:0 0 14px}
+.sec-n{font-size:13px;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;
+  width:23px;height:23px;display:grid;place-items:center;flex:0 0 auto;letter-spacing:0}
+.sec-h h2{font-size:20px;margin:0;letter-spacing:-.01em;font-weight:700}
+.sec-h .sub{font-size:13.5px;color:var(--ink3);margin-left:auto;text-align:right}
+
+/* ── situation grid ── */
+.sits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sit{display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);
+  padding:14px 14px;box-shadow:var(--shadow-s);transition:border-color .16s,box-shadow .16s,transform .12s}
+.sit:hover{border-color:var(--line2)}
+.sit:active{transform:scale(.985)}
+.sit[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft),var(--shadow-s)}
+.sit .em{font-size:21px;line-height:1;flex:0 0 auto}
+.sit .tx{min-width:0}
+.sit .tx b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em}
+.sit .tx span{display:block;font-size:12.5px;color:var(--ink3);line-height:1.4;margin-top:2px}
+
+/* ── result ── */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:22px 20px;box-shadow:var(--shadow)}
+.sit-head{display:flex;gap:13px;align-items:flex-start;padding-bottom:16px;border-bottom:1px solid var(--line)}
+.sit-head .em{font-size:28px;line-height:1.1}
+.sit-head h3{margin:0;font-size:21px;letter-spacing:-.015em;font-weight:700}
+.sit-head p{margin:4px 0 0;font-size:14px;color:var(--ink2);line-height:1.55}
+
+.plain{margin-top:16px;background:var(--card2);border:1px solid var(--line);border-radius:var(--r-xs);padding:14px 15px}
+.tagline{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--ink3);margin-bottom:6px}
+.tagline i{width:6px;height:6px;border-radius:50%;background:var(--ink3);display:inline-block}
+.plain p{margin:0;font-size:15.5px;color:var(--ink2)}
+
+.seg{display:flex;gap:3px;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:4px;margin:18px 0 14px}
+.seg button{flex:1 1 auto;min-width:0;white-space:nowrap;font-size:12.5px;font-weight:700;color:var(--ink2);
+  padding:8px 6px;border-radius:999px;transition:background .15s,color .15s,box-shadow .15s;letter-spacing:-.03em}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.09),0 0 0 1px var(--line)}
+
+.answers{display:grid;gap:10px}
+.ans{border:1px solid var(--line);background:var(--card);border-radius:var(--r-s);padding:15px 15px 12px;
+  transition:border-color .16s,box-shadow .16s;text-align:left;width:100%}
+.ans:hover{border-color:var(--line2)}
+.ans[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.ans .hd{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tone{font-size:11.5px;font-weight:700;letter-spacing:.02em;border-radius:999px;padding:4px 10px}
+.tone.a{color:var(--blue);background:var(--blue-soft)}
+.tone.b{color:var(--warm);background:var(--warm-soft)}
+.tone.c{color:var(--green);background:var(--green-soft)}
+.ans .pick{margin-left:auto;font-size:11.5px;color:var(--ink3);font-weight:700}
+.ans[aria-pressed="true"] .pick{color:var(--blue)}
+.ans .say{margin:0;font-size:16.5px;line-height:1.62;letter-spacing:-.005em}
+.ans .acts{display:flex;gap:8px;margin-top:11px}
+.mini{font-size:12.5px;font-weight:700;color:var(--ink2);background:var(--card2);border:1px solid var(--line);
+  border-radius:999px;padding:6px 12px;transition:background .15s,color .15s}
+.mini:hover{background:#eff0f2;color:var(--ink)}
+.mini.ok{color:var(--green);background:var(--green-soft);border-color:rgba(29,138,91,.22)}
+
+/* ── principle ── */
+.why{margin-top:18px;background:linear-gradient(180deg,#fffdf8,#fffaf0);border:1px solid rgba(185,106,18,.16);
+  border-radius:var(--r-s);padding:16px 16px 15px}
+.why .tagline{color:var(--warm)}
+.why .tagline i{background:var(--warm)}
+.why p{margin:0;font-size:15.5px;line-height:1.66;color:#4a3b26}
+
+/* ── pattern ── */
+.pat{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+.pat h4{margin:0 0 4px;font-size:16.5px;font-weight:700;letter-spacing:-.01em}
+.pat .hint{margin:0 0 12px;font-size:13.5px;color:var(--ink3)}
+.patline{font-size:16px;line-height:2.1;background:var(--card2);border:1px solid var(--line);
+  border-radius:var(--r-xs);padding:14px 15px}
+.patline .fill{display:inline-block;min-width:76px;max-width:100%;
+  border:0;border-bottom:2px solid var(--blue);background:transparent;color:var(--blue-d);
+  font-size:16px;font-weight:700;padding:1px 2px;text-align:center;border-radius:2px}
+.patline .fill::placeholder{color:#a9c6e6;font-weight:400}
+.patline .fill:focus{outline:none;background:var(--blue-soft);border-bottom-color:var(--blue-d)}
+.out{margin-top:12px;font-size:13.5px;color:var(--ink3)}
+.out b{color:var(--ink);font-weight:700}
+.preview{margin-top:6px;background:var(--card);border:1px dashed var(--line2);border-radius:var(--r-xs);
+  padding:13px 15px;font-size:15.5px;line-height:1.62;color:var(--ink)}
+.preview.empty{color:var(--ink3);border-style:dashed}
+
+/* ── card save ── */
+.cardrow{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:700;
+  border-radius:999px;padding:14px 22px;transition:transform .12s,background .15s,box-shadow .15s}
+.btn:active{transform:scale(.985)}
+.btn.solid{background:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(0,113,227,.22)}
+.btn.solid:hover{background:var(--blue-d)}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--line2);box-shadow:var(--shadow-s)}
+.btn.ghost:hover{background:var(--card2)}
+.btn.wide{flex:1 1 220px}
+.cnote{font-size:12.5px;color:var(--ink3);margin:10px 0 0;line-height:1.5}
+
+/* ── footer ── */
+footer{margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--ink3);line-height:1.7}
+footer b{color:var(--ink2)}
+
+/* ── toast ── */
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);opacity:0;pointer-events:none;
+  background:rgba(29,29,31,.92);color:#fff;font-size:13.5px;font-weight:700;padding:11px 18px;border-radius:999px;
+  transition:opacity .2s,transform .2s;z-index:60;max-width:calc(100vw - 40px);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#cardOut{display:block;width:100%;height:auto;margin-top:16px;border-radius:var(--r-s);border:1px solid var(--line);box-shadow:var(--shadow-s)}
+
+@media (max-width:400px){
+  .wrap{padding:0 15px 64px}
+  h1{font-size:29px}
+  .sits{gap:8px}
+  .sit{padding:12px 11px;gap:9px}
+  .sit .em{font-size:19px}
+  .sit .tx b{font-size:14px}
+  .sit .tx span{font-size:11.5px}
+  .panel{padding:18px 15px}
+  .ans .say{font-size:16px}
+  .btn{padding:13px 18px;font-size:14.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">위트 화법 연습소 · 실전 10</span>
+    <h1>같은 말도,<br><em>조금 더 센스 있게.</em></h1>
+    <p class="lead">어색한 첫인사부터 부탁 거절, 늦은 사과까지. 상황을 고르면 흔한 대답 옆에 위트 있는 대답 세 가지를 나란히 놓아 드립니다. 읽고 끝내지 말고, 빈칸을 채워 내 말로 한 번 만들어 보세요.</p>
+    <div class="privacy">
+      <span class="lk" aria-hidden="true">🔒</span>
+      <div><b>이 화면은 브라우저 안에서만 작동합니다.</b> 입력한 메모(빈칸에 쓴 말)는 서버로 전송되지 않고 저장되지도 않습니다. 가입·설치·광고도 없습니다. 창을 닫으면 사라집니다.</div>
+    </div>
+  </header>
+
+  <section aria-labelledby="s1">
+    <div class="sec-h"><span class="sec-n">1</span><h2 id="s1">어떤 자리인가요?</h2><span class="sub">하나만 골라 주세요</span></div>
+    <div class="sits" id="sits" role="group" aria-label="상황 선택"></div>
+  </section>
+
+  <section id="result" hidden aria-labelledby="s2">
+    <div class="sec-h"><span class="sec-n">2</span><h2 id="s2">비교하고, 골라 보세요</h2><span class="sub" id="toneSub">전체 3가지</span></div>
+    <div class="panel">
+      <div class="sit-head">
+        <span class="em" id="rEm" aria-hidden="true"></span>
+        <div><h3 id="rTitle"></h3><p id="rCtx"></p></div>
+      </div>
+
+      <div class="plain">
+        <div class="tagline"><i></i>흔히 나오는 대답</div>
+        <p id="rPlain"></p>
+      </div>
+
+      <div class="seg" id="seg" role="group" aria-label="톤 고르기">
+        <button type="button" data-tone="all" aria-pressed="true">전체</button>
+        <button type="button" data-tone="a" aria-pressed="false">부드러운 유머</button>
+        <button type="button" data-tone="b" aria-pressed="false">따뜻한 센스</button>
+        <button type="button" data-tone="c" aria-pressed="false">담백한 재치</button>
+      </div>
+
+      <div class="answers" id="answers"></div>
+
+      <div class="why">
+        <div class="tagline"><i></i>왜 이 말이 통할까</div>
+        <p id="rWhy"></p>
+      </div>
+
+      <div class="pat">
+        <h4>내 말로 바꿔 보기</h4>
+        <p class="hint">파란 빈칸을 눌러 내 상황을 넣어 보세요. 채우는 대로 아래에 완성 문장이 나옵니다.</p>
+        <div class="patline" id="patLine"></div>
+        <div class="out">완성 문장</div>
+        <div class="preview empty" id="preview">빈칸을 채우면 여기에 내 문장이 완성됩니다.</div>
+        <div class="cardrow">
+          <button type="button" class="btn ghost" id="copyPat">완성 문장 복사</button>
+          <button type="button" class="btn ghost" id="clearPat">빈칸 지우기</button>
+        </div>
+      </div>
+
+      <div class="cardrow">
+        <button type="button" class="btn solid wide" id="saveCard">한 줄 카드로 저장 <span aria-hidden="true">↓</span></button>
+      </div>
+      <p class="cnote">위에서 고른 대답(테두리가 파란 것)이 카드에 담깁니다. 카드는 1080×1350 크기로 저장되어 그대로 올리거나 보낼 수 있습니다. 저장 위치는 폰의 다운로드 폴더입니다.</p>
+      <canvas id="cardOut" width="1080" height="1350" aria-label="저장될 카드 미리보기" role="img"></canvas>
+    </div>
+  </section>
+
+  <footer>
+    <b>천장지구 1004 · 위트 화법 연습소</b><br>
+    문구는 이 화면을 위해 새로 쓴 것입니다. 누군가를 깎아내리거나 비웃는 말은 넣지 않았습니다. 위트는 상대를 이기려는 말이 아니라, 같은 자리를 조금 가볍게 만드는 말이라고 생각합니다.<br>
+    사람마다 통하는 말이 다르니, 그대로 쓰기보다 내 말투로 한 번 바꿔 보세요. 그게 오래 갑니다.
+  </footer>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var TONE = {
+    a:{ cls:"a", name:"부드러운 유머" },
+    b:{ cls:"b", name:"따뜻한 센스" },
+    c:{ cls:"c", name:"담백한 재치" }
+  };
+
+  var DATA = [
+    { id:"hi", em:"👋", title:"어색한 첫인사", short:"첫 만남, 첫 마디",
+      ctx:"회의실, 모임, 새 거래처. 이름을 말하고 나면 3초쯤 정적이 흐르는 그 순간입니다.",
+      plain:"안녕하세요. 잘 부탁드립니다.",
+      answers:{
+        a:"안녕하세요, 저는 ○○○입니다. 첫인상은 오늘부터 제가 관리할 테니, 오늘 하루만 봐주세요.",
+        b:"안녕하세요. 이름 외우는 건 느린데 얼굴 외우는 건 빠릅니다. 오늘 얼굴부터 저장하겠습니다.",
+        c:"안녕하세요, ○○○입니다. 잘 부탁드립니다 — 이 말 다음에 할 말이 없어서 늘 여기서 멈춥니다. 뭐부터 여쭤보면 될까요?"
+      },
+      why:"첫인사에서 완벽해 보이려 애쓰면 상대도 같이 긴장합니다. 내가 조금 서툴다는 걸 먼저 꺼내면, 그 자리의 온도가 먼저 내려갑니다.",
+      pat:"안녕하세요, 저는 {이름}입니다. {작은 서툼}이 있는데, 오늘은 {부탁할 한 가지}만 봐주세요.",
+      ph:["이름","작은 서툼","부탁할 한 가지"] },
+
+    { id:"no", em:"🙅", title:"부탁을 거절할 때", short:"거절, 하지만 미움 없이",
+      ctx:"바쁜데 부탁이 들어옵니다. 거절은 해야 하는데, 관계가 식을까 봐 망설여집니다.",
+      plain:"죄송하지만 어렵습니다.",
+      answers:{
+        a:"부탁해 주셔서 고마운데, 이번엔 제가 못 들어드리겠습니다. 대신 ○○은 같이 해드릴 수 있어요.",
+        b:"지금 제 손이 두 개인데, 그 두 개가 이미 ○○을 잡고 있어요. 다음 주 화요일이면 하나는 비는데, 그때도 괜찮으실까요?",
+        c:"안 된다는 말부터 하면 서운하실까 봐 순서를 바꿔 말씀드리면 — 하고 싶은 마음은 1번, 상황은 3번입니다."
+      },
+      why:"'안 된다'만 남기면 거절이 사람 평가처럼 들립니다. 거절 뒤에 이유나 대안을 한 조각 붙이면, 상대에게는 '당신은 괜찮고 일이 안 되는 것'으로 들립니다.",
+      pat:"부탁해 주셔서 고마워요. 이번엔 {안 되는 이유}라 어렵고, 대신 {내가 할 수 있는 것}은 해드릴 수 있어요.",
+      ph:["안 되는 이유","내가 할 수 있는 것"] },
+
+    { id:"late", em:"⏰", title:"늦었을 때 사과", short:"기다린 시간을 메우는 말",
+      ctx:"약속 시각을 넘겼습니다. 상대는 이미 10분 넘게 기다렸습니다.",
+      plain:"늦어서 죄송합니다.",
+      answers:{
+        a:"기다리신 시간만큼 ○○을 준비했어요. 변명보다 그게 먼저인 것 같아서요.",
+        b:"늦었습니다. 제 시간 관리가 ○○에서 미끄러졌어요. 다음엔 ○○으로 바꿔 오겠습니다.",
+        c:"죄송합니다. 지금부터 ○○분만큼은 제가 ○○을 도맡을게요 — 늦은 시간을 일로 갚는 게 맞는 것 같아서요."
+      },
+      why:"사과는 '미안'의 크기보다 '다음에 달라질 한 가지'가 있어야 상대의 손실을 메웁니다. 같은 사과라도 다음이 보이면 기다림이 헛되지 않습니다.",
+      pat:"늦어서 죄송합니다. 원인은 {원인}이고, 다음엔 {바꿀 한 가지}. 오늘은 {갚을 방법}으로 채우겠습니다.",
+      ph:["원인","바꿀 한 가지","갚을 방법"] },
+
+    { id:"chat", em:"💬", title:"단톡방 분위기 풀기", short:"읽고만 있는 그 방",
+      ctx:"안 읽은 사람은 없는데 아무도 말이 없습니다. 누군가 한 명이 시작해야 하는 상황입니다.",
+      plain:"다들 뭐 하세요?",
+      answers:{
+        a:"이 방이 조용해서 제가 질문 하나 던져봅니다. 답 안 해도 되고, 웃기만 해도 됩니다.",
+        b:"조용한 것도 좋네요. 대신 이 조용함에 이름을 붙이면 — ○○ 시간.",
+        c:"여기 ○○명인데, 지금 읽고만 계신 분 손… 역시 다들 저랑 같네요."
+      },
+      why:"단톡방 정적은 대화가 없어서가 아니라 먼저 말할 사람이 없어서 생깁니다. 답할 부담을 미리 빼준 질문 하나가 그 자리를 대신합니다.",
+      pat:"다들 조용하네요. 부담 없이 {가벼운 질문} 하나만 — 답 안 하셔도 됩니다, 읽으신 것만으로도요.",
+      ph:["가벼운 질문"] },
+
+    { id:"praise", em:"🌷", title:"칭찬 받았을 때", short:"'아니에요' 대신",
+      ctx:"누군가 진심으로 칭찬했습니다. 습관처럼 '별거 아니에요'가 나오려는 순간입니다.",
+      plain:"아니에요, 별거 아니에요.",
+      answers:{
+        a:"칭찬 감사합니다. 그 일은 사실 ○○ 덕이 컸어요. 저 혼자였다면 반은 못 했을 겁니다.",
+        b:"그렇게 봐주시니 오늘 하루가 오래 기억날 것 같습니다. 힘들 때 꺼내 보겠습니다.",
+        c:"감사합니다. 부정하지 않고 받아두겠습니다 — 대신 ○○까지는 계속 이 모습으로 있겠습니다."
+      },
+      why:"칭찬을 '아니에요'로 밀어내면 상대가 본 것까지 부정하게 됩니다. 받고, 한 조각을 함께한 사람에게 나누면 칭찬이 대화로 이어집니다.",
+      pat:"감사합니다. 사실 {함께한 사람}의 {도움}이 컸어요. 그 칭찬은 절반만 제 것으로 받겠습니다.",
+      ph:["함께한 사람","도움"] },
+
+    { id:"hello", em:"✉️", title:"오랜만의 안부", short:"뜸했던 사람에게",
+      ctx:"몇 달 연락이 없던 사람이 문득 생각났습니다. '잘 지내세요?'만 보내기는 밋밋합니다.",
+      plain:"요즘 어떻게 지내세요?",
+      answers:{
+        a:"○○님, ○○이 생각나서 연락드렸어요. 답장은 급하지 않습니다, 바쁘실 테니.",
+        b:"안부를 묻는 말이 '잘 지내세요?'뿐이라 그건 빼고 여쭤볼게요 — 요즘 뭐가 제일 재미있으세요?",
+        c:"오랜만입니다. 잘 지내셨는지는 천천히 들을게요. 먼저 제 소식 한 줄: ○○."
+      },
+      why:"안부는 질문의 내용보다 '당신을 기억하고 있었다'는 증거가 먼저일 때 마음이 열립니다. 기억 한 조각이 질문 하나보다 오래 남습니다.",
+      pat:"{이름}님, {기억나는 장면}이 생각나서 연락드려요. 답장은 천천히 주셔도 됩니다 — 요즘 {구체적 질문}?",
+      ph:["이름","기억나는 장면","구체적 질문"] },
+
+    { id:"silence", em:"🍽️", title:"식사 자리의 정적", short:"말이 끊긴 3초",
+      ctx:"함께 밥을 먹는데 대화가 끊겼습니다. 젓가락 소리만 들립니다.",
+      plain:"…(조용히 먹는다)",
+      answers:{
+        a:"지금 이 정적, 제가 ○○ 한 입 더 넣으면 깨질 것 같아서 참는 중입니다.",
+        b:"○○ 이야기가 나와서 그런데, 요즘도 그러세요?",
+        c:"조용한 자리가 편해서 좋네요. 대신 한 가지만 여쭤볼게요 — ○○."
+      },
+      why:"정적을 실패로 여기면 말이 급해지고, 급한 말은 대개 어색합니다. 정적에 이름을 붙여 주면 그 순간 자체가 이야깃거리가 됩니다.",
+      pat:"지금 조용한 게 저만 어색한가 봅니다. {가벼운 자기 이야기} 하나 꺼내볼게요.",
+      ph:["가벼운 자기 이야기"] },
+
+    { id:"yes", em:"🤝", title:"부탁을 들어줄 때", short:"흔쾌히, 다만 선은 긋고",
+      ctx:"부탁을 들어주기로 했습니다. 그런데 어디까지가 내 몫인지가 불분명합니다.",
+      plain:"네, 해드릴게요.",
+      answers:{
+        a:"네, ○요일까지는 드릴 수 있어요. 그 뒤로는 제 일정이 있어서, 이 날짜로 맞춰도 괜찮을까요?",
+        b:"해드릴게요. 다만 제가 잘하는 건 ○○까지라, 그 밖은 ○○으로 하는 게 나을 것 같아요.",
+        c:"좋아요. 한 가지 약속만 — ○○이 생기면 제가 먼저 말씀드릴게요. 미루는 것보다 낫더라고요."
+      },
+      why:"흔쾌히만 하면 다음에 못 하게 될 때가 문제가 됩니다. '된다'와 함께 '어디까지'를 먼저 말해 두면, 그 약속이 오래갑니다.",
+      pat:"네, {범위}까지는 {기한}에 드릴 수 있어요. 그 밖은 {대안}이 낫습니다. 이 조건이면 괜찮으세요?",
+      ph:["범위","기한","대안"] },
+
+    { id:"ask", em:"❓", title:"모르는 걸 물어볼 때", short:"아는 척 대신",
+      ctx:"방법을 모르겠습니다. 물어보자니 무식해 보일까 봐 망설여집니다.",
+      plain:"그거 어떻게 해요?",
+      answers:{
+        a:"제가 ○○까지는 아는데 ○○에서 막혔습니다. 여기서부터 알려주시면 두 번 안 물어볼 것 같아요.",
+        b:"○○으로 해봤는데 안 되더라고요. 제가 놓친 게 뭘까요?",
+        c:"모르는 걸 아는 척하면 더 오래 걸리더라고요. 솔직히 모르겠습니다 — ○○분만 써주실 수 있나요?"
+      },
+      why:"'어떻게 해요'는 상대에게 처음부터 전부 설명하라는 부탁이 됩니다. '여기까지 했고 여기서 막혔다'고 하면 대답이 절반으로 줄어듭니다.",
+      pat:"제가 {시도한 것}까지 해봤고 {막힌 지점}에서 멈췄습니다. 여기서 {한 가지}만 알려주실 수 있나요?",
+      ph:["시도한 것","막힌 지점","한 가지"] },
+
+    { id:"fix", em:"🔧", title:"지적을 받았을 때", short:"변명보다 결론부터",
+      ctx:"실수를 지적받았습니다. 머릿속에는 해명이 먼저 떠오릅니다.",
+      plain:"아, 네… 죄송합니다.",
+      answers:{
+        a:"맞는 말씀입니다. ○○ 부분은 제가 놓쳤어요. ○○부터 바로 고치겠습니다.",
+        b:"지적해 주셔서 고맙습니다. 그냥 넘어가셨어도 몰랐을 부분이에요. ○○까지 정리해 두겠습니다.",
+        c:"변명부터 하면 길어질 것 같아서 결론부터 — 제 잘못입니다. ○○으로 바꾸겠습니다."
+      },
+      why:"지적에 변명을 붙이면 상대는 '이 사람에게는 다음에도 같은 말을 해야 한다'고 배웁니다. 인정 한 줄과 다음 행동 한 줄이 그 부담을 지웁니다.",
+      pat:"맞습니다, 제 실수예요. {인정할 부분}이고, {바꿀 행동}으로 고치겠습니다.",
+      ph:["인정할 부분","바꿀 행동"] }
+  ];
+
+  var cur = null, tone = "all", picked = "a";
+  var $ = function(id){ return document.getElementById(id); };
+  var sitsEl = $("sits"), resultEl = $("result"), answersEl = $("answers"), segEl = $("seg");
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function toast(msg){
+    var t = $("toast"); t.textContent = msg; t.classList.add("on");
+    clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove("on"); }, 1800);
+  }
+
+  /* ── 상황 카드 ── */
+  DATA.forEach(function(d){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "sit"; b.setAttribute("aria-pressed","false");
+    b.setAttribute("data-id", d.id);
+    b.innerHTML = '<span class="em" aria-hidden="true">'+d.em+'</span>'+
+      '<span class="tx"><b>'+esc(d.title)+'</b><span>'+esc(d.short)+'</span></span>';
+    b.addEventListener("click", function(){ selectSit(d.id, true); });
+    sitsEl.appendChild(b);
+  });
+
+  function selectSit(id, doScroll){
+    cur = DATA.filter(function(d){ return d.id === id; })[0];
+    if (!cur) return;
+    [].forEach.call(sitsEl.children, function(c){
+      c.setAttribute("aria-pressed", c.getAttribute("data-id") === id ? "true" : "false");
+    });
+    $("rEm").textContent = cur.em;
+    $("rTitle").textContent = cur.title;
+    $("rCtx").textContent = cur.ctx;
+    $("rPlain").textContent = cur.plain;
+    $("rWhy").textContent = cur.why;
+    tone = "all"; picked = "a";
+    [].forEach.call(segEl.children, function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-tone")==="all" ? "true":"false"); });
+    renderAnswers();
+    renderPattern();
+    resultEl.hidden = false;
+    if (doScroll && resultEl.scrollIntoView) resultEl.scrollIntoView({behavior:"smooth", block:"start"});
+  }
+
+  function renderAnswers(){
+    answersEl.innerHTML = "";
+    var keys = tone === "all" ? ["a","b","c"] : [tone];
+    keys.forEach(function(k){
+      var t = TONE[k];
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "ans"; b.setAttribute("data-tone", k);
+      b.setAttribute("aria-pressed", picked === k ? "true" : "false");
+      b.innerHTML = '<span class="hd"><span class="tone '+t.cls+'">'+t.name+'</span>'+
+        '<span class="pick">'+(picked===k ? "카드에 담김 ✓" : "카드로 고르기")+'</span></span>'+
+        '<p class="say">'+esc(cur.answers[k])+'</p>';
+      var acts = document.createElement("div");
+      acts.className = "acts";
+      var cp = document.createElement("button");
+      cp.type = "button"; cp.className = "mini"; cp.textContent = "복사";
+      cp.addEventListener("click", function(e){ e.stopPropagation(); copyText(cur.answers[k], cp); });
+      acts.appendChild(cp);
+      b.appendChild(acts);
+      b.addEventListener("click", function(){
+        picked = k; renderAnswers(); drawCard();
+      });
+      answersEl.appendChild(b);
+    });
+    $("toneSub").textContent = tone === "all" ? "전체 3가지" : "1가지";
+    drawCard();
+  }
+
+  segEl.addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("button[data-tone]") : null;
+    if (!b || !cur) return;
+    tone = b.getAttribute("data-tone");
+    if (tone !== "all" && picked !== tone) picked = tone;
+    [].forEach.call(segEl.children, function(x){ x.setAttribute("aria-pressed", x === b ? "true":"false"); });
+    renderAnswers();
+  });
+
+  /* ── 패턴 ── */
+  function renderPattern(){
+    var line = $("patLine");
+    line.innerHTML = "";
+    var parts = cur.pat.split(/(\{[^}]+\})/);
+    parts.forEach(function(p){
+      if (!p) return;
+      var m = p.match(/^\{([^}]+)\}$/);
+      if (m){
+        var inp = document.createElement("input");
+        inp.type = "text"; inp.className = "fill";
+        inp.setAttribute("placeholder", m[1]);
+        inp.setAttribute("aria-label", m[1]);
+        inp.setAttribute("autocomplete","off");
+        inp.setAttribute("enterkeyhint","next");
+        inp.style.width = Math.max(76, Math.min(240, m[1].length * 15 + 26)) + "px";
+        inp.addEventListener("input", updatePreview);
+        line.appendChild(inp);
+      } else {
+        line.appendChild(document.createTextNode(p));
+      }
+    });
+    updatePreview();
+  }
+
+  function updatePreview(){
+    if (!cur) return;
+    var inputs = $("patLine").querySelectorAll("input.fill");
+    var idx = 0;
+    var out = cur.pat.replace(/\{[^}]+\}/g, function(){
+      var v = inputs[idx] ? inputs[idx].value.trim() : "";
+      idx++;
+      return v ? v : "○○";
+    });
+    var any = false;
+    [].forEach.call(inputs, function(i){ if (i.value.trim()) any = true; });
+    var pv = $("preview");
+    pv.textContent = any ? out : "빈칸을 채우면 여기에 내 문장이 완성됩니다.";
+    pv.className = "preview" + (any ? "" : " empty");
+    return out;
+  }
+
+  $("clearPat").addEventListener("click", function(){
+    [].forEach.call($("patLine").querySelectorAll("input.fill"), function(i){ i.value = ""; });
+    updatePreview(); toast("빈칸을 지웠습니다");
+  });
+
+  $("copyPat").addEventListener("click", function(){
+    var out = updatePreview();
+    if ($("preview").classList.contains("empty")) { toast("빈칸을 먼저 채워 주세요"); return; }
+    copyText(out, $("copyPat"));
+  });
+
+  function copyText(text, btn){
+    function done(ok){
+      if (ok){
+        if (btn && btn.classList){ var old = btn.textContent; btn.textContent = "복사됨 ✓"; btn.classList.add("ok");
+          setTimeout(function(){ btn.textContent = old; btn.classList.remove("ok"); }, 1500); }
+        toast("복사했습니다");
+      } else {
+        try {
+          var ta = document.createElement("textarea");
+          ta.value = text; ta.setAttribute("readonly","");
+          ta.style.position = "fixed"; ta.style.top = "-1000px"; ta.style.opacity = "0";
+          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+          toast("복사했습니다");
+        } catch(err){ toast("복사가 안 되면 길게 눌러 선택해 주세요"); }
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    } else { done(false); }
+  }
+
+  /* ── 카드 PNG ── */
+  var cvs = $("cardOut"), ctx = cvs.getContext("2d");
+  var CARD_W = 1080, CARD_H = 1350;
+
+  function roundRect(c, x, y, w, h, r){
+    c.beginPath();
+    c.moveTo(x+r, y);
+    c.arcTo(x+w, y, x+w, y+h, r);
+    c.arcTo(x+w, y+h, x, y+h, r);
+    c.arcTo(x, y+h, x, y, r);
+    c.arcTo(x, y, x+w, y, r);
+    c.closePath();
+  }
+  function wrap(c, text, maxW){
+    var lines = [], line = "";
+    var words = String(text).split(/(\s+)/);
+    for (var i=0;i<words.length;i++){
+      var w = words[i];
+      var test = line + w;
+      if (c.measureText(test).width > maxW && line.trim() !== ""){
+        lines.push(line.replace(/\s+$/,"")); line = w.replace(/^\s+/,"");
+      } else { line = test; }
+    }
+    if (line.replace(/\s+$/,"") !== "") lines.push(line.replace(/\s+$/,""));
+    return lines;
+  }
+
+  function drawCard(){
+    if (!cur) return;
+    var say = cur.answers[picked] || cur.answers.a;
+    var g = ctx.createLinearGradient(0, 0, 0, CARD_H);
+    g.addColorStop(0, "#fffdf9");
+    g.addColorStop(0.55, "#faf7f1");
+    g.addColorStop(1, "#f3efe7");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, CARD_W, CARD_H);
+
+    // soft accent circles
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    var rg = ctx.createRadialGradient(920, 180, 20, 920, 180, 300);
+    rg.addColorStop(0, "rgba(0,113,227,.16)"); rg.addColorStop(1, "rgba(0,113,227,0)");
+    ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(920, 180, 300, 0, Math.PI*2); ctx.fill();
+    var rg2 = ctx.createRadialGradient(150, 1180, 20, 150, 1180, 280);
+    rg2.addColorStop(0, "rgba(185,106,18,.14)"); rg2.addColorStop(1, "rgba(185,106,18,0)");
+    ctx.fillStyle = rg2; ctx.beginPath(); ctx.arc(150, 1180, 280, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // top label
+    ctx.fillStyle = "#b96a12";
+    ctx.font = "700 30px Gulim, 'Noto Sans KR', sans-serif";
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    ctx.fillText("오늘의 위트 한 줄", 96, 150);
+
+    // situation chip
+    ctx.font = "700 28px Gulim, 'Noto Sans KR', sans-serif";
+    var chipText = cur.em + "  " + cur.title;
+    var cw = ctx.measureText(chipText).width + 56;
+    ctx.fillStyle = "rgba(29,29,31,.06)";
+    roundRect(ctx, 96, 196, Math.min(cw, 600), 68, 34); ctx.fill();
+    ctx.fillStyle = "#5f5f66";
+    ctx.fillText(chipText, 96+28, 196+45);
+
+    // quote
+    var fs = 60;
+    ctx.textAlign = "center";
+    var lines;
+    do {
+      ctx.font = "700 "+fs+"px Gulim, 'Noto Sans KR', sans-serif";
+      lines = wrap(ctx, say, 840);
+      if (lines.length <= 6 || fs <= 34) break;
+      fs -= 3;
+    } while (true);
+    var lh = Math.round(fs * 1.55);
+    var totalH = lines.length * lh;
+    var startY = Math.round(CARD_H/2 - totalH/2 + fs * 0.35);
+    ctx.fillStyle = "#1d1d1f";
+    lines.forEach(function(l, i){ ctx.fillText(l, CARD_W/2, startY + i*lh); });
+
+    // quote marks
+    ctx.globalAlpha = .12; ctx.fillStyle = "#0071e3";
+    ctx.font = "700 150px Georgia, serif";
+    ctx.textAlign = "left";
+    ctx.fillText("“", 78, startY - 20);
+    ctx.textAlign = "right";
+    ctx.fillText("”", CARD_W-78, startY + totalH - lh + 90);
+    ctx.globalAlpha = 1;
+
+    // divider + why
+    var baseY = CARD_H - 250;
+    ctx.strokeStyle = "rgba(0,0,0,.10)"; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(140, baseY - 60); ctx.lineTo(CARD_W-140, baseY - 60); ctx.stroke();
+
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#6e6e73";
+    ctx.font = "400 27px Gulim, 'Noto Sans KR', sans-serif";
+    var whyLines = wrap(ctx, cur.why.replace(/^[^.]*\.\s*/, ""), 780).slice(0, 2);
+    whyLines.forEach(function(l, i){ ctx.fillText(l, CARD_W/2, baseY + i*40); });
+
+    ctx.fillStyle = "#a9a29a";
+    ctx.font = "700 24px Gulim, 'Noto Sans KR', sans-serif";
+    ctx.fillText("천장지구 1004 · 위트 화법 연습소", CARD_W/2, CARD_H - 78);
+
+    // bottom accent bar
+    ctx.fillStyle = "#0071e3";
+    roundRect(ctx, CARD_W/2 - 40, CARD_H - 46, 80, 6, 3); ctx.fill();
+  }
+
+  $("saveCard").addEventListener("click", function(){
+    if (!cur) return;
+    drawCard();
+    var name = "위트한줄-" + cur.id + "-" + Date.now() + ".png";
+    try {
+      if (cvs.toBlob){
+        cvs.toBlob(function(blob){
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = name;
+          document.body.appendChild(a); a.click();
+          setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1200);
+          toast("카드를 저장했습니다 (1080×1350)");
+        }, "image/png");
+      } else {
+        var a2 = document.createElement("a");
+        a2.href = cvs.toDataURL("image/png"); a2.download = name; a2.click();
+        toast("카드를 저장했습니다 (1080×1350)");
+      }
+    } catch(err){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요"); }
+  });
+
+  // 첫 상황 자동 선택 (진입 즉시 한 화면 보이도록)
+  selectSit("hi", false);
+})();
+</script>
+</body>
+</html>
