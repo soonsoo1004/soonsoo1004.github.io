@@ -2753,7 +2753,7 @@
     S.shake = Math.max(0, S.shake - dt * 2.6);
     S.flash = Math.max(0, S.flash - dt * 1.5);
 
-    if (S.screen === 'play') {
+    if (S.screen === 'play' && !S.frozen) {
       if (S.mode === 'rhythm') rhythmUpdate(dt);
       else if (S.mode === 'stairs') stairsUpdate(dt);
       else mixUpdate(dt);
@@ -2981,6 +2981,7 @@
     pause: pauseGame,
     resume: resumeGame,
     press: doAction,
+    freeze: function (on) { S.frozen = !!on; },
     diff: function () { return S.diff; },
     setDiff: setDiff,
     diffInfo: function () {
