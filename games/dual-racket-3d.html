@@ -2018,15 +2018,15 @@ function returnShot(side, type, perfect) {
   hitFx(x0, y0, z0, type, perfect, isP);
   if (type === "smash") {
     AU.sSmash();
-    showToast("💥 스매시!", "gold", 620);
+    if (isP) showToast("💥 스매시!", "gold", 620);
   } else if (type === "drive") {
     AU.sDrive();
-    if (perfect) showToast("🌀 완벽한 드라이브!", "blue", 640);
+    if (isP && perfect) showToast("🌀 완벽한 드라이브!", "blue", 640);
   } else {
     AU.sHit(perfect ? 1.15 : 0.9);
-    if (perfect) showToast("PERFECT!", "gold", 520);
+    if (isP && perfect) showToast("PERFECT!", "gold", 520);
   }
-  if (perfect) AU.sPerfect();
+  if (isP && perfect) AU.sPerfect();
   updateHUD();
 }
 
@@ -2052,7 +2052,7 @@ function hitFx(x, y, z, type, perfect, isP) {
     G.shake = Math.max(G.shake, 0.18);
     G.punch = Math.max(G.punch, 0.28);
   }
-  if (perfect) addPop("PERFECT", x, y + 0.35, z, "#ffe27a", 1.25);
+  if (perfect && isP) addPop("PERFECT", x, y + 0.35, z, "#ffe27a", 1.25);
 }
 
 function addPop(txt, x, y, z, col, sc) {
