@@ -25,7 +25,7 @@
 
 | 데이터 | 주소 | 형식·주기·라이선스 (2026-11-17 확인) |
 |---|---|---|
-| 올림픽공원 실시간 주차현황 | https://www.ksponco.or.kr/online/main/parkingorsApi.do?apiKey=PARKING21803504 | API(JSON)·실시간·무료. 기관 개방목록 64번(https://www.ksponco.or.kr/pubData/64) |
+| 올림픽공원 실시간 주차현황 | https://www.ksponco.or.kr/online/main/parkingorsApi.do?apiKey=PARKING21803504 | API(JSON)·실시간·무료. 기관 개방목록 64번(https://www.ksponco.or.kr/pubData/64?mid=a10106020000) |
 | 올림픽공원 공연정보 | https://www.data.go.kr/data/3037877/openapi.do · 원문 목록 https://www.ksponco.or.kr/olympicpark/eventInfo/eventInfoList?mid=a20301010100 | LINK형 오픈API(XML)·업데이트 주기 실시간·공공저작물 출처표시(제1유형) |
 | 올림픽공원 대관정보 | https://www.data.go.kr/data/15015212/openapi.do | 이용허락범위 제한 없음 |
 | 주차 2,200대 기준·혼잡 단계 | https://www.ksponco.or.kr/online/main/parking.do | 기관 「주차장 예상 이용률 안내」 (주말에만 표가 열림) |
