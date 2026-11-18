@@ -4,12 +4,15 @@
      ① 리듬 건반 모드 — 떨어지는 도·레·미·솔 타일을 박자에 맞춰 연주
      ② 천국의 계단 모드 — 오르기 / 방향전환 두 버튼으로 끝없이 오르기
      ③ 믹스 모드 — 피아노 70 : 계단 30
+   난이도: 초보(느긋) · 보통(기본) · 고수(빠름) — 세 놀이 모두 속도·타이밍에 반영
    음악: 저작권 만료 클래식·전래동요만 Web Audio 피아노 신스로 직접 합성
    외부 음원 0건 · 외부 라이브러리 0건
 
    · 곡은 악절(parts)을 A-A'-B-A 형태로 이어 붙여 곡당 40~50초·50~78노트
    · 계단은 좌우로 크게 벌린 지그재그(칸 간격 ≈ 계단 폭의 60%) + 카메라 추적
      꺾이는 칸은 분홍색·↺ 배지로 표시해 방향전환이 헷갈리지 않는다
+   · 믹스: 일반 음표 타일은 건반 색(파랑·청록·주황·보라), 꺾임 타일은 핫핑크 바탕 +
+     노랑 테두리 + '↺ 방향전환' 배지 — 한눈에 구분된다
    · 단이 오를수록 박자 간격이 약 3%씩만 짧아진다(곡이 바뀌어도 확 튀지 않음)
    ══════════════════════════════════════════════════════════════ */
 (function () {
@@ -375,11 +378,34 @@
     }
   })();
 
+  /* ══════ 난이도 — 초보 / 보통 / 고수 ══════ */
+  var DIFFS = {
+    easy: {
+      id: 'easy', name: '초보', short: '느긋하게',
+      tempo: 0.78, turn: 0.70, timeMul: 1.40, hitMul: 1.35,
+      drainMul: 0.72, chordMul: 0, recover: 12
+    },
+    normal: {
+      id: 'normal', name: '보통', short: '딱 좋아요',
+      tempo: 1.00, turn: 1.00, timeMul: 1.00, hitMul: 1.00,
+      drainMul: 1.00, chordMul: 1.00, recover: 20
+    },
+    hard: {
+      id: 'hard', name: '고수', short: '빠르게',
+      tempo: 1.26, turn: 1.35, timeMul: 0.74, hitMul: 0.82,
+      drainMul: 1.30, chordMul: 1.50, recover: 30
+    }
+  };
+  var DIFF_ORDER = ['easy', 'normal', 'hard'];
+  function diff() { return DIFFS[S.diff] || DIFFS.normal; }
+
   /* 스테이지 속도 곡선 — 단마다 약 3.5%씩만 빨라진다(계단식으로 확 튀지 않음) */
   function tempoAt(stage) { return 1 + 0.035 * Math.max(0, stage - 1); }
+  /* 난이도까지 반영한 실제 배속 — 음악 재생·판정 모두 이 값을 쓴다 */
+  function tempoMulAt(stage) { return tempoAt(stage) * diff().tempo; }
   /* 그 단의 실제 빠르기 — 곡 고유 빠르기는 ±5%만 반영해 단마다 고르게 빨라진다 */
   function bpmAtStage(songId, stage) {
-    return 100 * tempoAt(stage) * Math.pow(SONGS[songId].bpm / 100, 0.18);
+    return 100 * tempoAt(stage) * diff().tempo * Math.pow(SONGS[songId].bpm / 100, 0.18);
   }
   /* 떨어지는 타일이 화면 위에서 판정선까지 오는 시간 — 템포에 맞춰 부드럽게 */
   function approachFor(beatSec) { return clamp(beatSec * 2.55, 0.8, 1.85); }
@@ -675,6 +701,8 @@
     floorBadge: document.getElementById('floorBadge'),
     floorNum: document.getElementById('floorNum'),
     stageBadge: document.getElementById('stageBadge'),
+    diffBadge: document.getElementById('diffBadge'),
+    diffPicker: document.getElementById('diffPicker'),
     songTag: document.getElementById('songTag'),
     accTag: document.getElementById('accTag'),
     accNum: document.getElementById('accNum'),
@@ -1070,6 +1098,7 @@
   var S = {
     screen: 'home',
     mode: 'rhythm',
+    diff: 'normal',
     startSong: 'twinkle',
     stage: 1,
     song: 'twinkle',
@@ -1086,6 +1115,10 @@
     S.best.stairs = parseInt(localStorage.getItem('woojin_piano_best_stairs') || '0', 10) || 0;
     S.best.mix = parseInt(localStorage.getItem('woojin_piano_best_mix') || '0', 10) || 0;
     S.bestFloor = parseInt(localStorage.getItem('woojin_piano_best_floor') || '0', 10) || 0;
+  } catch (e) { }
+  try {
+    var savedDiff = localStorage.getItem('woojin_piano_diff');
+    if (savedDiff && DIFFS[savedDiff]) S.diff = savedDiff;
   } catch (e) { }
 
   var L = { cx: 0, nearY: 0, fieldBottom: 0, laneX: 0, laneW: 0, laneTop: 0, hitY: 0, stageY: 0, ls0: 52, stepW: 86, backLs: 16 };
@@ -1170,6 +1203,24 @@
     app.setAttribute('data-mode', m);
   }
 
+  /* ══════ 난이도 ══════ */
+  function syncDiffUI() {
+    if (!el.diffPicker) return;
+    var btns = el.diffPicker.querySelectorAll('.diff-btn');
+    for (var i = 0; i < btns.length; i++) {
+      var on = btns[i].dataset.diff === S.diff;
+      btns[i].classList.toggle('is-on', on);
+      btns[i].setAttribute('aria-checked', on ? 'true' : 'false');
+    }
+  }
+  function setDiff(id) {
+    if (!DIFFS[id]) return;
+    S.diff = id;
+    try { localStorage.setItem('woojin_piano_diff', id); } catch (e) { }
+    syncDiffUI();
+    updateHud();
+  }
+
   /* ══════ HUD ══════ */
   var hudCache = {};
   function updateHud() {
@@ -1195,6 +1246,12 @@
     }
     var acc = S.judged ? Math.round(S.perfect / S.judged * 100) : 100;
     if (hudCache.acc !== acc) { hudCache.acc = acc; el.accNum.textContent = acc; }
+    if (hudCache.diff !== S.diff) {
+      hudCache.diff = S.diff;
+      var d = diff();
+      el.diffBadge.textContent = d.name;
+      el.diffBadge.className = 'diff-chip diff-' + d.id;
+    }
     if (hudCache.stage !== S.stage || hudCache.song !== S.song) {
       hudCache.stage = S.stage;
       hudCache.song = S.song;
@@ -1243,13 +1300,13 @@
   }
 
   var bannerTimer = null;
-  function showBanner(text) {
+  function showBanner(text, ms) {
     el.banner.textContent = text;
     el.banner.classList.remove('show');
     void el.banner.offsetWidth;
     el.banner.classList.add('show');
     clearTimeout(bannerTimer);
-    bannerTimer = setTimeout(function () { el.banner.classList.remove('show'); }, 1500);
+    bannerTimer = setTimeout(function () { el.banner.classList.remove('show'); }, ms || 1500);
   }
   function judgeShow(text, cls) {
     el.judge.textContent = text;
@@ -1292,7 +1349,7 @@
     rhythmBuild(S.song);
     paintBg(S.stage, true);
     updateHud();
-    showBanner('리듬 건반! 내려오는 건반을 톡톡 🎹');
+    showBanner(diff().name + ' 난이도 · 내려오는 건반을 톡톡 🎹');
   }
 
   function rhythmPress(lane) {
@@ -1309,7 +1366,7 @@
   }
 
   function rhythmHit(n, adt) {
-    var perfect = adt <= 0.22;
+    var perfect = adt <= 0.22 * diff().hitMul;
     n.hit = perfect ? 2 : 1;
     RH.ptr++;
     playPiano(n.midi, 1);
@@ -1325,8 +1382,8 @@
       showBanner('피버 타임! 점수 2배 🌈');
       playSparkle(76);
     }
-    // 곡이 길어져도 끝까지 갈 수 있게 — 20콤보마다 하트 하나 회복(최대 3)
-    if (S.combo > 0 && S.combo % 20 === 0 && S.hearts < 3) {
+    // 곡이 길어져도 끝까지 갈 수 있게 — 난이도별 콤보마다 하트 하나 회복(최대 3)
+    if (S.combo > 0 && S.combo % diff().recover === 0 && S.hearts < 3) {
       S.hearts++;
       playSparkle(80);
       showBanner('하트 하나 회복! 💖');
@@ -1565,7 +1622,7 @@
     var turn = false;
     if (ST.steps.length > 2) {
       ST.sinceTurn++;
-      var chance = clamp(0.24 + (S.stage - 1) * 0.025, 0.24, 0.42);
+      var chance = clamp((0.24 + (S.stage - 1) * 0.025) * diff().turn, 0.08, 0.52);
       if (ST.sinceTurn >= 5) turn = true;
       else if (ST.sinceTurn >= 2 && Math.random() < chance) turn = true;
       if (turn) { ST.dir = -ST.dir; ST.sinceTurn = 0; }
@@ -1582,16 +1639,16 @@
     for (var i = 0; i < 14; i++) stairsPush();
     ST.timeMax = 100;
     ST.time = 100;
-    ST.drain = 7.0;
+    ST.drain = 7.0 * diff().drainMul;
   }
 
   function stairsStart() {
     stairsReset();
     S.stage = 1; S.song = S.startSong;
     paintBg(S.stage, true);
-    musicStart(S.song, 1);
+    musicStart(S.song, tempoMulAt(S.stage));
     updateHud();
-    showBanner('계단을 올라요! ⬆ / 꺾이면 ↺');
+    showBanner(diff().name + ' 난이도 · ⬆ / 꺾이면 ↺');
   }
 
   function stairsPress(action) {
@@ -1632,9 +1689,9 @@
     S.cheerT = 1.4;
     ST.timeMax = Math.min(100, ST.timeMax + 6);
     ST.time = ST.timeMax;
-    ST.drain = 7.0 + (S.stage - 1) * 0.45;
+    ST.drain = (7.0 + (S.stage - 1) * 0.45) * diff().drainMul;
     paintBg(S.stage, true);
-    musicStart(S.song, tempoAt(S.stage));
+    musicStart(S.song, tempoMulAt(S.stage));
     showBanner('STAGE ' + S.stage + ' · ' + SONGS[S.song].name + ' ' + STAGES[Math.min(S.stage, 5) - 1].emoji);
     hudCache.stage = -1; hudCache.song = '';
     updateHud();
@@ -1998,7 +2055,7 @@
     hopT: 0, fallT: 0, respawnT: 0, pressBuf: []
   };
 
-  function turnChanceAt(stage) { return clamp(0.30 + (stage - 1) * 0.015, 0.30, 0.36); }
+  function turnChanceAt(stage) { return clamp((0.30 + (stage - 1) * 0.015) * diff().turn, 0.10, 0.50); }
 
   function mixPush() {
     var mel = melodyOf(MX.genSong);
@@ -2021,7 +2078,7 @@
     var beatSec = 60 / bpm;
     var lane = laneOfPitch(cur.midi);
     var chord = false, midis = [cur.midi], lanes = [lane];
-    if (MX.genStage >= 3 && !turn && MX.notePtr + 1 < mel.length && Math.random() < 0.17) {
+    if (MX.genStage >= 3 && !turn && MX.notePtr + 1 < mel.length && Math.random() < 0.17 * diff().chordMul) {
       var l2 = laneOfPitch(mel[MX.notePtr + 1].midi);
       if (l2 !== lane) {
         chord = true;
@@ -2030,7 +2087,7 @@
       }
     }
     var beats = cur.beats + (chord ? mel[MX.notePtr + 1].beats : 0);
-    var limit = clamp(beatSec * beats * 2.1, 0.6, 1.9 / tempoAt(MX.genStage) + 0.5);
+    var limit = clamp(beatSec * beats * 2.1, 0.6, 1.9 / tempoAt(MX.genStage) + 0.5) * diff().timeMul;
     MX.wx += MX.dir;
     MX.steps.push({
       k: MX.steps.length, dir: MX.dir, turn: turn, wx: MX.wx,
@@ -2064,7 +2121,7 @@
     mixReset(S.startSong);
     paintBg(S.stage, true);
     updateHud();
-    showBanner('건반을 톡톡! 계단을 올라요 🎹');
+    showBanner(diff().name + ' 난이도 · 색 타일은 음표, 분홍 ↺는 방향전환', 2600);
   }
 
   function mixFallProgress() {
@@ -2075,7 +2132,7 @@
   function mixAnchor(st) {
     if (st && st.turn && el.btnTurn) {
       var r = el.btnTurn.getBoundingClientRect();
-      return { x: r.left + r.width / 2, y: r.top, w: r.width, rgb: '236,158,215' };
+      return { x: r.left + r.width / 2, y: r.top, w: r.width, rgb: TURN_RGB };
     }
     var idx = st ? (st.lane || 0) : 0;
     var e = el.mkeys[idx];
@@ -2213,21 +2270,22 @@
     for (k = Math.max(0, MX.charIdx - 2); k <= top; k++) if (k >= 1) mixRiser(k, now);
     for (k = top; k >= Math.max(0, MX.charIdx - 2); k--) mixTile(k, now);
     mixCharacter(now);
-    mixFallingTile(now);
+    mixFallingTile(now);          // 떨어지는 타일은 늘 맨 앞 — 놓치지 않게
   }
 
-  var STEP_COLORS = ['#4d8dff', '#a86bff', '#ff6fbe', '#4fd8ff', '#ffb84d'];
-  function stepColor(st) { return STEP_COLORS[((st.midi || 60) - 60 + 24) % STEP_COLORS.length]; }
+  var TURN_RGB = '255,47,147';
 
   function mixRiser(k, now) {
     var a = pathScreen(MX, k - 1), b = pathScreen(MX, k);
     if (b.d < -2.2 || a.d > CAM_AHEAD + 0.6) return;
+    var st = MX.steps[k];
+    var cr = st && st.turn ? TURN_RGB : LANES[(st && st.lane) || 0].rgb;
     var h = 34 * b.s;
     ctx.save();
     ctx.globalAlpha = clamp(0.7 - Math.max(0, b.d) * 0.03, 0.28, 0.8);
     var g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-    g.addColorStop(0, 'rgba(140, 198, 252, .52)');
-    g.addColorStop(1, 'rgba(228, 246, 255, .82)');
+    g.addColorStop(0, 'rgba(' + cr + ', .34)');
+    g.addColorStop(1, 'rgba(' + cr + ', .68)');
     ctx.fillStyle = g;
     ctx.beginPath();
     ctx.moveTo(b.x - 40 * b.s, b.y);
@@ -2247,8 +2305,9 @@
   function mixLandingSlot(k, now) {
     var st = MX.steps[k];
     var p = pathScreen(MX, k);
-    var w = 92 * p.s, h = 28 * p.s;
-    var fc = st.turn ? '236,158,215' : LANES[st.lane || 0].rgb;
+    var isTurn = !!st.turn;
+    var w = (isTurn ? 100 : 92) * p.s, h = (isTurn ? 32 : 28) * p.s;
+    var fc = isTurn ? TURN_RGB : LANES[st.lane || 0].rgb;
     var pulse = 0.5 + 0.5 * Math.sin(now * 0.007);
     var f0 = mixFallProgress();
     var ringA = 0.18 + 0.55 * f0;
@@ -2282,54 +2341,105 @@
     var isNext = k === MX.nextIdx;
     if (isNext) { mixLandingSlot(k, now); return; }
     var past = k <= MX.charIdx;
-    var w = 92 * p.s, h = 28 * p.s;
-    var col = st.midi ? stepColor(st) : '#9fc6e8';
+    var isTurn = !!st.turn;
+    var laneHex = LANES[st.lane || 0].hex;
+    var w = (isTurn ? 100 : 92) * p.s, h = (isTurn ? 32 : 28) * p.s;
+    var top = p.y - h / 2;
 
     ctx.save();
     ctx.globalAlpha = past ? 0.42 : clamp(1.06 - Math.max(0, p.d) * 0.03, 0.78, 1);
 
-    ctx.fillStyle = 'rgba(20, 16, 60, .28)';
-    rr(ctx, p.x - w / 2 + 3 * p.s, p.y + 7 * p.s, w, h, 9 * p.s);
+    // 그림자
+    ctx.fillStyle = 'rgba(20, 16, 60, .30)';
+    rr(ctx, p.x - w / 2 + 3 * p.s, p.y + 8 * p.s, w, h, 9 * p.s);
     ctx.fill();
 
+    // 옆면 — 일반은 건반 색, 꾸임은 진한 핫핑크
     var fg = ctx.createLinearGradient(0, p.y, 0, p.y + 26 * p.s);
-    fg.addColorStop(0, '#eaf4ff');
-    fg.addColorStop(1, '#a9c8ea');
+    if (isTurn) {
+      fg.addColorStop(0, '#c9126a');
+      fg.addColorStop(1, '#7d0a45');
+    } else {
+      fg.addColorStop(0, hexA(laneHex, .92));
+      fg.addColorStop(1, hexA(laneHex, .48));
+    }
     ctx.fillStyle = fg;
     rr(ctx, p.x - w / 2, p.y + 2 * p.s, w, 20 * p.s, 8 * p.s);
     ctx.fill();
 
-    var tg = ctx.createLinearGradient(0, p.y - h / 2, 0, p.y + h / 2);
-    tg.addColorStop(0, '#ffffff');
-    tg.addColorStop(0.6, '#f6fbff');
-    tg.addColorStop(1, '#e2efff');
+    // 윗면 — 일반은 파랑·청록·주황·보라, 꾸임은 핫핑크+노랑 테두리
+    var tg = ctx.createLinearGradient(0, top, 0, top + h);
+    if (isTurn) {
+      tg.addColorStop(0, '#ff9ecd');
+      tg.addColorStop(0.35, '#ff3d9b');
+      tg.addColorStop(1, '#bd0b60');
+    } else {
+      tg.addColorStop(0, '#ffffff');
+      tg.addColorStop(0.16, hexA(laneHex, .74));
+      tg.addColorStop(0.7, hexA(laneHex, 1));
+      tg.addColorStop(1, hexA(laneHex, .92));
+    }
     ctx.fillStyle = tg;
-    rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 8 * p.s);
-    ctx.fill();
-    ctx.strokeStyle = hexA(col, 0.55);
-    ctx.lineWidth = Math.max(1, 1.6 * p.s);
-    rr(ctx, p.x - w / 2, p.y - h / 2, w, h, 8 * p.s);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgba(24, 22, 52, .88)';
-    rr(ctx, p.x - w * 0.16, p.y - h / 2 - 4 * p.s, w * 0.32, h * 0.62, 3 * p.s);
+    rr(ctx, p.x - w / 2, top, w, h, 8 * p.s);
     ctx.fill();
 
-    ctx.save();
-    ctx.globalAlpha *= 0.85;
-    ctx.fillStyle = hexA(col, 0.9);
-    rr(ctx, p.x - w * 0.4, p.y + h * 0.28, w * 0.8, Math.max(2, 3.4 * p.s), 2);
-    ctx.fill();
-    ctx.restore();
-
-    if (p.s > 0.5 && st.noteName) {
+    if (isTurn) {
+      // 위험 표시 줄무늬 — 한눈에 '특수 칸'임을 알린다
       ctx.save();
+      ctx.beginPath();
+      rr(ctx, p.x - w / 2, top, w, h, 8 * p.s);
+      ctx.clip();
+      ctx.strokeStyle = 'rgba(255, 225, 74, .55)';
+      ctx.lineWidth = Math.max(1.6, 3 * p.s);
+      for (var dx = -w; dx < w; dx += 15 * p.s) {
+        ctx.beginPath();
+        ctx.moveTo(p.x + dx, top + h);
+        ctx.lineTo(p.x + dx + h * 0.9, top);
+        ctx.stroke();
+      }
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(255, 255, 255, .98)';
+      ctx.lineWidth = Math.max(2.4, 4.6 * p.s);
+      rr(ctx, p.x - w / 2, top, w, h, 8 * p.s);
+      ctx.stroke();
+      ctx.strokeStyle = '#ffe14a';
+      ctx.lineWidth = Math.max(1.6, 2.8 * p.s);
+      rr(ctx, p.x - w / 2 + 2.6 * p.s, top + 2.6 * p.s, w - 5.2 * p.s, h - 5.2 * p.s, 6 * p.s);
+      ctx.stroke();
+    } else {
+      ctx.strokeStyle = 'rgba(255, 255, 255, .95)';
+      ctx.lineWidth = Math.max(1.4, 2.4 * p.s);
+      rr(ctx, p.x - w / 2, top, w, h, 8 * p.s);
+      ctx.stroke();
+    }
+
+    if (isTurn) {
+      // 꾸임 타일 — 큰 ↺ + '방향전환' 글자
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.font = '900 ' + Math.round(13 * p.s) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-      ctx.fillStyle = st.chord ? '#b3560a' : '#2f5f96';
-      ctx.fillText(st.chord ? st.noteName + '+' : st.noteName, p.x, p.y + h * 0.06);
-      ctx.restore();
+      ctx.font = '900 ' + Math.round(15 * p.s) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.lineWidth = Math.max(2, 3 * p.s);
+      ctx.strokeStyle = 'rgba(112, 8, 60, .95)';
+      ctx.strokeText('↺ 방향전환', p.x, top + h * 0.56);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('↺ 방향전환', p.x, top + h * 0.56);
+    } else {
+      // 검은 건반 + 계이름
+      ctx.fillStyle = 'rgba(24, 22, 52, .88)';
+      rr(ctx, p.x - w * 0.15, top - 3 * p.s, w * 0.30, h * 0.44, 3 * p.s);
+      ctx.fill();
+      if (p.s > 0.5 && st.noteName) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = '900 ' + Math.round(13 * p.s) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+        ctx.lineWidth = Math.max(1.6, 2.4 * p.s);
+        ctx.strokeStyle = 'rgba(16, 40, 78, .85)';
+        ctx.strokeText(st.chord ? st.noteName + '+' : st.noteName, p.x, top + h * 0.62);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(st.chord ? st.noteName + '+' : st.noteName, p.x, top + h * 0.62);
+        ctx.restore();
+      }
     }
     ctx.restore();
   }
@@ -2345,7 +2455,9 @@
     var ty = p.y - (1 - f) * dropH;
     var s2 = p.s * (0.86 + 0.14 * f);
     var a = mixAnchor(st);
-    var col = st.turn ? '236,158,215' : LANES[st.lane].rgb;
+    var isTurn = !!st.turn;
+    var laneRgb = LANES[st.lane].rgb;
+    var col = isTurn ? TURN_RGB : laneRgb;
 
     var lg = ctx.createLinearGradient(a.x, a.y, p.x, ty);
     lg.addColorStop(0, 'rgba(' + col + ', .62)');
@@ -2370,47 +2482,97 @@
     ctx.stroke();
     ctx.restore();
 
-    var w = 96 * s2, h = 31 * s2;
+    // 꾸임 타일은 더 크게 그려 멀리서도 눈에 띄게
+    var w = (isTurn ? 118 : 96) * s2, h = (isTurn ? 42 : 31) * s2;
     ctx.save();
-    ctx.shadowColor = 'rgba(' + col + ', .9)';
-    ctx.shadowBlur = 16 * s2;
+    ctx.shadowColor = isTurn ? 'rgba(255, 50, 140, .95)' : 'rgba(' + laneRgb + ', .95)';
+    ctx.shadowBlur = (isTurn ? 22 : 16) * s2;
     var tg = ctx.createLinearGradient(0, ty - h / 2, 0, ty + h / 2);
-    if (st.turn) {
-      tg.addColorStop(0, '#ffe9f7'); tg.addColorStop(0.58, '#f8b6e4'); tg.addColorStop(1, '#dd88c6');
+    if (isTurn) {
+      tg.addColorStop(0, '#ff9ecd'); tg.addColorStop(0.35, '#ff3d9b'); tg.addColorStop(1, '#bd0b60');
     } else {
-      tg.addColorStop(0, '#fffef6'); tg.addColorStop(0.55, '#fff7d2'); tg.addColorStop(1, '#ffe6a0');
+      tg.addColorStop(0, '#ffffff'); tg.addColorStop(0.16, 'rgba(' + laneRgb + ', .78)');
+      tg.addColorStop(0.7, 'rgba(' + laneRgb + ', 1)'); tg.addColorStop(1, 'rgba(' + laneRgb + ', .92)');
     }
     ctx.fillStyle = tg;
-    rr(ctx, p.x - w / 2, ty - h / 2, w, h, 9 * s2);
+    rr(ctx, p.x - w / 2, ty - h / 2, w, h, (isTurn ? 12 : 9) * s2);
     ctx.fill();
+    if (isTurn) {
+      ctx.save();
+      ctx.beginPath();
+      rr(ctx, p.x - w / 2, ty - h / 2, w, h, 12 * s2);
+      ctx.clip();
+      ctx.strokeStyle = 'rgba(255, 225, 74, .5)';
+      ctx.lineWidth = Math.max(1.8, 3.2 * s2);
+      for (var dx2 = -w; dx2 < w; dx2 += 16 * s2) {
+        ctx.beginPath();
+        ctx.moveTo(p.x + dx2, ty + h / 2);
+        ctx.lineTo(p.x + dx2 + h * 0.9, ty - h / 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
     ctx.shadowBlur = 0;
-    ctx.strokeStyle = st.turn ? 'rgba(198,86,160,.95)' : 'rgba(255,190,54,.95)';
-    ctx.lineWidth = 2.2 * s2;
-    rr(ctx, p.x - w / 2, ty - h / 2, w, h, 9 * s2);
-    ctx.stroke();
+    if (isTurn) {
+      ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+      ctx.lineWidth = Math.max(2.6, 5.4 * s2);
+      rr(ctx, p.x - w / 2, ty - h / 2, w, h, 12 * s2);
+      ctx.stroke();
+      ctx.strokeStyle = '#ffe14a';
+      ctx.lineWidth = Math.max(1.8, 3.2 * s2);
+      rr(ctx, p.x - w / 2 + 3 * s2, ty - h / 2 + 3 * s2, w - 6 * s2, h - 6 * s2, 9 * s2);
+      ctx.stroke();
+    } else {
+      ctx.strokeStyle = 'rgba(255, 255, 255, .98)';
+      ctx.lineWidth = Math.max(1.8, 3 * s2);
+      rr(ctx, p.x - w / 2, ty - h / 2, w, h, 9 * s2);
+      ctx.stroke();
+    }
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    if (st.turn) {
-      ctx.strokeStyle = '#b3458f';
-      ctx.lineWidth = 2.6 * s2;
+    if (isTurn) {
+      // 타일 안 — 큰 ↺ 화살표
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = Math.max(2.4, 3.4 * s2);
       ctx.beginPath();
-      ctx.moveTo(p.x - w * 0.30, ty + h * 0.20);
-      ctx.lineTo(p.x - w * 0.10, ty + h * 0.02);
-      ctx.lineTo(p.x + w * 0.06, ty + h * 0.20);
-      ctx.lineTo(p.x + w * 0.24, ty + h * 0.02);
+      ctx.moveTo(p.x - w * 0.30, ty + h * 0.16);
+      ctx.lineTo(p.x - w * 0.12, ty - h * 0.06);
+      ctx.lineTo(p.x + w * 0.08, ty + h * 0.16);
+      ctx.lineTo(p.x + w * 0.26, ty - h * 0.06);
       ctx.stroke();
-      ctx.font = '900 ' + Math.round(14 * s2) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-      ctx.fillStyle = '#8c2f6c';
-      ctx.fillText('↺ 꺾임', p.x, ty - h * 0.16);
+      ctx.font = '900 ' + Math.round(15 * s2) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.lineWidth = Math.max(2, 3 * s2);
+      ctx.strokeStyle = 'rgba(112, 8, 60, .9)';
+      ctx.strokeText('↺ 방향전환', p.x, ty + h * 0.60);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('↺ 방향전환', p.x, ty + h * 0.60);
+
+      // 타일 위 — 노란 배지
+      var bw = 96 * s2, bh = 22 * s2, by = ty - h / 2 - bh - 7 * s2;
+      ctx.shadowColor = 'rgba(255, 210, 60, .9)';
+      ctx.shadowBlur = 12 * s2;
+      ctx.fillStyle = '#fffbe0';
+      ctx.strokeStyle = '#ffe14a';
+      ctx.lineWidth = Math.max(2, 2.6 * s2);
+      rr(ctx, p.x - bw / 2, by, bw, bh, bh / 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      ctx.font = '900 ' + Math.max(9, Math.round(11.5 * s2)) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
+      ctx.fillStyle = '#a5105c';
+      ctx.fillText('↺ 방향전환', p.x, by + bh * 0.54);
     } else {
       ctx.fillStyle = 'rgba(26,24,56,.9)';
       rr(ctx, p.x - w * 0.15, ty - h / 2 - 3 * s2, w * 0.30, h * 0.46, 3 * s2);
       ctx.fill();
       var lbl = st.chord ? (LANES[st.lanes[0]].syl + '+' + LANES[st.lanes[1]].syl) : LANES[st.lane].syl;
       ctx.font = '900 ' + Math.round(16 * s2) + 'px "Apple SD Gothic Neo", "Noto Sans KR", sans-serif';
-      ctx.fillStyle = '#8a5600';
-      ctx.fillText(lbl, p.x, ty + h * 0.20);
+      ctx.lineWidth = Math.max(2, 3 * s2);
+      ctx.strokeStyle = 'rgba(18, 42, 84, .85)';
+      ctx.strokeText(lbl, p.x, ty + h * 0.26);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(lbl, p.x, ty + h * 0.26);
     }
     ctx.restore();
   }
@@ -2515,7 +2677,7 @@
     el.pauseScreen.classList.remove('show');
     audioRestore();
     if (S.mode === 'stairs' && ST.over) { gameOver(); return; }
-    if (S.mode === 'stairs') musicStart(S.song, tempoAt(S.stage));
+    if (S.mode === 'stairs') musicStart(S.song, tempoMulAt(S.stage));
     lastT = 0;
   }
 
@@ -2708,6 +2870,17 @@
     el.modeStairs.addEventListener('click', function () { startMode('stairs'); });
     el.modeMix.addEventListener('click', function () { startMode('mix'); });
 
+    // 난이도 고르기 — 세 놀이 모두에 적용
+    if (el.diffPicker) {
+      el.diffPicker.addEventListener('click', function (e) {
+        var b = e.target.closest('.diff-btn');
+        if (!b) return;
+        setDiff(b.dataset.diff);
+        audioInit();
+        playBlip(1);
+      });
+    }
+
     el.retryBtn.addEventListener('click', function () {
       el.overScreen.classList.remove('show');
       startMode(S.mode);
@@ -2791,6 +2964,7 @@
     buildStars();
     resize();
     bindUi();
+    syncDiffUI();
     refreshBest();
     updateHud();
     requestAnimationFrame(frame);
@@ -2798,7 +2972,7 @@
 
   /* E2E · 점검용 훅 */
   window.__piano = {
-    version: 4,
+    version: 5,
     screen: function () { return S.screen; },
     mode: function () { return S.mode; },
     state: S,
@@ -2807,6 +2981,25 @@
     pause: pauseGame,
     resume: resumeGame,
     press: doAction,
+    diff: function () { return S.diff; },
+    setDiff: setDiff,
+    diffInfo: function () {
+      var d = diff();
+      return {
+        id: d.id, name: d.name, tempo: d.tempo, turn: d.turn, timeMul: d.timeMul,
+        hitMul: d.hitMul, drainMul: d.drainMul, chordMul: d.chordMul, recover: d.recover,
+        order: DIFF_ORDER.slice()
+      };
+    },
+    pixel: function (x, y, r) {
+      try {
+        var rr2 = Math.max(1, r || 2);
+        var g = ctx.getImageData(Math.round(x * dpr) - rr2, Math.round(y * dpr) - rr2, rr2 * 2, rr2 * 2);
+        var d = g.data, n = d.length / 4, R = 0, G = 0, B = 0;
+        for (var i = 0; i < d.length; i += 4) { R += d[i]; G += d[i + 1]; B += d[i + 2]; }
+        return { r: Math.round(R / n), g: Math.round(G / n), b: Math.round(B / n), n: n };
+      } catch (e) { return null; }
+    },
     songs: function () { return SONG_ORDER.slice(); },
     songInfo: function () {
       return SONG_ORDER.map(function (id) {
@@ -2822,7 +3015,9 @@
     speed: function () {
       return {
         stage: S.stage,
+        diff: S.diff,
         tempo: +tempoAt(S.stage).toFixed(4),
+        tempoMul: +tempoMulAt(S.stage).toFixed(4),
         beatSec: +RH.beatSec.toFixed(4),
         approach: +RH.approach.toFixed(3),
         notes: RH.notes.length,
@@ -2832,10 +3027,13 @@
     tempoOf: function (st) { return +tempoAt(st).toFixed(4); },
     bpmOf: function (st) { return +bpmAtStage(songAt(st), st).toFixed(2); },
     beatOf: function (st) { return +(60 / bpmAtStage(songAt(st), st)).toFixed(4); },
+    stairsInfo: function () {
+      return { drain: +ST.drain.toFixed(3), turnChance: +clamp((0.24 + (S.stage - 1) * 0.025) * diff().turn, 0.08, 0.52).toFixed(4), time: +ST.time.toFixed(2) };
+    },
     hud: function () {
       return {
         score: S.score, combo: S.combo, maxCombo: S.maxCombo, hearts: S.hearts,
-        stage: S.stage, song: S.song, floor: ST.floor, time: Math.round(ST.time),
+        stage: S.stage, song: S.song, diff: S.diff, floor: ST.floor, time: Math.round(ST.time),
         rhythmPtr: RH.ptr, rhythmNotes: RH.notes.length, rhTime: RH.t,
         mixPtr: MX.nextIdx, mixSteps: MX.steps.length
       };
@@ -2872,6 +3070,29 @@
       next: function () {
         var st = MX.steps[MX.nextIdx];
         return st ? { turn: st.turn, chord: st.chord, lane: st.lane, lanes: st.lanes, stage: st.stage } : null;
+      },
+      info: function () {
+        return {
+          timeLimit: +MX.timeLimit.toFixed(3), timeLeft: +MX.timeLeft.toFixed(3),
+          fall: +mixFallProgress().toFixed(3),
+          turnChance: +turnChanceAt(MX.genStage).toFixed(3),
+          nextTurn: !!(MX.steps[MX.nextIdx] && MX.steps[MX.nextIdx].turn)
+        };
+      },
+      find: function (turn, maxAhead) {
+        var lim = Math.min(MX.steps.length - 1, MX.nextIdx + (maxAhead || 8));
+        for (var k = MX.nextIdx; k <= lim; k++) {
+          var st = MX.steps[k];
+          if (!st || st.midi === null) continue;
+          if (!!st.turn === !!turn) {
+            var p = pathScreen(MX, k);
+            return {
+              k: k, d: +p.d.toFixed(2), x: +p.x.toFixed(1), y: +p.y.toFixed(1), s: +p.s.toFixed(3),
+              lane: st.lane, chord: !!st.chord, turn: !!st.turn
+            };
+          }
+        }
+        return null;
       },
       geo: function () {
         var out = [];

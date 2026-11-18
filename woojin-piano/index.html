@@ -36,6 +36,7 @@
 
   <div class="song-tag">
     <span class="stage-chip" id="stageBadge">STAGE 1 🌱</span>
+    <span class="diff-chip" id="diffBadge">⭐ 보통</span>
     <span id="songTag">⭐ 작은별</span>
   </div>
 
@@ -112,6 +113,22 @@
           <h1 class="card-title">도레미<br />별빛 피아노</h1>
           <p class="card-sub">우진이와 함께 골라서 놀아요 ✨</p>
         </div>
+      </div>
+
+      <p class="sec-label">난이도 <span class="sec-hint">세 놀이 모두에 적용돼요</span></p>
+      <div class="diff-strip" id="diffPicker" role="radiogroup" aria-label="난이도">
+        <button class="diff-btn df-easy" type="button" data-diff="easy" role="radio" aria-checked="false" aria-label="초보 난이도">
+          <span class="df-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>초보</b>
+        </button>
+        <button class="diff-btn df-normal is-on" type="button" data-diff="normal" role="radio" aria-checked="true" aria-label="보통 난이도">
+          <span class="df-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>보통</b>
+        </button>
+        <button class="diff-btn df-hard" type="button" data-diff="hard" role="radio" aria-checked="false" aria-label="고수 난이도">
+          <span class="df-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>고수</b>
+        </button>
       </div>
 
       <p class="sec-label">놀이를 골라 주세요 <span class="sec-hint">누르면 바로 시작!</span></p>
