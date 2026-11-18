@@ -1,4 +1,4 @@
-/* 천국의 계단 · 우진이의 구름 계단
+/* 별빛 계단 · 별이의 구름 계단
    오리지널 아케이드 — 달리는 손맛, 스페셜 계단, 수집 아이템
    ------------------------------------------------------------- */
 (function () {
@@ -138,11 +138,11 @@
 
   var bodyImg = new Image(); var bodyReady = false;
   bodyImg.onload = function () { bodyReady = true; };
-  bodyImg.src = 'assets/woojin-body.png';
+  bodyImg.src = 'assets/byeol-body.png';
 
   var faceImg = new Image(); var faceReady = false;
   faceImg.onload = function () { faceReady = true; };
-  faceImg.src = 'assets/woojin-face.png';
+  faceImg.src = 'assets/byeol-face.png';
 
   function resize() {
     var r = cv.getBoundingClientRect();
@@ -373,7 +373,7 @@
     if (!msg) { if (f % 25 === 0) msg = f + '층 돌파!'; }
     if (!msg) return;
     if (f % 25 === 0) {
-      var big = { 25: '우진이 최고! 🌟', 50: '슈퍼 점프! 🚀', 100: '천국이 보여! 👼' }[f] || (f + '층!! 최고예요 🎉');
+      var big = { 25: '별이 최고! 🌟', 50: '슈퍼 점프! 🚀', 100: '구름 위가 보여! 👼' }[f] || (f + '층!! 최고예요 🎉');
       banner(big, f + '층');
       sfx.fanfare(f >= 50);
       vibrate(25);
@@ -499,7 +499,7 @@
 
   function showOverlay(kind, record) {
     if (kind === 'over') {
-      elTitle.textContent = record ? '신기록이에요! 🎉' : '우진아, 한 번 더!';
+      elTitle.textContent = record ? '신기록이에요! 🎉' : '별이, 한 번 더!';
       elSub.textContent = S.reason;
       elStats.innerHTML =
         '<div class="box"><b>' + S.floor + '층</b><span>이번에 오른 계단</span></div>' +
@@ -508,8 +508,8 @@
       elMain.textContent = '다시 하기';
       elTip.textContent = '최고 점수 ' + S.bestScore + '점';
     } else {
-      elTitle.textContent = '천국의 계단';
-      elSub.textContent = '우진이의 구름 계단';
+      elTitle.textContent = '별빛 계단';
+      elSub.textContent = '별이의 구름 계단';
       elStats.innerHTML =
         '<div class="box hot"><b>' + S.best + '층</b><span>최고 층수</span></div>' +
         '<div class="box"><b>' + S.bestScore + '점</b><span>최고 점수</span></div>';
@@ -848,7 +848,7 @@
       }
     }
 
-    /* 5 · 천국 구름 정원 */
+    /* 5 · 별빛 구름 정원 */
     if (ws[4] > 0.02) {
       var a4 = ws[4];
       ctx.save();

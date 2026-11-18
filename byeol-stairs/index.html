@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="googlebot" content="noindex, nofollow" />
+<meta name="referrer" content="no-referrer" />
+<meta name="theme-color" content="#8ed4ff" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<title>별빛 계단 · 별이</title>
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="icon" href="assets/byeol-face.png" />
+<link rel="manifest" href="manifest.json" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div id="app">
+  <canvas id="stage"></canvas>
+
+  <div class="hud">
+    <div class="panel">
+      <div class="floor-line"><b id="floorNum">0</b><span class="unit">층</span></div>
+      <div class="score-line"><b id="scoreNum">0</b><span class="unit">점</span></div>
+      <div class="gauge"><div class="gauge-fill" id="gaugeFill"></div></div>
+    </div>
+    <button id="muteBtn" class="mute" type="button" aria-label="소리 끄기">🔊</button>
+  </div>
+
+  <div id="comboTag" class="combo-tag"></div>
+  <div id="banner" class="banner"></div>
+  <div id="toast" class="toast"></div>
+
+  <div id="pad" class="pad">
+    <button id="turnBtn" class="pad-btn turn" type="button">
+      <span class="shine"></span>
+      <span class="ico">↺</span>
+      <span class="lbl">방향전환</span>
+    </button>
+    <button id="climbBtn" class="pad-btn climb" type="button">
+      <span class="shine"></span>
+      <span class="ico">⤒</span>
+      <span class="lbl">오르기</span>
+    </button>
+  </div>
+
+  <div id="overlay" class="overlay">
+    <div class="card">
+      <img class="face" src="assets/byeol-face.png" alt="별이" width="92" height="92" />
+      <h1 id="ovTitle">별빛 계단</h1>
+      <p id="ovSub" class="sub">별이의 구름 계단</p>
+      <div id="ovStats" class="stats"></div>
+      <button id="mainBtn" class="cta" type="button">시작!</button>
+      <p id="ovTip" class="tip">방향전환으로 방향을 맞추고, 오르기를 눌러요</p>
+    </div>
+  </div>
+</div>
+<script src="game.js"></script>
+</body>
+</html>

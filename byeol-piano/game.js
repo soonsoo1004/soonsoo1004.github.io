@@ -1,8 +1,8 @@
 /* ══════════════════════════════════════════════════════════════
-   도레미 별빛 피아노 · 우진이
+   도레미 별빛 피아노 · 별이
    세 가지 놀이
      ① 리듬 건반 모드 — 떨어지는 도·레·미·솔 타일을 박자에 맞춰 연주
-     ② 천국의 계단 모드 — 오르기 / 방향전환 두 버튼으로 끝없이 오르기
+     ② 별빛 계단 모드 — 오르기 / 방향전환 두 버튼으로 끝없이 오르기
      ③ 믹스 모드 — 피아노 70 : 계단 30
    난이도: 초보(느긋) · 보통(기본) · 고수(빠름) — 세 놀이 모두 속도·타이밍에 반영
    음악: 저작권 만료 클래식·전래동요만 Web Audio 피아노 신스로 직접 합성
@@ -635,7 +635,7 @@
     } catch (e) { }
   }
 
-  /* ══════ 배경 음악 — 스테이지 곡을 낮게 반복 (천국의 계단 모드) ══════ */
+  /* ══════ 배경 음악 — 스테이지 곡을 낮게 반복 (별빛 계단 모드) ══════ */
   var MUS = { on: false, timer: null, ptr: 0, nextAt: 0, song: null, beat: 0.5 };
 
   function musicStart(songId, tempoMul) {
@@ -759,10 +759,10 @@
 
   /* ══════ 이미지 — 동화풍 4포즈 ══════ */
   var SPRITE_DEF = {
-    run:   { src: 'assets/woojin-run.png',   ax: 0.50 },
-    cheer: { src: 'assets/woojin-cheer.png', ax: 0.50 },
-    play:  { src: 'assets/woojin-play.png',  ax: 0.335 },
-    oops:  { src: 'assets/woojin-oops.png',  ax: 0.50 }
+    run:   { src: 'assets/byeol-run.png',   ax: 0.50 },
+    cheer: { src: 'assets/byeol-cheer.png', ax: 0.50 },
+    play:  { src: 'assets/byeol-play.png',  ax: 0.335 },
+    oops:  { src: 'assets/byeol-oops.png',  ax: 0.50 }
   };
   var sprites = {};
   (function () {
@@ -1546,7 +1546,7 @@
       ctx.restore();
     }
 
-    // 무대 위 우진이
+    // 무대 위 별이
     var stageH = Math.max(52, Math.min(104, L.fieldBottom - hit - 6));
     var pose = S.cheerT > 0 ? 'cheer' : (S.oopsT > 0 ? 'oops' : 'play');
     var bob = S.screen === 'play' ? Math.sin(now * 0.005) * 2.4 : 0;
@@ -1608,7 +1608,7 @@
   }
 
   /* ══════════════════════════════════════════════════════════
-     ② 천국의 계단 모드 — 오르기 / 방향전환
+     ② 별빛 계단 모드 — 오르기 / 방향전환
      ══════════════════════════════════════════════════════════ */
   var CAM_AHEAD = 7;
 
@@ -1745,7 +1745,7 @@
     for (k = top; k >= Math.max(0, ST.charIdx - 2); k--) drawStairStep(k, now);
     // 다음 계단 안내
     drawStairHint(now);
-    // 우진이
+    // 별이
     var hop = clamp(ST.hopT, 0, 1);
     var a = pathScreen(ST, Math.max(0, ST.charIdx - 1)), b = pathScreen(ST, ST.charIdx);
     var t = 1 - hop;
@@ -2721,7 +2721,7 @@
 
     el.overTitle.textContent = title;
     el.overMsg.textContent = msg;
-    if (el.overFace) el.overFace.src = (S.stage >= 3 || S.floor >= 24) ? 'assets/woojin-cheer.png' : 'assets/woojin-oops.png';
+    if (el.overFace) el.overFace.src = (S.stage >= 3 || S.floor >= 24) ? 'assets/byeol-cheer.png' : 'assets/byeol-oops.png';
     setScreen('over');
     hintKeys([]);
     setTimeout(function () {
@@ -2796,7 +2796,7 @@
     ctx.restore();
   }
 
-  /* 홈 배경 — 성 앞에서 손 흔드는 우진이 */
+  /* 홈 배경 — 성 앞에서 손 흔드는 별이 */
   function drawHomeScene(now) {
     var gy = H * 0.80;
     // 무지개 다리
