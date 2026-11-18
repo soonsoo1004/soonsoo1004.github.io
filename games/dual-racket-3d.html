@@ -119,8 +119,8 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
   border:2px solid rgba(255,220,190,.55)}
 .act.drive{width:78px;height:78px;background:radial-gradient(circle at 34% 26%,#7fe0ff,#3b8bff 46%,#1c4ecb);
   border:2px solid rgba(200,230,255,.5)}
-.act.ready{filter:brightness(1.08);animation:readyPulse 1.05s ease-in-out infinite}
-@keyframes readyPulse{0%,100%{box-shadow:0 10px 26px rgba(4,14,30,.45),inset 0 1px 0 rgba(255,255,255,.4),0 0 0 0 rgba(255,255,255,.55)}50%{box-shadow:0 10px 26px rgba(4,14,30,.45),inset 0 1px 0 rgba(255,255,255,.4),0 0 0 7px rgba(255,255,255,0)}}
+.act.ready .ring{animation:readyPulse 1.15s ease-out infinite}
+@keyframes readyPulse{0%{opacity:.75;transform:scale(.94)}75%{opacity:0;transform:scale(1.38)}100%{opacity:0;transform:scale(1.38)}}
 .act .ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--acc);opacity:0;pointer-events:none}
 .act.pulse .ring{animation:ringout .45s ease-out}
 @keyframes ringout{0%{opacity:.9;transform:scale(.86)}100%{opacity:0;transform:scale(1.3)}}
