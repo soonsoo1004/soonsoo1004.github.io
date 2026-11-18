@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>🏛️ 헛소리 박물관 — 확신에 찬 라벨 넷 중 진짜를 고르는 게임</title>
+<meta name="description" content="평범한 물건에 거창한 이름이 붙은 박물관. 라벨 네 개 중 진짜 설명은 하나뿐입니다. 틀리면 그 헛소리가 내 전시관에 걸립니다. 가입·설치·광고 없는 단일 HTML 게임.">
+<meta name="author" content="린다 (Linda)">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#f3ece0">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    min-height:100dvh;
+    background:
+      radial-gradient(120% 60% at 50% -10%,#fdf9f0 0%,#f3ece0 46%,#e9dfcd 100%);
+    color:#241d14;
+    font-family:"Pretendard","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+    letter-spacing:-.012em;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .wrap{
+    width:100%;max-width:420px;margin:0 auto;min-height:100dvh;
+    padding:calc(12px + env(safe-area-inset-top)) 15px calc(14px + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;gap:10px;
+  }
+
+  /* ---------- 상단 ---------- */
+  .top{display:flex;align-items:center;gap:9px}
+  .mark{font-size:17px;line-height:1}
+  .top h1{margin:0;font-size:16.5px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
+  .rank{
+    margin-left:auto;flex:none;
+    font-size:11px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;
+    padding:6px 10px;border-radius:999px;
+    color:#8a6614;background:#fbf1d8;border:1px solid #e8d29a;
+    transition:background .2s,color .2s,border-color .2s,transform .2s;
+  }
+  .rank.up{animation:rankUp .5s ease}
+  @keyframes rankUp{0%{transform:scale(1)}40%{transform:scale(1.14)}100%{transform:scale(1)}}
+  .icon-btn{
+    flex:none;width:31px;height:31px;border-radius:50%;cursor:pointer;
+    border:1px solid #ded2ba;background:#fffdf8;color:#7a6c56;
+    font-size:14px;line-height:1;display:grid;place-items:center;
+    transition:transform .12s ease,background .15s ease;
+  }
+  .icon-btn:active{transform:scale(.92);background:#f1e8d8}
+
+  /* ---------- 진행 ---------- */
+  .prog{display:flex;align-items:center;gap:7px}
+  .dots{display:flex;gap:6px;flex:1}
+  .dots i{
+    flex:1;height:5px;border-radius:999px;background:#e2d6c0;
+    transition:background .28s ease;
+  }
+  .dots i.now{background:#c9a227}
+  .dots i.ok{background:#2f7d5c}
+  .dots i.no{background:#bd553a}
+  .count{font-size:11px;font-weight:700;color:#98876c;font-variant-numeric:tabular-nums}
+
+  /* ---------- 유물 액자 ---------- */
+  .frame{
+    position:relative;flex:1 1 auto;display:flex;flex-direction:column;min-height:0;
+    border-radius:20px;padding:9px;
+    background:linear-gradient(160deg,#fffdf8,#f6efe0);
+    border:1px solid #e3d7c1;
+    box-shadow:0 1px 0 #fff inset,0 10px 26px rgba(90,68,32,.10);
+  }
+  .frame::before{
+    content:"";position:absolute;inset:9px;border-radius:13px;pointer-events:none;
+    border:1px solid #ecdfc7;
+  }
+  .stage{
+    position:relative;flex:1 1 auto;width:100%;min-height:clamp(144px,24vh,220px);border-radius:13px;overflow:hidden;
+    background:
+      radial-gradient(70% 90% at 50% 16%,#fdf7e7 0%,#f2e7cf 58%,#e8dabc 100%);
+    display:grid;place-items:center;
+  }
+  .stage .lamp{
+    position:absolute;top:-34px;left:50%;width:150px;height:150px;transform:translateX(-50%);
+    background:radial-gradient(50% 50% at 50% 50%,rgba(255,241,196,.95) 0%,rgba(255,241,196,0) 72%);
+    pointer-events:none;
+  }
+  #art{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    height:84%;aspect-ratio:1/1;max-width:78%;display:grid;place-items:center;
+  }
+  .stage svg{position:relative;width:100%;height:100%;display:block;
+    animation:artIn .42s cubic-bezier(.2,.85,.3,1) both;
+    filter:drop-shadow(0 9px 16px rgba(120,92,40,.22));}
+  @keyframes artIn{from{opacity:0;transform:translateY(9px) scale(.94)}to{opacity:1;transform:none}}
+  .stage .pedestal{
+    position:absolute;left:50%;bottom:12%;transform:translateX(-50%);
+    width:56%;height:10px;border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(120,92,40,.20),rgba(120,92,40,0) 72%);
+    pointer-events:none;
+  }
+  .art{display:contents}
+  .tag{
+    position:absolute;bottom:7px;right:9px;font-size:9.5px;font-weight:800;letter-spacing:.06em;
+    color:#a8926a;
+  }
+
+  /* ---------- 명패 ---------- */
+  .plaque{display:flex;flex-direction:column;gap:2px;padding:0 3px}
+  .plaque h2{margin:0;font-size:17px;font-weight:800;letter-spacing:-.035em;line-height:1.3}
+  .plaque p{margin:0;font-size:11px;color:#9c8a6c;letter-spacing:.01em}
+  .ask{margin:0;padding:0 3px;font-size:13px;font-weight:700;color:#6f6047}
+
+  /* ---------- 선택지 ---------- */
+  .choices{display:flex;flex-direction:column;gap:9px}
+  .choice{
+    position:relative;width:100%;text-align:left;font:inherit;cursor:pointer;
+    padding:12px 14px 12px 36px;border-radius:14px;
+    border:1px solid #e2d6c0;background:#fffdf9;color:#2c2419;
+    font-size:13.5px;line-height:1.45;letter-spacing:-.018em;
+    transition:transform .1s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease;
+  }
+  .choice .n{
+    position:absolute;left:12px;top:13px;width:16px;height:16px;border-radius:50%;
+    display:grid;place-items:center;font-size:10px;font-weight:800;
+    color:#a1906f;background:#f3ebdb;border:1px solid #e6d9c1;
+  }
+  .choice:active{transform:scale(.985);background:#faf3e5}
+  .choice[disabled]{cursor:default}
+  .choice.right{
+    background:#eaf6ef;border-color:#8fc4a8;color:#1d5a41;
+    box-shadow:0 0 0 2px rgba(47,125,92,.10);
+  }
+  .choice.right .n{background:#2f7d5c;border-color:#2f7d5c;color:#fff}
+  .choice.wrong{
+    background:#fdeee9;border-color:#e6ae9a;color:#8f3a22;
+    animation:shake .34s ease;
+  }
+  .choice.wrong .n{background:#bd553a;border-color:#bd553a;color:#fff}
+  .choice.dim{opacity:.46}
+  @keyframes shake{0%,100%{transform:translateX(0)}22%{transform:translateX(-4px)}48%{transform:translateX(4px)}72%{transform:translateX(-2px)}}
+
+  /* ---------- 하단 ---------- */
+  .note{
+    margin:0;min-height:35px;padding:0 3px;font-size:12.5px;line-height:1.42;
+    color:#8a7a5f;
+  }
+  .foot{
+    margin:0;padding:0 4px 2px;text-align:center;
+    font-size:10.5px;line-height:1.5;color:#a29174;letter-spacing:-.005em;
+  }
+  .note b{font-weight:800}
+  .note.ok{color:#23704f}
+  .note.no{color:#a0442a}
+  .cta{
+    width:100%;height:50px;font:inherit;font-size:14.5px;font-weight:800;cursor:pointer;
+    border:0;border-radius:15px;color:#fff;letter-spacing:-.02em;
+    background:linear-gradient(180deg,#3a3226,#241d14);
+    box-shadow:0 8px 20px rgba(50,38,18,.20);
+    transition:transform .1s ease,opacity .2s ease,box-shadow .15s ease;
+  }
+  .cta:active{transform:scale(.985)}
+  .cta[hidden]{display:none}
+  .cta[disabled]{
+    background:#f7f0e3;color:#a89a80;border:1px dashed #dccdb2;box-shadow:none;cursor:default;
+  }
+  .cta.ghost{background:#fffdf9;color:#4a3f2f;border:1px solid #e2d6c0;box-shadow:none}
+
+  /* ---------- 결과 ---------- */
+  .result{
+    position:fixed;inset:0;z-index:20;overflow-y:auto;
+    background:linear-gradient(180deg,#fdf8ee 0%,#f0e6d4 100%);
+    padding:calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom));
+    opacity:0;transition:opacity .26s ease;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .result[hidden]{display:none}
+  .result.show{opacity:1}
+  .result .inner{width:100%;max-width:390px;margin:auto;display:flex;flex-direction:column;gap:12px;text-align:center}
+  .result .crest{
+    width:74px;height:74px;margin:4px auto 0;border-radius:22px;display:grid;place-items:center;
+    font-size:34px;background:#fffdf8;border:1px solid #e6d8bd;
+    box-shadow:0 10px 26px rgba(120,92,40,.14);
+  }
+  .result .kicker{margin:0;font-size:11px;font-weight:800;letter-spacing:.12em;color:#b09768}
+  .result .grade{margin:0;font-size:27px;font-weight:900;letter-spacing:-.04em;line-height:1.15}
+  .result .score{margin:0;font-size:13px;color:#7c6d53}
+  .result .score b{font-size:16px;color:#241d14;font-variant-numeric:tabular-nums}
+  .shelf{
+    display:flex;flex-direction:column;gap:7px;text-align:left;
+    padding:12px;border-radius:16px;background:#fffdf8;border:1px solid #e7dac1;
+  }
+  .shelf .h{
+    display:flex;align-items:center;gap:6px;
+    font-size:11px;font-weight:800;letter-spacing:.02em;color:#a48d63;
+  }
+  .shelf .h span{margin-left:auto;font-variant-numeric:tabular-nums}
+  .shelf ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+  .shelf li{
+    font-size:11.5px;line-height:1.42;color:#4e422f;
+    padding-left:17px;position:relative;
+  }
+  .shelf li::before{
+    content:"";position:absolute;left:0;top:4px;width:9px;height:9px;
+    border:1.5px solid #b8a079;border-radius:2px;box-sizing:border-box;
+  }
+  .shelf .empty{font-size:11.5px;color:#8d7d62;line-height:1.5;padding-left:0!important}
+  .shelf li.empty::before{display:none}
+  .hint{margin:0;font-size:11.5px;line-height:1.5;color:#9c8a6c}
+  .result .cta{margin-top:2px}
+
+  @media (max-height:760px){
+    .wrap{gap:6px}
+    .stage{min-height:clamp(84px,14vh,118px)}
+    #art{max-width:56%}
+    .plaque h2{font-size:15px}
+    .plaque p{font-size:10px}
+    .choice{padding:7px 12px 7px 30px;font-size:12.5px;line-height:1.38}
+    .choice .n{top:8px;left:9px}
+    .note{min-height:27px;font-size:11.5px}
+    .cta{height:43px;font-size:14px}
+    .foot{display:none}
+    .result .crest{width:60px;height:60px;font-size:28px}
+    .result .grade{font-size:23px}
+    .result .inner{gap:9px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <span class="mark" aria-hidden="true">🏛️</span>
+    <h1>헛소리 박물관</h1>
+    <span class="rank" id="rank">관람객</span>
+    <button class="icon-btn" id="restart" type="button" aria-label="처음부터" title="처음부터">↻</button>
+  </header>
+
+  <div class="prog">
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <span class="count" id="count">1 / 5</span>
+  </div>
+
+  <div class="frame">
+    <div class="stage">
+      <div class="lamp" aria-hidden="true"></div>
+      <div class="pedestal" aria-hidden="true"></div>
+      <div id="art"></div>
+      <span class="tag" aria-hidden="true">유물</span>
+    </div>
+  </div>
+
+  <div class="plaque">
+    <h2 id="title">—</h2>
+    <p id="meta">—</p>
+  </div>
+
+  <p class="ask" id="ask">이 유물의 진짜 정체는?</p>
+
+  <div class="choices" id="choices" role="group" aria-label="라벨 네 개"></div>
+
+  <p class="note" id="note" aria-live="polite"></p>
+  <button class="cta" id="next" type="button" hidden>다음 유물 →</button>
+  <p class="foot">라벨 넷 중 진짜는 하나 · 틀리면 그 헛소리가 내 전시관에 걸린다</p>
+</div>
+
+<div class="result" id="result" hidden aria-live="polite">
+  <div class="inner">
+    <div class="crest" id="crest">🏛️</div>
+    <p class="kicker">오늘의 관장 등급</p>
+    <p class="grade" id="rGrade">관람객</p>
+    <p class="score" id="rScore"><b>0</b> / 5점</p>
+    <div class="shelf">
+      <div class="h">내 전시관에 걸린 헛소리 <span id="rCount">0점</span></div>
+      <ul id="rList"></ul>
+    </div>
+    <p class="hint" id="rHint"></p>
+    <button class="cta" id="again" type="button">한 세트 더</button>
+    <button class="cta ghost" id="home" type="button">처음 화면으로</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var SIZE = 5;            // 한 세트 유물 수
+  var params = new URLSearchParams(location.search);
+  var TEST = params.get('test') === '1';
+  var seedParam = params.get('seed');
+  var seed = seedParam ? (parseInt(seedParam, 10) || 1) : ((Date.now() >>> 0) % 2147483647);
+  var DELAY = TEST ? 0 : 340;
+
+  var errors = [];
+  window.addEventListener('error', function (e) { errors.push(String((e && e.message) || e)); });
+  window.addEventListener('unhandledrejection', function (e) { errors.push('rejection: ' + String(e && e.reason)); });
+
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  function shuffle(arr, rng) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* =========================================================
+     유물 SVG (전부 자체 제작 · 외부 이미지 0)
+     ========================================================= */
+  function cog(cx, cy, r1, r2, teeth) {
+    var pts = [], n = teeth * 2;
+    for (var i = 0; i < n; i++) {
+      var ang = (Math.PI * 2 * i) / n - Math.PI / 2;
+      var r = (i % 2 === 0) ? r1 : r2;
+      pts.push((cx + Math.cos(ang) * r).toFixed(2) + ',' + (cy + Math.sin(ang) * r).toFixed(2));
+    }
+    return 'M' + pts.join('L') + 'Z';
+  }
+
+  var ICON = {
+    cap: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="' + cog(60, 60, 46, 39, 21) + '" fill="#c9a227"/>' +
+      '<path d="' + cog(60, 60, 45, 38, 21) + '" fill="none" stroke="#8f6a20" stroke-width="1.4" opacity=".55"/>' +
+      '<circle cx="60" cy="60" r="33" fill="#f7f0dd"/>' +
+      '<circle cx="60" cy="60" r="33" fill="none" stroke="#b3862f" stroke-width="2.4"/>' +
+      '<circle cx="60" cy="60" r="22" fill="none" stroke="#c9b489" stroke-width="1.6" stroke-dasharray="3 4"/>' +
+      '<circle cx="60" cy="60" r="5" fill="#b3862f" opacity=".7"/></svg>',
+
+    bulb: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<circle cx="60" cy="50" r="30" fill="#fdf3cd"/>' +
+      '<circle cx="60" cy="50" r="30" fill="none" stroke="#c9a227" stroke-width="2.6"/>' +
+      '<path d="M48 72h24l-2 7H50z" fill="#b3862f"/>' +
+      '<rect x="50" y="79" width="20" height="13" rx="3" fill="#9a7a33"/>' +
+      '<path d="M50 84h20M50 88h20" stroke="#6f5622" stroke-width="1.5" opacity=".6"/>' +
+      '<path d="M54 44l6 8 6-8" fill="none" stroke="#c08a1c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M60 52v16" stroke="#c08a1c" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<circle cx="60" cy="46" r="26" fill="none" stroke="#fff" stroke-width="3" opacity=".5" stroke-dasharray="30 200"/></svg>',
+
+    pin: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<g transform="rotate(-10 60 60)"><rect x="40" y="18" width="17" height="66" rx="8" fill="#e0c48c"/></g>' +
+      '<g transform="rotate(10 60 60)"><rect x="63" y="18" width="17" height="66" rx="8" fill="#d3b475"/></g>' +
+      '<circle cx="60" cy="62" r="11" fill="#f7f0dd" stroke="#8f6a20" stroke-width="3"/>' +
+      '<circle cx="60" cy="62" r="4.5" fill="#8f6a20"/>' +
+      '<path d="M46 26h5M69 26h5" stroke="#a8843c" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></svg>',
+
+    cup: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M38 34h44l-6 58a6 6 0 0 1-6 5H50a6 6 0 0 1-6-5z" fill="#f2e7cf"/>' +
+      '<path d="M38 34h44l-6 58a6 6 0 0 1-6 5H50a6 6 0 0 1-6-5z" fill="none" stroke="#c9b489" stroke-width="2.2"/>' +
+      '<ellipse cx="60" cy="34" rx="22" ry="7" fill="#fbf6e8" stroke="#b3862f" stroke-width="2.2"/>' +
+      '<path d="M43 54h34M45 70h30" stroke="#d8c8a6" stroke-width="2" stroke-linecap="round"/>' +
+      '<circle cx="60" cy="34" r="9" fill="#c9a227" opacity=".35"/></svg>',
+
+    band: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<ellipse cx="60" cy="60" rx="44" ry="26" fill="none" stroke="#c98a8a" stroke-width="7" transform="rotate(-18 60 60)"/>' +
+      '<ellipse cx="60" cy="60" rx="44" ry="26" fill="none" stroke="#e0a8a8" stroke-width="2.4" transform="rotate(-18 60 60)" opacity=".8"/>' +
+      '<ellipse cx="60" cy="60" rx="38" ry="21" fill="none" stroke="#c98a8a" stroke-width="6" transform="rotate(14 60 60)"/>' +
+      '<ellipse cx="60" cy="60" rx="38" ry="21" fill="none" stroke="#e8bcbc" stroke-width="2" transform="rotate(14 60 60)" opacity=".7"/></svg>',
+
+    pad: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M18 58l30-20h44l10 16-4 34a5 5 0 0 1-5 4H28a5 5 0 0 1-5-4z" fill="#8b9a8b"/>' +
+      '<path d="M18 58l30-20h44l10 16z" fill="#a3b2a2"/>' +
+      '<path d="M26 62h68M27 72h66M29 82h62" stroke="#6f7d6f" stroke-width="1.6" opacity=".55"/>' +
+      '<rect x="50" y="40" width="22" height="30" rx="11" fill="#f4efe3" stroke="#6f7d6f" stroke-width="2"/>' +
+      '<path d="M60 44v10" stroke="#6f7d6f" stroke-width="2" stroke-linecap="round"/></svg>',
+
+    straw: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M40 104V54a20 20 0 0 1 20-20h18" fill="none" stroke="#d8b6d8" stroke-width="13" stroke-linecap="round"/>' +
+      '<path d="M40 104V54a20 20 0 0 1 20-20h18" fill="none" stroke="#e8cfe8" stroke-width="5" stroke-linecap="round"/>' +
+      '<path d="M78 34h14" stroke="#b98cb9" stroke-width="13" stroke-linecap="round"/>' +
+      '<path d="M40 76h-2M40 88h-2M40 62h-2" stroke="#fff" stroke-width="2" opacity=".7"/></svg>',
+
+    slipper: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M26 74c0-16 12-28 30-28s30 10 30 26c0 12-9 20-24 20H40c-9 0-14-7-14-18z" fill="#c98f7a"/>' +
+      '<path d="M26 74c0-16 12-28 30-28s30 10 30 26c0 12-9 20-24 20H40c-9 0-14-7-14-18z" fill="none" stroke="#a9715d" stroke-width="2.2"/>' +
+      '<path d="M38 58c8 12 34 12 40 0" fill="none" stroke="#f0d6c6" stroke-width="8" stroke-linecap="round"/>' +
+      '<path d="M22 84h3M30 92h3" stroke="#a9715d" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></svg>',
+
+    receipt: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M36 16h48v82l-6-5-6 5-6-5-6 5-6-5-6 5-6-5-6 5z" fill="#fdfaf1" stroke="#c9b489" stroke-width="2"/>' +
+      '<path d="M44 30h32M44 40h32M44 50h20" stroke="#a8977a" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<path d="M44 64h9M58 64h9M72 64h8M44 74h9M58 74h9" stroke="#d5c7ab" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M46 88h28" stroke="#b3862f" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M40 20h40" stroke="#e5d9c0" stroke-width="2"/></svg>',
+
+    mask: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M34 46c0-6 12-10 26-10s26 4 26 10v18c0 14-11 22-26 22S34 78 34 64z" fill="#e8f1f4"/>' +
+      '<path d="M34 46c0-6 12-10 26-10s26 4 26 10v18c0 14-11 22-26 22S34 78 34 64z" fill="none" stroke="#a9c2cc" stroke-width="2.2"/>' +
+      '<path d="M35 52h50M35 60h50M35 68h50" stroke="#c2d5dc" stroke-width="2" opacity=".9"/>' +
+      '<path d="M34 50c-10 2-14 8-13 16M86 50c10 2 14 8 13 16" fill="none" stroke="#9db6c0" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="M58 36h4" stroke="#a9c2cc" stroke-width="2.4" stroke-linecap="round"/></svg>',
+
+    papercup: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M34 40h52l-7 54a6 6 0 0 1-6 5H47a6 6 0 0 1-6-5z" fill="#fdfaf1"/>' +
+      '<path d="M34 40h52l-7 54a6 6 0 0 1-6 5H47a6 6 0 0 1-6-5z" fill="none" stroke="#c9b489" stroke-width="2.2"/>' +
+      '<rect x="32" y="34" width="56" height="9" rx="4" fill="#c9a227" opacity=".85"/>' +
+      '<path d="M42 62h36M45 78h30" stroke="#e2d6bd" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<path d="M60 46v42" stroke="#eee3cc" stroke-width="2" opacity=".8"/></svg>',
+
+    clip: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
+      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" ' +
+      'fill="none" stroke="#9aa6b2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" ' +
+      'fill="none" stroke="#cfd8e2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+
+  /* =========================================================
+     유물 12점 · 라벨 4개씩 (전부 자체 창작)
+     ========================================================= */
+  var RELICS = [
+    { key: 'cap', icon: 'cap', title: '심해 왕국의 봉인 인장', meta: '추정 연대: 기원전 3세기 · 출토지: 미상',
+      truth: '탄산음료 병뚜껑. 병을 한 번 열면 다시 닫아 둘 수 없다.',
+      lies: [
+        '심해 왕국이 성문을 닫을 때마다 찍던 의식용 인장. 톱니 21개는 문지기의 수를 새긴 것이다.',
+        '초기 천문학자들이 별의 높이를 재던 원판. 가운데 원은 북극성, 바깥 톱니는 계절의 눈금이다.',
+        '전쟁 포로의 목에 걸던 신분패. 톱니 하나가 하루 노동량을 뜻해, 하루가 끝나면 하나씩 떼어 냈다.'
+      ] },
+
+    { key: 'bulb', icon: 'bulb', title: '천 년을 밝힌 소원의 등불', meta: '추정 연대: 12세기 · 재질: 결정체',
+      truth: '백열전구. 안을 진공으로 비워 두어야 필라멘트가 타지 않는다.',
+      lies: [
+        '유목민이 여름의 햇빛을 가두어 두었다가 장마철에 꺼내 쓰던 빛 저장 그릇.',
+        '점술사가 미래를 비추던 수정구의 초기형. 안쪽을 가로지르는 실은 사람의 운명을 상징한다.',
+        '기도할 때 안에 향을 넣고 돌리던 향로. 유리벽은 연기가 새지 않게 하는 장치다.'
+      ] },
+
+    { key: 'pin', icon: 'pin', title: '바다를 붙들어 둔 왕의 빗장', meta: '추정 연대: 15세기 · 재질: 목재(추정)',
+      truth: '빨래집게. 빨랫줄에 걸어 빨래가 날아가지 않게 집어 둔다.',
+      lies: [
+        '해적이 항로를 표시할 때 돛대에 끼우던 나침 고정구. 두 쪽으로 벌어지는 구조가 파도를 견뎠다.',
+        '갓난아기의 손가락이 펴지지 않게 물려 두던 습관 교정구.',
+        '한 부족의 혼인 증표. 두 개의 다리가 서로를 물고 있어야 계약이 성립한다고 믿었다.'
+      ] },
+
+    { key: 'cup', icon: 'cup', title: '달의 눈물을 받아 두던 그릇', meta: '추정 연대: 미상 · 용도: 의례',
+      truth: '요거트 용기. 뚜껑을 뜯어 먹고, 다 먹으면 컵은 버린다.',
+      lies: [
+        '사제가 달빛이 가장 강한 밤에만 이슬을 모으던 성배. 목이 좁은 것은 증발을 막기 위해서다.',
+        '작은 새를 길들일 때 쓰던 이동식 우리. 아래로 좁아지는 형태가 새를 편안하게 했다.',
+        '죽은 이의 이름을 적어 바다에 띄우던 봉헌함. 뚜껑이 덮여 있는 것은 이름을 감추기 위해서다.'
+      ] },
+
+    { key: 'band', icon: 'band', title: '시간을 묶어 두는 매듭 고리', meta: '추정 연대: 18세기 · 재질: 수액(추정)',
+      truth: '고무줄. 신문지와 상자를 한데 묶는 데 쓴다.',
+      lies: [
+        '전령이 봉인한 편지를 다시 열지 못하게 감던 봉인끈. 늘어나는 재질이라 봉인이 뜯기면 바로 티가 났다.',
+        '적의 손가락을 세던 계수기. 손가락에 끼워 하나씩 옮겨 가며 수를 셌다.',
+        '사냥꾼의 덫에 쓰이던 탄성 부품. 당겨 두었다 놓으면 먹잇감의 발목을 붙든다.'
+      ] },
+
+    { key: 'pad', icon: 'pad', title: '잊힌 신전의 제단 받침', meta: '추정 연대: 8세기 · 출토지: 폐허 3호',
+      truth: '마우스패드. 책상에서 마우스가 미끄러지지 않게 받쳐 준다.',
+      lies: [
+        '신전 제단 앞에 깔던 무릎 보호대. 가장자리를 따라 새겨진 선은 기도 횟수를 세는 눈금이다.',
+        '서기관이 글을 쓰던 각도 받침. 무늬는 잉크가 번지지 않게 짠 천의 결을 그대로 옮긴 것이다.',
+        '왕이 서는 자리 아래에만 깔던 의전용 깔개. 발소리를 죽여 신을 놀라게 하지 않으려 했다.'
+      ] },
+
+    { key: 'straw', icon: 'straw', title: '사막의 바람을 세던 관', meta: '추정 연대: 10세기 · 용도: 측정',
+      truth: '플라스틱 빨대. 음료를 마실 때 입에 물고 쓴다.',
+      lies: [
+        '모래 폭풍의 세기를 재던 관. 속이 좁을수록 강한 바람만 통과해 위험을 예고했다.',
+        '독을 걸러 마시던 정화관. 구부러진 부분에 모래와 독이 가라앉는다고 믿었다.',
+        '관리들이 문서를 말아 넣던 서류함. 길이가 제각각인 것은 문서의 등급을 뜻한다.'
+      ] },
+
+    { key: 'slipper', icon: 'slipper', title: '밤을 새우는 자의 갑옷', meta: '추정 연대: 13세기 · 재질: 가죽',
+      truth: '슬리퍼. 발에 훌렁 신고 집안을 걸어 다닌다.',
+      lies: [
+        '전사의 발을 지키던 가죽 갑주. 발등만 덮는 이유는 발가락이 자유로워야 검을 딛고 설 수 있었기 때문이다.',
+        '사제가 성스러운 땅을 밟을 때 신던 의전화. 밑창 무늬는 땅의 신에게 남기는 서명이다.',
+        '도망친 죄수를 쫓던 추적관이 발자국을 뜰 때 쓰던 표본 틀.'
+      ] },
+
+    { key: 'receipt', icon: 'receipt', title: '별의 좌표를 적어 둔 두루마리', meta: '추정 연대: 미상 · 재질: 박막',
+      truth: '편의점 영수증. 산 물건과 값이 줄마다 인쇄되어 있다.',
+      lies: [
+        '천문대가 매일 밤 관측한 별의 위치를 적은 일지. 글자가 흐린 것은 세월이 아니라 잉크가 스스로 사라지기 때문이다.',
+        '왕실의 하루 지출을 신에게 보고하던 회계 문서. 맨 아래 큰 숫자는 그날의 재앙을 뜻한다.',
+        '상단의 숫자는 흉조의 등급, 아래로 갈수록 위험이 커진다는 뜻으로 읽었다.'
+      ] },
+
+    { key: 'mask', icon: 'mask', title: '침묵을 지키는 의식용 고리', meta: '추정 연대: 20세기 초 · 용도: 의례',
+      truth: '일회용 보건 마스크. 침방울이 퍼지지 않게 막는다.',
+      lies: [
+        '광부가 유독가스를 거르던 첫 안면구. 귀에 거는 끈은 사고가 났을 때 한 손으로 벗기기 위한 구조다.',
+        '재판관이 증언을 더는 듣지 않겠다는 뜻으로 쓰던 얼굴 가리개.',
+        '전염병의 신을 달래는 행렬에서 참가자 전원이 반드시 써야 했던 가면.'
+      ] },
+
+    { key: 'papercup', icon: 'papercup', title: '순례자의 작은 물동이', meta: '추정 연대: 미상 · 출토지: 길가',
+      truth: '종이컵. 물을 한 번 따르고 나면 다시 쓰지 않는다.',
+      lies: [
+        '순례자가 성지의 물을 담아 오던 물동이. 한 번만 쓰는 것은 남의 업을 옮기지 않기 위해서였다.',
+        '높이를 재던 자. 두 줄의 홈은 계절의 경계를 표시해 두었다.',
+        '의회에서 표를 던질 때 쓰던 작은 투표함. 위쪽 테두리가 안쪽으로 말린 것은 표를 다시 꺼내지 못하게 하기 위해서다.'
+      ] },
+
+    { key: 'clip', icon: 'clip', title: '영원을 걸어 잠근 열쇠', meta: '추정 연대: 19세기 · 재질: 금속',
+      truth: '클립. 종이 몇 장을 한데 묶어 두는 물건이다.',
+      lies: [
+        '왕가의 서약을 임시로 고정하던 약혼 표식. 끝을 두 번 감는 것을 반드시 지켜야 했다.',
+        '시계의 태엽을 감는 도구. 철사가 두 번 꺾인 모양은 손가락 힘을 아끼려는 설계다.',
+        '적의 칼날에서 화살을 튕겨 내던 미세 방패. 크기가 작아 옷깃에 숨겨 다녔다.'
+      ] }
+  ];
+
+  /* =========================================================
+     등급
+     ========================================================= */
+  var RANKS = [
+    { min: 5, name: '관장',   crest: '🏛️' },
+    { min: 4, name: '수석 큐레이터', crest: '🎖️' },
+    { min: 3, name: '큐레이터', crest: '🖼️' },
+    { min: 2, name: '도슨트',  crest: '🎧' },
+    { min: 1, name: '안내데스크', crest: '🪧' },
+    { min: 0, name: '관람객',  crest: '🎫' }
+  ];
+  function rankOf(score) {
+    for (var i = 0; i < RANKS.length; i++) if (score >= RANKS[i].min) return RANKS[i];
+    return RANKS[RANKS.length - 1];
+  }
+
+  /* =========================================================
+     요소
+     ========================================================= */
+  var elArt = document.getElementById('art');
+  var elTitle = document.getElementById('title');
+  var elMeta = document.getElementById('meta');
+  var elAsk = document.getElementById('ask');
+  var elChoices = document.getElementById('choices');
+  var elNote = document.getElementById('note');
+  var elNext = document.getElementById('next');
+  var elDots = document.getElementById('dots');
+  var elCount = document.getElementById('count');
+  var elRank = document.getElementById('rank');
+  var elResult = document.getElementById('result');
+  var elGrade = document.getElementById('rGrade');
+  var elScore = document.getElementById('rScore');
+  var elCrest = document.getElementById('crest');
+  var elList = document.getElementById('rList');
+  var elRCount = document.getElementById('rCount');
+  var elHint = document.getElementById('rHint');
+
+  var S = null;
+
+  function buildDots() {
+    var h = '';
+    for (var i = 0; i < SIZE; i++) h += '<i></i>';
+    elDots.innerHTML = h;
+  }
+
+  function newSet() {
+    var rng = mulberry32(seed + Math.floor(Math.random() * 100000));
+    var picked = shuffle(RELICS, rng).slice(0, SIZE);
+    var rounds = picked.map(function (r) {
+      var opts = shuffle([{ text: r.truth, ok: true }].concat(
+        r.lies.map(function (t) { return { text: t, ok: false }; })
+      ), rng);
+      return { relic: r, opts: opts, truthIdx: opts.findIndex(function (o) { return o.ok; }) };
+    });
+    S = {
+      step: 0, score: 0, answered: false, over: false,
+      rounds: rounds, marks: [], picked: [], collection: []
+    };
+  }
+
+  function render() {
+    var r = S.rounds[S.step].relic;
+    elArt.innerHTML = ICON[r.icon] || '';
+    elArt.className = 'art';
+    elTitle.textContent = r.title;
+    elMeta.textContent = r.meta;
+    elAsk.textContent = '이 유물의 진짜 정체는?';
+
+    var idx = 0;
+    elChoices.innerHTML = S.rounds[S.step].opts.map(function (o) {
+      idx += 1;
+      return '<button class="choice" type="button" data-i="' + (idx - 1) + '">' +
+        '<span class="n" aria-hidden="true">' + idx + '</span>' + escapeHtml(o.text) + '</button>';
+    }).join('');
+
+    S.answered = false;
+    elNote.textContent = '';
+    elNote.className = 'note';
+    elNext.hidden = false;
+    elNext.disabled = true;
+    elNext.textContent = '라벨 하나를 골라 봐';
+    elCount.textContent = (S.step + 1) + ' / ' + SIZE;
+    syncDots();
+    syncRank();
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function syncDots() {
+    var kids = elDots.children;
+    for (var i = 0; i < kids.length; i++) {
+      var m = S.marks[i];
+      kids[i].className = m === 'ok' ? 'ok' : (m === 'no' ? 'no' : (i === S.step ? 'now' : ''));
+    }
+  }
+
+  function syncRank() {
+    var rk = rankOf(S.score);
+    if (elRank.textContent !== rk.name) {
+      elRank.textContent = rk.name;
+      elRank.classList.remove('up');
+      void elRank.offsetWidth;
+      elRank.classList.add('up');
+    }
+  }
+
+  function answer(i) {
+    if (!S || S.over || S.answered) return false;
+    var round = S.rounds[S.step];
+    var btn = elChoices.querySelector('[data-i="' + i + '"]');
+    if (!btn) return false;
+
+    S.answered = true;
+    var correct = (i === round.truthIdx);
+    var all = elChoices.querySelectorAll('.choice');
+    for (var k = 0; k < all.length; k++) {
+      all[k].disabled = true;
+      var ki = parseInt(all[k].getAttribute('data-i'), 10);
+      if (ki === round.truthIdx) all[k].classList.add('right');
+      else if (ki === i) all[k].classList.add('wrong');
+      else all[k].classList.add('dim');
+    }
+
+    if (correct) {
+      S.score += 1;
+      S.marks[S.step] = 'ok';
+      elNote.className = 'note ok';
+      elNote.innerHTML = '<b>정답.</b> 이건 그냥 ' + shortTruth(round) + '. 관장 등급이 올라간다.';
+      syncRank();
+    } else {
+      S.marks[S.step] = 'no';
+      S.picked[S.step] = i;
+      S.collection.push(round.opts[i].text);
+      elNote.className = 'note no';
+      elNote.innerHTML = '<b>틀렸어.</b> 고른 라벨이 내 전시관에 걸렸다. 초록색이 진짜야.';
+    }
+
+    syncDots();
+    elNext.hidden = false;
+    elNext.disabled = false;
+    elNext.textContent = (S.step + 1 >= SIZE) ? '전시 결과 보기 →' : '다음 유물 →';
+    elNext.focus({ preventScroll: true });
+    return true;
+  }
+
+  function shortTruth(round) {
+    var t = round.relic.truth;
+    var cut = t.indexOf('.');
+    return cut > 0 ? t.slice(0, cut) : t;
+  }
+
+  function next() {
+    if (!S || !S.answered) return false;
+    if (S.step + 1 >= SIZE) { finish(); return true; }
+    S.step += 1;
+    render();
+    return true;
+  }
+
+  function finish() {
+    S.over = true;
+    var rk = rankOf(S.score);
+    elCrest.textContent = rk.crest;
+    elGrade.textContent = rk.name;
+    elScore.innerHTML = '<b>' + S.score + '</b> / ' + SIZE + '점';
+    elRCount.textContent = S.collection.length + '점';
+
+    if (S.collection.length) {
+      elList.innerHTML = S.collection.map(function (t) {
+        return '<li>' + escapeHtml(t) + '</li>';
+      }).join('');
+    } else {
+      elList.innerHTML = '<li class="empty" style="padding-left:0">걸린 헛소리가 없다. 오늘 이 박물관에 진실만 남았다.</li>';
+    }
+    elHint.textContent = S.score >= SIZE
+      ? '헛소리 없이 통과. 이 박물관에서 제일 무서운 관람객이다.'
+      : (SIZE - S.score) + '점 모자란다. 다 맞히면 관장이 된다.';
+
+    elResult.hidden = false;
+    requestAnimationFrame(function () { elResult.classList.add('show'); });
+  }
+
+  function restart() {
+    elResult.classList.remove('show');
+    elResult.hidden = true;
+    newSet();
+    render();
+  }
+
+  /* ---------- 입력 ---------- */
+  elChoices.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.choice') : null;
+    if (!b || b.disabled) return;
+    answer(parseInt(b.getAttribute('data-i'), 10));
+  });
+
+  elNext.addEventListener('click', function () { if (!elNext.disabled) next(); });
+  document.getElementById('restart').addEventListener('click', restart);
+  document.getElementById('again').addEventListener('click', restart);
+  document.getElementById('home').addEventListener('click', restart);
+
+  /* ---------- 테스트 API ---------- */
+  window.__wrongMuseum = {
+    version: 1,
+    get errors() { return errors.slice(); },
+    get state() {
+      return {
+        step: S.step, score: S.score, answered: S.answered, over: S.over,
+        total: SIZE, marks: S.marks.slice(),
+        title: S.rounds[S.step].relic.title,
+        truthIdx: S.rounds[S.step].truthIdx,
+        options: S.rounds[S.step].opts.map(function (o) { return o.text; }),
+        collection: S.collection.slice(),
+        rank: rankOf(S.score).name,
+        resultVisible: !elResult.hidden
+      };
+    },
+    answer: answer,
+    next: next,
+    reset: restart,
+    rankOf: rankOf
+  };
+
+  buildDots();
+  newSet();
+  render();
+})();
+</script>
+</body>
+</html>
