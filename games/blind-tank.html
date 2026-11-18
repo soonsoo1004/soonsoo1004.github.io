@@ -72,12 +72,12 @@
     transition:transform .12s ease,background .15s ease,border-color .15s ease;
   }
   .cell:active{transform:scale(.94)}
-  .cell.miss{background:#121821;border-color:#1a232d}
-  .cell.miss .glyph{color:#414d5b}
+  .cell.miss{background:#131a23;border-color:#1b2530}
+  .cell.miss .glyph{width:7px;height:7px;border-radius:999px;background:#46535f}
   .cell.hit{background:#3a1520;border-color:#7c2b38;animation:pop .26s ease}
   .cell.hit .glyph{color:#ff9b9b}
   .cell.mine{background:#16304d;border-color:#2f6799;box-shadow:inset 0 0 0 1px #2f6799}
-  .glyph{font-size:14px;line-height:1;font-weight:700}
+  .glyph{display:block;font-size:15px;line-height:1;font-weight:700}
   .unit{display:none;position:absolute;inset:0;place-items:center}
   .unit svg{width:62%;height:62%;fill:#93c5ff}
   .cell.mine .unit{display:grid}
@@ -294,7 +294,7 @@
       el.classList.toggle('hit', m === 'hit');
       el.classList.toggle('miss', m === 'miss');
       var g = el.children[0];
-      g.textContent = m === 'hit' ? '✕' : (m === 'miss' ? '·' : '');
+      g.textContent = m === 'hit' ? '✕' : '';
     }
   }
 
