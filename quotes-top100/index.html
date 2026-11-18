@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>나이마다 힘이 되는 한 문장 · 세계명언 100</title>
+<meta name="description" content="10대부터 50대까지 스무 문장씩, 출처가 확인된 세계 고전·철학·문학 명언 100선. 연령대와 기분으로 골라 읽고, 한 줄 복사와 명언 카드(1080×1350) 저장까지. 가입·광고·서버 전송 없이 브라우저에서만 동작합니다.">
+<meta name="theme-color" content="#f5f5f7">
+<link rel="icon" href="favicon.ico">
+<meta property="og:type" content="website">
+<meta property="og:title" content="나이마다 힘이 되는 한 문장 · 세계명언 100">
+<meta property="og:description" content="10대 도전·배움부터 50대 여유·지혜까지, 스무 문장씩. 출처가 확인된 고전·철학·문학 명언 100선. 복사와 카드 저장.">
+<meta property="og:url" content="https://soonsoo1004.github.io/quotes-top100/">
+<meta name="twitter:card" content="summary">
+<style>
+  :root{
+    --bg:#f5f5f7; --bg2:#ffffff; --card:#ffffff; --ink:#1d1d1f; --ink2:#3a3a3c;
+    --sub:#6e6e73; --sub2:#86868b; --line:#e6e6eb; --line2:#d2d2d7;
+    --accent:#0071e3; --accent-ink:#0066cc; --accent-soft:#eaf3ff;
+    --cream:#fbf8f1; --cream2:#f2ece0; --gold:#a8864a;
+    --r:22px; --r-sm:14px;
+    --shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 28px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Gulim","굴림",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+    font-size:16px; line-height:1.6; letter-spacing:-.01em;
+    word-break:keep-all; overflow-x:hidden;
+  }
+  .wrap{max-width:680px; margin:0 auto; padding:0 18px 64px;}
+  @media (min-width:700px){ .wrap{padding:0 24px 80px;} }
+
+  /* header */
+  header.hero{padding:38px 0 22px; text-align:left;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:7px; margin:0 0 14px;
+    font-size:12.5px; letter-spacing:.02em; color:var(--sub); font-weight:700;
+    background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 12px;
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+  h1{
+    margin:0 0 12px; font-size:clamp(28px,8.2vw,38px); line-height:1.28;
+    letter-spacing:-.035em; font-weight:700;
+  }
+  h1 .thin{color:var(--sub); font-weight:400;}
+  .lede{margin:0; color:var(--sub); font-size:15px; line-height:1.65; max-width:34em;}
+
+  /* today */
+  .today{
+    position:relative; margin:22px 0 26px; padding:22px 20px 20px;
+    border-radius:26px; border:1px solid #e9e2d3;
+    background:linear-gradient(160deg,#fdfbf6 0%,#f7f1e5 100%);
+    box-shadow:0 10px 30px rgba(120,98,58,.08);
+  }
+  .today-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .badge{
+    font-size:12px; font-weight:700; letter-spacing:.02em; color:#7a6234;
+    background:#fff; border:1px solid #ecdfc4; border-radius:999px; padding:5px 11px;
+  }
+  .today-date{font-size:12.5px; color:#9a8a6c;}
+  .today blockquote{
+    margin:0; font-size:clamp(20px,5.6vw,23px); line-height:1.62; letter-spacing:-.02em;
+    font-weight:700; color:#241f17;
+  }
+  .today .orig{display:none;}
+  .today .src{margin:14px 0 0; font-size:13.5px; color:#7c6a4a;}
+  .today .src b{color:#4a3f28; font-weight:700;}
+  .today-acts{display:flex; flex-wrap:wrap; gap:8px; margin-top:18px;}
+
+  /* buttons */
+  .btn{
+    appearance:none; font:inherit; font-size:14.5px; font-weight:600; letter-spacing:-.01em;
+    min-height:44px; padding:0 16px; border-radius:999px; cursor:pointer;
+    background:#fff; color:var(--ink); border:1px solid var(--line2);
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.ghost{background:transparent; border-color:transparent; color:var(--accent-ink); padding:0 10px;}
+  .btn.wide{flex:1 1 auto; justify-content:center;}
+  :focus-visible{outline:2.5px solid var(--accent); outline-offset:2px; border-radius:12px;}
+
+  /* controls */
+  .controls{position:sticky; top:0; z-index:20; padding:10px 0 12px; background:linear-gradient(to bottom,var(--bg) 74%,rgba(245,245,247,0));}
+  .seg{
+    display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+    padding:4px; background:#eaeaef; border-radius:16px;
+  }
+  .seg::-webkit-scrollbar{display:none;}
+  .seg button{
+    flex:0 0 auto; appearance:none; font:inherit; font-size:14px; font-weight:600; letter-spacing:-.01em;
+    border:0; background:transparent; color:var(--ink2); padding:9px 14px; min-height:40px;
+    border-radius:12px; cursor:pointer; white-space:nowrap; transition:background .18s ease, color .18s ease, box-shadow .18s ease;
+  }
+  .seg button[aria-selected="true"]{background:#fff; color:var(--ink); box-shadow:0 1px 3px rgba(0,0,0,.09);}
+  .seg button .n{font-weight:500; color:var(--sub2); font-size:12px; margin-left:3px;}
+  .seg button[aria-selected="true"] .n{color:var(--sub);}
+
+  .chips{display:flex; flex-wrap:wrap; gap:7px; margin:12px 0 0;}
+  .chip{
+    appearance:none; font:inherit; font-size:13.5px; font-weight:600; letter-spacing:-.01em;
+    padding:8px 13px; min-height:38px; border-radius:999px; cursor:pointer;
+    background:#fff; color:var(--ink2); border:1px solid var(--line);
+    transition:background .15s ease, color .15s ease, border-color .15s ease;
+  }
+  .chip[aria-pressed="true"]{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  .searchbar{position:relative; margin-top:12px;}
+  .searchbar input{
+    width:100%; appearance:none; font:inherit; font-size:15px; color:var(--ink);
+    padding:13px 16px 13px 40px; min-height:48px; border-radius:14px;
+    background:#fff; border:1px solid var(--line); outline:none;
+  }
+  .searchbar input::placeholder{color:var(--sub2);}
+  .searchbar input:focus{border-color:#b9c9dd; box-shadow:0 0 0 4px rgba(0,113,227,.08);}
+  .searchbar .ico{position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:15px; color:var(--sub2); opacity:.8;}
+
+  .countrow{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin:18px 2px 10px;}
+  .countrow .count{font-size:13.5px; color:var(--sub); font-weight:600;}
+  .countrow .count b{color:var(--ink); font-weight:700;}
+  .countrow .sort{font-size:12.5px; color:var(--sub2);}
+
+  /* list */
+  #list{display:flex; flex-direction:column; gap:12px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+    padding:20px 18px 16px; box-shadow:var(--shadow);
+  }
+  .card-head{display:flex; align-items:center; gap:7px; margin-bottom:12px; flex-wrap:wrap;}
+  .age{
+    font-size:11.5px; font-weight:700; color:#6b5a34; background:#f7f1e3;
+    border:1px solid #eee3cc; border-radius:999px; padding:3px 9px;
+  }
+  .tag{font-size:11.5px; color:var(--sub); background:#f4f4f7; border-radius:999px; padding:3px 9px;}
+  .qt{margin:0 0 10px; font-size:clamp(17.5px,4.7vw,19.5px); line-height:1.68; letter-spacing:-.02em; font-weight:700; color:#161617;}
+  .orig{margin:0 0 10px; font-size:13px; line-height:1.6; color:#8e8e93; font-style:italic; word-break:break-word;}
+  .src{margin:0; font-size:13px; color:var(--sub); display:flex; flex-direction:column; gap:1px;}
+  .src b{color:var(--ink2); font-weight:700; font-size:13.5px;}
+  .src span{color:var(--sub2);}
+  .note{margin:10px 0 0; font-size:13.5px; line-height:1.6; color:#4b4b4f; padding:10px 12px; background:#fafafc; border-radius:12px;}
+  .acts{display:flex; gap:8px; margin-top:14px;}
+  .acts .btn{font-size:13.5px; min-height:42px; padding:0 14px;}
+
+  .empty{padding:34px 18px; text-align:center; color:var(--sub); font-size:14.5px; background:#fff; border:1px dashed var(--line2); border-radius:var(--r);}
+
+  /* footer */
+  footer{margin-top:34px; padding-top:22px; border-top:1px solid var(--line); color:var(--sub); font-size:13px; line-height:1.7;}
+  footer h2{font-size:14.5px; color:var(--ink2); margin:0 0 8px;}
+  footer p{margin:0 0 10px;}
+  footer .fine{color:var(--sub2); font-size:12.5px;}
+
+  /* toast */
+  .toast{
+    position:fixed; left:50%; bottom:22px; transform:translate(-50%,16px);
+    background:rgba(29,29,31,.92); color:#fff; font-size:14px; font-weight:600;
+    padding:11px 18px; border-radius:999px; opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease; z-index:60; max-width:calc(100% - 36px); text-align:center;
+  }
+  .toast.on{opacity:1; transform:translate(-50%,0);}
+  .sr{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important;}
+    .btn:active{transform:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <p class="eyebrow"><span class="dot" aria-hidden="true"></span>세계명언 100 · 출처 확인</p>
+    <h1>나이마다<br><span class="thin">힘이 되는 한 문장</span></h1>
+    <p class="lede">10대 도전·배움부터 50대 여유·지혜까지, 스무 문장씩. 인터넷에 도는 가짜 어록은 빼고, 작품과 편·장까지 확인한 문장만 담았습니다.</p>
+  </header>
+
+  <section class="today" aria-labelledby="todayLabel">
+    <div class="today-top">
+      <span class="badge" id="todayLabel">오늘의 문장</span>
+      <span class="today-date" id="todayDate"></span>
+    </div>
+    <blockquote id="todayText">—</blockquote>
+    <p class="src" id="todaySrc"></p>
+    <div class="today-acts">
+      <button class="btn primary wide" type="button" id="todayCopy">문장 복사</button>
+      <button class="btn wide" type="button" id="todayCard">카드 저장</button>
+      <button class="btn ghost" type="button" id="todayNew">다른 문장</button>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="고르기">
+    <div class="seg" role="tablist" aria-label="연령대" id="seg">
+      <button type="button" role="tab" aria-selected="true" data-age="all">전체<span class="n">100</span></button>
+      <button type="button" role="tab" aria-selected="false" data-age="10">10대<span class="n">20</span></button>
+      <button type="button" role="tab" aria-selected="false" data-age="20">20대<span class="n">20</span></button>
+      <button type="button" role="tab" aria-selected="false" data-age="30">30대<span class="n">20</span></button>
+      <button type="button" role="tab" aria-selected="false" data-age="40">40대<span class="n">20</span></button>
+      <button type="button" role="tab" aria-selected="false" data-age="50">50대+<span class="n">20</span></button>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="기분·키워드"></div>
+    <div class="searchbar">
+      <span class="ico" aria-hidden="true">🔍</span>
+      <label class="sr" for="q">작가·작품·문장 검색</label>
+      <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="작가·작품·문장으로 찾기">
+    </div>
+  </section>
+
+  <div class="countrow">
+    <p class="count" id="count" role="status" aria-live="polite">100문장</p>
+    <span class="sort">연령대순</span>
+  </div>
+
+  <main id="list"></main>
+
+  <footer>
+    <h2>이 목록에 대해</h2>
+    <p>모든 문장은 작품명과 편·장·행까지 표기했습니다. 원문 표기는 판본에 따라 조금씩 다를 수 있어, 같은 뜻의 다른 번역도 있습니다.</p>
+    <p>아인슈타인·공자·세종대왕 이름으로 도는 가짜 어록, 출처를 찾을 수 없는 문장은 넣지 않았습니다.</p>
+    <p class="fine">입력란도, 서버 전송도, 광고도 없습니다. 모든 화면과 카드 이미지는 이 브라우저 안에서만 만들어집니다. · 세계명언 100</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+var QUOTES = [{"id":"q001","age":10,"t":"배우고 때맞춰 익히면 기쁘지 아니한가.","o":"學而時習之 不亦說乎","a":"공자","w":"《논어》 학이편 1장","m":["learn","start"],"c":"시험 때문이 아니라, 어제보다 하나 더 아는 기쁨."},{"id":"q002","age":10,"t":"옛것을 익혀 새것을 알면 남의 스승이 될 수 있다.","o":"溫故而知新 可以爲師矣","a":"공자","w":"《논어》 위정편 11장","m":["learn","habit"],"c":"복습이 다음 걸음을 만든다."},{"id":"q003","age":10,"t":"산을 쌓는데 흙 한 삼태기가 모자라 그쳤다면, 그건 내가 그친 것이다.","o":"譬如爲山 未成一簣 止 吾止也","a":"공자","w":"《논어》 자한편 19장","m":["habit","courage"],"c":"아흔아홉까지 쌓고 멈춘 건 남이 아니라 나."},{"id":"q004","age":10,"t":"하루 볕을 쬐고 열흘을 얼리면, 아무것도 자라지 못한다.","o":"一日暴之 十日寒之 未有能生者也","a":"맹자","w":"《맹자》 고자 상 9장","m":["habit"],"c":"하루 몰아서 하고 열흘 쉬면 남는 게 없다."},{"id":"q005","age":10,"t":"우물을 아홉 길 파고도 샘에 이르지 못하면, 그것은 버린 우물이다.","o":"掘井九軔而不及泉 猶爲棄井也","a":"맹자","w":"《맹자》 진심 상 29장","m":["habit","courage"],"c":"아까워서 멈추면 그때 다 버리는 것."},{"id":"q006","age":10,"t":"반걸음을 쌓지 않으면 천 리에 이르지 못한다.","o":"不積跬步 無以至千里","a":"순자","w":"《순자》 권학편","m":["habit"],"c":"오늘의 반걸음도 쌓이는 중."},{"id":"q007","age":10,"t":"천 리 길도 발밑에서 시작된다.","o":"千里之行 始於足下","a":"노자","w":"《도덕경》 64장","m":["start"],"c":"천 리는 세지 말고, 오늘 한 걸음만."},{"id":"q008","age":10,"t":"내 삶에는 끝이 있는데, 아는 것은 끝이 없다.","o":"吾生也有涯 而知也無涯","a":"장자","w":"《장자》 양생주","m":["learn","calm"],"c":"다 못 배운다고 조급해할 일은 없다."},{"id":"q009","age":10,"t":"태초에 행동이 있었다.","o":"Im Anfang war die Tat.","a":"요한 볼프강 폰 괴테","w":"《파우스트》 1부 1237행","m":["start"],"c":"계획만 고치다 잠드는 밤이면, 한 줄만 해 두고 자요."},{"id":"q010","age":10,"t":"나는 삶을 일부러 제대로 살아 보려고 숲으로 갔다. 삶의 본질만 마주하고 싶었다.","o":"I went to the woods because I wished to live deliberately, to front only the essential facts of life.","a":"헨리 데이비드 소로","w":"《월든》 1854, 「어디서 무엇을 위해 살았나」","m":["start","calm"],"c":"숲까지 안 가도 됩니다. 오늘 하루만 남의 눈치를 빼고."},{"id":"q011","age":10,"t":"너 자신을 믿어라. 모든 마음은 그 쇠줄에 울린다.","o":"Trust thyself: every heart vibrates to that iron string.","a":"랄프 월도 에머슨","w":"《에세이 1집》 「자기신뢰」, 1841","m":["courage"],"c":"남의 기준표보다 내 떨림이 정확할 때가 있다."},{"id":"q012","age":10,"t":"망설임은 배신자다. 해 보기를 두려워하는 사이에 이길 수 있었던 좋은 것을 잃는다.","o":"Our doubts are traitors, and make us lose the good we oft might win by fearing to attempt.","a":"윌리엄 셰익스피어","w":"《자에는 자로》 1막 4장","m":["courage","worry"],"c":"해볼까 말까 하는 사이에 기회가 지나간다."},{"id":"q013","age":10,"t":"물방울이 돌을 뚫는다. 자꾸 쓰다 보면 반지도 닳는다.","o":"Gutta cavat lapidem, consumitur anulus usu.","a":"오비디우스","w":"《흑해에서 보내는 편지》 4권 10","m":["habit"],"c":"세게 한 번보다 매일 한 방울."},{"id":"q014","age":10,"t":"말 잘하는 것보다 일 잘하는 게 낫다.","o":"Well done is better than well said.","a":"벤저민 프랭클린","w":"《가난한 리처드의 달력》 1735","m":["habit"],"c":"말로 남는 것보다 손으로 남는 것."},{"id":"q015","age":10,"t":"어떤 책은 맛만 보고, 어떤 책은 통째로 삼키고, 몇 권은 씹어서 소화해야 한다.","o":"Some books are to be tasted, others to be swallowed, and some few to be chewed and digested.","a":"프랜시스 베이컨","w":"《수상록》 「독서론」, 1625","m":["learn"],"c":"다 같은 속도로 읽을 필요는 없다."},{"id":"q016","age":10,"t":"좋은 책을 읽는 것은 지난 세기의 가장 훌륭한 사람들과 대화하는 것과 같다.","o":"La lecture de tous les bons livres est comme une conversation avec les plus honnêtes gens des siècles passés.","a":"르네 데카르트","w":"《방법서설》 1부, 1637","m":["learn"],"c":"혼자 고민하는 밤에, 400년 전 사람이 옆에 앉아 준다."},{"id":"q017","age":10,"t":"나를 죽이지 못하는 것은 나를 더 강하게 만든다.","o":"Was mich nicht umbringt, macht mich stärker.","a":"프리드리히 니체","w":"《우상의 황혼》 「잠언과 화살」 8, 1889","m":["courage","tired"],"c":"아픈 채로 강해지는 게 아니라, 버틴 다음에 남는 것."},{"id":"q018","age":10,"t":"내가 더 멀리 보았다면, 그것은 거인의 어깨에 올라섰기 때문이다.","o":"If I have seen further it is by standing on the shoulders of Giants.","a":"아이작 뉴턴","w":"1675년 로버트 훅에게 보낸 편지","m":["learn"],"c":"혼자 잘나서가 아니라, 앞사람 위에 선 것."},{"id":"q019","age":10,"t":"나는 크다. 나는 여럿을 품는다.","o":"I am large, I contain multitudes.","a":"월트 휘트먼","w":"《풀잎》 「나 자신의 노래」 51절, 1855","m":["calm"],"c":"모순되는 나도 나다."},{"id":"q020","age":10,"t":"같은 강에 두 번 들어갈 수는 없다.","o":"ποταμῷ οὐκ ἔστιν ἐμβῆναι δὶς τῷ αὐτῷ","a":"헤라클레이토스","w":"단편 B91(플루타르코스가 인용)","m":["calm"],"c":"어제의 나와 오늘의 나는 다른 물."},{"id":"q021","age":20,"t":"우리에게 주어진 시간이 짧은 것이 아니라, 우리가 그 시간을 많이 흘려보내는 것이다.","o":"It is not that we have a short time to live, but that we waste a lot of it.","a":"루키우스 세네카","w":"《삶의 짧음에 관하여》 1장, 서기 49년경","m":["calm","habit","tired"],"c":"1년이 짧은 게 아니라 오늘을 흘려보낸 것."},{"id":"q022","age":20,"t":"모든 것은 남의 것이지만, 시간만은 우리 것이다.","o":"Omnia, Lucili, aliena sunt, tempus tantum nostrum est.","a":"루키우스 세네카","w":"《루킬리우스에게 보내는 편지》 1","m":["money","calm"],"c":"돈은 다시 벌어도 오늘 오후는 안 돌아온다."},{"id":"q023","age":20,"t":"사람을 괴롭히는 것은 일어난 일이 아니라 그 일에 대해 품은 생각이다.","o":"Men are disturbed not by things, but by the views which they take of them.","a":"에픽테토스","w":"《엥케이리디온》 5장, 서기 125년경","m":["worry","tired"],"c":"일은 그대로인데 생각이 더 아프게 만든다."},{"id":"q024","age":20,"t":"해 보기 전에 배워야 하는 것들은, 해 보면서 배운다.","o":"For the things we have to learn before we can do them, we learn by doing them.","a":"아리스토텔레스","w":"《니코마코스 윤리학》 2권 1장","m":["start","learn"],"c":"준비가 다 되면 시작하는 게 아니라, 시작해야 준비가 된다."},{"id":"q025","age":20,"t":"행동을 막는 것이 오히려 행동을 밀어 준다. 가로막는 것이 길이 된다.","o":"The impediment to action advances action. What stands in the way becomes the way.","a":"마르쿠스 아우렐리우스","w":"《명상록》 5권 20","m":["courage"],"c":"막힌 데가 제일 가까운 길일 때가 있다."},{"id":"q026","age":20,"t":"무엇보다도 자기 자신에게 진실하라.","o":"This above all: to thine own self be true.","a":"윌리엄 셰익스피어","w":"《햄릿》 1막 3장","m":["courage"],"c":"남에게 맞추다 내가 어디로 갔는지 모를 때."},{"id":"q027","age":20,"t":"좋은 것도 나쁜 것도 없다. 생각이 그렇게 만들 뿐이다.","o":"There is nothing either good or bad but thinking makes it so.","a":"윌리엄 셰익스피어","w":"《햄릿》 2막 2장","m":["worry","calm"],"c":"같은 일도 누구에게는 전부가 되고 누구에게는 지나간다."},{"id":"q028","age":20,"t":"인간은 노력하는 한 방황한다.","o":"Es irrt der Mensch, so lang er strebt.","a":"요한 볼프강 폰 괴테","w":"《파우스트》 1부 「천상의 서곡」 317행","m":["courage"],"c":"방황은 실패가 아니라 아직 움직인다는 뜻."},{"id":"q029","age":20,"t":"살아야 할 이유를 가진 사람은 거의 어떤 방식도 견딘다.","o":"Hat man sein Warum des Lebens, so verträgt man sich fast mit jedem Wie.","a":"프리드리히 니체","w":"《우상의 황혼》 「잠언과 화살」 12, 1889","m":["courage"],"c":"왜 하는지 한 줄 적어 두면, 힘든 방식도 견딜 만해진다."},{"id":"q030","age":20,"t":"남과 보조가 맞지 않는다면, 그것은 그가 다른 북소리를 듣고 있기 때문일 것이다.","o":"If a man does not keep pace with his companions, perhaps it is because he hears a different drummer.","a":"헨리 데이비드 소로","w":"《월든》 결론, 1854","m":["courage"],"c":"남들 속도에 못 맞추는 게 아니라, 내 박자가 있는 것."},{"id":"q031","age":20,"t":"인간은 자연에서 가장 약한 갈대일 뿐이다. 그러나 그는 생각하는 갈대다.","o":"L'homme n'est qu'un roseau, le plus faible de la nature; mais c'est un roseau pensant.","a":"블레즈 파스칼","w":"《팡세》 단편 347(브룬슈비크 번호)","m":["calm"],"c":"약한 게 부끄러운 게 아니라, 생각이 있는 게 사람."},{"id":"q032","age":20,"t":"아는 것만으로는 부족하다, 써야 한다. 바라는 것만으로는 부족하다, 해야 한다.","o":"Es ist nicht genug zu wissen, man muss auch anwenden; es ist nicht genug zu wollen, man muss auch tun.","a":"요한 볼프강 폰 괴테","w":"《빌헬름 마이스터의 수업시대》","m":["start"],"c":"머리에 있는 동안은 아직 내 것이 아니다."},{"id":"q033","age":20,"t":"친구는 또 하나의 나다.","o":"... verus amicus ... tamquam alter idem","a":"키케로","w":"《라일리우스, 우정에 관하여》 80절","m":["people"],"c":"옆에 있으면 내가 더 나아지는 사람."},{"id":"q034","age":20,"t":"인간사에는 조수가 있다. 밀물을 타면 재산으로 이끌고, 놓치면 모든 항해가 막힌다.","o":"There is a tide in the affairs of men, which, taken at the flood, leads on to fortune.","a":"윌리엄 셰익스피어","w":"《줄리어스 시저》 4막 3장","m":["start","money"],"c":"때가 왔을 때 배를 띄워야 한다."},{"id":"q035","age":20,"t":"삼군의 장수는 빼앗아도, 평범한 사람의 뜻은 빼앗지 못한다.","o":"三軍可奪帥也 匹夫不可奪志也","a":"공자","w":"《논어》 자한편 25장","m":["courage"],"c":"돈과 자리는 빼앗겨도 뜻은 내가 쥐고 있다."},{"id":"q036","age":20,"t":"부귀도 마음을 흔들지 못하고, 빈천도 뜻을 바꾸지 못하고, 위력도 굽히지 못한다.","o":"富貴不能淫 貧賤不能移 威武不能屈","a":"맹자","w":"《맹자》 등문공 하 2장","m":["courage"],"c":"가난이 사람을 작게 만드는 건 아니다."},{"id":"q037","age":20,"t":"물이 두껍지 않으면 큰 배를 띄울 힘이 없다.","o":"且夫水之積也不厚 則負大舟也無力","a":"장자","w":"《장자》 소요유","m":["learn","start"],"c":"큰일은 쌓인 두께가 받쳐 준다."},{"id":"q038","age":20,"t":"춤추는 별을 낳으려면 아직 몸속에 혼돈이 있어야 한다.","o":"Man muss noch Chaos in sich haben, um einen tanzenden Stern gebären zu können.","a":"프리드리히 니체","w":"《차라투스트라는 이렇게 말했다》 서문 5, 1883","m":["courage"],"c":"지금 엉망인 게, 아직 정리 전이라는 뜻."},{"id":"q039","age":20,"t":"희망을 품고 떠나는 것이 도착하는 것보다 좋다.","o":"To travel hopefully is a better thing than to arrive.","a":"로버트 루이스 스티븐슨","w":"《엘도라도》 1878","m":["start"],"c":"목표보다, 가는 중인 내가 더 살아 있다."},{"id":"q040","age":20,"t":"성찰하지 않는 삶은 사람이 살 만한 삶이 아니다.","o":"ὁ ἀνεξέταστος βίος οὐ βιωτὸς ἀνθρώπῳ","a":"소크라테스(플라톤 기록)","w":"《변론》 38a","m":["learn","calm"],"c":"바쁘게만 살면, 내가 어디로 가는지 모른다."},{"id":"q041","age":30,"t":"시간은 돈이다.","o":"Time is money.","a":"벤저민 프랭클린","w":"《젊은 상인에게 주는 충고》 1748","m":["money"],"c":"일한 시간을 값으로 바꾸는 게 장사의 시작."},{"id":"q042","age":30,"t":"작은 지출을 조심하라. 작은 구멍 하나가 큰 배를 가라앉힌다.","o":"Beware of little expenses; a small leak will sink a great ship.","a":"벤저민 프랭클린","w":"《부자의 길》 1758","m":["money"],"c":"큰돈은 안 새는데 통장이 비어 있을 때."},{"id":"q043","age":30,"t":"우리가 저녁을 먹을 수 있는 것은 정육점 주인과 빵집 주인의 자비 덕분이 아니라, 그들이 자기 이익을 생각하기 때문이다.","o":"It is not from the benevolence of the butcher, the brewer, or the baker that we expect our dinner, but from their regard to their own interest.","a":"애덤 스미스","w":"《국부론》 1편 2장, 1776","m":["money","people"],"c":"호의보다 이해관계가 오래간다. 나도 상대에게 이익이 되어야 한다."},{"id":"q044","age":30,"t":"우리는 무엇을 위해 사는가. 서로의 삶을 조금 덜 힘들게 하기 위해서가 아닌가.","o":"What do we live for, if it is not to make life less difficult to each other?","a":"조지 엘리엇","w":"《미들마치》 72장, 1871~1872","m":["people","tired"],"c":"오늘 내가 한 작은 일이 누군가의 하루를 가볍게 했다면."},{"id":"q045","age":30,"t":"친구를 얻는 유일한 방법은 내가 먼저 친구가 되는 것이다.","o":"The only way to have a friend is to be one.","a":"랄프 월도 에머슨","w":"《에세이 1집》 「우정」, 1841","m":["people"],"c":"먼저 연락하는 쪽이 지는 게 아니다."},{"id":"q046","age":30,"t":"아는 사람은 좋아하는 사람만 못하고, 좋아하는 사람은 즐기는 사람만 못하다.","o":"知之者不如好之者 好之者不如樂之者","a":"공자","w":"《논어》 옹야편 20장","m":["money","learn"],"c":"오래 가는 일은 결국 재미있는 쪽."},{"id":"q047","age":30,"t":"일을 잘하려면 먼저 도구를 날카롭게 해야 한다.","o":"工欲善其事 必先利其器","a":"공자","w":"《논어》 위령공편 10장","m":["money","habit"],"c":"장비 하나 바꾸는 게 하루 벌이를 바꾼다."},{"id":"q048","age":30,"t":"자기 몸이 바르면 명령하지 않아도 따르고, 자기 몸이 바르지 않으면 명령해도 따르지 않는다.","o":"其身正 不令而行 其身不正 雖令不從","a":"공자","w":"《논어》 자로편 6장","m":["people"],"c":"말보다 내가 사는 모습을 본다."},{"id":"q049","age":30,"t":"남을 사랑하는 사람은 남도 늘 사랑하고, 남을 공경하는 사람은 남도 늘 공경한다.","o":"愛人者 人恒愛之 敬人者 人恒敬之","a":"맹자","w":"《맹자》 이루 하 28장","m":["people"],"c":"사람은 내가 먼저 존중하는 만큼 돌아온다."},{"id":"q050","age":30,"t":"어려운 일은 쉬울 때 도모하고, 큰일은 작을 때 해 둔다.","o":"圖難於其易 爲大於其細","a":"노자","w":"《도덕경》 63장","m":["start","habit"],"c":"커진 뒤에 손대면 손쓸 수 없다."},{"id":"q051","age":30,"t":"가장 좋은 것은 물과 같다.","o":"上善若水","a":"노자","w":"《도덕경》 8장","m":["people","calm"],"c":"낮은 데로 흐르고, 그래서 다 이긴다."},{"id":"q052","age":30,"t":"길이 좁을 때는 한 걸음 비켜 남에게 길을 내 주라.","o":"路徑窄處 留一步 與人行","a":"홍자성","w":"《채근담》 전집","m":["people","calm"],"c":"한 걸음 양보가 다음 만남을 남긴다."},{"id":"q053","age":30,"t":"천 길 둑도 개미 구멍으로 무너진다.","o":"千丈之堤 以螻蟻之穴潰","a":"한비자","w":"《한비자》 유로편","m":["habit","money"],"c":"큰일은 늘 작은 데서 새 나온다."},{"id":"q054","age":30,"t":"연 수입 20파운드에 19파운드 19실링 6펜스를 쓰면 행복하고, 20파운드 6펜스를 쓰면 비참해진다.","o":"Annual income twenty pounds, annual expenditure nineteen nineteen and six, result happiness. Annual income twenty pounds, annual expenditure twenty pounds ought and six, result misery.","a":"찰스 디킨스","w":"《데이비드 카퍼필드》 12장, 1850","m":["money"],"c":"딱 조금 더 쓰는 습관이 가계를 무너뜨린다."},{"id":"q055","age":30,"t":"독서는 사람을 충실하게 만들고, 대화는 준비된 사람으로 만들고, 글쓰기는 정확한 사람으로 만든다.","o":"Reading maketh a full man; conference a ready man; and writing an exact man.","a":"프랜시스 베이컨","w":"《수상록》 「독서론」, 1625","m":["learn","people"],"c":"말로 정리하려면 먼저 읽고 써 봐야 한다."},{"id":"q056","age":30,"t":"아무것도 없는 데서는 아무것도 나오지 않는다.","o":"Nothing will come of nothing.","a":"윌리엄 셰익스피어","w":"《리어왕》 1막 1장","m":["money"],"c":"씨앗 없이 수확은 없다. 오늘 심는 것."},{"id":"q057","age":30,"t":"말은 충분히 바꿨다. 이제는 끝으로 행동을 보게 해 달라.","o":"Der Worte sind genug gewechselt, laßt mich auch endlich Taten sehn!","a":"요한 볼프강 폰 괴테","w":"《파우스트》 1부","m":["start","people"],"c":"회의가 길어지면 한 사람이 먼저 해 보는 게 낫다."},{"id":"q058","age":30,"t":"행복한 집안은 다 비슷하게 행복하지만, 불행한 집안은 저마다 다른 이유로 불행하다.","o":"All happy families are alike; each unhappy family is unhappy in its own way.","a":"레프 톨스토이","w":"《안나 카레니나》 1부 1장, 1877","m":["people","calm"],"c":"남의 집 행복을 부러워하기보다, 우리 집 안에서 새는 곳을 본다."},{"id":"q059","age":30,"t":"재산이 넉넉한 총각에게는 아내가 필요하다는 것이, 세상이 두루 인정하는 진리다.","o":"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.","a":"제인 오스틴","w":"《오만과 편견》 1장, 1813","m":["people"],"c":"세상이 정해 놓은 규칙부터 한 번 의심해 보자."},{"id":"q060","age":30,"t":"아침에 일어나기 싫을 때는 이것을 떠올려라. 나는 사람으로서 할 일을 하러 일어난다.","o":"In the morning when thou risest unwillingly, let this thought be present — I am rising to the work of a human being.","a":"마르쿠스 아우렐리우스","w":"《명상록》 5권 1","m":["money","habit","tired"],"c":"몸이 무거운 아침에도, 할 일이 나를 깨운다."},{"id":"q061","age":40,"t":"마흔에 흔들리지 않았다.","o":"四十而不惑","a":"공자","w":"《논어》 위정편 4장","m":["calm"],"c":"다 안다는 뜻이 아니라, 이제 안 흔들릴 것을 안다는 뜻."},{"id":"q062","age":40,"t":"남이 나를 알아주지 않는 것을 걱정하지 말고, 내가 잘하지 못하는 것을 걱정하라.","o":"不患人之不己知 患其不能也","a":"공자","w":"《논어》 헌문편 30장","m":["worry"],"c":"서운함으로 새는 에너지를 내 실력에 쓰기."},{"id":"q063","age":40,"t":"남이 나를 알아주지 않는 것을 걱정하지 말고, 내가 남을 모르는 것을 걱정하라.","o":"不患人之不己知 患不知人也","a":"공자","w":"《논어》 학이편 16장","m":["people"],"c":"오해받을 때, 상대를 얼마나 알고 있었는지 돌아본다."},{"id":"q064","age":40,"t":"장성해서 혈기가 강할 때는 싸움을 경계하라.","o":"及其壯也 血氣方剛 戒之在鬥","a":"공자","w":"《논어》 계씨편 7장","m":["people","worry"],"c":"이기는 싸움보다 피하는 싸움이 이득이다."},{"id":"q065","age":40,"t":"궁하면 혼자 몸을 닦고, 통하면 세상까지 함께 좋게 한다.","o":"窮則獨善其身 達則兼善天下","a":"맹자","w":"《맹자》 진심 상 9장","m":["people","calm"],"c":"지금 힘들면 나부터 세우면 된다."},{"id":"q066","age":40,"t":"족함을 알면 욕되지 않고, 멈출 줄 알면 위태롭지 않다.","o":"知足不辱 知止不殆","a":"노자","w":"《도덕경》 44장","m":["money","calm"],"c":"더 벌려다 잃는 돈이 늘 더 아프다."},{"id":"q067","age":40,"t":"비움을 끝까지 하고, 고요함을 굳게 지킨다.","o":"致虛極 守靜篤","a":"노자","w":"《도덕경》 16장","m":["calm"],"c":"쉬는 것도 해야 하는 일이다."},{"id":"q068","age":40,"t":"사람이 하늘과 땅 사이에서 사는 것은 흰 망아지가 틈을 지나가듯, 홀연할 뿐이다.","o":"人生天地之間 若白駒之過隙 忽然而已","a":"장자","w":"《장자》 지북유","m":["calm"],"c":"40대는 빨리 지나간다. 그래서 오늘이 크다."},{"id":"q069","age":40,"t":"군자의 사귐은 물처럼 담백하고, 소인의 사귐은 단술처럼 달다.","o":"君子之交淡若水 小人之交甘若醴","a":"장자","w":"《장자》 산목","m":["people"],"c":"오래 가는 사람은 조용하다."},{"id":"q070","age":40,"t":"밖의 일이 너를 아프게 한다면, 아픈 것은 그 일이 아니라 그 일에 대한 네 판단이다. 그 판단을 지금 지우는 것은 네 힘 안에 있다.","o":"If any external thing causes thee pain, it is not the thing itself that troubles thee, but thy judgement concerning it; and it is in thy power to wipe out that judgement now.","a":"마르쿠스 아우렐리우스","w":"《명상록》 8권 47","m":["worry"],"c":"그 말이 아픈 건, 내가 그 말에 값을 매겼기 때문."},{"id":"q071","age":40,"t":"좋은 사람이란 무엇인가를 두고 더는 시간을 쓰지 말고, 그냥 좋은 사람이 되어라.","o":"Waste no more time arguing about what a good man should be. Be one.","a":"마르쿠스 아우렐리우스","w":"《명상록》 10권 16","m":["people","start"],"c":"좋은 사람 논쟁은 길고, 좋은 일은 작다."},{"id":"q072","age":40,"t":"사람들은 바닷가와 산으로 피난처를 찾는다. 그러나 가장 가까운 피난처는 자기 마음속에 있다.","o":"Men seek retreats for themselves, houses in the country, sea-shores, and mountains... but this is altogether a mark of the most common sort of men, for it is in thy power whenever thou shalt choose to retire into thyself.","a":"마르쿠스 아우렐리우스","w":"《명상록》 4권 3","m":["calm","worry"],"c":"여행을 가도 마음이 따라오면 소용없다."},{"id":"q073","age":40,"t":"우리는 실제보다 상상 속에서 더 많이 고통받는다.","o":"We suffer more often in imagination than in reality.","a":"루키우스 세네카","w":"《루킬리우스에게 보내는 편지》 13","m":["worry","tired"],"c":"걱정의 90%는 오지 않는 일에 쓰는 힘."},{"id":"q074","age":40,"t":"인간의 모든 불행은 방에 가만히 앉아 있지 못하는 데서 온다.","o":"Tout le malheur des hommes vient d'une seule chose, qui est de ne savoir pas demeurer en repos dans une chambre.","a":"블레즈 파스칼","w":"《팡세》 139번 단편(브룬슈비크 번호)","m":["calm"],"c":"가만히 있는 연습이 필요하다."},{"id":"q075","age":40,"t":"참사랑의 길은 결코 평탄하지 않았다.","o":"The course of true love never did run smooth.","a":"윌리엄 셰익스피어","w":"《한여름 밤의 꿈》 1막 1장","m":["people"],"c":"부딪히는 게 식은 게 아니다."},{"id":"q076","age":40,"t":"대부분의 사람은 조용한 절망 속에 산다.","o":"The mass of men lead lives of quiet desperation.","a":"헨리 데이비드 소로","w":"《월든》 「경제」, 1854","m":["worry","tired"],"c":"아무 말 없이 버티는 사람이 제일 많이 지쳐 있다."},{"id":"q077","age":40,"t":"사람이 되려면 순응하지 말아야 한다.","o":"Whoso would be a man must be a nonconformist.","a":"랄프 월도 에머슨","w":"《에세이 1집》 「자기신뢰」, 1841","m":["courage"],"c":"모두가 맞다고 해도, 내 몸이 아니라고 하면 아니라고."},{"id":"q078","age":40,"t":"괴물과 싸우는 사람은 자기가 그 과정에서 괴물이 되지 않을까 조심해야 한다. 오래 심연을 들여다보면 심연도 너를 들여다본다.","o":"Wer mit Ungeheuern kämpft, mag zusehn, daß er nicht dabei zum Ungeheuer wird. Und wenn du lange in einen Abgrund blickst, blickt der Abgrund auch in dich hinein.","a":"프리드리히 니체","w":"《선악의 저편》 146, 1886","m":["people","worry"],"c":"억울함과 싸우다 그 사람이 되어 가는 경우가 많다."},{"id":"q079","age":40,"t":"끊임없이 애쓰는 사람은 구원할 수 있다.","o":"Wer immer strebend sich bemüht, den können wir erlösen.","a":"요한 볼프강 폰 괴테","w":"《파우스트》 2부 11936행","m":["habit","courage"],"c":"완성하지 못해도, 계속하는 사람은 이미 다르다."},{"id":"q080","age":40,"t":"최고의 시대였고, 최악의 시대였다.","o":"It was the best of times, it was the worst of times.","a":"찰스 디킨스","w":"《두 도시 이야기》 1부 1장, 1859","m":["calm"],"c":"시대 탓을 하면 끝없다. 그래도 오늘은 내 쪽에서 시작된다."},{"id":"q081","age":50,"t":"쉰에 하늘의 명을 알았고, 예순에 귀가 순해졌고, 일흔에 마음 가는 대로 해도 법도를 넘지 않았다.","o":"五十而知天命 六十而耳順 七十而從心所欲 不踰矩","a":"공자","w":"《논어》 위정편 4장","m":["calm"],"c":"나이가 주는 건 포기가 아니라 편안함이다."},{"id":"q082","age":50,"t":"늙어서 혈기가 이미 약해지면 얻으려는 마음을 경계하라.","o":"及其老也 血氣既衰 戒之在得","a":"공자","w":"《논어》 계씨편 7장","m":["money","calm"],"c":"마지막에 더 갖고 싶은 마음이 제일 위험하다."},{"id":"q083","age":50,"t":"족함을 아는 그 족함이 늘 족하다.","o":"知足之足 常足矣","a":"노자","w":"《도덕경》 46장","m":["money","calm"],"c":"더 갖는 게 아니라, 지금 것을 다르게 보는 것."},{"id":"q084","age":50,"t":"진실한 말은 꾸미지 않고, 꾸민 말은 진실하지 않다.","o":"信言不美 美言不信","a":"노자","w":"《도덕경》 81장","m":["people"],"c":"듣기 좋은 말일수록 한 번 더 본다."},{"id":"q085","age":50,"t":"하늘과 땅이 나와 함께 살고, 만물이 나와 하나 된다.","o":"天地與我並生 萬物與我爲一","a":"장자","w":"《장자》 제물론","m":["calm"],"c":"혼자가 아니라는 감각이 사람을 편하게 한다."},{"id":"q086","age":50,"t":"총애와 굴욕에 놀라지 않고, 뜰 앞 꽃이 피고 지는 것을 한가히 본다.","o":"寵辱不驚 閑看庭前花開花落","a":"홍자성","w":"《채근담》 전집","m":["calm","people"],"c":"칭찬과 비난을 같은 무게로 두면 마음이 가볍다."},{"id":"q087","age":50,"t":"적게 가진 사람이 아니라, 더 갖기를 원하는 사람이 가난하다.","o":"Non qui parum habet, sed qui plus cupit, pauper est.","a":"루키우스 세네카","w":"《루킬리우스에게 보내는 편지》 2","m":["money"],"c":"가난은 잔고가 아니라 마음의 상태일 때가 있다."},{"id":"q088","age":50,"t":"안을 들여다보라. 좋은 것의 샘은 안에 있고, 파기만 하면 솟아오른다.","o":"Look within. Within is the fountain of good, and it will ever bubble up, if thou wilt ever dig.","a":"마르쿠스 아우렐리우스","w":"《명상록》 7권 59","m":["calm","tired"],"c":"밖에서 답을 찾다 지쳤다면, 안을 한 번 파 본다."},{"id":"q089","age":50,"t":"죽음은 우리에게 아무것도 아니다.","o":"Death is nothing to us.","a":"에피쿠로스","w":"《메노이케우스에게 보내는 편지》","m":["calm"],"c":"끝을 두려워하는 데 쓰는 에너지를 오늘로 옮긴다."},{"id":"q090","age":50,"t":"죽기 전에는 아무도 행복하다고 말하지 말라.","o":"","a":"헤로도토스","w":"《역사》 1권 32장(솔론이 크로이소스에게 한 말)","m":["calm"],"c":"아직 끝이 아니다. 오늘의 판정은 오늘로 충분하다."},{"id":"q091","age":50,"t":"제비 한 마리가 봄을 만들지 않고, 하루가 봄을 만들지 않는다.","o":"One swallow does not make a spring, nor does one fine day.","a":"아리스토텔레스","w":"《니코마코스 윤리학》 1권 7장","m":["habit","calm"],"c":"하루 잘한 것도 하루 못한 것도 전부는 아니다."},{"id":"q092","age":50,"t":"익는 것이 전부다.","o":"Ripeness is all.","a":"윌리엄 셰익스피어","w":"《리어왕》 5막 2장","m":["calm"],"c":"빠른 것보다 제때 익은 것."},{"id":"q093","age":50,"t":"인생은 걸어 다니는 그림자에 불과하다.","o":"Life's but a walking shadow, a poor player that struts and frets his hour upon the stage, and then is heard no more.","a":"윌리엄 셰익스피어","w":"《맥베스》 5막 5장","m":["calm"],"c":"허무해서 멈추는 게 아니라, 그래서 지금을 진하게."},{"id":"q094","age":50,"t":"인간은 놀이할 때 비로소 온전한 인간이다.","o":"Der Mensch ist nur da ganz Mensch, wo er spielt.","a":"프리드리히 실러","w":"《인간의 미적 교육에 관한 편지》 15편, 1795","m":["calm"],"c":"쓸모없는 시간이 사람을 되살린다."},{"id":"q095","age":50,"t":"순간아, 머물러라. 너는 참 아름답구나.","o":"Werd ich zum Augenblicke sagen: Verweile doch! du bist so schön!","a":"요한 볼프강 폰 괴테","w":"《파우스트》 1부 1700행","m":["calm"],"c":"좋은 순간에 '지금 좋다'고 말해 두면 남는다."},{"id":"q096","age":50,"t":"내가 무엇을 아는가.","o":"Que sais-je?","a":"미셸 드 몽테뉴","w":"《수상록》 2권 12장 「레몽 스봉 변호」","m":["learn","calm"],"c":"모른다고 말할 줄 아는 게 아는 것."},{"id":"q097","age":50,"t":"우리가 깨어 있는 그날만이 새벽이 밝는다.","o":"Only that day dawns to which we are awake.","a":"헨리 데이비드 소로","w":"《월든》 결론, 1854","m":["calm"],"c":"눈 뜬 채로 하루를 보내는 게 제일 어렵다."},{"id":"q098","age":50,"t":"준비되어 있으면 그것으로 충분하다.","o":"The readiness is all.","a":"윌리엄 셰익스피어","w":"《햄릿》 5막 2장","m":["courage","calm"],"c":"결과를 다 정할 수 없어도, 준비는 내 몫."},{"id":"q099","age":50,"t":"열심히 배우느라 밥 먹는 것도 잊고, 즐거워 근심을 잊고, 늙어 가는 줄도 몰랐다.","o":"發憤忘食 樂以忘憂 不知老之將至云爾","a":"공자","w":"《논어》 술이편 19장","m":["learn","calm","tired"],"c":"배우는 사람은 늙지 않는다."},{"id":"q100","age":50,"t":"어디선가 나는 너를 기다리고 있다.","o":"I stop somewhere waiting for you.","a":"월트 휘트먼","w":"《풀잎》 「나 자신의 노래」 52절, 1855","m":["calm","people"],"c":"오늘 만나는 사람도, 어딘가에서 기다린 사람."}];
+
+(function(){
+  "use strict";
+  var AGE_LABEL = {"10":"10대","20":"20대","30":"30대","40":"40대","50":"50대+"};
+  var MOODS = [
+    {"k":"all","n":"전체"},
+    {"k":"start","n":"시작"},
+    {"k":"courage","n":"용기"},
+    {"k":"tired","n":"지칠 때"},
+    {"k":"worry","n":"불안"},
+    {"k":"people","n":"사람"},
+    {"k":"money","n":"돈·일"},
+    {"k":"learn","n":"배움"},
+    {"k":"habit","n":"꾸준함"},
+    {"k":"calm","n":"마음"}
+  ];
+  var MOOD_NAME = {};
+  MOODS.forEach(function(m){ MOOD_NAME[m.k] = m.n; });
+
+  var state = { age:"all", mood:"all", q:"" };
+  var listEl = document.getElementById("list");
+  var countEl = document.getElementById("count");
+  var toastEl = document.getElementById("toast");
+  var segEl = document.getElementById("seg");
+  var chipsEl = document.getElementById("chips");
+  var qEl = document.getElementById("q");
+
+  var todayItem = null;
+  var toastTimer = null;
+
+  function el(tag, cls){ var e = document.createElement(tag); if(cls) e.className = cls; return e; }
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove("on"); }, 1800);
+  }
+
+  /* ── 필터 ── */
+  function filtered(){
+    var out = [];
+    for (var i=0;i<QUOTES.length;i++){
+      var x = QUOTES[i];
+      if (state.age !== "all" && String(x.age) !== state.age) continue;
+      if (state.mood !== "all" && x.m.indexOf(state.mood) < 0) continue;
+      if (state.q){
+        var s = (x.t + " " + x.o + " " + x.a + " " + x.w + " " + x.c).toLowerCase();
+        if (s.indexOf(state.q) < 0) continue;
+      }
+      out.push(x);
+    }
+    return out;
+  }
+
+  function render(){
+    var items = filtered();
+    listEl.textContent = "";
+    countEl.innerHTML = "<b>" + items.length + "</b>문장" + (items.length === 100 ? " · 전체" : "");
+
+    if (!items.length){
+      var e = el("div","empty");
+      e.textContent = "조건에 맞는 문장이 없습니다. 연령대나 기분을 풀어 보세요.";
+      listEl.appendChild(e);
+      return;
+    }
+    var frag = document.createDocumentFragment();
+    items.forEach(function(x, idx){
+      var card = el("article","card");
+      card.setAttribute("data-id", x.id);
+      card.setAttribute("data-age", String(x.age));
+
+      var head = el("div","card-head");
+      var a = el("span","age"); a.textContent = AGE_LABEL[String(x.age)];
+      head.appendChild(a);
+      x.m.slice(0,2).forEach(function(k){
+        if (k === "all") return;
+        var t = el("span","tag"); t.textContent = MOOD_NAME[k] || k; head.appendChild(t);
+      });
+      card.appendChild(head);
+
+      var qt = el("p","qt"); qt.textContent = x.t; card.appendChild(qt);
+      if (x.o){
+        var o = el("p","orig"); o.textContent = x.o; o.lang = /[A-Za-z]/.test(x.o.slice(0,3)) ? "en" : "zh"; card.appendChild(o);
+      }
+      var src = el("p","src");
+      var b = el("b"); b.textContent = x.a; src.appendChild(b);
+      var w = el("span"); w.textContent = x.w; src.appendChild(w);
+      card.appendChild(src);
+
+      if (x.c){
+        var n = el("p","note"); n.textContent = x.c; card.appendChild(n);
+      }
+
+      var acts = el("div","acts");
+      var cb = el("button","btn"); cb.type = "button"; cb.textContent = "복사";
+      cb.setAttribute("data-act","copy");
+      var db = el("button","btn"); db.type = "button"; db.textContent = "카드 저장";
+      db.setAttribute("data-act","card");
+      acts.appendChild(cb); acts.appendChild(db);
+      card.appendChild(acts);
+      frag.appendChild(card);
+    });
+    listEl.appendChild(frag);
+  }
+
+  /* ── 복사 ── */
+  function quoteText(x){
+    var s = "“" + x.t + "”\n— " + x.a + ", " + x.w;
+    if (x.o) s += "\n원문: " + x.o;
+    s += "\n나이마다 힘이 되는 한 문장 · 세계명언 100";
+    return s;
+  }
+  function copyText(txt){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(txt);
+    }
+    return new Promise(function(res, rej){
+      try{
+        var ta = document.createElement("textarea");
+        ta.value = txt; ta.style.position = "fixed"; ta.style.top = "-1000px"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        var ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+        ok ? res() : rej(new Error("copy failed"));
+      }catch(e){ rej(e); }
+    });
+  }
+
+  /* ── 카드 이미지 1080×1350 ── */
+  function wrapText(ctx, text, maxW){
+    var lines = [], line = "";
+    var tokens = text.split(/(\s+)/);
+    for (var i=0;i<tokens.length;i++){
+      var tk = tokens[i];
+      if (!tk) continue;
+      var test = line + tk;
+      if (ctx.measureText(test).width <= maxW){ line = test; continue; }
+      if (line.trim()) { lines.push(line.replace(/\s+$/,"")); line = ""; }
+      if (tk.trim() === "") continue;
+      if (ctx.measureText(tk).width <= maxW){ line = tk; continue; }
+      var chunk = "";
+      for (var j=0;j<tk.length;j++){
+        var c = tk.charAt(j);
+        if (ctx.measureText(chunk + c).width <= maxW){ chunk += c; }
+        else { lines.push(chunk); chunk = c; }
+      }
+      line = chunk;
+    }
+    if (line.trim()) lines.push(line.replace(/\s+$/,""));
+    return lines;
+  }
+
+  function makeCard(x){
+    var W = 1080, H = 1350;
+    var cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    var ctx = cv.getContext("2d");
+    var FONT = '"Gulim","굴림","Noto Sans KR","Noto Sans CJK KR",-apple-system,sans-serif';
+
+    var g = ctx.createLinearGradient(0,0,W*0.4,H);
+    g.addColorStop(0,"#fdfbf6"); g.addColorStop(.55,"#f8f4ea"); g.addColorStop(1,"#f1ebdd");
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+    // 얇은 테두리
+    ctx.strokeStyle = "rgba(168,134,74,.28)"; ctx.lineWidth = 2;
+    ctx.strokeRect(28,28,W-56,H-56);
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "alphabetic";
+
+    // 상단 라벨
+    ctx.fillStyle = "#9a8a6c";
+    ctx.font = "600 27px " + FONT;
+    ctx.fillText("나이마다 힘이 되는 한 문장", W/2, 118);
+    ctx.fillStyle = "#b7a888";
+    ctx.font = "600 24px " + FONT;
+    ctx.fillText(AGE_LABEL[String(x.age)] + " · 세계명언 100", W/2, 158);
+
+    // 따옴표
+    ctx.fillStyle = "rgba(168,134,74,.34)";
+    ctx.font = "700 150px Georgia,'Times New Roman',serif";
+    ctx.fillText("“", W/2, 322);
+
+    // 본문
+    var qSize = x.t.length > 46 ? 50 : (x.t.length > 30 ? 56 : 62);
+    ctx.font = "700 " + qSize + "px " + FONT;
+    var qLines = wrapText(ctx, x.t, 820);
+    var qLH = Math.round(qSize * 1.58);
+
+    var oLines = [];
+    var oSize = 27, oLH = 44;
+    if (x.o){
+      ctx.font = "italic " + oSize + "px Georgia,'Times New Roman',serif";
+      oLines = wrapText(ctx, x.o, 800);
+      if (oLines.length > 4) oLines = oLines.slice(0,4);
+    }
+    var aSize = 34, wSize = 25;
+    var blockH = qLines.length*qLH + (oLines.length ? 34 + oLines.length*oLH : 0) + 74 + aSize + 40 + wSize;
+    var startY = Math.max(430, Math.round((H - blockH)/2) + 60);
+
+    var y = startY;
+    ctx.fillStyle = "#1f1b14";
+    ctx.font = "700 " + qSize + "px " + FONT;
+    qLines.forEach(function(ln){ ctx.fillText(ln, W/2, y); y += qLH; });
+
+    if (oLines.length){
+      y += 14;
+      ctx.fillStyle = "#8c7f66";
+      ctx.font = "italic " + oSize + "px Georgia,'Times New Roman',serif";
+      oLines.forEach(function(ln){ ctx.fillText(ln, W/2, y); y += oLH; });
+    }
+
+    y += 62;
+    ctx.fillStyle = "#a8864a";
+    ctx.fillRect(W/2 - 34, y - 24, 68, 3);
+
+    y += 40;
+    ctx.fillStyle = "#3a3223";
+    ctx.font = "700 " + aSize + "px " + FONT;
+    ctx.fillText(x.a, W/2, y);
+    y += 40;
+    ctx.fillStyle = "#8c7f66";
+    ctx.font = "400 " + wSize + "px " + FONT;
+    var wLines = wrapText(ctx, x.w, 820);
+    wLines.forEach(function(ln){ ctx.fillText(ln, W/2, y); y += 34; });
+
+    // 하단
+    ctx.fillStyle = "#a99c85";
+    ctx.font = "500 22px " + FONT;
+    ctx.fillText("soonsoo1004.github.io/quotes-top100", W/2, H - 66);
+
+    return cv;
+  }
+
+  function saveCard(x){
+    try{
+      var cv = makeCard(x);
+      var name = "세계명언-" + x.id + ".png";
+      cv.toBlob(function(blob){
+        if (!blob){ toast("이미지를 만들지 못했습니다."); return; }
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url; a.download = name;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+        toast("카드 저장 · 1080×1350");
+      }, "image/png");
+    }catch(e){ toast("이미지를 만들지 못했습니다."); }
+  }
+
+  /* ── 오늘의 문장 ── */
+  function dayIndex(){
+    var d = new Date();
+    var key = d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+    var h = (key * 2654435761) % 4294967296;
+    return Math.floor(h / 4294967296 * QUOTES.length);
+  }
+  function setToday(x){
+    todayItem = x;
+    var d = new Date();
+    document.getElementById("todayDate").textContent = (d.getMonth()+1) + "월 " + d.getDate() + "일";
+    document.getElementById("todayText").textContent = "“" + x.t + "”";
+    document.getElementById("todaySrc").innerHTML = "";
+    var src = document.getElementById("todaySrc");
+    var b = el("b"); b.textContent = "— " + x.a;
+    src.appendChild(b);
+    var sp = el("span"); sp.textContent = " " + x.w; src.appendChild(sp);
+  }
+  function randomToday(){
+    var pick = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+    if (todayItem && QUOTES.length > 1){
+      var guard = 0;
+      while (pick.id === todayItem.id && guard++ < 20) pick = QUOTES[Math.floor(Math.random()*QUOTES.length)];
+    }
+    setToday(pick);
+  }
+
+  /* ── 이벤트 ── */
+  segEl.addEventListener("click", function(ev){
+    var b = ev.target.closest("button[data-age]");
+    if (!b) return;
+    [].forEach.call(segEl.querySelectorAll("button"), function(x){
+      x.setAttribute("aria-selected", x === b ? "true" : "false");
+    });
+    state.age = b.getAttribute("data-age");
+    render();
+  });
+
+  MOODS.forEach(function(m){
+    var b = el("button","chip");
+    b.type = "button";
+    b.textContent = m.n;
+    b.setAttribute("data-mood", m.k);
+    b.setAttribute("aria-pressed", m.k === "all" ? "true" : "false");
+    chipsEl.appendChild(b);
+  });
+  chipsEl.addEventListener("click", function(ev){
+    var b = ev.target.closest("button[data-mood]");
+    if (!b) return;
+    [].forEach.call(chipsEl.querySelectorAll("button"), function(x){
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+    state.mood = b.getAttribute("data-mood");
+    render();
+  });
+
+  var qTimer = null;
+  qEl.addEventListener("input", function(){
+    clearTimeout(qTimer);
+    qTimer = setTimeout(function(){
+      state.q = qEl.value.trim().toLowerCase();
+      render();
+    }, 120);
+  });
+
+  listEl.addEventListener("click", function(ev){
+    var b = ev.target.closest("button[data-act]");
+    if (!b) return;
+    var card = b.closest(".card");
+    if (!card) return;
+    var id = card.getAttribute("data-id");
+    var x = null;
+    for (var i=0;i<QUOTES.length;i++) if (QUOTES[i].id === id){ x = QUOTES[i]; break; }
+    if (!x) return;
+    if (b.getAttribute("data-act") === "copy"){
+      copyText(quoteText(x)).then(function(){ toast("문장을 복사했습니다"); })
+        .catch(function(){ toast("복사가 안 되면 길게 눌러 선택해 주세요"); });
+    } else {
+      saveCard(x);
+    }
+  });
+
+  document.getElementById("todayCopy").addEventListener("click", function(){
+    if (!todayItem) return;
+    copyText(quoteText(todayItem)).then(function(){ toast("문장을 복사했습니다"); })
+      .catch(function(){ toast("복사가 안 되면 길게 눌러 선택해 주세요"); });
+  });
+  document.getElementById("todayCard").addEventListener("click", function(){
+    if (todayItem) saveCard(todayItem);
+  });
+  document.getElementById("todayNew").addEventListener("click", randomToday);
+
+  /* ── 시작 ── */
+  setToday(QUOTES[dayIndex()]);
+  render();
+})();
+</script>
+</body>
+</html>
