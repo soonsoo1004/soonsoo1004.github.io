@@ -2391,7 +2391,7 @@ function ballColor() {
 function drawTrail() {
   if (!B.alive || B.trail.length < 2) return;
   var M = CFG();
-  var base = B.type === "smash" ? [255, 226, 122] : B.type === "drive" ? [143, 230, 255] : [255, 255, 255];
+  var base = B.type === "smash" ? [255, 226, 122] : B.type === "drive" ? [143, 230, 255] : (G.mode === "pong" ? [190, 240, 255] : [255, 214, 120]);
   for (var i = 0; i < B.trail.length - 1; i++) {
     var t = B.trail[i];
     var p = project(t.x, t.y, t.z);
