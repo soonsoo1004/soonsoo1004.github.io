@@ -1206,27 +1206,49 @@ if (typeof module !== "undefined" && module.exports) module.exports = CM;
     ctx.textAlign = "right";
     ctx.fillText(card.nm || "", CARD_W - 96, 132);
 
-    // 본문
+    // 본문 — 해시태그 줄은 본문과 분리해 작게
     var maxW = CARD_W - 192;
+    var headParts = [], tagText = "";
+    String(card.text || "").split("\n").forEach(function(l){
+      if(/^\s*#/.test(l)) tagText = (tagText ? tagText + " " : "") + l.trim();
+      else headParts.push(l);
+    });
+    var headText = headParts.join("\n").trim();
+
     var sizes = [96, 88, 80, 72, 66, 60, 54, 48];
     var chosen = sizes[sizes.length-1], lines = [];
     for(var i=0;i<sizes.length;i++){
       var f = sizes[i];
-      var ls = wrapLines(card.text, maxW, f, "700");
-      var lh = Math.round(f * 1.42);
-      if(ls.length * lh <= 720 && !ls.some(function(l){ return ctx.measureText(l).width > maxW; })){
+      var ls = wrapLines(headText, maxW, f, "700");
+      var lh0 = Math.round(f * 1.42);
+      if(ls.length * lh0 <= 700 && !ls.some(function(l){ return ctx.measureText(l).width > maxW; })){
         chosen = f; lines = ls; break;
       }
       if(i === sizes.length-1){ chosen = f; lines = ls; }
     }
     var lh = Math.round(chosen * 1.42);
+    var tagSize = 42, tagLh = 58, tagLines = [];
+    if(tagText){
+      tagLines = wrapLines(tagText, maxW, tagSize, "500");
+    }
+    var gapAfter = tagLines.length ? 34 : 0;
+    var totalH = lines.length * lh + gapAfter + tagLines.length * tagLh;
+    var startY = (CARD_H/2) - totalH/2 + lh/2 - 20;
+
     ctx.font = font("700", chosen);
     ctx.fillStyle = th.ink; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    var totalH = lines.length * lh;
-    var startY = (CARD_H/2) - totalH/2 + lh/2 - 20;
     lines.forEach(function(line, i){
       ctx.fillText(line, CARD_W/2, startY + i*lh);
     });
+
+    if(tagLines.length){
+      ctx.font = font("500", tagSize);
+      ctx.fillStyle = tone === "impact" ? "rgba(255,255,255,.62)" : th.sub;
+      var tagTop = startY + (lines.length - 1) * lh + gapAfter + tagLh;
+      tagLines.forEach(function(line, i){
+        ctx.fillText(line, CARD_W/2, tagTop + i * tagLh);
+      });
+    }
 
     // 아래 꼬리
     ctx.strokeStyle = tone === "impact" ? "rgba(255,255,255,.18)" : "rgba(0,0,0,.08)";
