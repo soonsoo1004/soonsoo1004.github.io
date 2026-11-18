@@ -810,7 +810,9 @@ footer b{color:var(--ink2)}
 
   function paintCats(){
     [].forEach.call(catsEl.children, function(b){
-      b.setAttribute("aria-pressed", b.getAttribute("data-cat") === catSel ? "true" : "false");
+      var on = b.getAttribute("data-cat") === catSel;
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (on && b.scrollIntoView){ try { b.scrollIntoView({inline:"center", block:"nearest"}); } catch(e){} }
     });
   }
 
