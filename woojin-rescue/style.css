@@ -193,5 +193,5 @@ body{
 }
 .result-stats span{display:block;font-size:10px;color:#9d97b8;font-weight:700}
 .result-stats b{font-size:16px;color:#5a5478}
-.stage-name.hide{opacity:0}
+.stage-name.hide{opacity:0;visibility:hidden}
 .stage-name{transition:opacity .2s}
