@@ -769,7 +769,7 @@ footer b{color:var(--ink2)}
       ph:["그 사람의 요즘"] },
   ];
 
-  var cur = null, tone = "all", picked = "a", catSel = "all", q = "";
+  var cur = null, tone = "all", picked = "a", catSel = "all", q = "", pendingId = null;
   var $ = function(id){ return document.getElementById(id); };
   var catsEl = $("cats"), groupsEl = $("sitGroups"), resultEl = $("result"),
       answersEl = $("answers"), segEl = $("seg"), qEl = $("q");
@@ -884,7 +884,17 @@ footer b{color:var(--ink2)}
       first = false;
     });
 
-    if (cur) markSelected(cur.id);
+    if (cur && list.some(function(d){ return d.id === cur.id; })){
+      markSelected(cur.id);
+      return;
+    }
+    // 지금 보고 있는 상황이 걸러지면, 목록의 첫 상황을 바로 보여 줍니다.
+    var first = null;
+    if (pendingId){
+      first = list.filter(function(d){ return d.id === pendingId; })[0] || null;
+      pendingId = null;
+    }
+    selectSit((first || list[0]).id, false);
   }
 
   function markSelected(id){
@@ -1175,10 +1185,9 @@ footer b{color:var(--ink2)}
   });
 
   /* ── 시작 ── */
-  renderList();
   var startId = (location.hash || "").replace("#","");
-  var hasStart = DATA.some(function(d){ return d.id === startId; });
-  selectSit(hasStart ? startId : DATA[0].id, false);
+  if (DATA.some(function(d){ return d.id === startId; })) pendingId = startId;
+  renderList();
 })();
 </script>
 </body>
