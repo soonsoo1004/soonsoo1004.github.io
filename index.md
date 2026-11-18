@@ -9,7 +9,7 @@
 
 ## 쓰는 방법
 
-도구 대부분은 이 사이트에서 직접 실행되지 않습니다. 각 도구는 티스토리 글에 첨부 파일로 올라가 있고, 첨부 파일을 내려받아 브라우저에서 열면 바로 씁니다. 예외로 「가게 전화주문 단골 장부」(https://soonsoo1004.github.io/phonebook/), 「러너 페이스 계산기」(https://soonsoo1004.github.io/run-pace/), 「진로선택·고민정리 20고개」(https://soonsoo1004.github.io/career-20q/), 「나를 4글자로 · 성향 테스트」(https://soonsoo1004.github.io/personality-test/), 「위트 있는 화법 연습소」(https://soonsoo1004.github.io/wit-speech/), 「오늘의 행복 사주」(https://soonsoo1004.github.io/happy-saju/), 「나이마다 힘이 되는 한 문장 100」(https://soonsoo1004.github.io/quotes-top100/), 「나를 발전시키는 생활습관 44」(https://soonsoo1004.github.io/habit-growth/), 「대신 골라주는 44」(https://soonsoo1004.github.io/pick-for-me/)은 이 사이트에서 바로 열립니다. 설치·로그인·결제·회원가입이 없고, 도구는 입력값을 서버로 보내지 않습니다.
+도구 대부분은 이 사이트에서 직접 실행되지 않습니다. 각 도구는 티스토리 글에 첨부 파일로 올라가 있고, 첨부 파일을 내려받아 브라우저에서 열면 바로 씁니다. 예외로 「가게 전화주문 단골 장부」(https://soonsoo1004.github.io/phonebook/), 「러너 페이스 계산기」(https://soonsoo1004.github.io/run-pace/), 「진로선택·고민정리 20고개」(https://soonsoo1004.github.io/career-20q/), 「나를 4글자로 · 성향 테스트」(https://soonsoo1004.github.io/personality-test/), 「위트 있는 화법 연습소」(https://soonsoo1004.github.io/wit-speech/), 「오늘의 행복 사주」(https://soonsoo1004.github.io/happy-saju/), 「나이마다 힘이 되는 한 문장 100」(https://soonsoo1004.github.io/quotes-top100/), 「나를 발전시키는 생활습관 44」(https://soonsoo1004.github.io/habit-growth/), 「대신 골라주는 44」(https://soonsoo1004.github.io/pick-for-me/), 「시간절약 꿀팁 전수 44」(https://soonsoo1004.github.io/time-saver/)은 이 사이트에서 바로 열립니다. 설치·로그인·결제·회원가입이 없고, 도구는 입력값을 서버로 보내지 않습니다.
 
 ## 지금 쓸 수 있는 도구 22가지
 
