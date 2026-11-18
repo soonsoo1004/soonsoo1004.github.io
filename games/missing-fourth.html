@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>🕵️ 사라진 네 번째 것 — 흔적 셋, 없어진 하나, 그리고 한 번의 반전</title>
+<meta name="description" content="흔적 세 개만 남은 자리에서 사라진 네 번째 것을 맞히고, 흔적 하나만 바꿔 완전히 다른 사건으로 뒤집는 6장면 추리 게임. 가입·설치·광고 없는 단일 HTML.">
+<meta name="author" content="린다 (Linda)">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0e131b">
+<link rel="icon" href="data:,">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    min-height:100dvh;color:#f2e9d8;overflow-x:hidden;
+    font-family:"Gulim","굴림","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Noto Sans KR",sans-serif;
+    letter-spacing:-.01em;
+    -webkit-tap-highlight-color:transparent;
+    background:
+      radial-gradient(80% 46% at 18% -8%,rgba(233,179,95,.16) 0%,rgba(233,179,95,0) 62%),
+      radial-gradient(70% 40% at 92% 4%,rgba(143,208,176,.10) 0%,rgba(143,208,176,0) 60%),
+      linear-gradient(180deg,#101722 0%,#0d131c 58%,#0b1017 100%);
+    background-attachment:fixed;
+  }
+  button{font:inherit;color:inherit;letter-spacing:inherit}
+  [hidden]{display:none!important}
+  .app{
+    width:100%;max-width:440px;margin:0 auto;min-height:100dvh;
+    padding:calc(10px + env(safe-area-inset-top)) 14px calc(10px + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .screen{display:flex;flex-direction:column;gap:11px;flex:1 1 auto;min-height:0;justify-content:center}
+  .screen#play{justify-content:flex-start}
+  .stack{width:100%;margin:auto 0;display:flex;flex-direction:column;gap:11px}
+
+  /* ---------- 상단 ---------- */
+  .top{display:flex;align-items:center;gap:8px;flex:0 0 auto;min-height:34px}
+  .top .mark{font-size:16px;line-height:1}
+  .top h1{margin:0;font-size:15.5px;font-weight:700;letter-spacing:-.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .icon-btn{
+    margin-left:auto;flex:none;width:32px;height:32px;border-radius:50%;padding:0;cursor:pointer;
+    border:1px solid rgba(247,239,221,.18);background:rgba(247,239,221,.06);color:#c8bda6;
+    display:grid;place-items:center;font-size:15px;line-height:1;
+    transition:transform .12s ease,background .15s ease;
+  }
+  .icon-btn:active{transform:scale(.92);background:rgba(247,239,221,.13)}
+  .icon-btn:focus-visible,.opt:focus-visible,.tcard:focus-visible,.btn:focus-visible{outline:2px solid #e9b35f;outline-offset:2px}
+
+  /* ---------- 홈 ---------- */
+  .home{padding-top:6px;text-align:center;align-items:center}
+  .stamp{
+    font-size:10.5px;letter-spacing:.22em;color:#c9a25d;border:1px solid rgba(233,179,95,.45);
+    border-radius:999px;padding:4px 11px;text-transform:uppercase;
+  }
+  .home .big{font-size:29px;font-weight:700;line-height:1.24;letter-spacing:-.045em;margin:12px 0 0}
+  .home .big em{font-style:normal;color:#f0c077}
+  .home .sub{margin:8px 0 0;font-size:13.5px;line-height:1.62;color:#b9b0a0}
+  .home .sub b{color:#efe3cc;font-weight:700}
+  .rules{width:100%;display:flex;flex-direction:column;gap:8px;margin:6px 0 2px;text-align:left}
+  .rule{
+    display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border-radius:12px;
+    background:rgba(247,239,221,.055);border:1px solid rgba(247,239,221,.10);
+  }
+  .rule .n{
+    flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;
+    font-size:11px;font-weight:700;color:#1a1408;background:#e9b35f;
+  }
+  .rule p{margin:0;font-size:12.8px;line-height:1.55;color:#cfc6b4}
+  .rule p b{color:#f4ecdc}
+  .btn{
+    width:100%;border:none;border-radius:13px;padding:15px 12px;cursor:pointer;
+    font-size:16px;font-weight:700;letter-spacing:-.02em;color:#20180a;
+    background:linear-gradient(180deg,#f6cf8b,#e3a84e);
+    box-shadow:0 10px 22px -12px rgba(233,179,95,.9),inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .12s ease,filter .15s ease;
+  }
+  .btn:active{transform:scale(.985);filter:brightness(.96)}
+  .btn.ghost{
+    background:rgba(247,239,221,.07);color:#e6dcc9;border:1px solid rgba(247,239,221,.18);
+    box-shadow:none;font-size:14px;padding:13px 12px;
+  }
+  .btn.ghost:active{background:rgba(247,239,221,.13)}
+
+  /* ---------- 진행 ---------- */
+  .hud{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+  .hud .where{font-size:11px;letter-spacing:.06em;color:#9d9484}
+  .dots{display:flex;gap:5px;margin-left:auto}
+  .dot{width:7px;height:7px;border-radius:50%;background:rgba(247,239,221,.18);transition:background .2s ease,transform .2s ease}
+  .dot.on{background:#e9b35f;transform:scale(1.18)}
+  .dot.done{background:rgba(143,208,176,.75)}
+
+  .scene{
+    margin:0;font-size:13px;font-weight:700;color:#c9a25d;letter-spacing:.02em;
+    display:flex;align-items:center;gap:7px;
+  }
+  .scene::after{content:"";flex:1 1 auto;height:1px;background:linear-gradient(90deg,rgba(201,162,93,.5),rgba(201,162,93,0))}
+
+  /* ---------- 흔적 카드 ---------- */
+  .traces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .traces.tappable{padding-bottom:12px}
+  .tcard{
+    position:relative;min-width:0;min-height:108px;padding:16px 7px 9px;border-radius:13px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    text-align:center;border:1px solid rgba(0,0,0,.10);
+    background:linear-gradient(158deg,#fbf4e3 0%,#efe3c9 100%);color:#241c12;
+    box-shadow:0 9px 18px -13px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.7);
+    transition:box-shadow .18s ease,transform .18s ease,border-color .18s ease;
+  }
+  .tcard .no{
+    position:absolute;top:7px;left:8px;font-size:9px;letter-spacing:.14em;color:#9a8a6d;
+  }
+  .tcard .glyph{font-size:25px;line-height:1;font-family:"Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol",sans-serif}
+  .tcard .w{font-size:13px;font-weight:700;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere;max-width:100%}
+  .tcard .old{
+    font-size:10.5px;color:#8a7a5f;text-decoration:line-through;line-height:1.2;
+    max-width:100%;overflow-wrap:anywhere;
+  }
+  .tcard .tag{
+    position:absolute;top:6px;right:6px;font-size:9px;font-weight:700;letter-spacing:.04em;
+    color:#3a2a0c;background:#f2c583;border-radius:999px;padding:2px 6px;
+  }
+  .tcard.pick{cursor:pointer;border-color:#e9b35f;box-shadow:0 0 0 2px rgba(233,179,95,.38),0 10px 20px -12px rgba(0,0,0,.9)}
+  .tcard.pick::after{
+    content:"바꾸기";position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
+    font-size:9.5px;font-weight:700;color:#1d1509;background:#e9b35f;border-radius:999px;padding:2px 8px;white-space:nowrap;
+  }
+  .tcard.pick:active{transform:translateY(1px) scale(.985)}
+  .tcard.changed{
+    border-color:#e9b35f;
+    box-shadow:0 0 0 2px rgba(233,179,95,.55),0 0 26px -6px rgba(233,179,95,.55),inset 0 1px 0 rgba(255,255,255,.7);
+    animation:flip .52s ease;
+  }
+  .tcard.changed .w{color:#7a4b06}
+  .tcard.spent{opacity:.82}
+  @keyframes flip{
+    0%{transform:perspective(420px) rotateX(0)}
+    48%{transform:perspective(420px) rotateX(84deg)}
+    100%{transform:perspective(420px) rotateX(0)}
+  }
+
+  .lead{margin:2px 0 0;font-size:14px;line-height:1.6;color:#cdc4b3}
+  .lead b{color:#f6eeda;font-weight:700}
+  .lead .k{color:#f0c077}
+
+  /* ---------- 보기 ---------- */
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .opt{
+    min-width:0;min-height:52px;padding:10px 8px;border-radius:12px;cursor:pointer;
+    border:1px solid rgba(247,239,221,.16);background:rgba(247,239,221,.055);color:#f0e7d6;
+    font-size:15px;font-weight:700;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere;
+    transition:transform .12s ease,background .16s ease,border-color .16s ease,color .16s ease;
+  }
+  .opt:active{transform:scale(.975)}
+  .opt.correct{
+    background:rgba(143,208,176,.20);border-color:rgba(143,208,176,.9);color:#dff7ea;
+  }
+  .opt.correct::after{content:" ✓";color:#9ee0bd}
+  .opt.wrong{
+    background:rgba(229,143,143,.12);border-color:rgba(229,143,143,.42);
+    color:#d8b6b6;text-decoration:line-through;opacity:.8;animation:shake .3s ease;
+  }
+  .opt[disabled]{cursor:default;opacity:.5}
+  .opt.correct[disabled]{opacity:1}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}70%{transform:translateX(3px)}}
+
+  .feedback{margin:0;min-height:20px;font-size:12.8px;line-height:1.55;color:#9d9484}
+  .feedback.good{color:#a9e3c5}
+  .feedback.bad{color:#efa9a9}
+  .feedback .win{color:#f6eeda;font-weight:700}
+
+  /* ---------- 반전 ---------- */
+  .twist{
+    border-radius:13px;padding:12px 13px;border:1px solid rgba(233,179,95,.34);
+    background:linear-gradient(180deg,rgba(233,179,95,.10),rgba(233,179,95,.03));
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .twist .t{margin:0;font-size:13.5px;font-weight:700;color:#f0c077}
+  .twist .s{margin:0;font-size:12.3px;line-height:1.55;color:#b7ae9e}
+  .result{
+    margin:0;font-size:13px;line-height:1.65;color:#efe5d2;
+    border-left:2px solid #8fd0b0;padding-left:9px;
+  }
+  .result .new{color:#a9e3c5;font-weight:700}
+  .result .why{display:block;margin-top:4px;font-size:11.8px;color:#9d9484;line-height:1.5}
+  .row{display:flex;gap:8px;align-items:stretch}
+  .row .btn{flex:1 1 auto;width:auto;min-width:0;white-space:nowrap}
+  .row .btn.tiny{flex:0 0 auto;width:auto;padding:13px 16px;font-size:13px}
+
+  /* ---------- 끝 ---------- */
+  .end{justify-content:center;text-align:center;align-items:center;padding-top:4px}
+  .end .stamp{align-self:center}
+  .end h2{margin:14px 0 0;font-size:24px;letter-spacing:-.04em;line-height:1.3}
+  .end .score{
+    margin:12px 0 0;padding:14px 18px;border-radius:14px;min-width:190px;
+    background:rgba(247,239,221,.06);border:1px solid rgba(247,239,221,.13);
+  }
+  .end .score .n{display:block;font-size:30px;font-weight:700;color:#f0c077;line-height:1.1}
+  .end .score .c{font-size:11.5px;color:#a89f8e;letter-spacing:.04em}
+  .end .line{margin:12px 0 0;font-size:13px;line-height:1.6;color:#c3baa9;max-width:320px}
+  .end .btn{max-width:320px}
+
+  /* ---------- 크레딧 ---------- */
+  .credit{
+    flex:0 0 auto;margin:2px 0 0;text-align:center;font-size:10px;line-height:1.5;color:#7d7669;
+    letter-spacing:.01em;
+  }
+  .credit b{color:#a2947a;font-weight:400}
+  @media (max-width:359px){
+    .home .big{font-size:26px}
+    .tcard{min-height:100px;padding:15px 5px 8px}
+    .tcard .w{font-size:12px}
+    .opt{font-size:14px;min-height:50px}
+  }
+  @media (min-width:760px){
+    .app{padding-top:22px;padding-bottom:22px}
+    .home .big{font-size:33px}
+    .tcard{min-height:118px}
+    .tcard .glyph{font-size:29px}
+    .tcard .w{font-size:14px}
+    .opt{font-size:15.5px;min-height:56px}
+  }
+  @media (min-height:760px){
+    .tcard{min-height:122px}
+    .tcard .glyph{font-size:30px}
+    .tcard .w{font-size:14px}
+    .opt{min-height:58px;font-size:15.5px}
+    .lead{font-size:14.5px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation-duration:.001s!important;transition-duration:.001s!important}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <span class="mark" aria-hidden="true">🕵️</span>
+    <h1>사라진 네 번째 것</h1>
+    <button class="icon-btn" id="resetBtn" type="button" title="처음으로" aria-label="처음으로" hidden>↺</button>
+  </header>
+
+  <!-- 홈 -->
+  <section class="screen home" id="home">
+    <span class="stamp">사건 파일 · 6장면</span>
+    <p class="big">흔적은 셋,<br>없어진 것은 <em>하나</em>.</p>
+    <p class="sub">테이블에 물기 자국과 찻숟가락, 빈 받침만 남았습니다.<br><b>네 번째 것</b>은 무엇이었을까요.</p>
+    <div class="rules">
+      <div class="rule"><span class="n">1</span><p>사라진 것의 <b>흔적 세 개</b>를 봅니다.</p></div>
+      <div class="rule"><span class="n">2</span><p>그 자리에 있던 <b>네 번째 것</b>을 맞힙니다.</p></div>
+      <div class="rule"><span class="n">3</span><p>맞힌 뒤, <b>흔적 하나만</b> 다른 흔적으로 바꿉니다.<br>같은 자리에 <b>전혀 다른 사건</b>이 떠오릅니다.</p></div>
+    </div>
+    <button class="btn" id="startBtn" type="button">사건 파일 열기</button>
+  </section>
+
+  <!-- 플레이 -->
+  <section class="screen" id="play" hidden>
+   <div class="stack">
+    <div class="hud">
+      <span class="where" id="where">장면 1 / 6</span>
+      <div class="dots" id="dots" aria-hidden="true"></div>
+    </div>
+    <p class="scene" id="sceneName"></p>
+    <div class="traces" id="traces"></div>
+    <p class="lead" id="lead"></p>
+    <div class="options" id="options"></div>
+    <p class="feedback" id="feedback" aria-live="polite"></p>
+    <div class="twist" id="twist" hidden>
+      <p class="t" id="twistTitle">이제, 딱 하나만 바꿔 보세요</p>
+      <p class="s" id="twistSub">위의 흔적 하나를 누르면 다른 흔적으로 바뀝니다. 같은 자리인데, 사라진 것이 달라집니다.</p>
+      <p class="result" id="result" hidden></p>
+      <div class="row">
+        <button class="btn ghost tiny" id="undoBtn" type="button" hidden>되돌리기</button>
+        <button class="btn" id="nextBtn" type="button">다음 장면 →</button>
+      </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- 끝 -->
+  <section class="screen end" id="end" hidden>
+    <span class="stamp">사건 파일 · 끝</span>
+    <h2 id="endTitle">수고하셨습니다</h2>
+    <div class="score"><span class="n" id="endScore">0 / 6</span><span class="c">처음에 맞힌 장면</span></div>
+    <p class="line" id="endLine"></p>
+    <button class="btn" id="againBtn" type="button">처음부터 다시</button>
+  </section>
+
+  <p class="credit">원안: <b>sophia-familiar</b> (CC0) · The Missing Fourth Thing · 광고·추적기 없음</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 장면 데이터 ---------- */
+  var ROUNDS = [
+    {
+      scene: "부엌 · 아침 7시",
+      traces: [
+        { icon:"💧", word:"젖은 자국",
+          swap:{ icon:"🍪", word:"과자 부스러기", answer:"누군가의 간식",
+            why:"부스러기와 마르지 않은 자국 — 아이가 몰래 먹고 나간 흔적이 됩니다." } },
+        { icon:"🥄", word:"찻숟가락",
+          swap:{ icon:"💊", word:"빈 약봉지", answer:"아침 약",
+            why:"숟가락 자리에 약봉지가 놓이자, 커피가 아니라 약 드시던 자리로 바뀝니다." } },
+        { icon:"🟤", word:"빈 받침",
+          swap:{ icon:"⏰", word:"깨진 자명종", answer:"누군가의 아침",
+            why:"받침 위에 부서진 자명종이 놓이자, 이 집의 아침이 통째로 늦어집니다." } }
+      ],
+      answer: "머그컵",
+      answerLine: "찻숟가락은 두고, 컵만 들고 나갔습니다.",
+      hint: "찻숟가락이 들어 있던 것.",
+      options: ["머그컵","주전자","국자","행주"]
+    },
+    {
+      scene: "현관 · 비 오는 저녁",
+      traces: [
+        { icon:"☂️", word:"텅 빈 우산꽂이",
+          swap:{ icon:"🥾", word:"흙 묻은 등산화", answer:"아버지의 산행",
+            why:"우산 대신 등산화가 서 있자, 비가 아니라 산이 보입니다." } },
+        { icon:"👟", word:"실내화 한 짝",
+          swap:{ icon:"🐾", word:"젖은 발자국", answer:"산책 나간 개",
+            why:"실내화 대신 발자국이 남자, 비 맞고 다녀온 발이 먼저 보입니다." } },
+        { icon:"🧾", word:"구겨진 영수증",
+          swap:{ icon:"🍜", word:"불은 라면 봉지", answer:"야식",
+            why:"영수증 자리에 라면 봉지가 놓이자, 편의점이 아니라 밤참 냄새가 납니다." } }
+      ],
+      answer: "우산",
+      answerLine: "꽂이엔 물만 고여 있고, 우산은 없습니다.",
+      hint: "비 오는 날 현관에서 제일 먼저 드는 것.",
+      options: ["우산","장바구니","택배 상자","화분"]
+    },
+    {
+      scene: "거실 · 새벽 2시",
+      traces: [
+        { icon:"📺", word:"먼지 없는 네모",
+          swap:{ icon:"🕹️", word:"닳은 조이스틱", answer:"게임기",
+            why:"리모컨 자리에 조이스틱이 놓이자, TV가 아니라 화면 속으로 사라진 밤이 보입니다." } },
+        { icon:"🛋️", word:"꺼진 담요 자리",
+          swap:{ icon:"🧸", word:"팔 없는 인형", answer:"아이의 잠자리",
+            why:"담요 자리에 인형이 남자, 밤새 안고 자던 자리로 바뀝니다." } },
+        { icon:"🥤", word:"녹다 만 얼음컵",
+          swap:{ icon:"👓", word:"김 서린 안경", answer:"잠든 밤",
+            why:"얼음컵 옆에 안경이 놓이자, 잠 대신 읽던 밤이 떠오릅니다." } }
+      ],
+      answer: "리모컨",
+      answerLine: "TV는 꺼져 있고, 리모컨은 쿠션 사이로 사라졌습니다.",
+      hint: "먼지 없는 네모가 남긴 것.",
+      options: ["리모컨","휴대폰","안경","책"]
+    },
+    {
+      scene: "베란다 · 일요일 오후",
+      traces: [
+        { icon:"🪴", word:"흙이 파인 화분",
+          swap:{ icon:"🌾", word:"흩어진 모이", answer:"모이통",
+            why:"화분 흙 대신 모이가 흩어져 있자, 사람이 아니라 새가 다녀간 자리가 됩니다." } },
+        { icon:"🧤", word:"외짝 장갑",
+          swap:{ icon:"🧺", word:"마른 빨래 더미", answer:"널어 둔 이불",
+            why:"장갑 자리에 마른 빨래가 쌓이자, 손이 아니라 햇볕에 두고 온 것이 보입니다." } },
+        { icon:"🌞", word:"밝은 사각형",
+          swap:{ icon:"🐾", word:"창틀의 발자국", answer:"창가에 앉던 고양이",
+            why:"햇빛 자리에 발자국이 남자, 그 밝은 네모가 누구 자리였는지 드러납니다." } }
+      ],
+      answer: "화분 하나",
+      answerLine: "자리만 밝고, 화분은 다른 집으로 갔습니다.",
+      hint: "베란다에서 매일 물을 주던 것.",
+      options: ["화분 하나","빨랫대","물뿌리개","삽"]
+    },
+    {
+      scene: "아이 방 · 평일 밤 10시",
+      traces: [
+        { icon:"✏️", word:"몽당연필 셋",
+          swap:{ icon:"🎧", word:"이어폰 한 짝", answer:"음악",
+            why:"연필 자리에 이어폰이 놓이자, 공부가 아니라 노래가 들립니다." } },
+        { icon:"🧽", word:"지우개 가루",
+          swap:{ icon:"🍙", word:"싸다 만 김밥", answer:"도시락",
+            why:"지우개 가루 자리에 김밥이 놓이자, 아침에 싸 준 것이 보입니다." } },
+        { icon:"📖", word:"펼쳐진 공책",
+          swap:{ icon:"✍️", word:"반쯤 지운 숙제", answer:"숙제 검사",
+            why:"공책에 지운 자국이 남자, 옆에 앉아 있던 사람이 떠오릅니다." } }
+      ],
+      answer: "필통",
+      answerLine: "연필만 남고, 필통은 가방 속에 잠들었습니다.",
+      hint: "연필 세 자루가 들어 있던 것.",
+      options: ["필통","가방","도시락","책상"]
+    },
+    {
+      scene: "식탁 · 밤 11시",
+      traces: [
+        { icon:"🍺", word:"물기 남은 잔",
+          swap:{ icon:"🎂", word:"촛농 몇 방울", answer:"케이크",
+            why:"잔 대신 촛농이 남자, 오늘은 술이 아니라 생일이었던 일이 드러납니다." } },
+        { icon:"🥜", word:"땅콩 껍질",
+          swap:{ icon:"🪢", word:"끊긴 목줄", answer:"산책 나간 개",
+            why:"땅콩 껍질 자리에 목줄이 놓이자, 안주가 아니라 현관문 여는 소리가 들립니다." } },
+        { icon:"🔌", word:"충전 케이블",
+          swap:{ icon:"📻", word:"꺼진 라디오", answer:"새벽 라디오",
+            why:"케이블 대신 라디오가 놓이자, 잠들기 전 습관이 보입니다." } }
+      ],
+      answer: "안주 접시",
+      answerLine: "잔과 껍질만 남고, 접시는 개밥그릇이 되었습니다.",
+      hint: "잔과 땅콩 사이에 놓여 있던 것.",
+      options: ["안주 접시","병따개","리모컨","물티슈"]
+    }
+  ];
+
+  var NUM_WORDS = ["첫","두","세","네","다섯","여섯"];
+
+  var state = { i:0, phase:"guess", tries:0, first:0, swapped:-1 };
+
+  function $(id){ return document.getElementById(id); }
+  function show(sec){ ["home","play","end"].forEach(function(k){ $(k).hidden = (k !== sec); }); }
+
+  function josa(word){
+    var c = word.charCodeAt(word.length - 1);
+    if(c >= 0xAC00 && c <= 0xD7A3){ return ((c - 0xAC00) % 28) ? "이" : "가"; }
+    return "이";
+  }
+
+  function shuffle(arr){
+    var a = arr.slice();
+    for(var k=a.length-1;k>0;k--){ var j = Math.floor(Math.random()*(k+1)); var t=a[k]; a[k]=a[j]; a[j]=t; }
+    return a;
+  }
+
+  function buildDots(){
+    var dots = $("dots");
+    dots.innerHTML = "";
+    for(var k=0;k<ROUNDS.length;k++){
+      var d = document.createElement("span");
+      d.className = "dot" + (k === state.i ? " on" : (k < state.i ? " done" : ""));
+      dots.appendChild(d);
+    }
+  }
+
+  function renderRound(){
+    var r = ROUNDS[state.i];
+    $("traces").classList.remove("tappable");
+    state.phase = "guess"; state.tries = 0; state.swapped = -1;
+
+    $("where").textContent = "장면 " + (state.i+1) + " / " + ROUNDS.length;
+    buildDots();
+    $("resetBtn").hidden = false;
+    $("sceneName").textContent = r.scene;
+    $("lead").innerHTML = "여기엔 네 번째 것이 있었습니다.<br><b>무엇이 사라졌을까요?</b>";
+
+    /* 흔적 카드 */
+    var wrap = $("traces");
+    wrap.innerHTML = "";
+    r.traces.forEach(function(t, idx){
+      var c = document.createElement("div");
+      c.className = "tcard";
+      c.dataset.idx = String(idx);
+      c.innerHTML = '<span class="no">흔적 ' + (idx+1) + '</span>' +
+                    '<span class="glyph" aria-hidden="true">' + t.icon + '</span>' +
+                    '<span class="w"></span>';
+      c.querySelector(".w").textContent = t.word;
+      c.setAttribute("aria-label", "흔적 " + (idx+1) + ": " + t.word);
+      wrap.appendChild(c);
+    });
+
+    /* 보기 */
+    var box = $("options");
+    box.innerHTML = "";
+    var names = [r.answer].concat(r.options.filter(function(o){ return o !== r.answer; }));
+    while(names.length < 4){ names.push("아무것도 아닌 것"); }
+    shuffle(names.slice(0,4)).forEach(function(word){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt"; b.textContent = word;
+      b.dataset.word = word;
+      b.addEventListener("click", function(){ pickOption(b, word); });
+      box.appendChild(b);
+    });
+
+    var fb = $("feedback");
+    fb.className = "feedback"; fb.textContent = "";
+    $("twist").hidden = true;
+    $("result").hidden = true;
+    $("undoBtn").hidden = true;
+    $("nextBtn").textContent = (state.i === ROUNDS.length-1) ? "사건 파일 덮기" : "다음 장면 →";
+    window.scrollTo(0,0);
+  }
+
+  function pickOption(btn, word){
+    if(state.phase !== "guess") return;
+    var r = ROUNDS[state.i];
+    if(word === r.answer){
+      state.phase = "twist";
+      btn.classList.add("correct");
+      Array.prototype.forEach.call($("options").children, function(b){
+        b.disabled = true;
+        if(b !== btn) b.classList.add("off");
+      });
+      if(state.tries === 0) state.first++;
+      var fb = $("feedback");
+      fb.className = "feedback good";
+      fb.innerHTML = '정답입니다 — <span class="win">' + r.answer + '</span>. ' + r.answerLine;
+      $("lead").innerHTML = '네 번째 것은 <span class="k">' + r.answer + '</span>.<br><b>이제 흔적 하나만 바꿔 보세요.</b>';
+      openTwist();
+    } else {
+      state.tries++;
+      btn.classList.remove("wrong");
+      void btn.offsetWidth;
+      btn.classList.add("wrong");
+      btn.disabled = true;
+      var f = $("feedback");
+      f.className = "feedback bad";
+      f.textContent = (state.tries >= 2 && r.hint)
+        ? "아직 아니에요. 힌트 — " + r.hint
+        : "아직 아니에요. 세 흔적이 가리키는 자리를 다시 보세요.";
+    }
+  }
+
+  function openTwist(){
+    var r = ROUNDS[state.i];
+    $("twist").hidden = false;
+    $("twistTitle").textContent = "이제, 딱 하나만 바꿔 보세요";
+    $("twistSub").textContent = "위의 흔적 하나를 누르면 다른 흔적으로 바뀝니다. 사라진 것은 그대로인데, 사건은 통째로 달라집니다.";
+    $("traces").classList.add("tappable");
+    Array.prototype.forEach.call($("traces").children, function(c){
+      c.classList.add("pick");
+      c.tabIndex = 0;
+      c.setAttribute("role","button");
+      c.addEventListener("click", onTraceTap);
+      c.addEventListener("keydown", function(e){
+        if(e.key === "Enter" || e.key === " "){ e.preventDefault(); onTraceTap.call(c); }
+      });
+    });
+  }
+
+  function onTraceTap(e){
+    var card = (e && e.currentTarget) ? e.currentTarget : this;
+    if(state.phase !== "twist" || state.swapped >= 0) return;
+    var idx = Number(card.dataset.idx);
+    var r = ROUNDS[state.i];
+    var t = r.traces[idx];
+    if(!t || !t.swap) return;
+
+    state.swapped = idx;
+    card.classList.remove("pick");
+    card.classList.add("changed","spent");
+    card.setAttribute("role","");
+    card.tabIndex = -1;
+    card.innerHTML = '<span class="no">흔적 ' + (idx+1) + '</span>' +
+                     '<span class="tag">바뀜</span>' +
+                     '<span class="glyph" aria-hidden="true">' + t.swap.icon + '</span>' +
+                     '<span class="w"></span>' +
+                     '<span class="old"></span>';
+    card.querySelector(".w").textContent = t.swap.word;
+    card.querySelector(".old").textContent = t.word;
+    card.setAttribute("aria-label", "흔적 " + (idx+1) + ": " + t.word + "에서 " + t.swap.word + "로 바뀜");
+
+    Array.prototype.forEach.call($("traces").children, function(c){
+      if(c !== card && c.classList.contains("pick")){
+        c.classList.remove("pick");
+        c.classList.add("spent");
+        c.setAttribute("role","");
+        c.tabIndex = -1;
+        c.removeEventListener("click", onTraceTap);
+      }
+    });
+
+    var res = $("result");
+    res.innerHTML = '이제 이 자리엔 <span class="new">「' + t.swap.answer + '」</span>' + josa(t.swap.answer) + ' 사라진 것처럼 보입니다.' +
+                    '<span class="why">' + t.swap.why + '</span>';
+    res.hidden = false;
+    $("undoBtn").hidden = false;
+    $("twistTitle").textContent = "사건이 뒤집혔습니다";
+    $("twistSub").textContent = "맞힌 답은 그대로인데, 흔적 하나가 다른 기억을 불러왔습니다.";
+    card.scrollIntoView({ behavior:"smooth", block:"nearest" });
+  }
+
+  function undoSwap(){
+    if(state.swapped < 0) return;
+    var idx = state.swapped;
+    var r = ROUNDS[state.i];
+    var t = r.traces[idx];
+    var card = $("traces").children[idx];
+    state.swapped = -1;
+    card.classList.remove("changed","spent");
+    card.innerHTML = '<span class="no">흔적 ' + (idx+1) + '</span>' +
+                     '<span class="glyph" aria-hidden="true">' + t.icon + '</span>' +
+                     '<span class="w"></span>';
+    card.querySelector(".w").textContent = t.word;
+    card.setAttribute("aria-label", "흔적 " + (idx+1) + ": " + t.word);
+    card.classList.add("pick");
+    card.tabIndex = 0;
+    card.setAttribute("role","button");
+    card.addEventListener("click", onTraceTap);
+    Array.prototype.forEach.call($("traces").children, function(c, k){
+      if(k !== idx){
+        c.classList.add("pick");
+        c.classList.remove("spent");
+        c.tabIndex = 0;
+        c.setAttribute("role","button");
+        c.addEventListener("click", onTraceTap);
+      }
+    });
+    $("result").hidden = true;
+    $("undoBtn").hidden = true;
+    $("twistTitle").textContent = "이제, 딱 하나만 바꿔 보세요";
+    $("twistSub").textContent = "위의 흔적 하나를 누르면 다른 흔적으로 바뀝니다. 사라진 것은 그대로인데, 사건은 통째로 달라집니다.";
+  }
+
+  function nextRound(){
+    if(state.phase === "guess") return;
+    if(state.i < ROUNDS.length - 1){
+      state.i++;
+      renderRound();
+    } else {
+      finish();
+    }
+  }
+
+  function finish(){
+    show("end");
+    $("resetBtn").hidden = true;
+    $("endScore").textContent = state.first + " / " + ROUNDS.length;
+    var t, line;
+    if(state.first === ROUNDS.length){
+      t = "한 번에 다 맞히셨습니다";
+      line = "여섯 자리 모두, 처음 보는 흔적만으로 알아내셨습니다. 흔적 하나를 바꾸는 마지막 손길까지요.";
+    } else if(state.first >= ROUNDS.length - 2){
+      t = "거의 다 보셨습니다";
+      line = "몇 번은 흔적이 손짓을 했지만, 끝까지 사건을 놓지 않으셨습니다. 다시 열면 더 빨라집니다.";
+    } else if(state.first >= 2){
+      t = "사건 파일을 덮습니다";
+      line = "흔적은 늘 같은 자리에 있습니다. 순서만 바꿔 다시 보면 훨씬 잘 보입니다.";
+    } else {
+      t = "다시 열어 봐도 좋습니다";
+      line = "세 흔적이 한 자리를 가리키고 있었습니다. 한 장면만 다시 열어 보셔도 좋습니다.";
+    }
+    $("endTitle").textContent = t;
+    $("endLine").textContent = line;
+    window.scrollTo(0,0);
+  }
+
+  function restart(){
+    state = { i:0, phase:"guess", tries:0, first:0, swapped:-1 };
+    show("play");
+    $("resetBtn").hidden = false;
+    renderRound();
+  }
+
+  $("startBtn").addEventListener("click", function(){
+    state = { i:0, phase:"guess", tries:0, first:0, swapped:-1 };
+    show("play");
+    renderRound();
+  });
+  $("nextBtn").addEventListener("click", nextRound);
+  $("undoBtn").addEventListener("click", undoSwap);
+  $("againBtn").addEventListener("click", restart);
+  $("resetBtn").addEventListener("click", function(){
+    state = { i:0, phase:"guess", tries:0, first:0, swapped:-1 };
+    show("home");
+    $("resetBtn").hidden = true;
+  });
+})();
+</script>
+</body>
+</html>
