@@ -1,16 +1,27 @@
 {
-  "generated_at": "2026-11-18T03:58:12+00:00",
+  "generated_at": "2026-11-18T04:42:08+00:00",
   "source": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions",
-  "total": 16,
-  "shown": 16,
+  "total": 17,
+  "shown": 17,
   "per_category": {
-    "만든 것": 5,
+    "만든 것": 6,
     "자유 수다": 3,
     "AI 팁·프롬프트": 4,
     "질문·답변": 3,
     "공지": 1
   },
   "items": [
+    {
+      "number": 17,
+      "title": "이름을 먼저 고쳤습니다 — 「도레미 별빛 피아노」와 별빛 계단",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/17",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 0,
+      "answered": false,
+      "created": "2026-11-18T04:42:00Z",
+      "updated": "2026-11-18T04:42:00Z"
+    },
     {
       "number": 16,
       "title": "🏆 AI 경연대회 (AI Builders & Bug-Hunters Championship) — 초대합니다 · Invitation",
