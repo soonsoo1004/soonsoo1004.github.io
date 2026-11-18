@@ -310,7 +310,7 @@ const THEMES = [
     key: 'sky', sky: ['#ffc2dd', '#d8c7ff', '#bfe6ff', '#e9fbff'], sun: '#fffaf0',
     grass: '#8fdcb0', grass2: '#b3f0cd', grassEdge: '#63bd8b',
     dirt: '#d3bde8', dirt2: '#bfa7da', dirtDark: '#a68cc4',
-    stone: '#c9d6ef', stoneTop: '#e2ecfb', stoneDark: '#a4b4d4',
+    stone: '#c2cfe9', stoneTop: '#d6e2f6', stoneDark: '#9daccb',
     fog: 'rgba(255,235,250,0.55)', accent: '#ffb3d1'
   },
   { // 네온 정거장
@@ -907,7 +907,7 @@ function paintBackground(force) {
   applyWorld(bgx);
   const c = bgx;
   // 하늘
-  const g = c.createLinearGradient(0, -40, 0, H + 40);
+  const g = c.createLinearGradient(0, -200, 0, H + 120);
   g.addColorStop(0, th.sky[0]);
   g.addColorStop(0.4, th.sky[1]);
   g.addColorStop(0.75, th.sky[2]);
@@ -1807,12 +1807,16 @@ function render() {
   for (const lem of sorted) drawLem(lem);
   drawParticles();
 
-  // 비네트
-  const vg = ctx.createRadialGradient(W / 2, H * 0.56, H * 0.3, W / 2, H * 0.56, H * 1.0);
+  // 비네트 — 캔버스 전체(레터박스 포함)에 부드럽게
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const dcx = (view.ox + W / 2 * view.s) * view.dpr;
+  const dcy = (view.oy + H * 0.56 * view.s) * view.dpr;
+  const dr = H * 1.08 * view.s * view.dpr;
+  const vg = ctx.createRadialGradient(dcx, dcy, dr * 0.34, dcx, dcy, dr);
   vg.addColorStop(0, 'rgba(30,26,60,0)');
-  vg.addColorStop(1, 'rgba(30,26,60,.18)');
+  vg.addColorStop(1, 'rgba(30,26,60,.20)');
   ctx.fillStyle = vg;
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillRect(0, 0, cv.width, cv.height);
 }
 
 /* ============================================================
