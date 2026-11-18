@@ -42,6 +42,7 @@ a{color:var(--blue);text-decoration:none}
 
 /* ── 공통 ── */
 .screen{animation:fade .3s cubic-bezier(.32,.72,0,1) both}
+@media (prefers-reduced-motion: reduce){.screen{animation:none}.axbar i{transition:none}}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .eyebrow{display:inline-block;font-size:13px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
 h1{font-size:33px;line-height:1.28;letter-spacing:-.035em;margin:14px 0 12px;font-weight:700}
@@ -887,7 +888,7 @@ h1 em{font-style:normal;color:var(--blue)}
         '<span class="axright"><span class="axpct">' + mainPct + '%</span>' +
         '<span class="axstrength">' + strengthLabel(mainPct) + '</span></span></div>' +
         '<div class="axbar"><i style="width:' + mainPct + '%"></i></div>' +
-        '<div class="axother"><span></span><span>' + other + ' ' + (100 - mainPct) + '%</span></div>' +
+        (mainPct === 50 ? '' : '<div class="axother"><span></span><span>' + other + ' ' + (100 - mainPct) + '%</span></div>') +
       '</div>';
     });
     $("axisList").innerHTML = html;
