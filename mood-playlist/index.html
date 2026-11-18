@@ -23,7 +23,7 @@
   body{
     background:var(--bg);
     color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans CJK KR",system-ui,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Liberation Sans",Arial,"Apple SD Gothic Neo","Pretendard","Malgun Gothic","Noto Sans CJK KR",system-ui,sans-serif;
     font-size:16px;line-height:1.45;
     letter-spacing:-0.01em;
     min-height:100vh;
@@ -792,16 +792,16 @@
     const pad = 82;
     // 헤더
     g.fillStyle = "rgba(255,255,255,0.45)";
-    g.font = "600 26px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "600 26px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     g.fillText("MOOD PLAYLIST", pad, 118);
 
     g.fillStyle = "#ffffff";
-    g.font = "700 60px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "700 60px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     const mood = MOODS[sel.mood];
     g.fillText(mood.emoji + " " + mood.label, pad, 208);
 
     g.fillStyle = "rgba(200,196,255,0.85)";
-    g.font = "600 28px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "600 28px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     g.fillText(AGE_LABEL[sel.age] + " · " + G_LABEL[sel.gender] + " · " + P_LABEL[sel.p], pad, 258);
 
     // 답장
@@ -812,11 +812,11 @@
     roundRect(g, pad, 300, W - pad*2, 210, 28); g.stroke();
 
     g.fillStyle = "#f4f4f8";
-    g.font = "600 34px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "600 34px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     wrapText(g, reply, pad + 30, 372, W - pad*2 - 60, 48, 3);
 
     g.fillStyle = "rgba(255,255,255,0.42)";
-    g.font = "600 24px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "600 24px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     g.fillText("— 린다가", pad + 30, 486);
 
     // 곡 목록
@@ -830,12 +830,12 @@
       g.fillText(String(i+1).padStart(2, "0"), pad + 28, y);
 
       g.fillStyle = "#ffffff";
-      g.font = "700 33px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+      g.font = "700 33px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
       const title = fitText(g, s.t, W - pad*2 - 220);
       g.fillText(title, pad + 88, y - 2);
 
       g.fillStyle = "rgba(210,210,225,0.72)";
-      g.font = "500 24px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+      g.font = "500 24px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
       const sub = fitText(g, s.a + (s.y ? " · " + s.y : ""), W - pad*2 - 220);
       g.fillText(sub, pad + 88, y + 36);
 
@@ -844,7 +844,7 @@
 
     // 푸터
     g.fillStyle = "rgba(255,255,255,0.30)";
-    g.font = "500 22px -apple-system,'Apple SD Gothic Neo',Arial,sans-serif";
+    g.font = "500 22px -apple-system,'Apple SD Gothic Neo','Liberation Sans',Arial,sans-serif";
     g.fillText("원곡은 유튜브·유튜브 뮤직에서 바로 들을 수 있어요", pad, H - 86);
     g.fillStyle = "rgba(255,255,255,0.18)";
     g.fillText("soonsoo1004.github.io/mood-playlist", pad, H - 52);
