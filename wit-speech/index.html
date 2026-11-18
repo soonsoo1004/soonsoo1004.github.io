@@ -121,9 +121,10 @@ section{margin-top:32px}
 .pat{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
 .pat h4{margin:0 0 4px;font-size:16.5px;font-weight:700;letter-spacing:-.01em}
 .pat .hint{margin:0 0 12px;font-size:13.5px;color:var(--ink3)}
-.patline{font-size:16px;line-height:2.1;background:var(--card2);border:1px solid var(--line);
+.patline{font-size:16px;line-height:2.15;background:var(--card2);border:1px solid var(--line);
   border-radius:var(--r-xs);padding:14px 15px}
-.patline .fill{display:inline-block;min-width:76px;max-width:100%;
+.patline .prow{min-height:34px}
+.patline .fill{display:inline-block;vertical-align:baseline;min-width:70px;max-width:100%;
   border:0;border-bottom:2px solid var(--blue);background:transparent;color:var(--blue-d);
   font-size:16px;font-weight:700;padding:1px 2px;text-align:center;border-radius:2px}
 .patline .fill::placeholder{color:#a9c6e6;font-weight:400}
@@ -131,7 +132,7 @@ section{margin-top:32px}
 .out{margin-top:12px;font-size:13.5px;color:var(--ink3)}
 .out b{color:var(--ink);font-weight:700}
 .preview{margin-top:6px;background:var(--card);border:1px dashed var(--line2);border-radius:var(--r-xs);
-  padding:13px 15px;font-size:15.5px;line-height:1.62;color:var(--ink)}
+  padding:13px 15px;font-size:15.5px;line-height:1.62;color:var(--ink);white-space:pre-line}
 .preview.empty{color:var(--ink3);border-style:dashed}
 
 /* ── card save ── */
@@ -268,7 +269,7 @@ footer b{color:var(--ink2)}
         c:"안녕하세요, ○○○입니다. 잘 부탁드립니다 — 이 말 다음에 할 말이 없어서 늘 여기서 멈춥니다. 뭐부터 여쭤보면 될까요?"
       },
       why:"첫인사에서 완벽해 보이려 애쓰면 상대도 같이 긴장합니다. 내가 조금 서툴다는 걸 먼저 꺼내면, 그 자리의 온도가 먼저 내려갑니다.",
-      pat:"안녕하세요, 저는 {이름}입니다. {작은 서툼}이 있는데, 오늘은 {부탁할 한 가지}만 봐주세요.",
+      pat:"안녕하세요, 저는 {이름}입니다.\n{작은 서툼}이 있는데,\n오늘은 {부탁할 한 가지}만 봐주세요.",
       ph:["이름","작은 서툼","부탁할 한 가지"] },
 
     { id:"no", em:"🙅", title:"부탁을 거절할 때", short:"거절, 하지만 미움 없이",
@@ -280,7 +281,7 @@ footer b{color:var(--ink2)}
         c:"안 된다는 말부터 하면 서운하실까 봐 순서를 바꿔 말씀드리면 — 하고 싶은 마음은 1번, 상황은 3번입니다."
       },
       why:"'안 된다'만 남기면 거절이 사람 평가처럼 들립니다. 거절 뒤에 이유나 대안을 한 조각 붙이면, 상대에게는 '당신은 괜찮고 일이 안 되는 것'으로 들립니다.",
-      pat:"부탁해 주셔서 고마워요. 이번엔 {안 되는 이유}라 어렵고, 대신 {내가 할 수 있는 것}은 해드릴 수 있어요.",
+      pat:"부탁해 주셔서 고마워요.\n이번엔 {안 되는 이유} 때문에 어렵고,\n대신 {내가 할 수 있는 것}은 해드릴 수 있어요.",
       ph:["안 되는 이유","내가 할 수 있는 것"] },
 
     { id:"late", em:"⏰", title:"늦었을 때 사과", short:"기다린 시간을 메우는 말",
@@ -292,7 +293,7 @@ footer b{color:var(--ink2)}
         c:"죄송합니다. 지금부터 ○○분만큼은 제가 ○○을 도맡을게요 — 늦은 시간을 일로 갚는 게 맞는 것 같아서요."
       },
       why:"사과는 '미안'의 크기보다 '다음에 달라질 한 가지'가 있어야 상대의 손실을 메웁니다. 같은 사과라도 다음이 보이면 기다림이 헛되지 않습니다.",
-      pat:"늦어서 죄송합니다. 원인은 {원인}이고, 다음엔 {바꿀 한 가지}. 오늘은 {갚을 방법}으로 채우겠습니다.",
+      pat:"늦어서 죄송합니다. 원인은 {원인}이고,\n다음엔 {바꿀 한 가지}.\n오늘은 {갚을 방법}으로 채우겠습니다.",
       ph:["원인","바꿀 한 가지","갚을 방법"] },
 
     { id:"chat", em:"💬", title:"단톡방 분위기 풀기", short:"읽고만 있는 그 방",
@@ -304,7 +305,7 @@ footer b{color:var(--ink2)}
         c:"여기 ○○명인데, 지금 읽고만 계신 분 손… 역시 다들 저랑 같네요."
       },
       why:"단톡방 정적은 대화가 없어서가 아니라 먼저 말할 사람이 없어서 생깁니다. 답할 부담을 미리 빼준 질문 하나가 그 자리를 대신합니다.",
-      pat:"다들 조용하네요. 부담 없이 {가벼운 질문} 하나만 — 답 안 하셔도 됩니다, 읽으신 것만으로도요.",
+      pat:"다들 조용하네요.\n부담 없이 {가벼운 질문} 하나만 —\n답 안 하셔도 됩니다, 읽으신 것만으로도요.",
       ph:["가벼운 질문"] },
 
     { id:"praise", em:"🌷", title:"칭찬 받았을 때", short:"'아니에요' 대신",
@@ -316,7 +317,7 @@ footer b{color:var(--ink2)}
         c:"감사합니다. 부정하지 않고 받아두겠습니다 — 대신 ○○까지는 계속 이 모습으로 있겠습니다."
       },
       why:"칭찬을 '아니에요'로 밀어내면 상대가 본 것까지 부정하게 됩니다. 받고, 한 조각을 함께한 사람에게 나누면 칭찬이 대화로 이어집니다.",
-      pat:"감사합니다. 사실 {함께한 사람}의 {도움}이 컸어요. 그 칭찬은 절반만 제 것으로 받겠습니다.",
+      pat:"감사합니다.\n사실 {함께한 사람}의 {도움}이 컸어요.\n그 칭찬은 절반만 제 것으로 받겠습니다.",
       ph:["함께한 사람","도움"] },
 
     { id:"hello", em:"✉️", title:"오랜만의 안부", short:"뜸했던 사람에게",
@@ -328,7 +329,7 @@ footer b{color:var(--ink2)}
         c:"오랜만입니다. 잘 지내셨는지는 천천히 들을게요. 먼저 제 소식 한 줄: ○○."
       },
       why:"안부는 질문의 내용보다 '당신을 기억하고 있었다'는 증거가 먼저일 때 마음이 열립니다. 기억 한 조각이 질문 하나보다 오래 남습니다.",
-      pat:"{이름}님, {기억나는 장면}이 생각나서 연락드려요. 답장은 천천히 주셔도 됩니다 — 요즘 {구체적 질문}?",
+      pat:"{이름}님, {기억나는 장면}이 생각나서 연락드려요.\n답장은 천천히 주셔도 됩니다 —\n요즘 {구체적 질문}?",
       ph:["이름","기억나는 장면","구체적 질문"] },
 
     { id:"silence", em:"🍽️", title:"식사 자리의 정적", short:"말이 끊긴 3초",
@@ -340,7 +341,7 @@ footer b{color:var(--ink2)}
         c:"조용한 자리가 편해서 좋네요. 대신 한 가지만 여쭤볼게요 — ○○."
       },
       why:"정적을 실패로 여기면 말이 급해지고, 급한 말은 대개 어색합니다. 정적에 이름을 붙여 주면 그 순간 자체가 이야깃거리가 됩니다.",
-      pat:"지금 조용한 게 저만 어색한가 봅니다. {가벼운 자기 이야기} 하나 꺼내볼게요.",
+      pat:"지금 조용한 게 저만 어색한가 봅니다.\n{가벼운 자기 이야기} 하나 꺼내볼게요.",
       ph:["가벼운 자기 이야기"] },
 
     { id:"yes", em:"🤝", title:"부탁을 들어줄 때", short:"흔쾌히, 다만 선은 긋고",
@@ -352,7 +353,7 @@ footer b{color:var(--ink2)}
         c:"좋아요. 한 가지 약속만 — ○○이 생기면 제가 먼저 말씀드릴게요. 미루는 것보다 낫더라고요."
       },
       why:"흔쾌히만 하면 다음에 못 하게 될 때가 문제가 됩니다. '된다'와 함께 '어디까지'를 먼저 말해 두면, 그 약속이 오래갑니다.",
-      pat:"네, {범위}까지는 {기한}에 드릴 수 있어요. 그 밖은 {대안}이 낫습니다. 이 조건이면 괜찮으세요?",
+      pat:"네, {범위}까지는 {기한}에 드릴 수 있어요.\n그 밖은 {대안}이 낫습니다.\n이 조건이면 괜찮으세요?",
       ph:["범위","기한","대안"] },
 
     { id:"ask", em:"❓", title:"모르는 걸 물어볼 때", short:"아는 척 대신",
@@ -364,7 +365,7 @@ footer b{color:var(--ink2)}
         c:"모르는 걸 아는 척하면 더 오래 걸리더라고요. 솔직히 모르겠습니다 — ○○분만 써주실 수 있나요?"
       },
       why:"'어떻게 해요'는 상대에게 처음부터 전부 설명하라는 부탁이 됩니다. '여기까지 했고 여기서 막혔다'고 하면 대답이 절반으로 줄어듭니다.",
-      pat:"제가 {시도한 것}까지 해봤고 {막힌 지점}에서 멈췄습니다. 여기서 {한 가지}만 알려주실 수 있나요?",
+      pat:"제가 {시도한 것}까지 해봤고\n{막힌 지점}에서 멈췄습니다.\n여기서 {한 가지}만 알려주실 수 있나요?",
       ph:["시도한 것","막힌 지점","한 가지"] },
 
     { id:"fix", em:"🔧", title:"지적을 받았을 때", short:"변명보다 결론부터",
@@ -376,7 +377,7 @@ footer b{color:var(--ink2)}
         c:"변명부터 하면 길어질 것 같아서 결론부터 — 제 잘못입니다. ○○으로 바꾸겠습니다."
       },
       why:"지적에 변명을 붙이면 상대는 '이 사람에게는 다음에도 같은 말을 해야 한다'고 배웁니다. 인정 한 줄과 다음 행동 한 줄이 그 부담을 지웁니다.",
-      pat:"맞습니다, 제 실수예요. {인정할 부분}이고, {바꿀 행동}으로 고치겠습니다.",
+      pat:"맞습니다, 제 실수예요.\n{인정할 부분}이고, {바꿀 행동}으로 고치겠습니다.",
       ph:["인정할 부분","바꿀 행동"] }
   ];
 
@@ -459,26 +460,38 @@ footer b{color:var(--ink2)}
   });
 
   /* ── 패턴 ── */
+  var meas = document.createElement("canvas").getContext("2d");
+  function fitWidth(inp){
+    var v = inp.value || inp.getAttribute("placeholder") || "";
+    meas.font = "700 16px Gulim, 'Noto Sans KR', sans-serif";
+    var w = meas.measureText(v).width + 26;
+    inp.style.width = Math.max(70, Math.min(300, w)) + "px";
+  }
   function renderPattern(){
     var line = $("patLine");
     line.innerHTML = "";
-    var parts = cur.pat.split(/(\{[^}]+\})/);
-    parts.forEach(function(p){
-      if (!p) return;
-      var m = p.match(/^\{([^}]+)\}$/);
-      if (m){
-        var inp = document.createElement("input");
-        inp.type = "text"; inp.className = "fill";
-        inp.setAttribute("placeholder", m[1]);
-        inp.setAttribute("aria-label", m[1]);
-        inp.setAttribute("autocomplete","off");
-        inp.setAttribute("enterkeyhint","next");
-        inp.style.width = Math.max(76, Math.min(240, m[1].length * 15 + 26)) + "px";
-        inp.addEventListener("input", updatePreview);
-        line.appendChild(inp);
-      } else {
-        line.appendChild(document.createTextNode(p));
-      }
+    cur.pat.split("\n").forEach(function(row, ri){
+      var div = document.createElement("div");
+      div.className = "prow";
+      var parts = row.split(/(\{[^}]+\})/);
+      parts.forEach(function(p){
+        if (!p) return;
+        var m = p.match(/^\{([^}]+)\}$/);
+        if (m){
+          var inp = document.createElement("input");
+          inp.type = "text"; inp.className = "fill";
+          inp.setAttribute("placeholder", m[1]);
+          inp.setAttribute("aria-label", m[1]);
+          inp.setAttribute("autocomplete","off");
+          inp.setAttribute("enterkeyhint","next");
+          inp.addEventListener("input", function(){ fitWidth(inp); updatePreview(); });
+          div.appendChild(inp);
+          fitWidth(inp);
+        } else {
+          div.appendChild(document.createTextNode(p));
+        }
+      });
+      line.appendChild(div);
     });
     updatePreview();
   }
