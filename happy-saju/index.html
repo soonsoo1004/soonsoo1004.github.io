@@ -90,7 +90,32 @@ select.empty{color:var(--ink3);font-weight:600}
 .chk{display:flex;align-items:center;gap:9px;margin:10px 2px 0;font-size:14px;color:var(--ink2)}
 .chk input{width:20px;height:20px;accent-color:var(--green);margin:0}
 .hint{font-size:12.5px;color:var(--ink3);margin:9px 2px 0;line-height:1.55}
+
+/* ── 12지시 원클릭 칩 ── */
+.tz{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:0 0 9px}
+.tz button{min-height:48px;border-radius:13px;background:#fbfaf7;border:1px solid var(--line2);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  font-size:14px;font-weight:700;color:var(--ink2);letter-spacing:-.02em;
+  transition:background .14s ease,border-color .14s ease,color .14s ease,transform .14s ease}
+.tz button small{font-size:10.5px;font-weight:600;color:var(--ink3);letter-spacing:0}
+.tz button[data-h=""]{grid-column:span 4;flex-direction:row;gap:6px;min-height:44px;font-size:13.5px}
+.tz button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff;
+  box-shadow:0 4px 12px rgba(47,125,94,.18)}
+.tz button[aria-pressed="true"] small{color:rgba(255,255,255,.84)}
+.tz button:active{transform:scale(.97)}
+.auto{display:flex;align-items:center;gap:8px;margin:18px 2px 0;font-size:14px;color:var(--ink2);
+  line-height:1.5;letter-spacing:-.01em}
+.auto b{color:var(--green)}
+.auto span[aria-hidden]{display:flex;align-items:center;justify-content:center;flex:none;
+  width:22px;height:22px;border-radius:50%;background:rgba(47,125,94,.12);color:var(--green);
+  font-size:12px;font-weight:800}
 .err{font-size:13.5px;color:#b3261e;margin:12px 2px 0;line-height:1.5}
+.tz button[data-h=""][aria-pressed="true"],.tz.mini button[data-h=""][aria-pressed="true"]{
+  background:rgba(47,125,94,.10);border-color:rgba(47,125,94,.34);color:var(--green);box-shadow:none}
+.redo{margin:12px 0 0;text-align:center}
+.redo button{min-height:44px;padding:0 14px;border-radius:11px;font-size:13.5px;font-weight:700;
+  color:var(--green);background:rgba(47,125,94,.08);letter-spacing:-.01em}
+
 .form .btn{margin-top:20px}
 .note{font-size:13px;color:var(--ink3);margin:16px 2px 0;line-height:1.62}
 .disclaimer{font-size:12.5px;color:var(--ink3);line-height:1.7;margin:24px 2px 0}
@@ -103,6 +128,15 @@ select.empty{color:var(--ink3);font-weight:600}
   box-shadow:var(--shadow-s)}
 .iconbtn:active{background:#f0efec}
 .rtop .day{font-size:13px;color:var(--ink3);font-weight:700;letter-spacing:.02em}
+.chg{margin:8px 0 0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 10px 11px}
+.chglbl{display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  font-size:12.5px;font-weight:700;color:var(--ink2);margin:0 2px 8px;letter-spacing:-.01em}
+.chglbl span{font-size:11.5px;font-weight:600;color:var(--ink3)}
+.tz.mini{grid-template-columns:repeat(7,1fr);gap:4px;margin:0}
+.tz.mini button{min-height:36px;font-size:12.5px;border-radius:10px;padding:0;letter-spacing:0}
+.tz.mini button small{display:none}
+.tz.mini button[data-h=""]{grid-column:auto;min-height:36px;font-size:11.5px;flex-direction:row;gap:0}
+.tz.mini button[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
 .rhead{text-align:center;padding:14px 0 0}
 .rhead .emo{font-size:56px;line-height:1;display:block;margin:0 0 10px}
 .rhead h2{font-size:15px;font-weight:700;color:var(--green);letter-spacing:.02em;margin:0 0 6px}
@@ -204,13 +238,16 @@ select.empty{color:var(--ink3);font-weight:600}
       </div>
 
       <div class="frow">
-        <div class="flabel"><b>태어난 시간</b><span>모르면 그대로 두세요</span></div>
-        <div class="selwrap"><select id="selH" aria-label="태어난 시간"></select></div>
-        <p class="hint">시간을 넣으면 시주(時柱)까지 여덟 글자가 완성됩니다. 몰라도 결과는 그대로 나옵니다.</p>
+        <div class="flabel"><b>태어난 시간</b><span>한 번만 누르면 끝</span></div>
+        <div class="tz" id="tzChips" role="group" aria-label="태어난 시간 빠른 선택"></div>
+        <div class="selwrap"><select id="selH" aria-label="태어난 시간 직접 고르기"></select></div>
+        <p class="hint">칩은 그 시(時)의 한가운데 시각으로 계산해요. 정확한 시각을 알면 아래에서 직접 골라도 됩니다. 시간을 몰라도 결과는 그대로 나옵니다.</p>
       </div>
 
       <p class="err" id="err" hidden></p>
-      <button type="submit" class="btn primary" id="btnGo">오늘의 행복 사주 보기</button>
+      <p class="auto" id="autoHint"><span aria-hidden="true">✓</span><span>날짜를 고르면 <b>확인 버튼 없이 바로</b> 결과가 열려요.</span></p>
+      <p class="redo" id="redoRow" hidden><button type="button" id="btnRedo">이 생일 그대로 결과 다시 보기</button></p>
+      <button type="submit" id="btnGo" hidden>오늘의 행복 사주 보기</button>
       <p class="note">입력한 생년월일은 이 브라우저 안에서만 계산되고, 서버로 전송되거나 저장되지 않습니다. 기록도 남기지 않습니다.</p>
     </form>
 
@@ -223,6 +260,11 @@ select.empty{color:var(--ink3);font-weight:600}
       <button type="button" class="iconbtn" id="btnBack" aria-label="처음으로">←</button>
       <span class="day" id="todayLbl"></span>
       <span style="width:44px"></span>
+    </div>
+
+    <div class="chg">
+      <p class="chglbl">시간 살짝 바꿔 보기<span>누르면 바로 새로 열려요</span></p>
+      <div class="tz mini" id="rtz" role="group" aria-label="태어난 시간 바꾸기"></div>
     </div>
 
     <div class="rhead">
@@ -566,10 +608,14 @@ select.empty{color:var(--ink3);font-weight:600}
     html = '<option value="" disabled selected>달</option>';
     for (var m = 1; m <= 12; m++) html += '<option value="' + m + '">' + m + "월</option>";
     mSel.innerHTML = html;
-    html = '<option value="" selected>모름</option>';
+    html = '<option value="" selected>시각 직접 고르기</option>';
     for (var h = 0; h < 24; h++) html += '<option value="' + h + '">' + pad2(h) + "시" + (h < 12 ? " (오전)" : " (오후)") + "</option>";
     hSel.innerHTML = html;
+    $("tzChips").innerHTML = tzHTML(false);
+    $("rtz").innerHTML = tzHTML(true);
     refreshDays();
+    syncTz();
+    syncRedo();
   }
   function refreshDays(){
     var dSel = $("selD"), keep = dSel.value;
@@ -592,6 +638,7 @@ select.empty{color:var(--ink3);font-weight:600}
     var showLeap = state.cal === "lunar" && lpY > 0 && state.m === lpY;
     $("leapRow").hidden = !showLeap;
     if (!showLeap) $("chkLeap").checked = false;
+    readDate(); syncRedo();
   }
   function syncEmptyStyles(){
     ["selY","selM","selD"].forEach(function(id){
@@ -600,40 +647,99 @@ select.empty{color:var(--ink3);font-weight:600}
     });
   }
 
-  $("selY").addEventListener("change", function(){ state.y = Number(this.value); refreshDays(); clearErr(); });
-  $("selM").addEventListener("change", function(){ state.m = Number(this.value); refreshDays(); clearErr(); });
-  $("selD").addEventListener("change", function(){ state.d = Number(this.value); syncEmptyStyles(); clearErr(); });
-  $("chkLeap").addEventListener("change", function(){ refreshDays(); clearErr(); });
-  $("selH").addEventListener("change", function(){
-    state.hour = this.value === "" ? null : Number(this.value);
-  });
+  $("selY").addEventListener("change", function(){ state.y = Number(this.value); clearDay(); refreshDays(); clearErr(); });
+  $("selM").addEventListener("change", function(){ state.m = Number(this.value); clearDay(); refreshDays(); clearErr(); });
+  $("selD").addEventListener("change", function(){ state.d = Number(this.value); syncEmptyStyles(); syncRedo(); clearErr(); tryGo(); });
+  $("chkLeap").addEventListener("change", function(){ refreshDays(); clearErr(); tryGo(); });
+  $("selH").addEventListener("change", function(){ applyHour(this.value === "" ? null : Number(this.value)); });
   $("segSolar").addEventListener("click", function(){
-    state.cal = "solar"; this.setAttribute("aria-pressed","true"); $("segLunar").setAttribute("aria-pressed","false");
-    $("calHint").textContent = "양력 기준"; refreshDays();
+    if (state.cal !== "solar"){ state.cal = "solar"; clearDay(); refreshDays(); clearErr(); }
+    this.setAttribute("aria-pressed","true"); $("segLunar").setAttribute("aria-pressed","false");
+    $("calHint").textContent = "양력 기준";
   });
   $("segLunar").addEventListener("click", function(){
-    state.cal = "lunar"; this.setAttribute("aria-pressed","true"); $("segSolar").setAttribute("aria-pressed","false");
-    $("calHint").textContent = "음력 기준"; refreshDays();
+    if (state.cal !== "lunar"){ state.cal = "lunar"; clearDay(); refreshDays(); clearErr(); }
+    this.setAttribute("aria-pressed","true"); $("segSolar").setAttribute("aria-pressed","false");
+    $("calHint").textContent = "음력 기준";
   });
   function clearErr(){ $("err").hidden = true; }
   function showErr(msg){ $("err").textContent = msg; $("err").hidden = false; }
 
   $("form").addEventListener("submit", function(e){
     e.preventDefault();
+    readDate();
+    if (!dateComplete()){ showErr("태어난 해·달·날을 모두 골라 주세요."); return; }
+    tryGo();
+  });
+
+  /* ══ 원클릭 선택: 고르는 순간 바로 결과로 ══ */
+  var TZ = [
+    {h:"", k:"모름", c:"모름", s:""},
+    {h:0, k:"자시", c:"자", s:"23:30"}, {h:2, k:"축시", c:"축", s:"01:30"},
+    {h:4, k:"인시", c:"인", s:"03:30"}, {h:6, k:"묘시", c:"묘", s:"05:30"},
+    {h:8, k:"진시", c:"진", s:"07:30"}, {h:10, k:"사시", c:"사", s:"09:30"},
+    {h:12, k:"오시", c:"오", s:"11:30"}, {h:14, k:"미시", c:"미", s:"13:30"},
+    {h:16, k:"신시", c:"신", s:"15:30"}, {h:18, k:"유시", c:"유", s:"17:30"},
+    {h:20, k:"술시", c:"술", s:"19:30"}, {h:22, k:"해시", c:"해", s:"21:30"}
+  ];
+  function tzHTML(mini){
+    return TZ.map(function(t){
+      var v = t.h === "" ? "" : String(t.h);
+      var lab = mini ? t.c : t.k + (t.s ? "<small>" + t.s + "</small>" : "");
+      var aria = t.h === "" ? "시간 모름" : t.k + " " + t.s + "부터";
+      return '<button type="button" data-h="' + v + '" aria-pressed="false" aria-label="' + aria + '">' + lab + '</button>';
+    }).join("");
+  }
+  function syncTz(){
+    var v = state.hour == null ? "" : String(state.hour);
+    ["tzChips","rtz"].forEach(function(id){
+      var box = $(id); if (!box) return;
+      Array.prototype.forEach.call(box.querySelectorAll("button"), function(b){
+        b.setAttribute("aria-pressed", b.getAttribute("data-h") === v ? "true" : "false");
+      });
+    });
+  }
+  function readDate(){
     state.y = $("selY").value ? Number($("selY").value) : null;
     state.m = $("selM").value ? Number($("selM").value) : null;
     state.d = $("selD").value ? Number($("selD").value) : null;
-    if (!state.y || !state.m || !state.d){ showErr("태어난 해·달·날을 모두 골라 주세요."); return; }
+  }
+  function dateComplete(){ return !!(state.y && state.m && state.d); }
+  function clearDay(){ $("selD").value = ""; state.d = null; syncEmptyStyles(); syncRedo(); }
+  function autoGo(){ readDate(); if (dateComplete()) tryGo(); }
+  function syncRedo(){ $("redoRow").hidden = !dateComplete(); }
+  $("btnRedo").addEventListener("click", function(){ tryGo(); });
+  function tryGo(){
+    if (!dateComplete()) return false;
     var solar = { y: state.y, m: state.m, d: state.d };
     if (state.cal === "lunar"){
       var conv = lunarToSolar(state.y, state.m, state.d, $("chkLeap").checked);
-      if (!conv){ showErr("그 음력 날짜는 없어요. 달이나 날을 한 칸 옮겨 다시 골라 주세요."); return; }
+      if (!conv){ showErr("그 음력 날짜는 없어요. 달이나 날을 한 칸 옮겨 다시 골라 주세요."); return false; }
       solar = conv;
     }
     var dt = new Date(solar.y, solar.m - 1, solar.d);
-    if (dt > new Date()){ showErr("오늘보다 뒤의 날짜예요. 태어난 날을 다시 확인해 주세요."); return; }
+    if (dt > new Date()){ showErr("오늘보다 뒤의 날짜예요. 태어난 날을 다시 확인해 주세요."); return false; }
     clearErr();
     compute(solar, state.hour);
+    return true;
+  }
+  function applyHour(h){
+    state.hour = h;
+    $("selH").value = (h == null ? "" : String(h));
+    syncTz();
+    if (!$("result").hidden){
+      if (state.res) compute(state.res.solar, h);
+      return;
+    }
+    autoGo();
+  }
+  ["tzChips","rtz"].forEach(function(id){
+    $(id).addEventListener("click", function(e){
+      var b = e.target && e.target.closest ? e.target.closest("button") : null;
+      if (!b || !this.contains(b)) return;
+      var v = b.getAttribute("data-h");
+      applyHour(v === "" ? null : Number(v));
+    });
   });
 
   function compute(solar, hour){
@@ -713,8 +819,8 @@ select.empty{color:var(--ink3);font-weight:600}
     ["intro","result"].forEach(function(x){ $(x).hidden = (x !== id); });
     window.scrollTo(0, 0);
   }
-  $("btnBack").addEventListener("click", function(){ show("intro"); });
-  $("btnAgain").addEventListener("click", function(){ show("intro"); window.scrollTo(0, 0); });
+  $("btnBack").addEventListener("click", function(){ show("intro"); syncRedo(); });
+  $("btnAgain").addEventListener("click", function(){ show("intro"); syncRedo(); window.scrollTo(0, 0); });
 
   /* ══════════ 7. 복사·카드 PNG ══════════ */
   function toast(msg){
