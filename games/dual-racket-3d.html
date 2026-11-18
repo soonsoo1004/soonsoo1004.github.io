@@ -1918,7 +1918,7 @@ function drawFace(hx, hy, hr, pal, swing) {
 
 /* ============================ 게임 로직 ============================ */
 var P = { x: 0, z: 0, vx: 0, vz: 0, swing: 0, sway: 0, lean: 0, walk: 0, cool: 0, coolD: 0,
-          winT: 0, swType: "smash", swMiss: 0, handX: 0, strail: [] };
+          winT: 0, swType: "smash", swMiss: 0, handX: 0, strail: [], drag: false };
 var A = { x: 0, z: 0, swing: 0, err: 0, react: 0, lean: 0, walk: 0 };
 var B = {
   x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, spin: 0,
@@ -1949,7 +1949,7 @@ function horizonY() {
 function resetPositions() {
   var M = CFG();
   P.x = 0; P.z = M.playerZ; P.vx = 0; P.vz = 0; P.swing = 0; P.cool = 0; P.lean = 0;
-  P.winT = 0; P.swMiss = 0; P.handX = 0; P.strail.length = 0;
+  P.winT = 0; P.swMiss = 0; P.handX = 0; P.strail.length = 0; P.drag = false;
   A.x = 0; A.z = M.aiZ; A.swing = 0; A.err = 0; A.react = 0; A.planX = null;
   B.alive = false; B.dead = false; B.trail.length = 0;
   B.x = 0; B.y = M.serveY; B.z = M.playerZ + 0.3; B.vx = 0; B.vy = 0; B.vz = 0; B.spin = 0;
@@ -2836,6 +2836,7 @@ function dragStart(e) {
 }
 function dragMove(e) {
   if (dragId === null || e.pointerId !== dragId) return;
+  if (!P.drag) { dragId = null; return; }
   var M = CFG();
   var s = depthScale(P.x, 0, P.z) || 60;
   var wpp = 1 / s;                       // 화면 1px = 월드 m
