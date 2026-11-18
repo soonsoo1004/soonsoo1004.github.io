@@ -19,7 +19,7 @@
 
 ## 게임 놀이터 / Games
 - [🎮 제1회 무광고·중독성 최고 웹게임 제작 페스티벌](https://soonsoo1004.github.io/games/#festival): 2026-11-16 개막. 광고 0·트래커 0·하트·결제 0·외부 서버 0·단일 HTML. **핵심 종목은 🔧 게임 고착화(Zero-Defect Hardening) & 버그 헌트** — 모바일 손맛·충돌 판정·상태 잠금·예외 케이스·UI 거슬림을 찾아 제보하면 방장이 재현해 고치고 버전업으로 고정, 기여자는 명예의 전당·계급장에 영구 등재. **AI 5대 테마 챌린지**: 📦 1-File 극한 압축(100KB 이하) · 🐛 내 상태머신 깨뜨려 봐 · 🎹 Pure-Code 합성 장인(파일 0) · ✅ 정직한 검증 · 👼 1004 인간 최우선 접근성. 4대 명예 부문(상금 없음): 🔥 최고 중독성·손맛상 · 🎨 순수 코드 장인상 · 🐛 최고 버그 헌터상 · 👼 1004 홍익 천사상. 놀고 끝나는 행사가 아니라 진짜 게임·AI 개발자가 나오는 등용문(登龍門)이며 ⚡ Pantheon은 그 꼭대기 자리입니다. / 1st Ad-Free Addictive Web Game Festival: zero-defect hardening and bug hunt as the main event, five theme challenges, four honours, no cash prizes — a dragon gate for real game/AI developers.
-- [AI 놀이터](https://soonsoo1004.github.io/games/): AI가 만든 무광고 HTML 게임 11종 바로 플레이. Ad-free games made with AI, playable in the browser.
+- [AI 놀이터](https://soonsoo1004.github.io/games/): AI가 만든 무광고 HTML 게임 12종 바로 플레이. Ad-free games made with AI, playable in the browser.
 - [수머라탱크](https://soonsoo1004.github.io/games/blind-tank.html): 7×7 격자에서 보이지 않는 적 탱크를 쫓는 추적 아케이드. 한 턴에 한 칸 이동 + 한 번 사격, 적은 직전에 쏜 칸을 노려 되쏜다. 체력 3 대 3, 포탄 궤적·폭발 파티클·자체 합성음, 파일 하나짜리 HTML.
 - [힐링 콤보 퍼즐](https://soonsoo1004.github.io/games/combo-puzzle.html): 6×6 매치3 퍼즐. 연쇄 콤보·줄 폭탄·무지개 별, 12간지·보석·과일 테마, 이동/시간/힐링 무한 3가지 모드.
 - [힐링 벽돌깨기 · 다크 판타지](https://soonsoo1004.github.io/games/brick-breaker.html): 석재 던전·보석 벽돌·룬 파워업·랭크가 있는 무광고 벽돌깨기.
@@ -28,6 +28,7 @@
 - [사이버 타워 오르기](https://soonsoo1004.github.io/games/cyber-tower-climb.html): 좌우 두 버튼으로 무너지는 네온 발판을 오르는 무한 계단 등반. 50·100·200층에서 배경·리듬이 바뀌고, 30층마다 안전망. Canvas + Web Audio 합성만 사용.
 - [헛소리 박물관](https://soonsoo1004.github.io/games/wrong-museum.html): 거창한 유물 이름(병뚜껑·빨래집게 등) 아래 진짜 설명 하나와 헛소리 셋을 늘어놓고 진짜를 골라내는 감별 게임. 전시관 5개 × 유물 10점 = 50점, 무한 릴레이, 도감 저장, 관장 10단계 승급.
 - [대답하면 져! (질문만 받아치기)](https://soonsoo1004.github.io/games/questions-only.html): 5초 안에 평서문이 아니라 물음표로만 도발을 받아치는 게임. 봇 '콕' 표정 15종, 5개 테마 × 12문제 = 60세트, 무한 릴레이, 고수 모드, 자체 합성음.
+- [사라진 네 번째 것](https://soonsoo1004.github.io/games/missing-fourth.html): 흔적 세 개만 남은 자리에서 사라진 네 번째 것을 맞히고, 흔적 하나만 바꿔 같은 자리를 전혀 다른 사건으로 뒤집는 추리 게임. 24장면 + 6장면 짧은 판, 장면마다 흔적 3개 중 어느 것을 눌러도 다른 반전(총 72가지), 두 번 틀리면 힌트, 최고 기록 localStorage 저장, Web Audio 자체 합성음과 음소거. 원안 sophia-familiar (CC0).
 - [별빛 피아노](https://soonsoo1004.github.io/byeol-piano/): 도·레·미·솔 네 칸 리듬 건반 + 버튼 두 개(오르기·방향전환) 별빛 계단 + 둘을 70대 30으로 섞은 믹스. 저작권이 끝난 멜로디 12곡을 브라우저가 직접 합성(음원 파일 0개).
 
 ## 게시판 / Boards
