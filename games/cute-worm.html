@@ -1169,6 +1169,31 @@
     }
     if (best && bd < 340) { a.tgt = Math.atan2(best.y - a.y, best.x - a.x); }
     else if (a.wanderT <= 0) { a.wanderT = rnd(1.1, 2.6); a.tgt = rnd(0, TAU); }
+
+    /* 사납게 굴기 — 먹이만 먹고 도망만 다니면 혼자 하는 느낌이 난다.
+       가끔 내 앞길을 가로지르려고 달려든다. 내 몸에 부딪히면 내가 별사탕이 된다. */
+    var p = S.player;
+    if (a.aggroT === undefined) { a.aggroT = rnd(0.3, 2.2); a.chaseT = 0; }
+    a.aggroT -= dt;
+    if (a.aggroT <= 0) {
+      a.aggroT = rnd(1.2, 2.6);
+      a.chaseT = Math.random() < 0.75 ? rnd(1.6, 3.0) : 0;
+    }
+    if (a.chaseT > 0 && p) {
+      a.chaseT -= dt;
+      var pd = Math.hypot(p.x - a.x, p.y - a.y);
+      if (pd > 470 || a.chaseT <= 0) { a.chaseT = 0; }
+      else {
+        // 내 머리를 직접 노린다. 가까워지면 살짝 앞을 끊어 목을 노린다.
+        var lead = pd < 120 ? 26 : 0;
+        var tx = p.x + Math.cos(p.ang) * lead;
+        var ty = p.y + Math.sin(p.ang) * lead;
+        a.tgt = Math.atan2(ty - a.y, tx - a.x);
+        a.wanderT = Math.max(a.wanderT, 0.8);
+        if (pd < 240) a.boostT = Math.max(a.boostT || 0, 0.25);
+      }
+    }
+
     var m = 54;
     if (a.x < m && Math.cos(a.tgt) < 0) a.tgt = rnd(-0.7, 0.7);
     if (a.x > S.W - m && Math.cos(a.tgt) > 0) a.tgt = Math.PI + rnd(-0.7, 0.7);
