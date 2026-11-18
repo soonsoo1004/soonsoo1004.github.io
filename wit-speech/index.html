@@ -808,11 +808,16 @@ footer b{color:var(--ink2)}
     catsEl.appendChild(b);
   });
 
+  function paintCats(){
+    [].forEach.call(catsEl.children, function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-cat") === catSel ? "true" : "false");
+    });
+  }
+
   function setCat(id){
     catSel = id;
-    [].forEach.call(catsEl.children, function(b){
-      b.setAttribute("aria-pressed", b.getAttribute("data-cat") === id ? "true" : "false");
-    });
+    if (q){ q = ""; qEl.value = ""; }
+    paintCats();
     renderList();
   }
 
@@ -832,6 +837,8 @@ footer b{color:var(--ink2)}
 
   qEl.addEventListener("input", function(){
     q = qEl.value.trim();
+    // 검색은 항상 전체에서 찾습니다(카테고리 탭이 켜져 있으면 전체로 돌립니다).
+    if (q && catSel !== "all"){ catSel = "all"; paintCats(); }
     renderList();
   });
   qEl.addEventListener("keydown", function(e){
