@@ -1,0 +1,1230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>대신 골라주는 44 — 세 번 터치로 고민 끝</title>
+<meta name="description" content="오늘 뭐 먹지, 살까 말까, 갈까 말까, 연락할까 말까, 선물 뭐 고르지까지 — 일상에서 자주 막히는 결정 9가지와 내 고민 직접 입력을 골라 세 번만 누르면 하나를 골라 줍니다. 결론 하나에 이유·대안·지금 할 일 한 줄씩, 결정 카드 이미지 저장과 문구 복사까지. 기록은 이 브라우저에만 저장되고 서버로 보내지 않습니다.">
+<meta name="keywords" content="결정 도우미, 선택 장애, 고민 정리, 대신 골라주기, 오늘 뭐 먹지, 살까 말까, 랜덤 선택, 3번 터치">
+<meta name="author" content="천장지구 1004">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="대신 골라주는 44 — 세 번 터치로 고민 끝">
+<meta property="og:description" content="주제 고르고 세 번만 누르면 결론 하나. 이유·대안·지금 할 일까지. 기록은 브라우저에만.">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#f5f5f7; --card:#ffffff; --card2:#f7f7f9;
+  --ink:#1d1d1f; --ink2:#5f5f66; --ink3:#8e8e93;
+  --line:rgba(0,0,0,.08); --line2:rgba(0,0,0,.14);
+  --blue:#0071e3; --blue-d:#0062c4; --blue-soft:#eaf3fe;
+  --red:#ff375f; --green:#30b45f; --green-soft:#e9f7ee;
+  --orange:#ff9500; --orange-soft:#fff4e3;
+  --track:rgba(0,0,0,.06);
+  --r:24px; --r-s:18px; --r-xs:14px;
+  --sans:Gulim,"GulimChe","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 14px 34px rgba(0,0,0,.055);
+  --shadow-s:0 1px 2px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;
+  touch-action:manipulation;min-height:100dvh;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input{font-family:inherit;font-size:inherit;color:inherit}
+a{color:var(--blue);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 84px}
+
+/* ── hero ── */
+header.top{padding:34px 0 14px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.04em;
+  color:var(--blue);background:var(--blue-soft);border-radius:999px;padding:6px 13px;font-weight:700}
+h1{font-size:33px;line-height:1.28;letter-spacing:-.02em;margin:15px 0 10px;font-weight:700}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:16.5px;color:var(--ink2);margin:0 0 18px}
+.privacy{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55;color:var(--ink2);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);padding:12px 14px;box-shadow:var(--shadow-s)}
+.privacy b{color:var(--ink)}
+.privacy i{font-style:normal;font-size:14px;flex:0 0 auto;line-height:1.4}
+
+/* ── section ── */
+section{margin-top:30px}
+.sec-h{display:flex;align-items:baseline;gap:9px;margin:0 0 12px}
+.sec-n{font-size:12.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;
+  width:23px;height:23px;display:grid;place-items:center;flex:0 0 auto}
+.sec-h h2{font-size:19px;margin:0;letter-spacing:-.01em;font-weight:700}
+.sec-h .sub{font-size:13px;color:var(--ink3);margin-left:auto;text-align:right}
+
+/* ── 주제 카드 ── */
+.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.topic{position:relative;display:flex;flex-direction:column;gap:3px;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);
+  padding:15px 15px 14px;box-shadow:var(--shadow-s);min-height:104px;
+  transition:transform .1s,border-color .16s,box-shadow .16s}
+.topic:active{transform:scale(.985);border-color:rgba(0,113,227,.4)}
+.topic .ico{font-size:24px;line-height:1.15}
+.topic .nm{font-size:15.5px;font-weight:700;letter-spacing:-.01em;margin-top:3px}
+.topic .ds{font-size:12px;color:var(--ink3);line-height:1.45}
+.topic.custom{background:linear-gradient(180deg,#ffffff,#f2f8ff);border-color:rgba(0,113,227,.22)}
+.topic.custom .nm{color:var(--blue-d)}
+
+/* ── 랜덤 ── */
+.anyrow{display:flex;gap:9px;margin-top:10px}
+.anybtn{flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-size:14.5px;font-weight:700;color:var(--ink2);background:var(--card);
+  border:1px dashed var(--line2);border-radius:var(--r-xs);padding:13px 12px;box-shadow:var(--shadow-s)}
+.anybtn:active{transform:scale(.99)}
+
+/* ── 기록 ── */
+.hist{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.hitem{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);
+  padding:12px 14px;box-shadow:var(--shadow-s)}
+.hitem:active{transform:scale(.99)}
+.hitem .hico{font-size:19px;flex:0 0 auto}
+.hitem .hbody{min-width:0;flex:1 1 auto}
+.hitem .hname{display:block;font-size:12px;color:var(--ink3);line-height:1.3}
+.hitem .hpick{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hitem .hwhen{font-size:11.5px;color:var(--ink3);flex:0 0 auto;text-align:right;line-height:1.35}
+.hempty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--r-xs);
+  padding:18px 16px;text-align:center;color:var(--ink2);font-size:14px;line-height:1.6}
+.hempty b{color:var(--ink)}
+.hclear{margin-top:10px;font-size:13px;color:var(--ink3);text-decoration:underline;padding:6px 2px}
+
+/* ── 3단계 안내 ── */
+.steps{display:grid;gap:8px}
+.step{display:flex;gap:11px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-xs);padding:12px 14px;box-shadow:var(--shadow-s)}
+.step .sn{width:22px;height:22px;border-radius:50%;background:var(--blue-soft);color:var(--blue-d);
+  font-size:12px;font-weight:700;display:grid;place-items:center;flex:0 0 auto;margin-top:1px}
+.step b{display:block;font-size:14.5px;line-height:1.4}
+.step span{display:block;font-size:12.5px;color:var(--ink3);line-height:1.5}
+
+/* ── 퀴즈 ── */
+.qtop{display:flex;align-items:center;gap:10px;padding:22px 0 12px}
+.back{display:inline-flex;align-items:center;gap:5px;font-size:14.5px;color:var(--ink2);
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;box-shadow:var(--shadow-s)}
+.back:active{transform:scale(.98)}
+.dots{display:flex;gap:6px;margin-left:auto;align-items:center}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.14);transition:background .2s,width .2s}
+.dot.on{background:var(--blue);width:16px;border-radius:99px}
+.qstep{font-size:12.5px;color:var(--ink3);margin-left:8px}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:22px 20px 20px;box-shadow:var(--shadow)}
+.qtopic{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:700;color:var(--ink2);
+  background:var(--card2);border-radius:999px;padding:5px 12px}
+.qtext{font-size:25px;line-height:1.35;letter-spacing:-.02em;margin:14px 0 4px;font-weight:700}
+.qsub{font-size:13.5px;color:var(--ink3);margin:0 0 16px}
+.opts{display:grid;gap:9px}
+.opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--r-s);
+  padding:15px 16px;font-size:17px;font-weight:700;letter-spacing:-.01em;
+  box-shadow:var(--shadow-s);transition:transform .1s,border-color .14s,background .14s}
+.opt:active{transform:scale(.985);border-color:var(--blue);background:#f7fbff}
+.opt .ar{margin-left:auto;color:var(--ink3);font-size:15px;font-weight:400}
+.opt.wide{padding:18px 16px}
+.qhint{font-size:12.5px;color:var(--ink3);margin:14px 0 0;text-align:center}
+
+/* ── 직접 입력 ── */
+.cwrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:20px;box-shadow:var(--shadow)}
+.flabel{display:block;font-size:13px;font-weight:700;color:var(--ink2);margin:0 0 7px}
+.cinput{width:100%;background:var(--card2);border:1px solid var(--line2);border-radius:var(--r-xs);
+  padding:14px 15px;font-size:16.5px;line-height:1.5;outline:none}
+.cinput:focus{border-color:var(--blue);background:#fff}
+.cinput::placeholder{color:#b0b0b5}
+.optrow{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.optrow .no{width:23px;height:23px;border-radius:50%;background:var(--blue-soft);color:var(--blue-d);
+  font-size:12px;font-weight:700;display:grid;place-items:center;flex:0 0 auto}
+.optrow .del{width:32px;height:32px;border-radius:50%;color:var(--ink3);flex:0 0 auto;font-size:16px}
+.optrow .del[disabled]{opacity:.28}
+.addopt{width:100%;border:1px dashed var(--line2);border-radius:var(--r-xs);padding:11px;
+  font-size:14px;font-weight:700;color:var(--ink2);margin-top:2px}
+.addopt[disabled]{opacity:.4}
+.cnext{width:100%;margin-top:16px;background:var(--blue);color:#fff;border-radius:var(--r-xs);
+  padding:16px;font-size:17px;font-weight:700;letter-spacing:-.01em}
+.cnext[disabled]{background:#c9c9ce;color:#fff}
+.cnote{font-size:12.5px;color:var(--ink3);margin:12px 0 0;line-height:1.55}
+
+/* ── 결과 ── */
+.rescard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:22px 20px 20px;box-shadow:var(--shadow)}
+.kicker{font-size:12.5px;letter-spacing:.14em;color:var(--ink3);font-weight:700}
+.restopic{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--ink2);
+  background:var(--card2);border-radius:999px;padding:5px 12px;margin-left:8px;letter-spacing:0}
+.big{font-size:clamp(25px,7.4vw,31px);line-height:1.28;letter-spacing:-.025em;font-weight:700;
+  margin:12px 0 10px;color:var(--ink)}
+.big mark{background:linear-gradient(180deg,transparent 62%,#ffe98a 62%);color:inherit}
+.conds{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 4px}
+.cond{font-size:12px;color:var(--ink2);background:var(--card2);border-radius:999px;padding:4px 10px}
+.oneline{margin-top:10px;font-size:13.5px;line-height:1.55;color:var(--ink2);
+  background:var(--blue-soft);border-radius:var(--r-xs);padding:10px 12px}
+.oneline b{color:var(--blue-d)}
+.resdiv{height:1px;background:var(--line);margin:16px 0 14px}
+.rline{display:flex;gap:11px;align-items:flex-start;padding:9px 0}
+.rline + .rline{border-top:1px solid rgba(0,0,0,.05)}
+.rline .lb{flex:0 0 62px;font-size:12px;font-weight:700;color:var(--ink3);letter-spacing:.04em;padding-top:3px}
+.rline .tx{font-size:15px;line-height:1.6;color:var(--ink2);min-width:0}
+.rline.act .lb{color:var(--green)}
+.rline.act .tx{color:var(--ink);font-weight:700}
+.rline .tx b{color:var(--ink)}
+.btnrow{display:grid;gap:9px;margin-top:16px}
+.btn{width:100%;border-radius:var(--r-xs);padding:15px 14px;font-size:16px;font-weight:700;
+  letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn.primary{background:var(--blue);color:#fff}
+.btn.primary:active{background:var(--blue-d)}
+.btn.ghost{background:var(--card);border:1px solid var(--line2);color:var(--ink)}
+.btn.soft{background:var(--card2);border:1px solid var(--line);color:var(--ink2)}
+.btn.ok{background:var(--green);color:#fff}
+.cardbox{margin-top:20px}
+.cardbox canvas{width:100%;height:auto;display:block;border-radius:var(--r-s);
+  border:1px solid var(--line);box-shadow:var(--shadow);background:#fff}
+.card-note{font-size:12.5px;color:var(--ink3);text-align:center;margin:9px 0 0;line-height:1.55}
+.tiny{font-size:12.5px;color:var(--ink3);line-height:1.6;margin:14px 0 0}
+
+/* ── 푸터 ── */
+footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);line-height:1.7}
+footer b{color:var(--ink2)}
+
+/* ── 토스트 ── */
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);
+  background:rgba(29,29,31,.94);color:#fff;font-size:14px;line-height:1.5;
+  border-radius:14px;padding:12px 18px;max-width:calc(100vw - 40px);
+  box-shadow:0 10px 30px rgba(0,0,0,.24);opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;z-index:99;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:359px){
+  h1{font-size:29px}
+  .topic .nm{font-size:14.5px}
+  .qtext{font-size:22px}
+  .big{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ══════════ 홈 ══════════ -->
+  <div id="scrHome">
+    <header class="top">
+      <span class="eyebrow">3번 터치 · 서버 전송 0건</span>
+      <h1>대신 골라주는 <em>44</em></h1>
+      <p class="lead">오늘 뭐 먹을지부터 살까 말까까지.<br>주제를 고르고 세 번만 누르면, 하나 골라 드립니다.</p>
+      <div class="privacy">
+        <i aria-hidden="true">🔒</i>
+        <span><b>서버로 보내는 것 0건.</b> 고른 답과 기록은 이 브라우저에만 남습니다. 가입·설치·광고 없음.</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="sec-h">
+        <span class="sec-n">1</span>
+        <h2>무엇을 고를까요</h2>
+        <span class="sub">9가지 + 직접 입력</span>
+      </div>
+      <div class="tgrid" id="topicGrid"></div>
+      <div class="anyrow">
+        <button class="anybtn" type="button" id="anyTopic">🎲 고르기도 귀찮아요 · 아무 주제로</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="sec-h">
+        <span class="sec-n">2</span>
+        <h2>최근 결정</h2>
+        <span class="sub" id="histCount">0건</span>
+      </div>
+      <ul class="hist" id="histList"></ul>
+      <div class="hempty" id="histEmpty"><b>아직 고른 기록이 없습니다.</b><br>위에서 주제 하나를 눌러 보세요.</div>
+      <button class="hclear" type="button" id="histClear" hidden>기록 지우기</button>
+    </section>
+
+    <section>
+      <div class="sec-h"><span class="sec-n">3</span><h2>이렇게 씁니다</h2></div>
+      <div class="steps">
+        <div class="step"><span class="sn">1</span><div><b>주제를 고릅니다</b><span>먹을 것, 살 것, 갈 곳, 연락, 선물처럼 자주 막히는 것.</span></div></div>
+        <div class="step"><span class="sn">2</span><div><b>세 번 누릅니다</b><span>시간·예산·기분 같은 가벼운 질문입니다. 고민 없이 누르면 됩니다.</span></div></div>
+        <div class="step"><span class="sn">3</span><div><b>하나만 남습니다</b><span>결론 하나에 이유·대안·지금 할 일 한 줄. 카드로 저장하거나 복사하세요.</span></div></div>
+      </div>
+      <p class="tiny">이 도구는 일상·생활 결정을 정리해 주는 도우미입니다. 병원·법·돈처럼 판단이 필요한 일은 전문가와 상의하세요. 고른 답으로 무리하지 마시고, 몸이 불편하면 쉬는 쪽을 고르세요.</p>
+    </section>
+
+    <footer>
+      <b>대신 골라주는 44</b> · 천장지구 1004<br>
+      기록은 localStorage에만 저장됩니다. 폰을 바꾸면 따라오지 않습니다.<br>
+      만든 것과 못 만든 것을 함께 적습니다. 2026-11-18 기준 직접 열어 확인했습니다.
+    </footer>
+  </div>
+
+  <!-- ══════════ 질문 ══════════ -->
+  <div id="scrQuiz" hidden>
+    <div class="qtop">
+      <button class="back" type="button" id="qBack">← 뒤로</button>
+      <div class="dots" id="qDots"></div>
+      <span class="qstep" id="qStep"></span>
+    </div>
+    <div class="qcard">
+      <span class="qtopic" id="qTopic"></span>
+      <h2 class="qtext" id="qText"></h2>
+      <p class="qsub" id="qSub">마음에 가까운 것 하나만 누르세요.</p>
+      <div class="opts" id="qOpts"></div>
+      <p class="qhint">누르면 바로 다음으로 넘어갑니다.</p>
+    </div>
+  </div>
+
+  <!-- ══════════ 직접 입력 ══════════ -->
+  <div id="scrCustom" hidden>
+    <div class="qtop">
+      <button class="back" type="button" id="cBack">← 뒤로</button>
+      <span class="qstep" style="margin-left:auto">내 고민</span>
+    </div>
+    <div class="cwrap">
+      <h2 class="qtext" style="margin-top:0">고민을 한 줄로 적어 주세요</h2>
+      <p class="qsub">보기를 2~6개 넣고, 기준만 고르면 제가 하나 집어 드립니다.</p>
+      <label class="flabel" for="cQuestion">고민 한 줄</label>
+      <input class="cinput" id="cQuestion" type="text" maxlength="60" placeholder="예: 이번 주말에 뭐 하지" autocomplete="off">
+      <label class="flabel" style="margin-top:16px">보기 <span style="color:#8e8e93;font-weight:400">(2~6개)</span></label>
+      <div id="cOpts"></div>
+      <button class="addopt" type="button" id="cAddOpt">+ 보기 추가</button>
+      <button class="cnext" type="button" id="cNext" disabled>다음 · 기준 2번 터치</button>
+      <p class="cnote">여기 적은 고민과 보기는 이 화면에서만 쓰고, 서버로 보내지 않습니다. 기록에도 남기지 않습니다(결과만 남습니다).</p>
+    </div>
+  </div>
+
+  <!-- ══════════ 결과 ══════════ -->
+  <div id="scrResult" hidden aria-live="polite">
+    <div class="qtop">
+      <button class="back" type="button" id="rBack">← 처음으로</button>
+      <span class="qstep" style="margin-left:auto" id="rWhen"></span>
+    </div>
+    <div class="rescard">
+      <div><span class="kicker">제가 고른 건</span><span class="restopic" id="resTopic"></span></div>
+      <h2 class="big" id="resBig"></h2>
+      <div class="conds" id="resConds"></div>
+      <div class="oneline" id="resOneLine" hidden></div>
+      <div class="resdiv"></div>
+      <div class="rline"><span class="lb">이유</span><span class="tx" id="resWhy"></span></div>
+      <div class="rline"><span class="lb">대안</span><span class="tx" id="resAlt"></span></div>
+      <div class="rline act"><span class="lb">지금 할 일</span><span class="tx" id="resAct"></span></div>
+      <div class="btnrow">
+        <button class="btn primary" type="button" id="saveCard">결정 카드 저장 (1080×1350)</button>
+        <button class="btn ghost" type="button" id="copyRes">결과 문구 복사</button>
+        <button class="btn soft" type="button" id="nextPick" hidden>다음 후보 보기</button>
+        <button class="btn soft" type="button" id="again">다른 고민 고르기</button>
+      </div>
+    </div>
+    <div class="cardbox"><canvas id="cardOut" width="1080" height="1350" role="img" aria-label="결정 카드 미리보기"></canvas></div>
+    <p class="card-note">1080×1350 · 폰에 저장해 두거나 단톡방에 보내기 좋은 크기입니다.</p>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+
+  /* ───────────────────────── 데이터 ───────────────────────── */
+  var TOPICS = [
+    {
+      id:"eat", ico:"🍚", nm:"오늘 뭐 먹지", sub:"세 번이면 메뉴 하나",
+      qs:[
+        {k:"when", nm:"언제 먹어요?", sh:"언제", opts:[{v:"now",t:"바로"},{v:"soon",t:"30분 뒤"},{v:"late",t:"여유 있게"}]},
+        {k:"money", nm:"예산은요?", sh:"예산", opts:[{v:"low",t:"1만 원 이하"},{v:"mid",t:"2~3만 원"},{v:"any",t:"크게 안 봄"}]},
+        {k:"taste", nm:"당기는 맛은?", sh:"입맛", opts:[{v:"hot",t:"뜨끈한 국물"},{v:"meat",t:"든든한 고기"},{v:"light",t:"가볍게"},{v:"spicy",t:"매콤하게"}]}
+      ],
+      outs:[
+        {nm:"국밥 한 그릇", pr:{now:3,low:3,hot:3,soon:2,mid:1},
+         why:"뜨끈한 국물은 기다리지 않고 바로 나오고, 1만 원 안에서 끝납니다.",
+         alt:"국물이 부담스러우면 같은 값에 김밥 한 줄로 바꾸세요.",
+         act:"가까운 국밥집 하나를 검색해 지금 출발하세요."},
+        {nm:"집에서 찌개 하나", pr:{soon:2,low:3,hot:3,late:1},
+         why:"30분이면 끓고, 냉장고 재료로 값이 거의 안 듭니다.",
+         alt:"설거지가 싫으면 같은 국물 계열 즉석국으로 바꾸세요.",
+         act:"냉장고부터 열어 재료를 보고, 없으면 두부만 사 오세요."},
+        {nm:"치킨 한 마리", pr:{late:3,mid:3,meat:3,any:1},
+         why:"여유가 있고 고기가 당기는 날은 한 마리로 두 끼를 덮습니다.",
+         alt:"혼자라면 소포장·순살로 줄여 값과 양을 함께 줄이세요.",
+         act:"주문 전에 쿠폰부터 확인하고, 30분 뒤 도착으로 걸어 두세요."},
+        {nm:"고깃집 한 판", pr:{late:2,mid:2,any:3,meat:3},
+         why:"예산을 크게 안 보는 날이라면 고기 한 판이 가장 확실한 만족입니다.",
+         alt:"혼자거나 시간이 아까우면 정육점 고기로 집에서 구워 드세요.",
+         act:"지금 전화해 자리가 있는지 먼저 물어보세요."},
+        {nm:"김밥·분식", pr:{now:2,low:2,light:3,soon:1},
+         why:"가볍게 넘기고 싶을 때 기다림 없이 가장 빨리 나옵니다.",
+         alt:"양이 부족하면 라면 사리나 떡 하나만 추가하세요.",
+         act:"김밥 두 줄로 정하고 바로 나가세요."},
+        {nm:"샐러드·샌드위치", pr:{soon:2,mid:2,light:3,late:1},
+         why:"속이 무겁지 않게, 30분 뒤에도 부담 없는 쪽입니다.",
+         alt:"단백질이 아쉬우면 닭가슴살 토핑 하나만 더하세요.",
+         act:"소스는 따로 달라고 주문하세요."},
+        {nm:"파스타·양식", pr:{late:3,mid:2,light:2,any:1},
+         why:"여유 있는 날은 앉아서 먹는 한 접시가 하루를 바꿉니다.",
+         alt:"혼자 부담되면 점심 세트가 있는 집으로 가세요.",
+         act:"영업시간을 먼저 확인하고 30분 뒤 출발하세요."},
+        {nm:"떡볶이·쫄면", pr:{now:2,low:3,spicy:3,light:1},
+         why:"매콤한 게 당기고 예산이 작은 날, 가장 빠른 선택입니다.",
+         alt:"너무 매우면 순한맛이나 로제로 바꾸세요.",
+         act:"포장으로 걸어 두고 10분 뒤에 가지러 가세요."},
+        {nm:"짬뽕·마라", pr:{soon:2,mid:2,spicy:3,hot:1},
+         why:"매콤하고 뜨거운 한 그릇이 필요할 때 30분이면 준비됩니다.",
+         alt:"국물이 부담되면 볶음면으로 바꾸세요.",
+         act:"배달이면 40분 걸린다고 보고 지금 주문하세요."}
+      ]
+    },
+    {
+      id:"buy", ico:"🛒", nm:"살까 말까", sub:"결제 전에 3번",
+      qs:[
+        {k:"need", nm:"왜 사려고요?", sh:"이유", opts:[{v:"need",t:"필요해서"},{v:"want",t:"갖고 싶어서"},{v:"sale",t:"싸서"}]},
+        {k:"money", nm:"얼마짜리예요?", sh:"값", opts:[{v:"low",t:"3만 원 이하"},{v:"mid",t:"10만 원쯤"},{v:"high",t:"그 이상"}]},
+        {k:"dup", nm:"비슷한 게 있나요?", sh:"중복", opts:[{v:"none",t:"없어요"},{v:"similar",t:"비슷한 게 있어요"},{v:"unsure",t:"잘 모르겠어요"}]}
+      ],
+      outs:[
+        {nm:"지금 사세요", pr:{need:3,low:2,none:3,unsure:1},
+         why:"필요한 것이고 비슷한 게 없다면, 미루는 시간이 더 비쌉니다.",
+         alt:"같은 물건이 더 싼 곳이 있는지만 1분만 검색하세요.",
+         act:"장바구니에서 지금 결제하고, 오늘 다른 지출은 0원으로 두세요."},
+        {nm:"일주일 뒤에 사세요", pr:{want:3,mid:2,unsure:2,high:1},
+         why:"갖고 싶은 마음은 일주일이면 대개 식습니다. 그때도 원하면 사면 됩니다.",
+         alt:"일주일 뒤에도 생각나면 그때 사고, 잊으면 번 돈입니다.",
+         act:"오늘은 장바구니에만 담고 알림을 끄세요."},
+        {nm:"사지 마세요", pr:{similar:3,sale:2,want:2,unsure:1},
+         why:"비슷한 게 이미 있거나 싸서 끌린 것이라면, 사도 안 쓰게 됩니다.",
+         alt:"정말 필요해지면 그때 다시 보세요. 대개 필요해지지 않습니다.",
+         act:"장바구니에서 지우고, 그 돈은 따로 적어 두세요."},
+        {nm:"더 싼 대안부터 보세요", pr:{sale:3,low:1,mid:1,high:2},
+         why:"싸서 사는 물건에는 대개 더 싼 판이 있습니다. 먼저 비교하는 쪽이 이득입니다.",
+         alt:"중고·렌탈·빌려 쓰기도 같은 목적을 채웁니다.",
+         act:"같은 물건 이름을 검색해 최저가 세 곳만 비교하고 정하세요."},
+        {nm:"하루만 자고 결정하세요", pr:{want:2,high:3,unsure:3,mid:1},
+         why:"값이 크고 마음이 확실하지 않으면 하루는 공짜로 사는 확신입니다.",
+         alt:"내일 아침에도 같으면 사고, 아무 생각 없으면 접으세요.",
+         act:"오늘은 결제창을 닫고 내일 아침에 다시 여세요."}
+      ]
+    },
+    {
+      id:"go", ico:"🚶", nm:"갈까 말까", sub:"약속·모임 판단",
+      qs:[
+        {k:"who", nm:"누가 오나요?", sh:"사람", opts:[{v:"known",t:"아는 사람들"},{v:"mixed",t:"반반"},{v:"unknown",t:"모르는 사람 많음"}]},
+        {k:"body", nm:"지금 몸과 기분은?", sh:"기분", opts:[{v:"ok",t:"괜찮아요"},{v:"tired",t:"피곤해요"},{v:"up",t:"설레요"}]},
+        {k:"miss", nm:"안 가면 어떻게 될까요?", sh:"안 가면", opts:[{v:"regret",t:"후회할 것 같아요"},{v:"fine",t:"상관없어요"},{v:"duty",t:"일이 생겨요"}]}
+      ],
+      outs:[
+        {nm:"가세요", pr:{known:2,ok:2,up:3,regret:3},
+         why:"아는 사람이 있고 후회할 것 같다면, 안 가는 쪽이 더 오래 남습니다.",
+         alt:"가서 한 시간만 있고 빠져나올 구실을 미리 정해 두세요.",
+         act:"도착 시간을 정해 지금 답장하세요. \"6시쯤 갈게\" 한 줄이면 됩니다."},
+        {nm:"30분만 들렀다 오세요", pr:{mixed:2,tired:3,fine:1,unknown:2},
+         why:"가고 싶은 마음은 있는데 기운이 없을 때, 짧게 다녀오는 게 손해가 가장 적습니다.",
+         alt:"정 안 되면 커피만 마시고 인사하고 나오세요.",
+         act:"출발 전에 \"잠깐 들렀다 갈게\"라고 미리 말해 두세요."},
+        {nm:"가지 마세요", pr:{unknown:3,tired:2,fine:3},
+         why:"모르는 사람이 많은 자리에서 기운까지 없다면, 오늘 가지 않아도 잃는 게 없습니다.",
+         alt:"집에서 30분 쉬고 마음이 바뀌면 늦게라도 가세요.",
+         act:"정중하게 한 줄만 보내고 오늘은 쉬세요."},
+        {nm:"전화로 먼저 물어보세요", pr:{mixed:2,unknown:2,duty:3,ok:1},
+         why:"누가 오는지, 몇 시까지인지 모르면 판단할 수 없습니다. 한 통이면 정리됩니다.",
+         alt:"답이 없으면 가지 않는 쪽으로 정해 두세요.",
+         act:"지금 주최자에게 전화해 사람과 시간만 물어보세요."},
+        {nm:"다음으로 미루세요", pr:{duty:2,tired:2,fine:2,unknown:1},
+         why:"오늘 무리하면 다음 약속까지 망칩니다. 한 번은 미뤄도 됩니다.",
+         alt:"다음 모임 날짜를 지금 정해 두면 관계는 그대로입니다.",
+         act:"다음에 꼭 가겠다는 한 줄과 함께 날짜를 물어보세요."}
+      ]
+    },
+    {
+      id:"contact", ico:"📱", nm:"연락할까 말까", sub:"문자·전화 망설일 때",
+      qs:[
+        {k:"rel", nm:"어떤 사이예요?", sh:"관계", opts:[{v:"close",t:"가까운 사이"},{v:"awkward",t:"조금 어색해요"},{v:"long",t:"오래 연락이 없었어요"}]},
+        {k:"why", nm:"무슨 일로?", sh:"용건", opts:[{v:"hi",t:"그냥 안부"},{v:"ask",t:"물어볼 게 있어요"},{v:"sorry",t:"사과·화해"}]},
+        {k:"weight", nm:"안 하면 마음이?", sh:"마음", opts:[{v:"uneasy",t:"계속 신경 쓰여요"},{v:"forget",t:"금방 잊어요"},{v:"lose",t:"기회를 놓칠 것 같아요"}]}
+      ],
+      outs:[
+        {nm:"지금 문자 한 통", pr:{close:2,hi:3,uneasy:3,awkward:1,lose:1},
+         why:"안부는 짧을수록 좋습니다. 길게 쓰면 보내기 전에 지칩니다.",
+         alt:"답이 늦어도 재촉하지 마세요. 보낸 것으로 끝입니다.",
+         act:"\"잘 지내?\" 한 줄을 지금 보내세요."},
+        {nm:"전화하세요", pr:{close:2,ask:3,sorry:2,uneasy:2,lose:2},
+         why:"물어볼 게 있거나 오해를 풀 일이라면 글보다 목소리가 빠릅니다.",
+         alt:"전화가 부담되면 \"통화 가능해?\" 한 줄을 먼저 보내세요.",
+         act:"지금 통화 버튼을 누르고, 용건은 첫 문장에 넣으세요."},
+        {nm:"짧게 사과하고 끝내세요", pr:{sorry:3,uneasy:2,long:1,awkward:1},
+         why:"사과는 변명이 붙는 순간 길어집니다. 짧을수록 상대가 받습니다.",
+         alt:"상대가 바로 답하지 않아도 괜찮습니다. 시간이 필요합니다.",
+         act:"\"미안했어. 내가 잘못했어.\" 두 문장만 보내세요."},
+        {nm:"하루 뒤 저녁에 보내세요", pr:{awkward:2,long:2,forget:2,uneasy:1},
+         why:"오래 연락이 없었다면 갑작스러운 연락은 부담입니다. 하루 뒤 저녁이 낫습니다.",
+         alt:"안부만 짧게, 답을 기대하지 않는 문장으로 보내세요.",
+         act:"내일 저녁 알람을 지금 맞춰 두세요."},
+        {nm:"보내지 마세요", pr:{forget:3,awkward:2,long:1},
+         why:"안 해도 금방 잊는 일이라면 지금 마음이 앞선 것입니다.",
+         alt:"정말 필요해지면 그때 보내도 늦지 않습니다.",
+         act:"초안은 지우지 말고 저장만 해 두고 화면을 닫으세요."}
+      ]
+    },
+    {
+      id:"todo", ico:"☀️", nm:"오늘 뭐 하지", sub:"남은 시간에 하나",
+      qs:[
+        {k:"time", nm:"남은 시간은?", sh:"시간", opts:[{v:"short",t:"30분"},{v:"two",t:"2시간쯤"},{v:"full",t:"하루 비었어요"}]},
+        {k:"energy", nm:"기운은요?", sh:"기운", opts:[{v:"high",t:"좋아요"},{v:"mid",t:"보통"},{v:"low",t:"거의 없어요"}]},
+        {k:"slip", nm:"미루면?", sh:"미루면", opts:[{v:"trouble",t:"큰일 나요"},{v:"slip",t:"하루 밀릴 뿐"},{v:"any",t:"상관없어요"}]}
+      ],
+      outs:[
+        {nm:"밀린 일 하나 끝내기", pr:{two:2,full:2,high:2,trouble:3,short:1},
+         why:"미루면 큰일인 일은 기운이 있을 때 30분만 붙으면 끝납니다.",
+         alt:"전부 하려 하지 말고 가장 미운 것 하나만 고르세요.",
+         act:"그 일의 첫 단계만 10분 타이머로 지금 시작하세요."},
+        {nm:"집안일 15분", pr:{short:2,mid:2,low:2,slip:1,any:2},
+         why:"기운이 없을 때는 몸을 조금 움직이는 집안일이 가장 만만합니다.",
+         alt:"한 곳만 정하세요. 식탁 위, 싱크대, 빨래 중 하나.",
+         act:"15분 타이머를 켜고 눈에 보이는 것만 치우세요."},
+        {nm:"20분 산책", pr:{two:2,high:2,mid:1,low:1},
+         why:"머리가 복잡할 때는 밖으로 나가는 게 가장 빠른 정리입니다.",
+         alt:"비가 오면 계단 5분이나 실내 걷기로 바꾸세요.",
+         act:"신발 신고 지금 나가세요. 목적지는 정하지 않아도 됩니다."},
+        {nm:"20분 눕기", pr:{short:2,low:3,any:2,slip:1},
+         why:"기운이 거의 없을 때는 쉬는 게 일정입니다. 억지로 하면 오래 못 갑니다.",
+         alt:"20분을 넘기면 밤에 잠이 안 옵니다. 알람을 꼭 맞추세요.",
+         act:"알람 20분을 맞추고 지금 누우세요."},
+        {nm:"20분 공부·책", pr:{two:2,full:1,high:2,mid:1},
+         why:"기운이 있을 때의 20분은 지친 밤의 두 시간보다 남습니다.",
+         alt:"한 쪽만 읽어도 오늘은 성공으로 치세요.",
+         act:"책이나 강의를 펴고 20분 타이머를 누르세요."},
+        {nm:"아무것도 안 하기", pr:{low:2,any:3,short:1},
+         why:"미뤄도 상관없는 일이라면 오늘은 비워 두는 게 가장 값진 선택입니다.",
+         alt:"쉬는 것도 계획입니다. 정한 시간만 죄책감 없이 쉬세요.",
+         act:"오늘 할 일 목록을 닫고 저녁에만 다시 여세요."},
+        {nm:"연락·서류 하나 처리", pr:{short:2,mid:1,trouble:2,slip:1},
+         why:"전화 한 통, 서류 한 장은 미룰수록 커집니다. 30분이면 끝납니다.",
+         alt:"연결이 안 되면 다음 순서를 정해 두고 끊으세요.",
+         act:"지금 전화를 걸거나 서류를 열어 첫 칸을 채우세요."}
+      ]
+    },
+    {
+      id:"gift", ico:"🎁", nm:"선물 뭐 고르지", sub:"누구에게·얼마로",
+      qs:[
+        {k:"who", nm:"누구에게 주나요?", sh:"대상", opts:[{v:"family",t:"가족"},{v:"friend",t:"친구"},{v:"work",t:"선생님·직장"},{v:"partner",t:"연인·배우자"}]},
+        {k:"money", nm:"예산은요?", sh:"예산", opts:[{v:"low",t:"2만 원 이하"},{v:"mid",t:"5만 원쯤"},{v:"high",t:"10만 원 이상"}]},
+        {k:"taste", nm:"그 사람 취향은?", sh:"취향", opts:[{v:"eat",t:"먹는 것"},{v:"use",t:"쓰는 것"},{v:"exp",t:"같이 보내는 시간"}]}
+      ],
+      outs:[
+        {nm:"제철 과일 한 상자", pr:{family:3,low:2,mid:2,eat:3},
+         why:"집에 두고 같이 먹는 것은 실패가 적고 값도 부담이 없습니다.",
+         alt:"크기보다 좋아하는 종류로. 못 먹는 과일은 빼세요.",
+         act:"오늘 시장이나 근처 과일집에서 바로 사세요."},
+        {nm:"좋은 수건·양말", pr:{family:2,low:3,use:3,work:1},
+         why:"매일 쓰는 물건은 새것이 확실히 다릅니다. 값도 가볍습니다.",
+         alt:"색은 무난하게, 무늬보다 촉감이 좋은 쪽으로.",
+         act:"한 벌만 사지 말고 같은 것으로 두 개를 사세요."},
+        {nm:"국거리·정육 세트", pr:{family:2,mid:3,eat:3,high:1},
+         why:"5만 원대에서는 먹는 것이 가장 확실하게 기억에 남습니다.",
+         alt:"손질된 것으로 사면 받는 분이 편합니다.",
+         act:"포장에 손질 여부를 확인하고 냉장으로 받으세요."},
+        {nm:"손편지 + 작은 문구", pr:{friend:3,low:3,use:1,exp:2},
+         why:"친구에게는 값보다 마음이 남습니다. 편지 한 장이면 충분합니다.",
+         alt:"문구는 그 사람이 쓰던 브랜드의 무난한 것으로.",
+         act:"지금 편지를 쓰고 내일 아침에 보내세요."},
+        {nm:"같이 커피 한 잔", pr:{friend:3,low:2,exp:3,work:1},
+         why:"같이 보내는 시간은 예산이 작아도 가장 오래 남습니다.",
+         alt:"내가 사는 쪽으로 먼저 말하면 부담이 없습니다.",
+         act:"오늘 안에 날짜를 정해 먼저 제안하세요."},
+        {nm:"커피 기프티콘", pr:{work:3,low:3,eat:1,use:1},
+         why:"취향을 모르는 사이라면 무난한 것이 최선입니다.",
+         alt:"금액보다 손글씨 한 줄을 같이 넣으세요.",
+         act:"지금 모바일 상품권을 사서 문자로 보내세요."},
+        {nm:"차·과일 세트", pr:{work:2,mid:3,eat:2,high:1},
+         why:"5만 원대 선물은 쓰기보다 나눠 먹는 것이 안전합니다.",
+         alt:"포장이 과하면 오히려 부담입니다. 간단한 것으로.",
+         act:"받는 분 사무실로 갈 수 있는지 먼저 확인하세요."},
+        {nm:"같이 하루 보내기", pr:{partner:3,mid:3,high:2,exp:3},
+         why:"연인·배우자에게는 물건보다 같이 쓴 시간이 남습니다.",
+         alt:"비싼 코스보다 그 사람이 가보고 싶다던 곳 하나.",
+         act:"이번 주말 날짜를 지금 정하고 예약까지 하세요."},
+        {nm:"오래 쓰는 것 하나", pr:{partner:2,high:3,use:3,family:1},
+         why:"10만 원 이상이라면 자주 쓰는 물건이 오래 남습니다.",
+         alt:"이름 새김은 미리 확인하고, 교환 되는 곳에서 사세요.",
+         act:"실물을 볼 수 있는 매장을 오늘 확인하세요."},
+        {nm:"집에서 쓸 좋은 것", pr:{family:2,mid:2,use:2,high:1},
+         why:"집에 하나 좋은 물건은 가족 모두가 씁니다.",
+         alt:"지금 쓰는 것 중 낡은 것부터 바꾸세요.",
+         act:"오늘 집에서 가장 불편한 것 하나를 정해 그것만 사세요."}
+      ]
+    },
+    {
+      id:"rest", ico:"🛋️", nm:"쉬기 vs 움직이기", sub:"오늘 몸에 맞게",
+      qs:[
+        {k:"body", nm:"몸은 어떤가요?", sh:"몸", opts:[{v:"stiff",t:"뻐근해요"},{v:"dull",t:"나른해요"},{v:"ok",t:"괜찮아요"}]},
+        {k:"sleep", nm:"잠은 충분했나요?", sh:"잠", opts:[{v:"short",t:"부족해요"},{v:"enough",t:"충분해요"}]},
+        {k:"out", nm:"밖은 어떤가요?", sh:"날", opts:[{v:"good",t:"나가기 좋아요"},{v:"bad",t:"비·미세먼지"}]}
+      ],
+      outs:[
+        {nm:"10분 스트레칭", pr:{stiff:3,short:1,good:1,bad:1,enough:1},
+         why:"뻐근할 때 가장 빨리 풀리는 것은 움직임입니다. 10분이면 됩니다.",
+         alt:"아프면 참지 마세요. 통증이 이어지면 병원에 가 보세요.",
+         act:"의자에서 일어나 목·어깨·허리를 각각 10번씩 돌리세요."},
+        {nm:"20분 낮잠", pr:{dull:2,short:3,bad:2},
+         why:"잠이 부족하면 운동보다 잠이 먼저입니다. 20분이면 충분합니다.",
+         alt:"30분을 넘기면 밤잠이 밀립니다. 알람을 맞추세요.",
+         act:"알람 20분을 맞추고 지금 누우세요."},
+        {nm:"20분 산책", pr:{ok:2,enough:2,good:3,stiff:1},
+         why:"잠은 충분하고 몸이 괜찮다면 밖으로 20분이 가장 값싼 회복입니다.",
+         alt:"바람이 세면 한 바퀴만 돌고 들어오세요.",
+         act:"신발 신고 지금 나가세요."},
+        {nm:"따뜻한 물·샤워", pr:{stiff:2,dull:2,bad:2,short:1},
+         why:"나른할 때는 물이 몸을 깨웁니다. 10분이면 방향이 바뀝니다.",
+         alt:"너무 뜨겁지 않게, 씻고 나서 물 한 잔을 드세요.",
+         act:"지금 씻고 나온 뒤 5분만 앉아 쉬세요."},
+        {nm:"집안일 하나", pr:{dull:1,ok:2,enough:1,bad:1},
+         why:"몸이 무거울 때 가벼운 집안일은 운동이 되고 결과도 눈에 보입니다.",
+         alt:"한 곳만. 서랍 하나, 설거지 하나.",
+         act:"10분 타이머를 켜고 한 곳만 치우세요."},
+        {nm:"그냥 눕기", pr:{dull:3,short:1,bad:3},
+         why:"오늘은 아무것도 안 하는 게 낫습니다. 쉬는 것도 결정입니다.",
+         alt:"누워서 화면을 보면 쉬는 게 아닙니다. 폰은 뒤집어 두세요.",
+         act:"10분만 눈을 감고 아무것도 하지 마세요."}
+      ]
+    },
+    {
+      id:"nowlater", ico:"⏰", nm:"지금 할까, 나중에", sub:"미루기 직전에",
+      qs:[
+        {k:"dur", nm:"얼마나 걸려요?", sh:"소요", opts:[{v:"ten",t:"10분"},{v:"hour",t:"1시간"},{v:"half",t:"반나절"}]},
+        {k:"focus", nm:"지금 집중은?", sh:"집중", opts:[{v:"sharp",t:"잘 돼요"},{v:"foggy",t:"흐려요"}]},
+        {k:"due", nm:"미루면?", sh:"기한", opts:[{v:"today",t:"오늘 안엔 못 해요"},{v:"next",t:"내일도 돼요"},{v:"deadline",t:"마감이 있어요"}]}
+      ],
+      outs:[
+        {nm:"지금 10분만", pr:{ten:3,sharp:2,today:2,deadline:2},
+         why:"10분이면 끝나는 일은 미루는 시간이 더 깁니다.",
+         alt:"10분을 넘기면 그때 한 번 더 정하세요.",
+         act:"타이머 10분을 켜고 지금 시작하세요."},
+        {nm:"25분 타이머로 시작", pr:{hour:3,sharp:3,deadline:3,foggy:1},
+         why:"한 시간짜리는 시작만 하면 반은 됩니다. 25분만 붙여 보세요.",
+         alt:"25분 뒤에 그만둬도 오늘 한 게 남습니다.",
+         act:"지금 타이머를 켜고 첫 부분만 하세요."},
+        {nm:"내일 아침 첫 일로", pr:{next:3,foggy:2,half:2},
+         why:"지금 머리가 흐리면 내일 아침 30분이 오늘 두 시간보다 낫습니다.",
+         alt:"아침에 바로 할 수 있게 준비물을 오늘 밤에 꺼내 두세요.",
+         act:"내일 아침 알람을 맞추고 준비물을 지금 꺼내세요."},
+        {nm:"캘린더에 시간 잡기", pr:{half:3,next:2,foggy:1,deadline:2},
+         why:"반나절짜리는 지금 시작하면 어중간하게 끝납니다. 시간을 정해 두는 게 맞습니다.",
+         alt:"이번 주 안에 한 칸만 비워도 충분합니다.",
+         act:"오늘 안에 캘린더에 두 시간을 막아 두세요."},
+        {nm:"다른 사람에게 넘기기", pr:{foggy:2,half:1,next:1,deadline:1},
+         why:"내가 붙잡고 있어서 늦어지는 일이라면 넘기는 게 가장 빠릅니다.",
+         alt:"넘길 때는 기한과 형식만 정확히 적어 주세요.",
+         act:"지금 한 통 보내 \"이거 부탁해도 될까요?\"라고 물으세요."},
+        {nm:"하지 않기로 정하기", pr:{next:3,foggy:2,ten:1},
+         why:"내일도 되고 지금 집중도 안 된다면 목록에서 빼는 게 답입니다.",
+         alt:"정말 필요해지면 그때 다시 올라옵니다.",
+         act:"목록에서 지우고 오늘은 다른 하나만 하세요."}
+      ]
+    },
+    {
+      id:"watch", ico:"🎬", nm:"뭐 볼지", sub:"고르다 지치기 전에",
+      qs:[
+        {k:"mood", nm:"어떤 기분으로 보나요?", sh:"기분", opts:[{v:"fun",t:"웃고 싶어요"},{v:"tense",t:"긴장하고 싶어요"},{v:"sad",t:"울고 싶어요"},{v:"empty",t:"아무 생각 없이"}]},
+        {k:"len", nm:"얼마나 볼까요?", sh:"길이", opts:[{v:"short",t:"30분"},{v:"movie",t:"2시간"},{v:"series",t:"여러 편"}]},
+        {k:"with", nm:"누구와 보나요?", sh:"함께", opts:[{v:"alone",t:"혼자"},{v:"together",t:"가족·친구와"}]}
+      ],
+      outs:[
+        {nm:"코미디 영화 한 편", pr:{fun:3,movie:3,alone:1,together:1},
+         why:"웃고 싶은 날은 결말이 뻔한 코미디가 가장 안전합니다.",
+         alt:"평점보다 상영 시간을 보세요. 100분 안쪽이 낫습니다.",
+         act:"지금 검색해서 5분 안에 재생 버튼을 누르세요."},
+        {nm:"다큐 한 편", pr:{empty:2,movie:1,short:1,alone:3},
+         why:"아무 생각 없이 보고 싶을 때는 이야기보다 사실이 편합니다.",
+         alt:"주제는 가볍게, 40분 안쪽 한 편으로.",
+         act:"한 편만 고르고 끝나면 바로 끄세요."},
+        {nm:"스릴러·범죄물", pr:{tense:3,movie:2,series:1},
+         why:"긴장하고 싶은 날은 한 시간만 몰입하게 해 주는 장르가 맞습니다.",
+         alt:"너무 무거우면 밝은 쪽으로 한 번 더 고르세요.",
+         act:"지금 재생하고 밤늦게까지 이어서 보지는 마세요."},
+        {nm:"애니메이션", pr:{sad:2,empty:2,together:2,movie:1,fun:1},
+         why:"같이 보거나 마음이 가라앉은 날에는 애니메이션이 가장 무난합니다.",
+         alt:"더빙판이 있으면 그쪽이 편합니다.",
+         act:"같이 볼 사람에게 먼저 물어보고 3분 안에 정하세요."},
+        {nm:"시트콤 2~3편", pr:{fun:2,empty:3,short:3,series:1},
+         why:"30분짜리라 부담이 없고 한 편만 봐도 웃습니다.",
+         alt:"2편까지만. 3편을 넘기면 잠이 밀립니다.",
+         act:"1편 재생하고 끝나면 한 번만 더 볼지 정하세요."},
+        {nm:"짧은 영상·예능 한 조각", pr:{empty:2,short:3,fun:1},
+         why:"지금은 긴 것보다 짧은 게 맞습니다. 30분이면 충분합니다.",
+         alt:"알고리즘에 맡기지 말고 하나만 골라 보세요.",
+         act:"타이머 30분을 켜고 하나만 보세요."},
+        {nm:"드라마 1화만", pr:{sad:3,series:3,tense:1,together:1},
+         why:"울고 싶은 날은 1화만 보는 게 안전합니다.",
+         alt:"다음 화 예고는 보지 마세요. 끊기지 않습니다.",
+         act:"1화만 보고 앱을 닫으세요."},
+        {nm:"음악만 듣기", pr:{sad:2,empty:1,alone:2,short:1},
+         why:"오늘은 화면이 부담스러울 수 있습니다. 소리만으로 쉬어도 됩니다.",
+         alt:"플레이리스트 하나를 정해 두고 반복하세요.",
+         act:"조명을 낮추고 20분만 듣고 누우세요."}
+      ]
+    }
+  ];
+
+  var CUSTOM = {
+    id:"custom", ico:"✏️", nm:"내 고민 직접 입력", sub:"보기 2~6개로 정리",
+    qs:[
+      {k:"crit", nm:"어떤 기준으로 골라 드릴까요?", sh:"기준",
+       opts:[{v:"cost",t:"가성비"},{v:"time",t:"시간"},{v:"feel",t:"기분"},{v:"now",t:"미루지 않기"}]},
+      {k:"mind", nm:"지금 마음은요?", sh:"마음",
+       opts:[{v:"excited",t:"설렘"},{v:"worried",t:"걱정"},{v:"plain",t:"무덤덤"}]}
+    ]
+  };
+
+  var KEY = "pick44.hist.v1";
+  var WD = ["일","월","화","수","목","금","토"];
+
+  /* ───────────────────────── 상태 ───────────────────────── */
+  var cur = { topic:null, qs:null, i:0, ans:{}, custom:false, answers:[], rank:0, pick:null, viewing:false };
+  var hist = [];
+
+  function pad(n){ return (n<10?"0":"")+n; }
+  function scrollTop(){ try{ window.scrollTo(0,0); }catch(e){} }
+
+  function show(which){
+    ["scrHome","scrQuiz","scrCustom","scrResult"].forEach(function(id){
+      $(id).hidden = (id !== which);
+    });
+    scrollTop();
+  }
+
+  /* ───────────────────────── 저장 ───────────────────────── */
+  function loadHist(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      hist = raw ? JSON.parse(raw) : [];
+      if(!Array.isArray(hist)) hist = [];
+    }catch(e){ hist = []; }
+    hist = hist.slice(0, 12);
+  }
+  function saveHist(){
+    try{ localStorage.setItem(KEY, JSON.stringify(hist.slice(0,12))); }catch(e){}
+  }
+
+  /* ───────────────────────── 홈 ───────────────────────── */
+  var grid = $("topicGrid");
+  TOPICS.forEach(function(t){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "topic"; b.setAttribute("data-topic", t.id);
+    b.innerHTML = '<span class="ico" aria-hidden="true">'+t.ico+'</span>'+
+                  '<span class="nm">'+t.nm+'</span>'+
+                  '<span class="ds">'+t.sub+'</span>';
+    b.addEventListener("click", function(){ openTopic(t); });
+    grid.appendChild(b);
+  });
+  (function(){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "topic custom"; b.setAttribute("data-topic","custom");
+    b.innerHTML = '<span class="ico" aria-hidden="true">✏️</span>'+
+                  '<span class="nm">내 고민 직접 입력</span>'+
+                  '<span class="ds">보기 2~6개 · 기준 두 번</span>';
+    b.addEventListener("click", openCustom);
+    grid.appendChild(b);
+  })();
+
+  $("anyTopic").addEventListener("click", function(){
+    var t = TOPICS[Math.floor(Math.random()*TOPICS.length)];
+    openTopic(t);
+  });
+
+  function openTopic(t){
+    cur = {topic:t, qs:t.qs, i:0, ans:{}, custom:false, answers:t.qs.map(function(){ return []; }),
+           rank:0, pick:null, viewing:false};
+    cur.topicLabel = t.ico+" "+t.nm;
+    renderQ();
+    show("scrQuiz");
+  }
+
+  /* ───────────────────────── 질문 ───────────────────────── */
+  function renderQ(){
+    var q = cur.qs[cur.i];
+    $("qTopic").textContent = cur.topicLabel;
+    $("qText").textContent = q.nm;
+    $("qStep").textContent = (cur.i+1) + " / " + cur.qs.length;
+    $("qSub").textContent = cur.custom ? "마음에 가까운 것 하나만 누르세요." : "마음에 가까운 것 하나만 누르세요.";
+
+    var dots = $("qDots"); dots.innerHTML = "";
+    for(var i=0;i<cur.qs.length;i++){
+      var d = document.createElement("span");
+      d.className = "dot" + (i === cur.i ? " on" : "");
+      dots.appendChild(d);
+    }
+
+    var box = $("qOpts"); box.innerHTML = "";
+    q.opts.forEach(function(o){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "opt"; b.setAttribute("data-v", o.v);
+      b.innerHTML = '<span>'+o.t+'</span><span class="ar" aria-hidden="true">›</span>';
+      b.addEventListener("click", function(){ answer(o); });
+      box.appendChild(b);
+    });
+  }
+
+  function answer(o){
+    var q = cur.qs[cur.i];
+    cur.ans[q.k] = o.v;
+    cur.answers[cur.i] = o.t;
+    if(cur.i < cur.qs.length - 1){
+      cur.i++;
+      renderQ();
+      return;
+    }
+    cur.pick = cur.custom ? buildCustom() : buildFixed();
+    cur.rank = 0;
+    showResult(cur.pick);
+  }
+
+  $("qBack").addEventListener("click", function(){
+    if(cur.i > 0){ cur.i--; renderQ(); return; }
+    if(cur.custom){ show("scrCustom"); return; }
+    show("scrHome");
+  });
+
+  /* ───────────────────────── 고정 주제 계산 ───────────────────────── */
+  function buildFixed(){
+    var t = cur.topic;
+    var rows = t.outs.map(function(o, idx){
+      var s = 0;
+      for(var k in cur.ans){ var v = cur.ans[k]; if(o.pr && o.pr[v]) s += o.pr[v]; }
+      return {o:o, s:s, idx:idx};
+    });
+    rows.sort(function(a,b){ return (b.s - a.s) || (a.idx - b.idx); });
+    var conds = t.qs.map(function(q, i){ return cur.answers[i] || ""; }).filter(Boolean);
+    return {
+      topicId:t.id, ico:t.ico, topicName:t.nm,
+      pick:rows[0].o.nm, why:rows[0].o.why, alt:rows[0].o.alt, act:rows[0].o.act,
+      conds:conds, oneLine:"", custom:false, ts:Date.now()
+    };
+  }
+
+  /* ───────────────────────── 직접 입력 ───────────────────────── */
+  var optInputs = [];
+
+  function renderOptRows(){
+    var box = $("cOpts");
+    box.innerHTML = "";
+    optInputs.forEach(function(inp, i){
+      var rowEl = document.createElement("div");
+      rowEl.className = "optrow";
+      var no = document.createElement("span"); no.className = "no"; no.textContent = String(i+1);
+      var input = document.createElement("input");
+      input.className = "cinput"; input.type = "text"; input.maxLength = 40;
+      input.autocomplete = "off";
+      input.placeholder = i === 0 ? "예: 집에서 쉬기" : (i === 1 ? "예: 친구 만나기" : "보기 " + (i+1));
+      input.value = inp.value;
+      input.addEventListener("input", function(){ optInputs[i].value = input.value; checkCustom(); });
+      var del = document.createElement("button");
+      del.type = "button"; del.className = "del"; del.textContent = "✕";
+      del.setAttribute("aria-label", "보기 " + (i+1) + " 지우기");
+      del.disabled = optInputs.length <= 2;
+      del.addEventListener("click", function(){
+        if(optInputs.length <= 2) return;
+        var vals = optInputs.map(function(x){ return x.value; });
+        vals.splice(i,1);
+        optInputs = vals.map(function(v){ return {value:v}; });
+        renderOptRows(); checkCustom();
+      });
+      rowEl.appendChild(no); rowEl.appendChild(input); rowEl.appendChild(del);
+      box.appendChild(rowEl);
+    });
+    $("cAddOpt").disabled = optInputs.length >= 6;
+  }
+
+  function checkCustom(){
+    var q = $("cQuestion").value.trim();
+    var filled = optInputs.filter(function(x){ return x.value.trim().length > 0; }).length;
+    $("cNext").disabled = !(q.length > 0 && filled >= 2);
+  }
+
+  function openCustom(){
+    optInputs = [{value:""},{value:""}];
+    $("cQuestion").value = "";
+    renderOptRows();
+    checkCustom();
+    show("scrCustom");
+  }
+
+  $("cQuestion").addEventListener("input", checkCustom);
+  $("cAddOpt").addEventListener("click", function(){
+    if(optInputs.length >= 6) return;
+    optInputs.push({value:""});
+    renderOptRows(); checkCustom();
+    try{ document.querySelectorAll("#cOpts .cinput")[optInputs.length-1].focus(); }catch(e){}
+  });
+  $("cBack").addEventListener("click", function(){ show("scrHome"); });
+  $("cNext").addEventListener("click", function(){
+    var q = $("cQuestion").value.trim();
+    var opts = optInputs.map(function(x){ return x.value.trim(); }).filter(function(v){ return v; });
+    if(!q || opts.length < 2){ toast("고민 한 줄과 보기 두 개를 먼저 적어 주세요."); return; }
+    cur = {topic:CUSTOM, qs:CUSTOM.qs, i:0, ans:{}, custom:true,
+           answers:[], rank:0, pick:null, viewing:false,
+           cq:q, copts:opts, topicLabel:"✏️ "+q};
+    renderQ();
+    show("scrQuiz");
+  });
+
+  var KW = {
+    cost:{ good:["무료","공짜","싸","저렴","가성비","집밥","집에서","걷","안 사","그만","중고","간단","냉장고","재료"],
+           bad:["비싸","프리미엄","호텔","고급","명품","새로 사","예약","해외","항공"] },
+    time:{ good:["10분","30분","짧","금방","바로","간단","전화","문자","집","근처","한 잔","한줄","한 줄"],
+           bad:["하루","반나절","오래","멀리","여행","며칠","전체","풀","장거리"] },
+    feel:{ good:["재밌","웃","신나","좋","편","따뜻","맛","친구","가족","사랑","예쁜","기분"],
+           bad:["싫","귀찮","무서","힘들","스트레스","짜증","무거"] },
+    now:{ good:["지금","바로","오늘","전화","문자","신청","예약","정리","치우","보내"],
+          bad:["내일","다음 주","나중","미루","천천히","여유"] }
+  };
+  var MOOD = {
+    excited:{ good:["재밌","신나","설레","가보","만나","새로","도전","여행","놀"] },
+    worried:{ good:["집","쉬","무료","안 ","그만","익숙","가까","편"], }
+  };
+
+  function hitCount(text, words){
+    var n = 0, t = text;
+    words.forEach(function(w){ if(t.indexOf(w) >= 0) n++; });
+    return n;
+  }
+
+  function buildCustom(){
+    var crit = cur.ans.crit || "cost";
+    var mind = cur.ans.mind || "plain";
+    var words = KW[crit] || KW.cost;
+    var rows = cur.copts.map(function(txt, i){
+      var s = hitCount(txt, words.good) * 2 - hitCount(txt, words.bad);
+      if(MOOD[mind]) s += hitCount(txt, MOOD[mind].good);
+      return {t:txt, i:i, s:s};
+    });
+    rows.sort(function(a,b){ return (b.s - a.s) || (a.i - b.i); });
+    var rank = cur.rank % rows.length;
+    var win = rows[rank], second = rows[(rank+1) % rows.length];
+    var critLabel = {cost:"가성비", time:"시간", feel:"기분", now:"미루지 않기"}[crit];
+    var hit = hitCount(win.t, words.good) > 0;
+    var why = hit
+      ? "\'" + critLabel + "\'에 맞는 말이 보기에 있어서 이쪽을 골랐습니다."
+      : "보기에 \'" + critLabel + "\'을 가릴 말이 없어서, 적어 주신 순서대로 집었습니다.";
+    var mindLine = mind === "excited" ? " 마음이 설레서 끌리는 쪽에 무게를 뒀습니다."
+                 : mind === "worried" ? " 마음이 무거워 되돌리기 쉬운 쪽을 먼저 집었습니다." : "";
+    var alt = rows.length > 1
+      ? "2순위는 \'" + second.t + "\'. 여유가 생기면 그쪽으로 바꿔도 됩니다."
+      : "다른 보기가 없으니 이걸로 정하세요.";
+    var act = "지금 10분 안에 \'" + win.t + "\'를 시작하세요. 나머지 보기는 오늘 후보에서 내려놓으세요.";
+    return {
+      topicId:"custom", ico:"✏️", topicName:"내 고민 직접 입력",
+      pick:win.t, why:why + mindLine, alt:alt, act:act,
+      conds:[critLabel, {excited:"설렘",worried:"걱정",plain:"무덤덤"}[mind] || ""].filter(Boolean),
+      oneLine:"내 선택: " + win.t + " · 보류: " + rows.filter(function(r){ return r.t !== win.t; }).map(function(r){ return r.t; }).join(", "),
+      custom:true, ts:Date.now(), rank:rank, q:cur.cq
+    };
+  }
+
+  /* ───────────────────────── 결과 ───────────────────────── */
+  function showResult(d, fromHistory){
+    $("resTopic").textContent = d.ico + " " + d.topicName;
+    $("resBig").textContent = d.pick;
+    $("resWhy").textContent = d.why;
+    $("resAlt").textContent = d.alt;
+    $("resAct").textContent = d.act;
+
+    var cbox = $("resConds"); cbox.innerHTML = "";
+    (d.conds || []).forEach(function(c){
+      if(!c) return;
+      var s = document.createElement("span"); s.className = "cond"; s.textContent = c;
+      cbox.appendChild(s);
+    });
+
+    var one = $("resOneLine");
+    if(d.custom && d.oneLine){ one.hidden = false; one.textContent = d.oneLine; }
+    else { one.hidden = true; one.textContent = ""; }
+
+    $("nextPick").hidden = !d.custom;
+
+    var dt = new Date(d.ts || Date.now());
+    $("rWhen").textContent = dt.getMonth()+1 + "월 " + dt.getDate() + "일 (" + WD[dt.getDay()] + ")";
+
+    drawCard(d);
+    show("scrResult");
+
+    if(!fromHistory){
+      hist.unshift({
+        ts:d.ts, ico:d.ico, topicName:d.topicName, pick:d.pick,
+        why:d.why, alt:d.alt, act:d.act, conds:d.conds, oneLine:d.oneLine, custom:!!d.custom
+      });
+      hist = hist.slice(0,12);
+      saveHist();
+      renderHist();
+    }
+  }
+
+  $("nextPick").addEventListener("click", function(){
+    if(!cur.custom || !cur.copts) return;
+    cur.rank = (cur.rank || 0) + 1;
+    var fresh = buildCustom();
+    cur.pick = fresh;
+    // 기록은 첫 선택만 남기고, 화면만 다음 후보로 바꾼다
+    showResult(fresh, true);
+  });
+
+  $("again").addEventListener("click", function(){
+    if(cur.custom) { openCustom(); return; }
+    if(!cur.topic) { show("scrHome"); return; }
+    openTopic(cur.topic);
+  });
+  $("rBack").addEventListener("click", function(){ show("scrHome"); });
+
+  /* ───────────────────────── 기록 ───────────────────────── */
+  function renderHist(){
+    var box = $("histList"); box.innerHTML = "";
+    $("histCount").textContent = hist.length + "건";
+    $("histEmpty").hidden = hist.length > 0;
+    $("histClear").hidden = hist.length === 0;
+    hist.forEach(function(h){
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "hitem";
+      var d = new Date(h.ts);
+      b.innerHTML = '<span class="hico" aria-hidden="true">'+h.ico+'</span>'+
+        '<span class="hbody"><span class="hname">'+h.topicName+'</span>'+
+        '<span class="hpick">'+h.pick+'</span></span>'+
+        '<span class="hwhen">'+(d.getMonth()+1)+'/'+d.getDate()+'<br>'+pad(d.getHours())+':'+pad(d.getMinutes())+'</span>';
+      b.addEventListener("click", function(){
+        cur.custom = !!h.custom;
+        cur.topic = null;
+        showResult(h, true);
+      });
+      li.appendChild(b);
+      box.appendChild(li);
+    });
+  }
+
+  $("histClear").addEventListener("click", function(){
+    var ok = true;
+    try{ ok = window.confirm("이 브라우저에 저장된 결정 기록을 모두 지웁니다. 계속할까요?"); }catch(e){ ok = false; }
+    if(!ok) return;
+    hist = [];
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    renderHist();
+    toast("기록을 모두 지웠습니다.");
+  });
+
+  /* ───────────────────────── 복사 ───────────────────────── */
+  function dateStr(ts){
+    var d = new Date(ts || Date.now());
+    return d.getFullYear() + "년 " + (d.getMonth()+1) + "월 " + d.getDate() + "일 (" + WD[d.getDay()] + ")";
+  }
+  function resultText(d){
+    var L = [];
+    L.push("[대신 골라주는 44] " + dateStr(d.ts));
+    L.push(d.topicName + (d.conds && d.conds.length ? " · " + d.conds.join(" · ") : ""));
+    L.push("");
+    L.push("제가 고른 건: " + d.pick);
+    L.push("이유: " + d.why);
+    L.push("대안: " + d.alt);
+    L.push("지금 할 일: " + d.act);
+    if(d.custom && d.oneLine){ L.push(""); L.push(d.oneLine); }
+    L.push("");
+    L.push("3번 터치 · soonsoo1004.github.io/pick-for-me/");
+    return L.join("\n");
+  }
+
+  function copyText(text){
+    function fallback(){
+      try{
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.setAttribute("readonly","");
+        ta.style.position = "fixed"; ta.style.top = "-1000px"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand("copy");
+        ta.remove();
+        toast(ok ? "복사했습니다" : "복사가 안 되면 길게 눌러 직접 복사해 주세요");
+      }catch(e){ toast("복사가 안 되면 길게 눌러 직접 복사해 주세요"); }
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast("결과 문구를 복사했습니다"); }, fallback);
+    }else{ fallback(); }
+  }
+
+  $("copyRes").addEventListener("click", function(){
+    var d = cur.pick;
+    if(!d){ toast("먼저 하나 골라 주세요."); return; }
+    copyText(resultText(d));
+    var btn = this, old = btn.textContent;
+    btn.textContent = "복사됨";
+    setTimeout(function(){ btn.textContent = old; }, 1500);
+  });
+
+  /* ───────────────────────── 카드 ───────────────────────── */
+  var cvs = $("cardOut"), ctx = cvs.getContext("2d");
+  var CW = 1080, CH = 1350;
+  var FONT = '"Gulim","GulimChe","Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif';
+
+  function rr(c, x, y, w, h, r){
+    c.beginPath();
+    c.moveTo(x+r, y);
+    c.arcTo(x+w, y, x+w, y+h, r);
+    c.arcTo(x+w, y+h, x, y+h, r);
+    c.arcTo(x, y+h, x, y, r);
+    c.arcTo(x, y, x+w, y, r);
+    c.closePath();
+  }
+  function f(w, s){ return w + " " + s + "px " + FONT; }
+  function wrapLines(c, text, maxW){
+    var out = [], line = "";
+    for(var i=0;i<text.length;i++){
+      var ch = text[i];
+      if(ch === "\n"){ out.push(line); line = ""; continue; }
+      var test = line + ch;
+      if(c.measureText(test).width > maxW && line){ out.push(line); line = ch; }
+      else line = test;
+    }
+    if(line) out.push(line);
+    return out;
+  }
+
+  function drawCard(d){
+    var c = ctx;
+    if(!d) return;
+    c.save();
+    c.clearRect(0,0,CW,CH);
+    c.fillStyle = "#ffffff"; c.fillRect(0,0,CW,CH);
+
+    var g1 = c.createRadialGradient(940, 90, 20, 940, 90, 640);
+    g1.addColorStop(0, "rgba(0,113,227,.10)");
+    g1.addColorStop(1, "rgba(0,113,227,0)");
+    c.fillStyle = g1; c.fillRect(0,0,CW,CH);
+    var g2 = c.createRadialGradient(120, 1260, 20, 120, 1260, 600);
+    g2.addColorStop(0, "rgba(48,180,95,.09)");
+    g2.addColorStop(1, "rgba(48,180,95,0)");
+    c.fillStyle = g2; c.fillRect(0,0,CW,CH);
+
+    var now = new Date(d.ts || Date.now());
+    c.textAlign = "left"; c.textBaseline = "alphabetic";
+    c.fillStyle = "#1d1d1f"; c.font = f("700", 38);
+    c.fillText("대신 골라주는 44", 84, 126);
+    c.textAlign = "right"; c.fillStyle = "#8e8e93"; c.font = f("400", 28);
+    c.fillText(now.getFullYear() + "." + pad(now.getMonth()+1) + "." + pad(now.getDate()) + " (" + WD[now.getDay()] + ")", CW-84, 126);
+
+    /* 주제 */
+    c.textAlign = "center";
+    c.fillStyle = "#8e8e93"; c.font = f("700", 27);
+    c.fillText(d.topicName, CW/2, 208);
+
+    /* 결론 */
+    var size = 88, lines = [];
+    while(size >= 60){
+      c.font = f("700", size);
+      lines = wrapLines(c, d.pick, 880);
+      if(lines.length <= 2) break;
+      size -= 8;
+    }
+    if(lines.length > 3){ lines = lines.slice(0,3); lines[2] = lines[2].slice(0,10) + "…"; }
+    var lh = Math.round(size * 1.22);
+    var by = 300;
+    c.fillStyle = "#1d1d1f";
+    lines.forEach(function(ln, i){ c.fillText(ln, CW/2, by + i*lh); });
+    var bigEnd = by + (lines.length-1)*lh;
+
+    /* 조건 */
+    if(d.conds && d.conds.length){
+      c.font = f("400", 29);
+      c.fillStyle = "#6e6e73";
+      var cl = wrapLines(c, d.conds.join("  ·  "), 880).slice(0,2);
+      var cy = bigEnd + 62;
+      cl.forEach(function(ln, i){ c.fillText(ln, CW/2, cy + i*40); });
+      bigEnd = cy + (cl.length-1)*40;
+    }
+
+    /* 구분선 */
+    var dy = bigEnd + 58;
+    c.strokeStyle = "rgba(0,0,0,.10)"; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(120, dy); c.lineTo(CW-120, dy); c.stroke();
+
+    /* 세 줄 — 남는 높이에 맞춰 세로 가운데 정렬 */
+    var blocks = [
+      {lb:"이 유", tx:d.why, color:"#1d1d1f", fs:38, wt:"400"},
+      {lb:"대 안", tx:d.alt, color:"#5f5f66", fs:36, wt:"400"},
+      {lb:"지금 할 일", tx:d.act, color:"#1d1d1f", fs:38, wt:"700"}
+    ];
+    c.textAlign = "left";
+    var blockTop = 1210;
+    var H = 0;
+    blocks.forEach(function(b, i){
+      c.font = f(b.wt, b.fs);
+      var ls = wrapLines(c, b.tx, 884);
+      if(ls.length > 3){ ls = ls.slice(0,3); ls[2] = ls[2].slice(0,14) + "…"; }
+      b.lines = ls; b.lh = Math.round(b.fs * 1.42);
+      H += 52 + b.lh * ls.length + (i < blocks.length - 1 ? 56 : 0);
+    });
+    var y = dy + Math.max(64, Math.round((blockTop - dy - H) / 2));
+    blocks.forEach(function(b, i){
+      c.fillStyle = i === 2 ? "#2f9e5f" : "#a9a29a";
+      c.font = f("700", 26);
+      c.fillText(b.lb, 96, y);
+      c.fillStyle = b.color;
+      c.font = f(b.wt, b.fs);
+      b.lines.forEach(function(ln, k){ c.fillText(ln, 96, y + 52 + k*b.lh); });
+      y = y + 52 + b.lines.length * b.lh + (i < blocks.length - 1 ? 56 : 0);
+    });
+
+    /* 풋터 */
+    c.strokeStyle = "rgba(0,0,0,.07)"; c.lineWidth = 2;
+    c.beginPath(); c.moveTo(120, 1214); c.lineTo(CW-120, 1214); c.stroke();
+    c.textAlign = "center";
+    c.fillStyle = "#9a958e"; c.font = f("700", 24);
+    c.fillText("세 번 터치 · 대신 골라주는 44", CW/2, 1262);
+    c.fillStyle = "#b8b3ac"; c.font = f("400", 21);
+    c.fillText("soonsoo1004.github.io/pick-for-me", CW/2, 1298);
+    c.restore();
+  }
+
+  $("saveCard").addEventListener("click", function(){
+    var d = cur.pick;
+    if(!d){ toast("먼저 하나 골라 주세요."); return; }
+    drawCard(d);
+    var name = "결정44-" + new Date().toISOString().slice(0,10) + "-" + Date.now() + ".png";
+    try{
+      if(cvs.toBlob){
+        cvs.toBlob(function(blob){
+          if(!blob){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요."); return; }
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = name;
+          document.body.appendChild(a); a.click();
+          setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1200);
+          toast("결정 카드를 저장했습니다 (1080×1350)");
+        }, "image/png");
+      }else{
+        var a2 = document.createElement("a");
+        a2.href = cvs.toDataURL("image/png"); a2.download = name; a2.click();
+        toast("결정 카드를 저장했습니다 (1080×1350)");
+      }
+    }catch(err){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요."); }
+  });
+
+  /* ───────────────────────── 토스트 ───────────────────────── */
+  var toastT = null;
+  function toast(msg){
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    if(toastT) clearTimeout(toastT);
+    toastT = setTimeout(function(){ el.classList.remove("on"); }, 2200);
+  }
+
+  /* ───────────────────────── 시작 ───────────────────────── */
+  loadHist();
+  renderHist();
+})();
+</script>
+</body>
+</html>
