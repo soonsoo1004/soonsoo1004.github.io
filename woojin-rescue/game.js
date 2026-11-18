@@ -425,7 +425,7 @@ let lastHudSec = -1;
 let pickStage = 0;
 let bgKey = '';
 const best = (() => {
-  try { return JSON.parse(localStorage.getItem('starlightRescue.v2') || localStorage.getItem('woojinRescue.v1') || '{}'); } catch (e) { return {}; }
+  try { return JSON.parse(localStorage.getItem('starlightRescue.v2') || '{}'); } catch (e) { return {}; }
 })();
 
 /* ── 그리드 ─────────────────────────────────────────── */
@@ -2024,5 +2024,4 @@ const API = {
   camera() { return { yaw: CAM.yaw, pitch: CAM.pitch, depth: DEPTH, k: FIT.k }; }
 };
 window.__starlight = API;
-window.__woojin = API;
 })();
