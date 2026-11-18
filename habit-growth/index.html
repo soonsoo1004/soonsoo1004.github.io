@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>생활습관 44 — 매일 1~5분, 나를 발전시키는 작은 루틴</title>
+<meta name="description" content="거창한 계획 대신 매일 1~5분. 집중·체력·기록·정리 네 갈래 44가지 작은 습관 중 3개만 골라 체크하는 습관 트래커입니다. 오늘 체크하면 연속 달성 일수와 주간 달성률이 쌓이고, 오늘의 성장 카드를 이미지로 저장하거나 루틴 문구를 복사할 수 있습니다. 기록은 이 브라우저에만 저장되고 서버로 보내지 않습니다.">
+<meta name="keywords" content="생활습관, 습관 트래커, 미니 루틴, 자기계발, 연속 달성, 주간 달성률, 생활습관 44">
+<meta name="author" content="천장지구 1004">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="생활습관 44 — 매일 1~5분, 나를 발전시키는 작은 루틴">
+<meta property="og:description" content="44가지 작은 습관 중 3개만 골라 매일 체크. 연속 달성·주간 달성률·성장 카드 저장. 서버 전송 0건.">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#f5f5f7; --card:#ffffff; --card2:#f7f7f9;
+  --ink:#1d1d1f; --ink2:#5f5f66; --ink3:#8e8e93;
+  --line:rgba(0,0,0,.08); --line2:rgba(0,0,0,.14);
+  --blue:#0071e3; --blue-d:#0062c4; --blue-soft:#eaf3fe;
+  --red:#ff375f; --green:#30b45f; --green-soft:#e9f7ee;
+  --mint:#0a84ff;
+  --track:rgba(0,0,0,.06);
+  --r:24px; --r-s:18px; --r-xs:14px;
+  --sans:Gulim,"GulimChe","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 14px 34px rgba(0,0,0,.055);
+  --shadow-s:0 1px 2px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;
+  touch-action:manipulation;min-height:100dvh;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+a{color:var(--blue);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 84px}
+
+/* ── hero ── */
+header.top{padding:34px 0 14px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.04em;
+  color:var(--green);background:var(--green-soft);border-radius:999px;padding:6px 13px;font-weight:700}
+h1{font-size:32px;line-height:1.3;letter-spacing:-.02em;margin:15px 0 10px;font-weight:700}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:16.5px;color:var(--ink2);margin:0 0 18px}
+.privacy{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.55;color:var(--ink2);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);padding:12px 14px;box-shadow:var(--shadow-s)}
+.privacy b{color:var(--ink)}
+.privacy i{font-style:normal;font-size:14px;flex:0 0 auto;line-height:1.4}
+
+/* ── section ── */
+section{margin-top:30px}
+.sec-h{display:flex;align-items:baseline;gap:9px;margin:0 0 12px}
+.sec-n{font-size:12.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;
+  width:23px;height:23px;display:grid;place-items:center;flex:0 0 auto}
+.sec-h h2{font-size:19px;margin:0;letter-spacing:-.01em;font-weight:700}
+.sec-h .sub{font-size:13px;color:var(--ink3);margin-left:auto;text-align:right}
+
+/* ── 루틴 카드 ── */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 18px 16px;box-shadow:var(--shadow)}
+.ring-panel{display:flex;align-items:center;gap:16px}
+.ring-wrap{position:relative;width:132px;height:132px;flex:0 0 auto}
+.ring-wrap svg{width:100%;height:100%;display:block;transform:rotate(-90deg)}
+.ring-wrap .track{fill:none;stroke:var(--track);stroke-width:13}
+.ring-wrap .arc{fill:none;stroke-width:13;stroke-linecap:round;transition:stroke-dashoffset .55s cubic-bezier(.2,.7,.2,1)}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.ring-center b{font-size:25px;line-height:1.1;letter-spacing:-.02em}
+.ring-center span{font-size:11.5px;color:var(--ink3)}
+.ring-side{min-width:0}
+.streak{font-size:16px;color:var(--ink2);line-height:1.35}
+.streak b{font-size:31px;color:var(--ink);letter-spacing:-.02em;margin-right:2px}
+.streak-sub{font-size:13px;color:var(--ink3);margin-top:6px;line-height:1.5}
+.streak-sub.done{color:var(--green);font-weight:700}
+
+.rt-list{display:grid;gap:9px;margin-top:12px}
+.rt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:13px 14px;
+  box-shadow:var(--shadow-s);transition:border-color .16s,background .16s,transform .1s}
+.rt:active{transform:scale(.99)}
+.rt .ck{width:30px;height:30px;border-radius:50%;border:2px solid var(--line2);flex:0 0 auto;
+  display:grid;place-items:center;transition:background .2s,border-color .2s,transform .2s}
+.rt .ck svg{width:16px;height:16px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  opacity:0;transform:scale(.6);transition:opacity .18s,transform .22s}
+.rt .tx{min-width:0;flex:1 1 auto}
+.rt .tx b{display:block;font-size:15.5px;font-weight:700;letter-spacing:-.01em}
+.rt .tx span{display:block;font-size:12.5px;color:var(--ink3);margin-top:2px}
+.rt .mn{font-size:12px;color:var(--ink3);flex:0 0 auto;background:var(--card2);border-radius:999px;padding:4px 10px}
+.rt[aria-pressed="true"]{border-color:rgba(48,180,95,.34);background:linear-gradient(180deg,#fbfffc,#f3fbf6)}
+.rt[aria-pressed="true"] .ck{background:var(--green);border-color:var(--green);transform:scale(1.04)}
+.rt[aria-pressed="true"] .ck svg{opacity:1;transform:scale(1)}
+.rt[aria-pressed="true"] .tx b{color:#176036}
+
+.rt-empty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--r-s);
+  padding:20px 16px;text-align:center;color:var(--ink2);font-size:14.5px;line-height:1.6}
+.rt-empty b{font-weight:700;color:var(--ink)}
+.rt-empty .big{display:block;font-size:15.5px;color:var(--ink);margin-bottom:4px}
+
+/* ── 주간 ── */
+.week{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:14px 15px 12px;box-shadow:var(--shadow-s)}
+.week-h{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.week-h b{font-size:14px}
+.week-h span{margin-left:auto;font-size:14px;font-weight:700;color:var(--blue)}
+.week-h .wk{font-size:12px;color:var(--ink3);font-weight:400}
+.week-bar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.wd{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0}
+.wcol{width:100%;height:44px;background:var(--track);border-radius:7px;display:flex;align-items:flex-end;overflow:hidden}
+.wfill{width:100%;height:0;border-radius:7px;background:linear-gradient(180deg,#5ac8fa,#0a84ff);
+  transition:height .5s cubic-bezier(.2,.7,.2,1)}
+.wfill.full{background:linear-gradient(180deg,#5adf8f,#30b45f)}
+.wd span{font-size:11px;color:var(--ink3);line-height:1}
+.wd.today span{color:var(--ink);font-weight:700}
+.wd.today .wcol{box-shadow:0 0 0 1.5px var(--ink) inset}
+
+/* ── 버튼 ── */
+.acts{display:flex;gap:9px;margin-top:13px}
+.btn{flex:1 1 0;min-width:0;font-size:14.5px;font-weight:700;padding:13px 10px;border-radius:14px;
+  background:var(--blue);color:#fff;box-shadow:0 6px 16px rgba(0,113,227,.22);transition:background .15s,transform .1s;
+  display:flex;align-items:center;justify-content:center;gap:6px}
+.btn:active{transform:scale(.985)}
+.btn.ghost{background:var(--card);color:var(--ink2);border:1px solid var(--line);box-shadow:var(--shadow-s)}
+.btn.ok{background:var(--green);box-shadow:0 6px 16px rgba(48,180,95,.22);color:#fff}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ── 목표 탭 ── */
+.seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;background:var(--card);
+  border:1px solid var(--line);border-radius:16px;padding:5px;box-shadow:var(--shadow-s)}
+.seg button{font-size:13px;font-weight:700;color:var(--ink2);border-radius:11px;padding:9px 2px;
+  display:flex;flex-direction:column;align-items:center;gap:1px;letter-spacing:-.02em;transition:background .15s,color .15s}
+.seg button .em{font-size:15px;line-height:1.1}
+.seg button .n{font-size:10.5px;font-weight:400;color:var(--ink3)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.seg button[aria-pressed="true"] .n{color:rgba(255,255,255,.6)}
+
+/* ── 습관 카드 ── */
+.habits{display:grid;gap:8px;margin-top:11px}
+.habit{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);padding:12px 13px;
+  box-shadow:var(--shadow-s);transition:border-color .15s,box-shadow .15s,transform .1s}
+.habit:active{transform:scale(.99)}
+.habit .num{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line2);flex:0 0 auto;
+  display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--ink3);margin-top:1px;transition:background .18s,border-color .18s,color .18s}
+.habit .tx{min-width:0;flex:1 1 auto}
+.habit .tx b{display:block;font-size:15px;font-weight:700;letter-spacing:-.01em;line-height:1.45}
+.habit .tx span{display:block;font-size:12.5px;color:var(--ink3);line-height:1.45;margin-top:2px}
+.habit .mn{font-size:11.5px;color:var(--ink3);flex:0 0 auto;background:var(--card2);border-radius:999px;padding:3px 9px;margin-top:2px}
+.habit[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft),var(--shadow-s)}
+.habit[aria-pressed="true"] .num{background:var(--blue);border-color:var(--blue);color:#fff}
+.habit.used{opacity:.92}
+
+/* ── 고르기 바 ── */
+.pickbar{position:sticky;bottom:10px;z-index:6;margin-top:12px;
+  display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.86);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);backdrop-filter:saturate(180%) blur(14px);
+  border:1px solid var(--line);border-radius:16px;padding:9px 10px 9px 14px;box-shadow:0 8px 26px rgba(0,0,0,.10)}
+.pickbar .cnt{font-size:13px;color:var(--ink2);line-height:1.35;min-width:0}
+.pickbar .cnt b{font-size:16px;color:var(--ink)}
+.pickbar .btn{flex:0 0 auto;padding:11px 15px;font-size:14px}
+.quick{display:flex;justify-content:flex-end;margin-top:8px}
+.quick button{font-size:12.5px;font-weight:700;color:var(--blue);padding:6px 2px}
+
+/* ── 카드 미리보기 ── */
+.card-box{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+#cardOut{width:100%;max-width:390px;height:auto;display:block;margin:0 auto;border-radius:16px;box-shadow:0 6px 22px rgba(0,0,0,.10)}
+.card-note{font-size:12.5px;color:var(--ink3);text-align:center;margin:11px 0 0;line-height:1.55}
+
+/* ── 기타 ── */
+.foot{margin-top:26px;padding:16px 2px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);line-height:1.7}
+.foot b{color:var(--ink2)}
+.linkrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.linkrow button{font-size:12.5px;font-weight:700;color:var(--ink2);background:var(--card);
+  border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,14px);z-index:40;
+  background:rgba(29,29,31,.94);color:#fff;font-size:13.5px;font-weight:700;padding:11px 17px;border-radius:999px;
+  opacity:0;pointer-events:none;transition:opacity .22s,transform .22s;max-width:calc(100% - 32px);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:380px){
+  h1{font-size:28px}
+  .ring-wrap{width:112px;height:112px}
+  .streak b{font-size:27px}
+  .seg button{font-size:12px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">🌱 매일 1~5분</span>
+    <h1>나를 발전시키는<br><em>생활습관 44</em></h1>
+    <p class="lead">거창한 계획 말고, 오늘 1분. 44가지 작은 습관 중 <b>3개만</b> 골라 매일 체크합니다.</p>
+    <div class="privacy"><i>🔒</i><div><b>기록은 이 브라우저에만 저장됩니다.</b> 서버로 보내지 않고, 가입·설치·광고가 없습니다. 창을 닫아도 이 기기에서는 남습니다.</div></div>
+  </header>
+
+  <section id="routineSection" aria-label="오늘의 루틴">
+    <div class="sec-h"><span class="sec-n">1</span><h2>오늘의 루틴</h2><span class="sub" id="todayLbl">—</span></div>
+
+    <div class="panel ring-panel" id="ringPanel">
+      <div class="ring-wrap">
+        <svg viewBox="0 0 180 180" aria-hidden="true">
+          <circle class="track" cx="90" cy="90" r="76"></circle>
+          <circle class="track" cx="90" cy="90" r="58"></circle>
+          <circle class="track" cx="90" cy="90" r="40"></circle>
+          <circle class="arc" id="arc0" cx="90" cy="90" r="76" stroke="#ff375f"></circle>
+          <circle class="arc" id="arc1" cx="90" cy="90" r="58" stroke="#30b45f"></circle>
+          <circle class="arc" id="arc2" cx="90" cy="90" r="40" stroke="#0a84ff"></circle>
+        </svg>
+        <div class="ring-center"><b id="ringNum">0/3</b><span>오늘</span></div>
+      </div>
+      <div class="ring-side">
+        <div class="streak"><b id="streakNum">0</b>일 연속</div>
+        <div class="streak-sub" id="streakSub">아직 고른 루틴이 없습니다.</div>
+      </div>
+    </div>
+
+    <div class="rt-list" id="rtList"></div>
+
+    <div class="rt-empty" id="rtEmpty">
+      <span class="big">먼저 3개를 골라 주세요</span>
+      아래 <b>2. 습관 고르기</b>에서 3개를 고르면 오늘 체크가 시작됩니다.
+    </div>
+
+    <div class="week" id="weekBox">
+      <div class="week-h"><b>이번 주 달성률</b><span class="wk" id="weekDays">최근 7일</span><span id="weekPct">0%</span></div>
+      <div class="week-bar" id="weekBar"></div>
+    </div>
+
+    <div class="acts">
+      <button class="btn" id="copyRoutine" type="button">루틴 문구 복사</button>
+      <button class="btn ghost" id="changeRoutine" type="button">루틴 바꾸기</button>
+    </div>
+  </section>
+
+  <section id="pickerSection" aria-label="습관 고르기">
+    <div class="sec-h"><span class="sec-n">2</span><h2>습관 고르기</h2><span class="sub">44가지 중 3개</span></div>
+
+    <div class="seg" id="goalTabs" role="group" aria-label="목표 고르기">
+      <button type="button" data-goal="focus" aria-pressed="true"><span class="em">🎯</span>집중<span class="n">11</span></button>
+      <button type="button" data-goal="body" aria-pressed="false"><span class="em">🌿</span>체력<span class="n">11</span></button>
+      <button type="button" data-goal="record" aria-pressed="false"><span class="em">✏️</span>기록<span class="n">11</span></button>
+      <button type="button" data-goal="tidy" aria-pressed="false"><span class="em">🧺</span>정리<span class="n">11</span></button>
+    </div>
+    <div class="quick"><button type="button" id="quickPick">고르기 귀찮으면 · 추천 3개로 바로 시작 →</button></div>
+
+    <div class="habits" id="habitList"></div>
+
+    <div class="pickbar">
+      <div class="cnt"><b id="selCount">0</b>/3 골랐어요</div>
+      <button class="btn" id="setRoutine" type="button" disabled>이 3개로 시작</button>
+    </div>
+  </section>
+
+  <section id="cardSection" aria-label="오늘의 성장 카드">
+    <div class="sec-h"><span class="sec-n">3</span><h2>오늘의 성장 카드</h2><span class="sub">이미지로 저장</span></div>
+    <div class="card-box">
+      <canvas id="cardOut" width="1080" height="1350" role="img" aria-label="오늘의 성장 카드 미리보기"></canvas>
+      <p class="card-note">1080×1350 · 폰에 저장해 두거나 단톡방에 보내기 좋은 크기입니다.</p>
+      <div class="acts">
+        <button class="btn" id="saveCard" type="button">카드 이미지 저장</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b>이 도구가 하지 않는 것</b><br>
+    이 화면은 습관을 세고 기록하는 도구입니다. 운동 처방이나 건강 상태에 대한 판단이 아니며, 몸이 불편하면 몸 상태에 맞게 습관을 바꿔 쓰시면 됩니다. 몸이나 마음이 오래 힘들면 가까운 의료기관·보건소에 상담해 주세요.<br>
+    <div class="linkrow">
+      <button type="button" id="resetToday">오늘 체크 초기화</button>
+      <button type="button" id="resetAll">기록 전체 지우기</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p style="padding:20px;font-family:sans-serif">이 도구는 브라우저에서 JavaScript를 켜야 동작합니다.</p></noscript>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ───────────────────────── 데이터: 생활습관 44 (11 × 4) ───────────────────────── */
+  var GOALS = {
+    focus:  { label:"집중", em:"🎯" },
+    body:   { label:"체력", em:"🌿" },
+    record: { label:"기록", em:"✏️" },
+    tidy:   { label:"정리", em:"🧺" }
+  };
+
+  var HABITS = [
+    { id:"f1",  g:"focus", n:"아침 물 한 잔",            m:1, t:"일어나서 제일 먼저. 컵 한 잔이면 충분합니다." },
+    { id:"f2",  g:"focus", n:"오늘 할 일 3개만 적기",     m:2, t:"10개 말고 3개. 나머지는 내일로 넘깁니다." },
+    { id:"f3",  g:"focus", n:"알림 20분만 꺼두기",        m:1, t:"집중할 때만 잠깐 꺼두는 것으로 충분합니다." },
+    { id:"f4",  g:"focus", n:"가장 미룬 일 5분만",        m:5, t:"끝내라는 말이 아니라, 손대기만." },
+    { id:"f5",  g:"focus", n:"책상 위 한 칸 치우기",      m:3, t:"전체 정리 말고 한 칸만." },
+    { id:"f6",  g:"focus", n:"첫 일정 소리 내어 확인",    m:1, t:"입으로 말하면 한 번 더 남습니다." },
+    { id:"f7",  g:"focus", n:"5분 타이머 한 판",          m:5, t:"5분이 지나면 멈춰도 됩니다." },
+    { id:"f8",  g:"focus", n:"머릿속 할 일 종이로 옮기기", m:3, t:"기억에 두지 말고 적어 둡니다." },
+    { id:"f9",  g:"focus", n:"안 읽은 알림 3개만 처리",   m:2, t:"3개만. 나머지는 그다음에." },
+    { id:"f10", g:"focus", n:"내일 쓸 것 미리 챙기기",    m:2, t:"아침에 찾는 시간이 줄어듭니다." },
+    { id:"f11", g:"focus", n:"하루 마무리 1분",           m:1, t:"오늘 한 일 하나만 떠올려 봅니다." },
+
+    { id:"b1",  g:"body", n:"기지개 한 번",              m:1, t:"일어나서 팔 위로 쭉." },
+    { id:"b2",  g:"body", n:"물 한 잔 더",               m:1, t:"한 번에 많이보다 자주." },
+    { id:"b3",  g:"body", n:"앉아서 어깨 돌리기",         m:2, t:"천천히 열 번." },
+    { id:"b4",  g:"body", n:"3분 걷기",                  m:3, t:"집 앞이면 충분합니다." },
+    { id:"b5",  g:"body", n:"햇빛 아래 2분",             m:2, t:"창가라도 괜찮습니다." },
+    { id:"b6",  g:"body", n:"눈 감고 60초",              m:1, t:"화면에서 잠깐 떨어지기." },
+    { id:"b7",  g:"body", n:"가까운 곳 한 번은 걸어가기", m:5, t:"엘리베이터 대신 한 층도 좋습니다." },
+    { id:"b8",  g:"body", n:"다리 스트레칭 1분",          m:1, t:"앉아서 발끝 당기기." },
+    { id:"b9",  g:"body", n:"숨 깊게 다섯 번",            m:1, t:"들이쉬고, 천천히 내쉬고." },
+    { id:"b10", g:"body", n:"발목 돌리기",               m:2, t:"앉아서도 됩니다." },
+    { id:"b11", g:"body", n:"무리하지 않는 선에서 몸 풀기", m:3, t:"아픈 동작은 빼고, 되는 것만." },
+
+    { id:"r1",  g:"record", n:"오늘 기분 한 단어",        m:1, t:"좋다·나쁘다 말고 한 단어로." },
+    { id:"r2",  g:"record", n:"감사한 일 한 줄",          m:2, t:"큰일 아니어도 됩니다." },
+    { id:"r3",  g:"record", n:"오늘 배운 것 한 줄",        m:2, t:"새로 안 게 없으면 몰랐던 것도 적기." },
+    { id:"r4",  g:"record", n:"오늘의 웃긴 일 하나",       m:2, t:"나중에 읽으면 제일 재밌습니다." },
+    { id:"r5",  g:"record", n:"칭찬받은 말 적어두기",      m:2, t:"들었을 때 바로." },
+    { id:"r6",  g:"record", n:"마음에 걸린 일 한 줄",      m:2, t:"해결 말고, 꺼내 두기만." },
+    { id:"r7",  g:"record", n:"오늘의 사진 한 장",         m:1, t:"잘 찍을 필요 없습니다." },
+    { id:"r8",  g:"record", n:"내일의 나에게 한 줄",       m:2, t:"짧을수록 다시 읽습니다." },
+    { id:"r9",  g:"record", n:"새로 안 단어 하나",         m:1, t:"하루 한 개면 1년에 365개." },
+    { id:"r10", g:"record", n:"하루를 세 단어로",          m:2, t:"세 단어면 충분합니다." },
+    { id:"r11", g:"record", n:"오늘 잘한 일 하나",         m:2, t:"작아도 인정해 주기." },
+
+    { id:"t1",  g:"tidy", n:"신발 가지런히",             m:1, t:"나갈 때 한 번." },
+    { id:"t2",  g:"tidy", n:"식탁 위 제자리",            m:2, t:"한 번에 하나씩." },
+    { id:"t3",  g:"tidy", n:"가방 속 영수증 버리기",      m:1, t:"모아두지 않기." },
+    { id:"t4",  g:"tidy", n:"세탁기 한 번 돌리기",        m:5, t:"버튼만 누르면 됩니다." },
+    { id:"t5",  g:"tidy", n:"냉장고 앞에서 3개 확인",     m:3, t:"먼저 먹을 것부터." },
+    { id:"t6",  g:"tidy", n:"안 쓰는 물건 하나",          m:2, t:"하나만. 많이 말고." },
+    { id:"t7",  g:"tidy", n:"휴대폰 사진 10장 정리",       m:3, t:"10장이면 3분." },
+    { id:"t8",  g:"tidy", n:"안 읽은 메일 3개 정리",       m:3, t:"읽고 지우기만." },
+    { id:"t9",  g:"tidy", n:"서랍 한 칸만",              m:3, t:"한 칸이면 충분합니다." },
+    { id:"t10", g:"tidy", n:"충전기·선 정리",            m:3, t:"묶어 두면 다음이 편합니다." },
+    { id:"t11", g:"tidy", n:"내일 입을 옷 미리",          m:2, t:"아침 5분이 줄어듭니다." }
+  ];
+
+  var BY_ID = {};
+  HABITS.forEach(function(h){ BY_ID[h.id] = h; });
+
+  var QUOTES = [
+    "오늘 1분이 내일의 나를 조금 바꿉니다.",
+    "크게 말고, 자주.",
+    "완벽한 하루보다 반복되는 하루.",
+    "어제의 나보다 한 걸음.",
+    "작심삼일도 세 번 하면 9일입니다.",
+    "기록하면 남고, 남으면 이어집니다.",
+    "안 된 날은 쉬는 날입니다. 다음 날 이어가면 됩니다.",
+    "남과 비교하지 않고, 어제와 비교합니다.",
+    "1분은 오늘 안에 있습니다.",
+    "정리는 버리는 일이 아니라 자리를 정하는 일.",
+    "적어두면 잊지 않습니다. 잊지 않으면 됩니다.",
+    "느린 사람이 결국 오래 갑니다.",
+    "잘한 일은 적어 두면 나중에 힘이 됩니다.",
+    "오늘 고른 3개면 충분합니다."
+  ];
+
+  var KEY = "habit44.v1";
+  var WD = ["일","월","화","수","목","금","토"];
+
+  /* ───────────────────────── 상태 ───────────────────────── */
+  var st = { v:1, routine:[], days:{} };
+  function load(){
+    try{
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return;
+      var o = JSON.parse(raw);
+      if(o && typeof o === "object"){
+        st.routine = Array.isArray(o.routine) ? o.routine.filter(function(x){ return x && BY_ID[x.id]; })
+                                              .map(function(x){ return { id:x.id }; }) : [];
+        st.days = (o.days && typeof o.days === "object") ? o.days : {};
+      }
+    }catch(e){ /* 저장소를 못 쓰면 그냥 새로 시작 */ }
+  }
+  function save(){
+    try{ localStorage.setItem(KEY, JSON.stringify({ v:1, routine:st.routine, days:st.days })); }catch(e){}
+  }
+  function pad(n){ return (n<10?"0":"")+n; }
+  function keyOf(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
+  function today(){ return keyOf(new Date()); }
+  function dateLabel(d){
+    return (d.getMonth()+1)+"월 "+d.getDate()+"일 ("+WD[d.getDay()]+")";
+  }
+  function routineIds(){ return st.routine.map(function(r){ return r.id; }); }
+  function doneToday(){
+    var rec = st.days[today()];
+    return (rec && Array.isArray(rec.done)) ? rec.done : [];
+  }
+  function isFull(k){
+    var rec = st.days[k];
+    if(!rec || !Array.isArray(rec.done) || !rec.total) return false;
+    return rec.done.length >= rec.total;
+  }
+  function streak(){
+    var n = 0, d = new Date();
+    if(!isFull(keyOf(d))) d.setDate(d.getDate()-1);
+    var guard = 0;
+    while(isFull(keyOf(d)) && guard < 3650){
+      n++; d.setDate(d.getDate()-1); guard++;
+    }
+    return n;
+  }
+  function weekStat(){
+    var sum = 0, tot = 0, days = [];
+    for(var i=6;i>=0;i--){
+      var d = new Date(); d.setDate(d.getDate()-i);
+      var k = keyOf(d), rec = st.days[k];
+      var dn = (rec && Array.isArray(rec.done)) ? rec.done.length : 0;
+      var tt = (rec && rec.total) ? rec.total : (st.routine.length || 3);
+      if(dn > tt) dn = tt;
+      sum += dn; tot += tt;
+      days.push({ k:k, d:d, pct: tt ? Math.round(dn/tt*100) : 0, full: isFull(k) });
+    }
+    return { pct: tot ? Math.round(sum/tot*100) : 0, days:days };
+  }
+
+  /* ───────────────────────── DOM ───────────────────────── */
+  function $(id){ return document.getElementById(id); }
+  var toastEl = $("toast"), toastT = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("on");
+    if(toastT) clearTimeout(toastT);
+    toastT = setTimeout(function(){ toastEl.classList.remove("on"); }, 1900);
+  }
+
+  /* ── 목표 탭 + 습관 목록 ── */
+  var curGoal = "focus";
+  var sel = [];          /* 고르는 중인 id (최대 3) */
+
+  function renderHabits(){
+    var list = $("habitList");
+    list.innerHTML = "";
+    var frag = document.createDocumentFragment();
+    HABITS.filter(function(h){ return h.g === curGoal; }).forEach(function(h){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "habit";
+      b.setAttribute("data-id", h.id);
+      var idx = sel.indexOf(h.id);
+      b.setAttribute("aria-pressed", idx >= 0 ? "true" : "false");
+
+      var num = document.createElement("span"); num.className = "num";
+      num.textContent = idx >= 0 ? String(idx+1) : "+";
+      var tx = document.createElement("span"); tx.className = "tx";
+      var nm = document.createElement("b"); nm.textContent = h.n;
+      var tp = document.createElement("span"); tp.textContent = h.t;
+      tx.appendChild(nm); tx.appendChild(tp);
+      var mn = document.createElement("span"); mn.className = "mn"; mn.textContent = h.m + "분";
+
+      b.appendChild(num); b.appendChild(tx); b.appendChild(mn);
+      b.addEventListener("click", function(){ toggleSelect(h.id); });
+      frag.appendChild(b);
+    });
+    list.appendChild(frag);
+    updatePickBar();
+  }
+
+  function toggleSelect(id){
+    var i = sel.indexOf(id);
+    if(i >= 0){
+      sel.splice(i,1);
+      renderHabits();
+      return;
+    }
+    if(sel.length >= 3){
+      toast("3개까지 고를 수 있어요. 하나를 빼고 골라 주세요.");
+      return;
+    }
+    sel.push(id);
+    renderHabits();
+    if(sel.length === 3) toast("3개를 골랐어요. 아래 버튼을 눌러 주세요.");
+  }
+
+  function updatePickBar(){
+    $("selCount").textContent = String(sel.length);
+    var btn = $("setRoutine");
+    if(sel.length === 3){
+      btn.removeAttribute("disabled");
+      btn.classList.add("ok");
+      btn.textContent = "이 3개로 시작";
+    }else{
+      btn.setAttribute("disabled","");
+      btn.classList.remove("ok");
+      btn.textContent = "3개를 고르면 시작";
+    }
+  }
+
+  $("goalTabs").addEventListener("click", function(e){
+    var b = e.target.closest ? e.target.closest("button[data-goal]") : null;
+    if(!b) return;
+    curGoal = b.getAttribute("data-goal");
+    [].forEach.call($("goalTabs").children, function(x){
+      x.setAttribute("aria-pressed", x === b ? "true" : "false");
+    });
+    renderHabits();
+  });
+
+  function commitRoutine(ids){
+    st.routine = ids.map(function(id){ return { id:id }; });
+    var k = today(), rec = st.days[k];
+    if(rec){
+      var keep = {};
+      ids.forEach(function(id){ keep[id] = 1; });
+      rec.done = (rec.done || []).filter(function(id){ return keep[id]; });
+      rec.total = ids.length;
+    }
+    save(); sel = []; renderHabits(); renderRoutine(); drawCard();
+  }
+
+  $("setRoutine").addEventListener("click", function(){
+    if(sel.length !== 3) return;
+    commitRoutine(sel.slice());
+    toast("오늘 루틴을 정했습니다. 하나씩 체크해 보세요.");
+    var el = $("routineSection");
+    try{ el.scrollIntoView({ behavior:"smooth", block:"start" }); }catch(e){ el.scrollIntoView(); }
+  });
+
+  $("quickPick").addEventListener("click", function(){
+    commitRoutine(["f1","b1","r1"]);
+    toast("추천 3개(물 한 잔 · 기지개 · 기분 한 단어)로 시작합니다.");
+    var el = $("routineSection");
+    try{ el.scrollIntoView({ behavior:"smooth", block:"start" }); }catch(e){ el.scrollIntoView(); }
+  });
+
+  $("changeRoutine").addEventListener("click", function(){
+    sel = routineIds().slice(0,3);
+    renderHabits();
+    toast("바꿀 3개를 다시 골라 주세요.");
+    var el = $("pickerSection");
+    try{ el.scrollIntoView({ behavior:"smooth", block:"start" }); }catch(e){ el.scrollIntoView(); }
+  });
+
+  /* ── 루틴 체크 ── */
+  function renderRoutine(){
+    var list = $("rtList");
+    list.innerHTML = "";
+    var has = st.routine.length > 0;
+    $("rtEmpty").hidden = has;
+
+    if(has){
+      var frag = document.createDocumentFragment();
+      st.routine.forEach(function(r){
+        var h = BY_ID[r.id];
+        if(!h) return;
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "rt";
+        b.setAttribute("data-id", h.id);
+        var done = doneToday().indexOf(h.id) >= 0;
+        b.setAttribute("aria-pressed", done ? "true" : "false");
+        b.setAttribute("aria-label", h.n + " " + (done ? "체크됨" : "체크하기"));
+
+        var ck = document.createElement("span"); ck.className = "ck";
+        ck.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4.3L19 7"/></svg>';
+        var tx = document.createElement("span"); tx.className = "tx";
+        var nm = document.createElement("b"); nm.textContent = h.n;
+        var tp = document.createElement("span"); tp.textContent = h.t;
+        tx.appendChild(nm); tx.appendChild(tp);
+        var mn = document.createElement("span"); mn.className = "mn"; mn.textContent = h.m + "분";
+
+        b.appendChild(ck); b.appendChild(tx); b.appendChild(mn);
+        b.addEventListener("click", function(){ toggleDone(h.id); });
+        frag.appendChild(b);
+      });
+      list.appendChild(frag);
+    }
+    renderRing();
+    renderWeek();
+    updateStreakText();
+    $("todayLbl").textContent = dateLabel(new Date());
+  }
+
+  function toggleDone(id){
+    var k = today();
+    var rec = st.days[k];
+    if(!rec){ rec = st.days[k] = { done:[], total: st.routine.length }; }
+    if(!rec.total) rec.total = st.routine.length;
+    var i = rec.done.indexOf(id);
+    if(i >= 0) rec.done.splice(i,1);
+    else{
+      rec.done.push(id);
+      if(rec.done.length === rec.total) toast("오늘 루틴 완료! 내일도 이 3개로 이어갑니다.");
+    }
+    save(); renderRoutine(); drawCard();
+  }
+
+  function renderRing(){
+    var total = st.routine.length || 3;
+    var done = doneToday().filter(function(id){ return routineIds().indexOf(id) >= 0; }).length;
+    if(done > total) done = total;
+    for(var i=0;i<3;i++){
+      var c = $("arc"+i);
+      if(!c) continue;
+      var r = parseFloat(c.getAttribute("r"));
+      var C = 2 * Math.PI * r;
+      c.setAttribute("stroke-dasharray", C.toFixed(2));
+      var on = i < total && i < done;
+      c.setAttribute("stroke-dashoffset", on ? "0" : C.toFixed(2));
+      c.style.opacity = (i < total) ? "1" : ".25";
+    }
+    $("ringNum").textContent = done + "/" + total;
+  }
+
+  function updateStreakText(){
+    var n = streak(), done = doneToday().length, total = st.routine.length;
+    $("streakNum").textContent = String(n);
+    var sub = $("streakSub");
+    if(!total){ sub.textContent = "아직 고른 루틴이 없습니다."; sub.className = "streak-sub"; return; }
+    if(done >= total){
+      sub.textContent = "오늘 루틴을 모두 채웠어요. 내일도 이 3개로.";
+      sub.className = "streak-sub done";
+    }else{
+      sub.textContent = "오늘 " + (total-done) + "개 남았습니다. 1분이면 됩니다.";
+      sub.className = "streak-sub";
+    }
+  }
+
+  function renderWeek(){
+    var w = weekStat(), bar = $("weekBar");
+    bar.innerHTML = "";
+    var frag = document.createDocumentFragment();
+    w.days.forEach(function(x, i){
+      var d = document.createElement("div");
+      d.className = "wd" + (i === 6 ? " today" : "");
+      var col = document.createElement("div"); col.className = "wcol";
+      var fill = document.createElement("div");
+      fill.className = "wfill" + (x.full ? " full" : "");
+      fill.style.height = Math.max(x.pct > 0 ? 8 : 0, x.pct) + "%";
+      col.appendChild(fill);
+      var lb = document.createElement("span");
+      lb.textContent = WD[x.d.getDay()];
+      d.appendChild(col); d.appendChild(lb);
+      d.setAttribute("aria-label", dateLabel(x.d) + " " + x.pct + "%");
+      frag.appendChild(d);
+    });
+    bar.appendChild(frag);
+    $("weekPct").textContent = w.pct + "%";
+    $("weekDays").textContent = "최근 7일";
+  }
+
+  /* ── 초기화 ── */
+  $("resetToday").addEventListener("click", function(){
+    delete st.days[today()];
+    save(); renderRoutine(); drawCard();
+    toast("오늘 체크를 지웠습니다.");
+  });
+  $("resetAll").addEventListener("click", function(){
+    var ok = true;
+    try{ ok = window.confirm("이 브라우저에 저장된 루틴과 기록을 모두 지웁니다. 계속할까요?"); }catch(e){ ok = false; }
+    if(!ok) return;
+    st = { v:1, routine:[], days:{} }; sel = [];
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    renderHabits(); renderRoutine(); drawCard();
+    toast("기록을 모두 지웠습니다.");
+  });
+
+  /* ───────────────────────── 카드 ───────────────────────── */
+  var cvs = $("cardOut"), ctx = cvs.getContext("2d");
+  var CW = 1080, CH = 1350;
+
+  function rr(c, x, y, w, h, r){
+    c.beginPath();
+    c.moveTo(x+r, y);
+    c.arcTo(x+w, y, x+w, y+h, r);
+    c.arcTo(x+w, y+h, x, y+h, r);
+    c.arcTo(x, y+h, x, y, r);
+    c.arcTo(x, y, x+w, y, r);
+    c.closePath();
+  }
+  var FONT = '"Gulim","GulimChe","Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif';
+  function f(w, s){ return w + " " + s + "px " + FONT; }
+
+  function wrap(c, text, maxW){
+    var lines = [], line = "";
+    for(var i=0;i<text.length;i++){
+      var ch = text[i];
+      var test = line + ch;
+      if(c.measureText(test).width > maxW && line){
+        lines.push(line); line = ch;
+      }else{
+        line = test;
+      }
+    }
+    if(line) lines.push(line);
+    return lines;
+  }
+
+  function arcRing(c, cx, cy, r, prog, color, lw, trackColor){
+    var C = 2 * Math.PI * r;
+    c.beginPath(); c.arc(cx, cy, r, 0, Math.PI*2);
+    c.strokeStyle = trackColor; c.lineWidth = lw; c.lineCap = "round"; c.stroke();
+    if(prog > 0.001){
+      c.beginPath();
+      c.arc(cx, cy, r, -Math.PI/2, -Math.PI/2 + Math.PI*2*prog);
+      c.strokeStyle = color; c.lineWidth = lw; c.lineCap = "round"; c.stroke();
+    }
+  }
+
+  function drawCard(){
+    var c = ctx;
+    c.save();
+    c.clearRect(0,0,CW,CH);
+
+    /* 배경 */
+    c.fillStyle = "#ffffff";
+    c.fillRect(0,0,CW,CH);
+    var g1 = c.createRadialGradient(920, 120, 20, 920, 120, 620);
+    g1.addColorStop(0, "rgba(10,132,255,.10)");
+    g1.addColorStop(1, "rgba(10,132,255,0)");
+    c.fillStyle = g1; c.fillRect(0,0,CW,CH);
+    var g2 = c.createRadialGradient(140, 1240, 20, 140, 1240, 620);
+    g2.addColorStop(0, "rgba(48,180,95,.10)");
+    g2.addColorStop(1, "rgba(48,180,95,0)");
+    c.fillStyle = g2; c.fillRect(0,0,CW,CH);
+
+    /* 헤더 */
+    var now = new Date();
+    c.textAlign = "left"; c.textBaseline = "alphabetic";
+    c.fillStyle = "#1d1d1f";
+    c.font = f("700", 40);
+    c.fillText("생활습관 44", 90, 128);
+    c.font = f("400", 30);
+    c.fillStyle = "#8e8e93";
+    c.textAlign = "right";
+    c.fillText(now.getFullYear() + "." + pad(now.getMonth()+1) + "." + pad(now.getDate()) + " (" + WD[now.getDay()] + ")", CW-90, 128);
+
+    /* 작은 표제 */
+    c.textAlign = "center";
+    c.font = f("700", 27);
+    c.fillStyle = "#c0bdb8";
+    c.fillText("오 늘 의   성 장   카 드", CW/2, 206);
+
+    /* 링 */
+    var total = st.routine.length || 3;
+    var done = doneToday().filter(function(id){ return routineIds().indexOf(id) >= 0; }).length;
+    if(done > total) done = total;
+    var cx = CW/2, cy = 470;
+    var colors = ["#ff375f", "#30b45f", "#0a84ff"];
+    var radii = [186, 146, 106];
+    for(var i=0;i<3;i++){
+      arcRing(c, cx, cy, radii[i], i < total ? (i < done ? 1 : 0) : 0,
+              colors[i], 30, "rgba(0,0,0,.06)");
+    }
+    var dtxt = String(done), ttxt = " / " + total;
+    c.font = f("700", 68);
+    var w1 = c.measureText(dtxt).width;
+    c.font = f("400", 34);
+    var w2 = c.measureText(ttxt).width;
+    var sx = cx - (w1 + w2) / 2;
+    var sBase = cy + 24;
+    c.textAlign = "left";
+    c.font = f("700", 68);
+    c.fillStyle = "#1d1d1f";
+    c.fillText(dtxt, sx, sBase);
+    c.font = f("400", 34);
+    c.fillStyle = "#8e8e93";
+    c.fillText(ttxt, sx + w1, sBase - 6);
+    c.textAlign = "center";
+    c.font = f("700", 26);
+    c.fillStyle = "#8e8e93";
+    c.fillText("오늘", cx, cy + 64);
+
+    /* 연속 */
+    var n = streak();
+    c.textAlign = "center";
+    c.fillStyle = "#1d1d1f";
+    c.font = f("700", 84);
+    var stxt = n + "일 연속";
+    c.fillText(stxt, cx, 790);
+
+    var sub;
+    if(!total) sub = "먼저 오늘의 루틴 3개를 골라 보세요.";
+    else if(done >= total) sub = "오늘 루틴을 모두 채웠습니다.";
+    else sub = "오늘 " + (total - done) + "개 남았습니다. 1분이면 됩니다.";
+    c.font = f("400", 32);
+    c.fillStyle = "#8e8e93";
+    c.fillText(sub, cx, 848);
+
+    /* 오늘 한 일 */
+    var y = 930;
+    if(total){
+      st.routine.slice(0,3).forEach(function(r, i){
+        var h = BY_ID[r.id];
+        if(!h) return;
+        var on = doneToday().indexOf(h.id) >= 0;
+        c.fillStyle = on ? "rgba(48,180,95,.10)" : "rgba(0,0,0,.035)";
+        rr(c, 120, y, 840, 78, 22); c.fill();
+
+        var bx = 158, by = y + 39;
+        c.beginPath(); c.arc(bx, by, 17, 0, Math.PI*2);
+        c.fillStyle = on ? "#30b45f" : "rgba(0,0,0,.10)";
+        c.fill();
+        if(on){
+          c.beginPath();
+          c.moveTo(bx-8, by);
+          c.lineTo(bx-2, by+7);
+          c.lineTo(bx+9, by-7);
+          c.strokeStyle = "#ffffff"; c.lineWidth = 4.5; c.lineCap = "round"; c.lineJoin = "round";
+          c.stroke();
+        }
+
+        c.textAlign = "left";
+        c.fillStyle = on ? "#176036" : "#5f5f66";
+        c.font = f("700", 33);
+        var nm = h.n;
+        var maxW = 600;
+        while(c.measureText(nm).width > maxW && nm.length > 4) nm = nm.slice(0, -2) + "…";
+        c.fillText(nm, 196, y + 51);
+
+        c.textAlign = "right";
+        c.fillStyle = "#a9a29a";
+        c.font = f("400", 25);
+        c.fillText(h.m + "분", 928, y + 50);
+        y += 88;
+      });
+    }
+
+    /* 문구 */
+    var q = QUOTES[(now.getFullYear()*372 + (now.getMonth()+1)*31 + now.getDate()) % QUOTES.length];
+    c.textAlign = "center";
+    c.font = f("400", 30);
+    c.fillStyle = "#6e6e73";
+    var ql = wrap(c, q, 780).slice(0, 2);
+    ql.forEach(function(l, i){ c.fillText(l, cx, 1238 + i*42); });
+
+    /* 푸터 */
+    c.font = f("400", 24);
+    c.fillStyle = "#a9a29a";
+    c.fillText("매일 1~5분 · 생활습관 44", cx, 1316);
+
+    c.restore();
+  }
+
+  $("saveCard").addEventListener("click", function(){
+    drawCard();
+    var d = new Date();
+    var name = "습관44-" + keyOf(d) + "-" + Date.now() + ".png";
+    try{
+      if(cvs.toBlob){
+        cvs.toBlob(function(blob){
+          if(!blob){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요."); return; }
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = name;
+          document.body.appendChild(a); a.click();
+          setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1200);
+          toast("카드를 저장했습니다 (1080×1350)");
+        }, "image/png");
+      }else{
+        var a2 = document.createElement("a");
+        a2.href = cvs.toDataURL("image/png"); a2.download = name; a2.click();
+        toast("카드를 저장했습니다 (1080×1350)");
+      }
+    }catch(err){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요."); }
+  });
+
+  /* ── 루틴 문구 복사 ── */
+  function routineText(){
+    var d = new Date();
+    var done = doneToday(), total = st.routine.length, n = streak(), w = weekStat();
+    var lines = [];
+    lines.push("[생활습관 44] " + d.getFullYear() + "년 " + (d.getMonth()+1) + "월 " + d.getDate() + "일 (" + WD[d.getDay()] + ")");
+    lines.push("");
+    if(!total){
+      lines.push("아직 오늘의 루틴을 고르지 않았습니다.");
+    }else{
+      lines.push("오늘의 루틴 " + total + "개 · " + done.length + "개 완료" + (n ? " (" + n + "일 연속)" : ""));
+      st.routine.forEach(function(r){
+        var h = BY_ID[r.id];
+        if(!h) return;
+        lines.push((done.indexOf(h.id) >= 0 ? "✔ " : "□ ") + h.n + " (" + h.m + "분)");
+      });
+      lines.push("");
+      lines.push("이번 주 " + w.pct + "%");
+    }
+    return lines.join("\n");
+  }
+
+  function copyText(text, btn, label){
+    function done(ok){
+      if(!btn) { toast(ok ? "복사했습니다" : "복사가 안 되면 길게 눌러 직접 복사해 주세요"); return; }
+      var old = btn.textContent;
+      btn.textContent = ok ? "복사됨" : "다시";
+      btn.classList.add("ok");
+      setTimeout(function(){ btn.textContent = old; btn.classList.remove("ok"); }, 1500);
+      if(!ok) toast("복사가 안 되면 길게 눌러 직접 복사해 주세요");
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ fallback(); });
+    }else{ fallback(); }
+    function fallback(){
+      try{
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.setAttribute("readonly","");
+        ta.style.position = "fixed"; ta.style.top = "-1000px"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand("copy");
+        ta.remove(); done(ok);
+      }catch(e){ done(false); }
+    }
+  }
+
+  $("copyRoutine").addEventListener("click", function(){
+    if(!st.routine.length){ toast("먼저 오늘의 루틴 3개를 골라 주세요."); return; }
+    copyText(routineText(), this);
+  });
+
+  /* ───────────────────────── 시작 ───────────────────────── */
+  load();
+  if(st.routine.length) sel = routineIds().slice(0,3);
+  renderHabits();
+  renderRoutine();
+  drawCard();
+})();
+</script>
+</body>
+</html>
