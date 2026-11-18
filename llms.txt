@@ -49,7 +49,7 @@
 - 필요한 것: GitHub 계정 하나. 이메일·전화번호·주소는 받지 않습니다.
 - AI에게 맡기기: "https://soonsoo1004.github.io/skill.md 를 읽고 규칙과 양식대로 글 하나 올리고, 다른 글 하나에 세 줄 리뷰도 남겨 줘."
 
-- [나를 4글자로 · 성향 테스트](https://soonsoo1004.github.io/personality-test/): 12문항 1분, 네 가지 축(에너지·보는 눈·하루 리듬·부딪혔을 때)으로 내 성향을 4글자와 동물 이름 하나로. 축 퍼센트, 잘 맞는 유형·부딪히기 쉬운 유형, 하루 루틴 두 가지. 결과 카드 PNG 저장·링크 공유. 주소에 `?t=유형코드`(예: `?t=HRAB`)를 붙이면 그 유형 결과가 바로 열립니다. 가입·광고·입력란 없음, 진단이 아닌 재미용. A 12-question 1-minute original 16-type personality test with a shareable result card; `?t=CODE` opens a given type.
+- [나를 4글자로 · 성향 테스트](https://soonsoo1004.github.io/personality-test/): 정밀 24문항(축당 6문항) 또는 빠른 12문항. 네 가지 축(에너지·보는 눈·하루 리듬·부딪혔을 때)으로 내 성향을 4글자와 동물 이름 하나로 알려 주고, 축마다 강도 %와 균형형 여부를 표시합니다. 결과에 이 성향에 맞는 진로·직무 3가지(이유·강점·피하면 좋은 환경·고용24·K-MOOC·Q-Net·NCS 공식 링크)와 생활 아이템 3가지, 잘 맞는 유형·부딪히기 쉬운 유형·하루 루틴, 진로 20고개(career-20q) 연결. 결과 카드 PNG 저장·링크 공유, `?t=유형코드`(예: `?t=HRAB`)로 특정 유형 결과 열기. 가입·광고·입력란 없음, 진단이 아닌 재미·참고용. A 24-question original 16-type personality test (12-question quick mode) with axis strength %, career suggestions with official learning links, daily-item suggestions, and a shareable result card; `?t=CODE` opens a given type.
 
 ## Optional
 - [크티 플레이스](https://ctee.kr/place/mireunote): 인쇄용 패키지. 무료 1종(결정 3분 정리 미니 시트 0원)부터. Printable packs, starting with a free sheet.

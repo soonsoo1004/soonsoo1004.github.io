@@ -3,181 +3,232 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>성향 테스트 — 나를 4글자로 · 오리지널 16유형 (12문항·약 1분)</title>
-<meta name="description" content="12문항, 1분이면 끝나는 오리지널 16유형 성향 테스트. 네 가지 축으로 내 성향을 4글자와 동물 이름으로 알려 주고, 잘 맞는 유형·부딪히기 쉬운 유형·나에게 맞는 하루 루틴까지 보여 줍니다. 가입·설치·광고 없이 폰에서 바로. 결과 카드 이미지로 저장해 친구에게 보낼 수 있습니다.">
+<title>성향 테스트 — 나를 4글자로 · 진로와 생활 아이템까지 (정밀 24문항)</title>
+<meta name="description" content="정밀 24문항(빠른 12문항도 선택)으로 네 가지 축의 강도까지 재는 오리지널 16유형 성향 테스트. 결과에서 이 성향에 맞는 진로·직무 3가지와 생활 아이템 3가지, 공식 학습 링크까지 한 화면에 정리합니다. 가입·설치·광고 없이 폰에서 바로, 결과 카드 이미지로 저장해 친구에게 보낼 수 있습니다.">
 <meta name="author" content="천장지구 1004">
 <meta name="robots" content="index,follow">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#fffaf3">
+<meta name="theme-color" content="#f5f5f7">
 <meta property="og:type" content="website">
-<meta property="og:title" content="나를 4글자로 — 오리지널 16유형 성향 테스트">
-<meta property="og:description" content="12문항 1분. 내 유형 배지 · 4축 퍼센트 · 잘 맞는 유형 · 나에게 맞는 하루 루틴까지. 결과 카드로 저장해서 친구에게 보내 보세요.">
+<meta property="og:title" content="나를 4글자로 — 정밀 24문항 성향 테스트">
+<meta property="og:description" content="네 축의 강도(%)까지. 결과에 진로·직무 3가지, 생활 아이템 3가지, 배울 수 있는 공식 링크까지.">
 <meta property="og:locale" content="ko_KR">
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root{
-  --cream:#fffaf3; --cream2:#fdf3e7; --card:#fffdfa;
-  --ink:#2f2a26; --ink2:#6b615a; --ink3:#9c9188;
-  --line:#efe2d3; --line2:#e3d3c1;
-  --accent:#d9663a; --accent2:#f7e3d6;
-  --mint:#2c9c7c; --sky:#4a7fd4; --violet:#7a5fc8; --gold:#c2851c;
+  --bg:#f5f5f7; --bg2:#ffffff; --card:#ffffff;
+  --ink:#1d1d1f; --ink2:#6e6e73; --ink3:#8e8e93;
+  --line:rgba(0,0,0,.08); --line2:rgba(0,0,0,.12);
+  --blue:#0071e3; --blue-d:#0062c4; --blue-soft:#eaf3fe;
+  --green:#1d8a5b; --green-soft:#eaf6f0;
+  --radius:24px; --radius-s:18px;
   --sans:Gulim,"GulimChe","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04), 0 12px 32px rgba(0,0,0,.05);
+  --shadow-s:0 1px 2px rgba(0,0,0,.05);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html,body{margin:0;padding:0;min-height:100%}
 body{
-  background:
-    radial-gradient(120% 60% at 50% -10%, #fff1e0 0%, rgba(255,241,224,0) 60%),
-    radial-gradient(90% 50% at 100% 100%, #e9f6ef 0%, rgba(233,246,239,0) 55%),
-    var(--cream);
-  color:var(--ink);
-  font-family:var(--sans);
-  font-size:17px; line-height:1.6;
+  background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:17px; line-height:1.6;
   -webkit-font-smoothing:antialiased;
   word-break:keep-all; overflow-wrap:break-word;
-  touch-action:manipulation;
-  min-height:100dvh;
+  touch-action:manipulation; min-height:100dvh;
 }
 button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
-a{color:var(--accent);text-decoration:none}
-
-#app{max-width:520px;margin:0 auto;padding:0 18px calc(28px + env(safe-area-inset-bottom));}
+a{color:var(--blue);text-decoration:none}
+#app{max-width:540px;margin:0 auto;padding:0 20px calc(40px + env(safe-area-inset-bottom));}
 
 /* ── 공통 ── */
-.screen{animation:fade .28s ease both}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--accent);
-  background:var(--accent2);border-radius:99px;padding:6px 12px;font-weight:700;letter-spacing:-.01em}
-h1{font-size:27px;line-height:1.35;letter-spacing:-.03em;margin:14px 0 8px;font-weight:700}
-h1 em{font-style:normal;color:var(--accent)}
-.lede{color:var(--ink2);font-size:15.5px;margin:0}
-.disclaimer{font-size:12.5px;color:var(--ink3);line-height:1.55;margin:14px 0 0}
+.screen{animation:fade .3s cubic-bezier(.32,.72,0,1) both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.eyebrow{display:inline-block;font-size:13px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
+h1{font-size:33px;line-height:1.28;letter-spacing:-.035em;margin:14px 0 12px;font-weight:700}
+h1 em{font-style:normal;color:var(--blue)}
+.lede{color:var(--ink2);font-size:16px;line-height:1.62;margin:0;letter-spacing:-.012em}
+.note{font-size:13px;color:var(--ink3);margin:14px 2px 0;line-height:1.6}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
-  min-height:58px;border-radius:18px;font-size:17.5px;font-weight:700;letter-spacing:-.02em;
-  transition:transform .12s ease, box-shadow .12s ease, background .15s ease}
-.btn.primary{background:linear-gradient(180deg,#e57345,#d25c30);color:#fff;
-  box-shadow:0 8px 20px rgba(210,92,48,.28), inset 0 1px 0 rgba(255,255,255,.35)}
-.btn.primary:active{transform:translateY(1px) scale(.995);box-shadow:0 4px 12px rgba(210,92,48,.24)}
-.btn.ghost{background:var(--card);border:1.5px solid var(--line2);color:var(--ink)}
-.btn.ghost:active{background:#fdf4ea}
-.btn.soft{background:#f5ece1;color:#6b4a34}
-.btn:disabled{opacity:.55}
+  min-height:56px;border-radius:16px;font-size:17px;font-weight:700;letter-spacing:-.02em;
+  transition:transform .14s cubic-bezier(.32,.72,0,1), background .16s ease, opacity .16s ease}
+.btn.primary{background:var(--blue);color:#fff;box-shadow:0 6px 18px rgba(0,113,227,.22)}
+.btn.primary:active{transform:scale(.985);background:var(--blue-d)}
+.btn.ghost{background:var(--card);border:1px solid var(--line2);color:var(--ink);box-shadow:var(--shadow-s)}
+.btn.ghost:active{background:#fafafc;transform:scale(.985)}
+.btn.plain{background:transparent;color:var(--blue);font-weight:700;min-height:48px}
+.btn:disabled{opacity:.45}
 .btnrow{display:flex;gap:10px}
 .btnrow .btn{flex:1}
-.note{font-size:12.5px;color:var(--ink3);text-align:center;margin:12px 0 0;line-height:1.5}
 
 /* ── 인트로 ── */
-.hero{padding:28px 0 8px;text-align:center}
-.badge-big{font-size:52px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 6px 12px rgba(217,102,58,.18))}
-.hero .lede{margin-top:6px}
-.axesbox{margin:26px 0 0;display:grid;gap:10px;text-align:left}
-.axis{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 15px;
-  display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;box-shadow:0 2px 8px rgba(120,90,60,.05)}
-.axis .ai{font-size:22px;text-align:center}
-.axis b{display:block;font-size:14.5px;letter-spacing:-.02em}
-.axis span{display:block;font-size:13px;color:var(--ink2);line-height:1.45}
-.cta{margin:26px 0 0}
-.ctameta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:14px}
-.pillmini{font-size:12px;color:var(--ink2);background:#fff;border:1px solid var(--line);
-  border-radius:99px;padding:5px 11px}
+.hero{padding:44px 0 6px}
+.hero .lede{max-width:30ch}
+.modes{display:grid;gap:12px;margin:34px 0 0}
+.mode{display:grid;grid-template-columns:1fr auto;grid-template-areas:"top chev" "desc chev";
+  align-items:center;column-gap:14px;row-gap:6px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;min-height:96px;box-shadow:var(--shadow-s);
+  transition:transform .14s cubic-bezier(.32,.72,0,1), box-shadow .16s ease}
+.mode:active{transform:scale(.985);box-shadow:var(--shadow)}
+.mode .mtop{grid-area:top;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mode b{font-size:19px;letter-spacing:-.03em;font-weight:700}
+.mode .tag{font-size:11.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);
+  border-radius:99px;padding:3px 9px;letter-spacing:0}
+.mode span.d{grid-area:desc;font-size:14px;color:var(--ink2);line-height:1.55;letter-spacing:-.01em}
+.mode .chev{grid-area:chev;justify-self:end;color:var(--ink3);font-size:22px;line-height:1}
+.axislist{display:grid;gap:1px;margin:30px 0 0;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--radius-s);overflow:hidden}
+.axisrow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;background:var(--card);
+  padding:15px 17px;align-items:baseline}
+.axisrow b{font-size:14.5px;font-weight:700;letter-spacing:-.02em}
+.axisrow span{font-size:13.5px;color:var(--ink2);line-height:1.45;letter-spacing:-.01em}
+.axisrow .k{font-size:12px;color:var(--ink3);font-weight:700;letter-spacing:.04em;grid-row:1/3;grid-column:2;align-self:center}
+.pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:22px}
+.pill{font-size:12.5px;color:var(--ink2);background:var(--card);border:1px solid var(--line);
+  border-radius:99px;padding:6px 12px}
+.disclaimer{font-size:12.5px;color:var(--ink3);line-height:1.65;margin:26px 2px 0}
 
 /* ── 퀴즈 ── */
-#quiz{min-height:100dvh;display:flex;flex-direction:column;padding-top:calc(10px + env(safe-area-inset-top))}
-.qtop{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;margin-bottom:14px}
-.iconbtn{width:44px;height:44px;border-radius:14px;background:#fff;border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--ink2)}
-.iconbtn:active{background:#fdf4ea}
-.iconbtn[disabled]{opacity:.35}
-.qcount{text-align:center;font-size:13px;color:var(--ink2);font-weight:700;letter-spacing:.02em}
-.qcount b{color:var(--accent);font-size:15px}
-.qbar{height:6px;border-radius:99px;background:#f0e4d6;overflow:hidden;margin:0 0 26px}
-.qbar i{display:block;height:100%;width:0%;border-radius:99px;
-  background:linear-gradient(90deg,#f0a06f,#d9663a);transition:width .25s ease}
-.qbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:6px}
-.qnum{font-size:12.5px;letter-spacing:.14em;color:var(--ink3);font-weight:700;margin-bottom:8px}
-.qtext{font-size:24px;line-height:1.4;font-weight:700;letter-spacing:-.03em;margin:0 0 6px}
-.qsub{font-size:13.5px;color:var(--ink3);margin:0 0 22px}
+#quiz{min-height:100dvh;display:flex;flex-direction:column;padding-top:calc(14px + env(safe-area-inset-top))}
+.qtop{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:6px}
+.iconbtn{width:48px;height:48px;border-radius:50%;background:var(--card);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:19px;color:var(--ink2);
+  box-shadow:var(--shadow-s)}
+.iconbtn:active{background:#f0f0f2}
+.iconbtn[disabled]{opacity:.3;box-shadow:none}
+.qcount{text-align:center;font-size:14px;color:var(--ink3);font-weight:700;letter-spacing:.01em}
+.qcount b{color:var(--ink);font-size:15px;font-variant-numeric:tabular-nums}
+.qbar{height:4px;border-radius:99px;background:#e6e6ea;overflow:hidden;margin:16px 2px 0}
+.qbar i{display:block;height:100%;width:0%;border-radius:99px;background:var(--blue);
+  transition:width .3s cubic-bezier(.32,.72,0,1)}
+.qbody{flex:1;display:flex;flex-direction:column;justify-content:center;padding:28px 0 8px}
+.qnum{font-size:12.5px;letter-spacing:.16em;color:var(--ink3);font-weight:700;margin-bottom:12px}
+.qtext{font-size:26px;line-height:1.4;font-weight:700;letter-spacing:-.035em;margin:0 0 10px}
+.qsub{font-size:14px;color:var(--ink3);margin:0 0 30px;line-height:1.5}
 .opts{display:grid;gap:12px}
-.opt{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center;text-align:left;
-  background:var(--card);border:1.5px solid var(--line2);border-radius:18px;
-  padding:18px 16px;min-height:74px;font-size:16.5px;line-height:1.45;letter-spacing:-.02em;
-  box-shadow:0 2px 10px rgba(120,90,60,.05);transition:transform .1s ease, border-color .15s ease, background .15s ease}
+.opt{display:grid;grid-template-columns:30px 1fr;gap:14px;align-items:center;text-align:left;
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--radius-s);
+  padding:20px 18px;min-height:80px;font-size:16.5px;line-height:1.45;letter-spacing:-.02em;
+  box-shadow:var(--shadow-s);transition:transform .12s ease, border-color .16s ease, background .16s ease}
 .opt:active{transform:scale(.99)}
-.opt .mk{width:30px;height:30px;border-radius:10px;background:#f6ecdf;color:#a8876c;
-  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
-.opt.sel{border-color:var(--accent);background:#fff7f0}
-.opt.sel .mk{background:var(--accent);color:#fff}
-.qfoot{padding-top:18px;font-size:12.5px;color:var(--ink3);text-align:center}
+.opt .mk{width:28px;height:28px;border-radius:50%;background:#f2f2f5;color:var(--ink3);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.opt.sel{border-color:var(--blue);background:var(--blue-soft)}
+.opt.sel .mk{background:var(--blue);color:#fff}
+.qfoot{padding:22px 0 6px;font-size:12.5px;color:var(--ink3);text-align:center}
 
 /* ── 결과 ── */
-#result{padding-top:calc(12px + env(safe-area-inset-top))}
-.friendband{display:flex;align-items:center;gap:10px;background:#eef7f2;border:1px solid #cfe9db;
-  color:#1f6e54;border-radius:14px;padding:11px 13px;font-size:13.5px;margin-bottom:16px;line-height:1.45}
+#result{padding-top:calc(16px + env(safe-area-inset-top))}
+.friendband{display:flex;align-items:flex-start;gap:10px;background:var(--blue-soft);border-radius:var(--radius-s);
+  color:#0b4c95;padding:14px 16px;font-size:14px;margin-bottom:16px;line-height:1.5}
 .friendband b{font-weight:700}
-.rcard{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 18px;
-  box-shadow:0 10px 30px rgba(120,90,60,.08);text-align:center;position:relative;overflow:hidden}
-.rcard:before{content:"";position:absolute;inset:-40% -40% auto auto;width:240px;height:240px;
-  background:radial-gradient(circle,#ffe9d5 0%,rgba(255,233,213,0) 70%);pointer-events:none}
-.rk{font-size:12px;letter-spacing:.16em;color:var(--ink3);font-weight:700}
-.remoji{font-size:64px;line-height:1.1;margin:6px 0 2px}
-.rname{font-size:29px;font-weight:700;letter-spacing:-.04em;margin:0}
-.rcode{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;letter-spacing:.22em;
-  color:var(--accent);background:var(--accent2);border-radius:99px;padding:5px 13px}
-.rtag{font-size:16.5px;font-weight:700;color:#5c4a3d;margin:14px 0 0;letter-spacing:-.02em;line-height:1.45}
-.rdesc{font-size:14.5px;color:var(--ink2);margin:10px 0 0;line-height:1.62;text-align:left}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 22px 26px;
+  box-shadow:var(--shadow);text-align:center}
+.rk{font-size:12px;letter-spacing:.14em;color:var(--ink3);font-weight:700}
+.remoji{font-size:64px;line-height:1.15;margin:20px 0 6px}
+.rname{font-size:31px;font-weight:700;letter-spacing:-.04em;margin:0}
+.rcode{display:inline-block;margin-top:12px;font-size:13px;font-weight:700;letter-spacing:.2em;
+  color:var(--blue);background:var(--blue-soft);border-radius:99px;padding:6px 14px}
+.rtag{font-size:17px;font-weight:700;color:var(--ink);margin:20px 0 0;letter-spacing:-.03em;line-height:1.5}
+.rdesc{font-size:15px;color:var(--ink2);margin:14px 0 0;line-height:1.72;text-align:left;letter-spacing:-.01em}
 
-.sec{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:20px;
-  padding:17px 16px;box-shadow:0 3px 12px rgba(120,90,60,.05)}
-.sech{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink3);
-  letter-spacing:.02em;margin:0 0 12px}
-.sech .ico{font-size:15px}
+.sec{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:24px 20px 20px;box-shadow:var(--shadow-s)}
+.sech{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 6px}
+.sech h3{font-size:13px;font-weight:700;color:var(--ink3);letter-spacing:.02em;margin:0}
+.sech .sub{font-size:12px;color:var(--ink3);letter-spacing:0}
+.seclead{font-size:16px;font-weight:700;letter-spacing:-.02em;margin:0 0 16px;line-height:1.5}
 
-.axrow{margin-bottom:14px}
-.axrow:last-child{margin-bottom:0}
-.axtop{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:14px;margin-bottom:5px}
-.axlab{font-weight:700;letter-spacing:-.02em}
-.axlab small{font-weight:400;color:var(--ink3);font-size:12px;letter-spacing:0;margin-right:7px}
-.axpct{font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
-.axbar{height:10px;border-radius:99px;background:#f2e7da;overflow:hidden}
-.axbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#f2a878,#d9663a);
-  width:0;transition:width .5s cubic-bezier(.2,.7,.3,1)}
-.axother{font-size:12px;color:var(--ink3);text-align:right;margin-top:3px}
+.axrow{padding:14px 0;border-top:1px solid var(--line)}
+.axrow:first-child{border-top:0;padding-top:4px}
+.axtop{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px}
+.axlab{font-size:15px;font-weight:700;letter-spacing:-.02em}
+.axlab small{display:block;font-weight:400;color:var(--ink3);font-size:12px;letter-spacing:0;margin-bottom:2px}
+.axright{text-align:right}
+.axpct{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.axstrength{display:block;font-size:11.5px;color:var(--ink3);font-weight:700;margin-top:1px}
+.axbar{height:8px;border-radius:99px;background:#eeeef1;overflow:hidden}
+.axbar i{display:block;height:100%;border-radius:99px;background:var(--blue);
+  width:0;transition:width .6s cubic-bezier(.32,.72,0,1)}
+.axother{font-size:12px;color:var(--ink3);margin-top:6px;display:flex;justify-content:flex-end;gap:8px}
 
-.chips{display:grid;gap:9px}
-.chipu{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:center;
-  background:#fdf7f0;border:1px solid #f0e0cf;border-radius:14px;padding:10px 12px;text-align:left}
-.chipu .e{font-size:22px;text-align:center}
-.chipu .n{font-size:14.5px;font-weight:700;letter-spacing:-.02em;display:block}
-.chipu .c{font-size:11.5px;color:var(--ink3);letter-spacing:.12em;font-weight:700}
-.chipu.hard{background:#f7f4fa;border-color:#e5ddf0}
-.chipu.hard .c{color:#8a79a6}
-.creason{font-size:12.5px;color:var(--ink3);margin:10px 0 0;line-height:1.5}
+.job{border-top:1px solid var(--line);padding:18px 0 4px}
+.job:first-of-type{border-top:0;padding-top:2px}
+.jobtop{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:baseline}
+.jnum{width:24px;height:24px;border-radius:50%;background:#f2f2f5;color:var(--ink2);
+  font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;align-self:start;margin-top:2px}
+.jtitle{font-size:17px;font-weight:700;letter-spacing:-.03em;margin:0;line-height:1.45}
+.jwhy{font-size:14px;color:var(--ink2);margin:6px 0 0 36px;line-height:1.6;letter-spacing:-.01em}
+.jmeta{margin:10px 0 0 36px;display:grid;gap:7px}
+.jline{display:grid;grid-template-columns:58px 1fr;gap:8px;font-size:13px;line-height:1.5}
+.jline .lb{font-size:11.5px;font-weight:700;color:var(--ink3);padding-top:2px}
+.jline .tx{color:#515156;letter-spacing:-.01em}
+.jline.avoid .tx{color:#8a5a3b}
+.jlink{display:flex;flex-wrap:wrap;gap:0 18px;margin:6px 0 0 36px}
+.jlink a{font-size:13.5px;font-weight:700;color:var(--blue);min-height:44px;
+  display:inline-flex;align-items:center;letter-spacing:-.02em}
+.jlink a:active{opacity:.6}
 
-.routines{display:grid;gap:10px}
-.rt{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14.5px;line-height:1.5;letter-spacing:-.01em}
-.rt .d{font-size:15px}
+.item{border-top:1px solid var(--line);padding:16px 0 4px;display:grid;grid-template-columns:26px 1fr;gap:10px}
+.item:first-of-type{border-top:0;padding-top:2px}
+.iname{font-size:15.5px;font-weight:700;letter-spacing:-.02em;margin:0;line-height:1.45}
+.iwhy{font-size:13.5px;color:var(--ink2);margin:5px 0 0;line-height:1.6;letter-spacing:-.01em}
+.itip{font-size:12.5px;color:var(--ink3);margin:7px 0 0;line-height:1.55}
 
-.actions{display:grid;gap:10px;margin-top:20px}
-.disclaim2{font-size:12px;color:var(--ink3);line-height:1.6;margin-top:16px;text-align:center}
+.pick{margin-top:4px;background:#fafafc;border:1px solid var(--line);border-radius:var(--radius-s);
+  padding:18px 16px;display:grid;gap:10px}
+.pick .plabel{font-size:11.5px;font-weight:700;color:var(--ink3);letter-spacing:.02em}
+.pick .pname{font-size:16.5px;font-weight:700;letter-spacing:-.03em;line-height:1.45}
+.pick .prow{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;line-height:1.25}
+.pick .price{font-size:14px;font-weight:600;color:var(--ink2);font-variant-numeric:tabular-nums}
+.pick .free{color:var(--green);background:var(--green-soft);border-radius:99px;padding:2px 9px;font-size:11.5px;font-weight:700}
+.pick .pwhy{font-size:13.5px;color:var(--ink2);line-height:1.6;letter-spacing:-.01em}
+.pick .pbtns{display:flex;gap:8px;flex-wrap:wrap}
+.pick .pbtns a{min-height:48px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:14px;font-size:14px;font-weight:700;padding:0 16px;letter-spacing:-.02em}
+.pick .pbtns .go{background:var(--blue);color:#fff}
+.pick .pbtns .all{background:#fff;color:var(--ink);border:1px solid var(--line2)}
+.adnote{font-size:12px;color:var(--ink3);line-height:1.6;margin:12px 2px 0}
 
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
-  background:#2f2a26;color:#fff;font-size:14px;padding:11px 18px;border-radius:99px;
+.chips{display:grid;gap:8px}
+.chipu{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;
+  background:#fafafc;border:1px solid var(--line);border-radius:14px;padding:11px 13px;text-align:left;min-height:52px}
+.chipu .e{font-size:21px;text-align:center}
+.chipu .n{font-size:14.5px;font-weight:700;letter-spacing:-.02em}
+.chipu .c{font-size:11px;color:var(--ink3);letter-spacing:.1em;font-weight:700}
+.creason{font-size:12.5px;color:var(--ink3);margin:12px 0 0;line-height:1.6}
+
+.routines{display:grid;gap:11px}
+.rt{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:14.5px;line-height:1.55;letter-spacing:-.01em}
+.rt .d{font-size:14px;opacity:.8}
+
+.actions{display:grid;gap:10px;margin-top:22px}
+.cta20{margin-top:14px;background:linear-gradient(180deg,#ffffff,#fbfbfd);border:1px solid var(--line);
+  border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-s)}
+.cta20 b{display:block;font-size:16px;letter-spacing:-.02em;margin-bottom:4px}
+.cta20 p{font-size:13.5px;color:var(--ink2);margin:0 0 14px;line-height:1.55}
+.cta20 a{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:14px;
+  background:var(--ink);color:#fff;font-weight:700;font-size:15.5px;letter-spacing:-.02em}
+.disclaim2{font-size:12px;color:var(--ink3);line-height:1.7;margin-top:20px}
+
+.toast{position:fixed;left:50%;bottom:calc(28px + env(safe-area-inset-bottom));transform:translate(-50%,16px);
+  background:rgba(29,29,31,.94);color:#fff;font-size:14px;padding:13px 20px;border-radius:16px;
   opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;z-index:50;
-  max-width:88vw;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.2)}
+  max-width:86vw;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 
-.foot{padding:26px 0 8px;text-align:center;font-size:12px;color:var(--ink3);line-height:1.7}
+.foot{padding:30px 0 6px;text-align:center;font-size:12px;color:var(--ink3);line-height:1.8}
 .foot a{color:var(--ink2);text-decoration:underline;text-underline-offset:2px}
 
-@media (max-width:360px){
+@media (max-width:374px){
   body{font-size:16px}
-  #app{padding:0 14px 22px}
-  h1{font-size:24px}
-  .qtext{font-size:21px}
-  .opt{font-size:15.5px;padding:16px 13px}
-  .rname{font-size:26px}
-  .remoji{font-size:56px}
+  #app{padding:0 16px calc(32px + env(safe-area-inset-bottom))}
+  h1{font-size:29px}
+  .qtext{font-size:23px}
+  .opt{font-size:15.5px;padding:18px 15px}
+  .rname{font-size:28px}
+  .remoji{font-size:58px}
+  .jwhy,.jmeta,.jlink{margin-left:0}
 }
 </style>
 </head>
@@ -187,24 +238,33 @@ h1 em{font-style:normal;color:var(--accent)}
   <!-- ───────── 인트로 ───────── -->
   <section id="intro" class="screen">
     <div class="hero">
-      <div class="badge-big" aria-hidden="true">🔮</div>
-      <span class="eyebrow">오리지널 16유형 · 우리가 만든 축</span>
-      <h1>나를 <em>4글자</em>로<br>알아보는 성향 테스트</h1>
-      <p class="lede">12문항, 1분. 네 가지 축으로 내 성향을 4글자와 동물 이름 하나로 알려 드립니다.</p>
+      <span class="eyebrow">오리지널 16유형 · 자체 문항</span>
+      <h1>나를 <em>4글자</em>로,<br>갈 곳까지</h1>
+      <p class="lede">네 가지 축의 강도(%)까지 재고, 이 성향에 맞는 진로 3가지와 생활 아이템 3가지를 함께 보여 드립니다.</p>
     </div>
 
-    <div class="axesbox" id="axesBox"></div>
-
-    <div class="cta">
-      <button class="btn primary" id="btnStart" type="button">시작하기 <span aria-hidden="true">→</span></button>
-      <div class="ctameta">
-        <span class="pillmini">12문항 · 약 1분</span>
-        <span class="pillmini">가입·설치 없음</span>
-        <span class="pillmini">광고 없음</span>
-        <span class="pillmini">입력란 없음</span>
-      </div>
-      <p class="disclaimer">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미로 보는 성향 참고용이고, 점수는 답변을 세는 방식이라 사람을 재단하지 못합니다. 이름·연락처 같은 개인정보를 받지도, 저장하지도 않습니다.</p>
+    <div class="modes">
+      <button class="mode" id="modePrecise" type="button">
+        <span class="mtop"><b>정밀 24문항</b><span class="tag">추천</span></span>
+        <span class="d">축마다 6문항 · 약 3분<br>강도 %와 균형형까지 촘촘하게</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
+      <button class="mode" id="modeQuick" type="button">
+        <span class="mtop"><b>빠른 12문항</b></span>
+        <span class="d">축마다 3문항 · 약 1분<br>4글자와 큰 방향만 먼저</span>
+        <span class="chev" aria-hidden="true">›</span>
+      </button>
     </div>
+
+    <div class="axislist" id="axesBox"></div>
+
+    <div class="pills">
+      <span class="pill">가입 없음</span>
+      <span class="pill">광고 없음</span>
+      <span class="pill">입력란 없음</span>
+    </div>
+
+    <p class="disclaimer">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미와 참고용이고, 점수는 답변을 세는 방식이라 사람을 재단하지 못합니다. 이름·연락처 같은 개인정보를 받지도, 저장하지도 않습니다.</p>
 
     <div class="foot">
       천장지구 1004 · <a href="../">다른 무료 도구 보기</a>
@@ -215,10 +275,10 @@ h1 em{font-style:normal;color:var(--accent)}
   <section id="quiz" class="screen" hidden>
     <div class="qtop">
       <button class="iconbtn" id="btnBack" type="button" aria-label="이전 질문">←</button>
-      <div class="qcount"><b id="qNow">1</b> / <span id="qAll">12</span></div>
+      <div class="qcount"><b id="qNow">1</b> / <span id="qAll">24</span></div>
       <button class="iconbtn" id="btnQuit" type="button" aria-label="그만두고 처음으로">✕</button>
     </div>
-    <div class="qbar" role="progressbar" aria-label="진행률" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="qBarWrap">
+    <div class="qbar" role="progressbar" aria-label="진행률" aria-valuemin="0" aria-valuemax="24" aria-valuenow="0" id="qBarWrap">
       <i id="qBar"></i>
     </div>
 
@@ -227,7 +287,7 @@ h1 em{font-style:normal;color:var(--accent)}
       <h2 class="qtext" id="qText">질문</h2>
       <p class="qsub">정답은 없어요. 더 끌리는 쪽을 누르면 됩니다.</p>
 
-      <div class="opts" id="opts">
+      <div class="opts">
         <button class="opt" id="optA" type="button"><span class="mk">A</span><span id="optAText"></span></button>
         <button class="opt" id="optB" type="button"><span class="mk">B</span><span id="optBText"></span></button>
       </div>
@@ -239,12 +299,12 @@ h1 em{font-style:normal;color:var(--accent)}
   <section id="result" class="screen" hidden>
     <div class="friendband" id="friendBand" hidden>
       <span aria-hidden="true">💌</span>
-      <span>친구가 <b id="friendName">이 유형</b>을 보내왔어요. 아래 버튼으로 나도 해볼 수 있어요.</span>
+      <span>친구가 <b id="friendName">이 유형</b>을 보내왔어요. 아래에서 유형과 어울리는 진로·아이템을 보시고, 나도 해보세요.</span>
     </div>
 
     <div class="rcard">
       <div class="rk" id="rKicker">나의 성향 유형</div>
-      <div class="remoji" id="rEmoji">🔮</div>
+      <div class="remoji" id="rEmoji" aria-hidden="true">🔮</div>
       <h2 class="rname" id="rName">유형</h2>
       <div class="rcode" id="rCode">CODE</div>
       <p class="rtag" id="rTag">한 줄 요약</p>
@@ -252,46 +312,68 @@ h1 em{font-style:normal;color:var(--accent)}
     </div>
 
     <div class="sec">
-      <div class="sech"><span class="ico" aria-hidden="true">📊</span>네 가지 축으로 본 나</div>
+      <div class="sech"><h3>네 가지 축</h3><span class="sub" id="modeNote"></span></div>
       <div id="axisList"></div>
-      <p class="creason" id="axisNote" hidden>친구가 고른 쪽만 보여 줍니다. 내 점수는 12문항을 마치면 나옵니다.</p>
+      <p class="creason" style="margin-top:14px">50%에 가까울수록 양쪽을 다 쓰는 균형형, 100%에 가까울수록 그쪽으로 뚜렷합니다.</p>
+      <p class="creason" id="axisNote" hidden>친구가 고른 쪽만 보여 줍니다. 내 점수는 문항을 마치면 나옵니다.</p>
     </div>
 
     <div class="sec">
-      <div class="sech"><span class="ico" aria-hidden="true">🤝</span>잘 맞는 유형</div>
+      <div class="sech"><h3>진로·직무</h3><span class="sub">이 성향에 맞는 3가지</span></div>
+      <p class="seclead" id="careerLead">왜 이 셋인지부터 보세요.</p>
+      <div id="careerList"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><h3>생활 아이템</h3><span class="sub">쓰면 만족도 높은 3가지</span></div>
+      <p class="seclead" id="itemLead">비싼 것보다 손이 자주 가는 것.</p>
+      <div id="itemList"></div>
+
+      <div class="pick" id="shopPick"></div>
+      <p class="adnote" id="adNote">위에 연결된 ‘미른노트’ 상품은 제가 직접 만들어 판매하는 유료 상품입니다(광고). 대가를 받고 남이 써 본 후기가 아니며, 필요할 때만 보세요. 가격은 상품 페이지 기준입니다.</p>
+    </div>
+
+    <div class="sec">
+      <div class="sech"><h3>함께 있으면 편한 유형</h3></div>
       <div class="chips" id="bestList"></div>
       <p class="creason" id="bestWhy"></p>
     </div>
 
     <div class="sec">
-      <div class="sech"><span class="ico" aria-hidden="true">🌩</span>부딪히기 쉬운 유형</div>
+      <div class="sech"><h3>부딪히기 쉬운 유형</h3></div>
       <div class="chips" id="hardList"></div>
       <p class="creason" id="hardWhy"></p>
     </div>
 
     <div class="sec">
-      <div class="sech"><span class="ico" aria-hidden="true">🌤</span>나에게 맞는 하루 루틴</div>
+      <div class="sech"><h3>나에게 맞는 하루 루틴</h3></div>
       <div class="routines" id="routineList"></div>
+    </div>
+
+    <div class="cta20">
+      <b>진로가 더 걸린다면</b>
+      <p>20개 질문으로 지금 상황을 정리하고, 붙잡을 직무 3가지와 3주 첫걸음을 만드는 무료 도구입니다.</p>
+      <a id="btnCareer20q" href="https://soonsoo1004.github.io/career-20q/">진로 고민 20고개 열기 →</a>
     </div>
 
     <div class="actions" id="actionsMine">
       <button class="btn primary" id="btnPng" type="button">결과 카드 이미지로 저장</button>
       <div class="btnrow">
         <button class="btn ghost" id="btnCopy" type="button">글·링크 복사</button>
-        <button class="btn soft" id="btnRetry" type="button">다시 하기</button>
+        <button class="btn ghost" id="btnRetry" type="button">다시 하기</button>
       </div>
       <p class="note">카톡에 붙여넣으면 친구는 내 유형부터 보고, 아래 버튼으로 자기 테스트를 시작합니다.</p>
     </div>
 
     <div class="actions" id="actionsFriend" hidden>
-      <button class="btn primary" id="btnMine" type="button">나도 테스트하기 · 12문항</button>
+      <button class="btn primary" id="btnMine" type="button">나도 해보기 · 24문항</button>
       <div class="btnrow">
         <button class="btn ghost" id="btnPng2" type="button">카드 저장</button>
         <button class="btn ghost" id="btnCopy2" type="button">링크 복사</button>
       </div>
     </div>
 
-    <p class="disclaim2">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미로 보는 성향 참고용입니다.<br>문항·유형 이름·설명은 천장지구 1004가 직접 만든 것으로, 다른 검사와 문항을 공유하지 않습니다.</p>
+    <p class="disclaim2">이 테스트는 의학적·심리학적 진단이 아닙니다. 재미로 보는 성향 참고용입니다.<br>문항·유형 이름·설명·진로 제안은 천장지구 1004가 직접 만든 것으로, 다른 검사와 문항·유형을 공유하지 않습니다. 진로 제안은 참고용이며 채용·자격 취득을 보장하지 않습니다.</p>
 
     <div class="foot">
       천장지구 1004 · <a href="../">다른 무료 도구 보기</a>
@@ -305,20 +387,22 @@ h1 em{font-style:normal;color:var(--accent)}
 (function(){
   "use strict";
 
-  /* ══════════ 1. 축과 문항 (3문항 × 4축 = 12문항, 동점 없음) ══════════ */
+  /* ══════════ 1. 축 ══════════ */
   var AXES = [
-    { key:"energy", name:"에너지", ai:"🔋", a:"H", al:"함께", b:"O", bl:"혼자",
+    { key:"energy", name:"에너지", a:"H", al:"함께", b:"O", bl:"혼자",
       desc:"사람 속에서 충전 / 혼자서 충전" },
-    { key:"view", name:"보는 눈", ai:"👀", a:"R", al:"현실", b:"D", bl:"상상",
+    { key:"view", name:"보는 눈", a:"R", al:"현실", b:"D", bl:"상상",
       desc:"있는 그대로 / 있을 수 있는 것" },
-    { key:"rhythm", name:"하루 리듬", ai:"🗓", a:"A", al:"계획", b:"L", bl:"자유",
+    { key:"rhythm", name:"하루 리듬", a:"A", al:"계획", b:"L", bl:"자유",
       desc:"정해 두면 편함 / 그때그때가 편함" },
-    { key:"stress", name:"부딪혔을 때", ai:"🌊", a:"B", al:"부딪힘", b:"C", bl:"거리두기",
+    { key:"stress", name:"부딪혔을 때", a:"B", al:"정면", b:"C", bl:"거리",
       desc:"바로 말한다 / 한발 물러선다" }
   ];
+  var AXIS_LETTERS = [["H","O"],["R","D"],["A","L"],["B","C"]];
 
-  // 표시 순서는 축을 번갈아 섞어 지루하지 않게. 일부는 보기 순서를 뒤집어 찍히지 않게.
-  var QUESTIONS = [
+  /* ══════════ 2. 문항 — 6라운드 × 4축 = 24문항, 앞 3라운드(12)가 빠른 모드 ══════════
+     k:true 는 동점(3:3)일 때 결정에 쓰는 문항. 보기 순서는 섞어 찍히지 않게. */
+  var FULL = [
     { ax:0, q:"주말 하루가 통째로 비었다. 나는?", o:[
       { t:"누구 부를까, 연락처부터 연다", p:"H" },
       { t:"아무도 안 부르는 게 좋다", p:"O" } ] },
@@ -331,6 +415,7 @@ h1 em{font-style:normal;color:var(--accent)}
     { ax:3, q:"누가 내 일에 대해 틀린 말을 했다?", o:[
       { t:"그 자리에서 바로 말한다", p:"B" },
       { t:"일단 두고, 나중에 정리해서 말한다", p:"C" } ] },
+
     { ax:0, q:"힘든 일이 생겼을 때 나는?", o:[
       { t:"사람 만나서 말하면서 푼다", p:"H" },
       { t:"혼자 정리될 때까지 생각한다", p:"O" } ] },
@@ -343,6 +428,7 @@ h1 em{font-style:normal;color:var(--accent)}
     { ax:3, q:"화가 났을 때, 나는?", o:[
       { t:"그 자리에서 말해야 풀린다", p:"B" },
       { t:"하루 자고 나면 괜찮아진다", p:"C" } ] },
+
     { ax:0, q:"모임이 끝나고 집에 오면?", o:[
       { t:"현관문 닫는 순간이 제일 좋다", p:"O" },
       { t:"아쉬워서 단톡방을 다시 본다", p:"H" } ] },
@@ -354,77 +440,319 @@ h1 em{font-style:normal;color:var(--accent)}
       { t:"지금 막 준비를 시작한다", p:"L" } ] },
     { ax:3, q:"하기 싫은 부탁을 받았다?", o:[
       { t:"“한번 해볼게요” 하고 피한다", p:"C" },
-      { t:"“이건 어렵겠어요” 바로 말한다", p:"B" } ] }
-  ];
+      { t:"“이건 어렵겠어요” 바로 말한다", p:"B" } ] },
 
-  /* ══════════ 2. 16유형 (자체 제작 — 동물 이름 + 4글자) ══════════ */
+    { ax:0, q:"점심을 먹을 때, 나는?", o:[
+      { t:"같이 먹을 사람을 찾는다", p:"H" },
+      { t:"혼자 먹는 시간이 좋다", p:"O" } ] },
+    { ax:1, q:"처음 보는 동네에 갔다. 길을 찾는 방식은?", o:[
+      { t:"지도와 건물 번호를 확인한다", p:"R" },
+      { t:"일단 걸으면서 감으로 잡는다", p:"D" } ] },
+    { ax:2, q:"새로 시작한 일, 첫 주에 나는?", o:[
+      { t:"순서표를 만들어 붙여 둔다", p:"A" },
+      { t:"해보면서 순서를 만든다", p:"L" } ] },
+    { ax:3, q:"상대가 말을 흐리면?", o:[
+      { t:"“정확히 어떻게 하자는 거예요?” 묻는다", p:"B" },
+      { t:"일단 듣고, 나중에 다시 확인한다", p:"C" } ] },
+
+    { ax:0, q:"좋은 일이 생겼을 때 가장 먼저?", o:[
+      { t:"누군가에게 전화한다", p:"H" },
+      { t:"혼자 그 기분을 좀 누린다", p:"O" } ] },
+    { ax:1, q:"물건을 고를 때 나는?", o:[
+      { t:"스펙과 후기를 비교한다", p:"R" },
+      { t:"끌리는 모양과 느낌을 따른다", p:"D" } ] },
+    { ax:2, q:"집 안 물건 위치는?", o:[
+      { t:"정해진 자리에 돌려놓는다", p:"A" },
+      { t:"일단 놓고 나중에 치운다", p:"L" } ] },
+    { ax:3, q:"단체 대화에서 의견이 갈리면?", o:[
+      { t:"내 의견을 먼저 말한다", p:"B" },
+      { t:"다들 말할 때까지 기다린다", p:"C" } ] },
+
+    { ax:0, q:"하루 종일 아무도 안 만났다. 기분은?", o:[
+      { t:"좀 답답하다, 누가 보고 싶다", p:"H" },
+      { t:"오히려 개운하다", p:"O" } ] },
+    { ax:1, q:"설명이 애매한 안내문을 봤다?", o:[
+      { t:"정확한 기준을 찾아본다", p:"R" },
+      { t:"의도가 뭘까 하고 상상한다", p:"D" } ] },
+    { ax:2, q:"여행에서 갑자기 일정이 틀어졌다?", o:[
+      { t:"다음 일정부터 다시 짠다", p:"A" },
+      { t:"그 자리에서 새로 정한다", p:"L" } ] },
+    { ax:3, q:"서운한 일이 있었다. 나는?", o:[
+      { t:"그 사람에게 바로 말한다", p:"B" },
+      { t:"거리를 조금 두고 지켜본다", p:"C" } ] }
+  ];
+  // 각 축의 3라운드 문항(8~11)을 동점(3:3) 결정 문항으로 지정
+  [8, 9, 10, 11].forEach(function(i){ FULL[i].k = true; });
+  var QUICK = FULL.slice(0, 12);
+
+  /* ══════════ 3. 16유형 ══════════ */
   var TYPES = {
     "HRAB":{ e:"☀️", n:"마당발 수달", t:"사람부터 모으고, 일은 미리 끝낸다",
       d:"약속이 비면 오히려 심심한 사람. 모임의 총무를 자연스럽게 맡고, 계획표는 이미 머릿속에 들어 있습니다. 싫은 소리도 그 자리에서 해서 뒤끝이 없습니다. 다만 혼자 있는 시간이 길어지면 이상하게 힘이 빠집니다.",
-      r:["아침 — 오늘 만날 사람 한 명에게 먼저 연락해 보기","저녁 — 내일 할 일 세 개만 적고 나머지는 비워 두기"] },
+      r:["아침 — 오늘 만날 사람 한 명에게 먼저 연락해 보기","저녁 — 내일 할 일 세 개만 적고 나머지는 비워 두기"],
+      cl:"사람을 상대하면서 순서와 기록을 함께 다루는 자리",
+      c:[
+        { n:"고객지원(CS) 운영 담당", w:"사람을 직접 만나면서 매뉴얼을 계속 다듬는 일이라 답답함이 적습니다.", s:"응대 속도 · 갈등 정리 · 기록", a:"하루 종일 혼자 화면만 보는 반복 입력", l:["work24","ncs"] },
+        { n:"행사·운영 코디네이터", w:"사람·일정·물건을 한 번에 굴리는 일이 이 조합의 원래 근육입니다.", s:"일정 짜기 · 현장 지휘 · 섭외", a:"마감 없이 같은 일이 반복되는 자리", l:["work24","kmooc"] },
+        { n:"공공·복지 프로그램 운영", w:"사람을 챙기면서 기록도 정확해야 하는 자리라 계획형 손이 살아납니다.", s:"안내 · 대장 정리 · 협조", a:"창구 단독 근무로 민원만 계속 받는 환경", l:["work24","qnet"] } ],
+      it:[
+        { n:"벽시계 또는 책상용 타이머", w:"사람을 이끄는 쪽은 시간이 눈에 보여야 약속을 안 놓칩니다.", t:"소리 크기 조절이 되는 제품이 낫습니다." },
+        { n:"라벨 프린터(소형)", w:"이름·자리·서류를 바로 붙이는 습관이 모임 운영의 속도를 만듭니다.", t:"리본 소모품 가격까지 보고 고르세요." },
+        { n:"보조배터리 10,000mAh", w:"연락이 끊기면 일이 멈추는 사람이라 충전은 안전장치입니다.", t:"무게 200g 안쪽이면 주머니에 부담이 적습니다." } ] },
+
     "HRAC":{ e:"🌿", n:"온화한 거북", t:"웃으면서, 선은 정확하게 긋는다",
       d:"사람 좋아하고 약속도 잘 지킵니다. 그런데 선을 넘는 순간엔 조용히 물러납니다. 화가 나도 하루 자고 나서 정리해서 말하는 쪽이라, 주변에서 “제일 어른스럽다”는 말을 자주 듣습니다.",
-      r:["아침 — 오늘 지킬 선 하나를 미리 정해 두기","저녁 — 오늘 참은 말 한 줄을 종이에 적어 두기"] },
+      r:["아침 — 오늘 지킬 선 하나를 미리 정해 두기","저녁 — 오늘 참은 말 한 줄을 종이에 적어 두기"],
+      cl:"사람을 가까이 두되 내 경계가 지켜지는 자리",
+      c:[
+        { n:"회계·경리 사무", w:"숫자와 약속을 정확히 지키는 성향이라 실수가 적고, 사람 상대는 적당히 있습니다.", s:"정확성 · 마감 준수 · 설명", a:"무리한 실적 압박이 걸린 영업 자리", l:["work24","qnet"] },
+        { n:"인사·총무 담당", w:"사람 마음을 읽으면서 규정대로 처리하는 일이 잘 맞습니다.", s:"배려 · 규정 해석 · 조율", a:"감정 소모가 큰 민원 창구 단독 근무", l:["work24","ncs"] },
+        { n:"도서관·민원 안내", w:"조용한 공간에서 사람을 차분히 안내하는 자리라 에너지가 덜 소모됩니다.", s:"안내 · 정리 · 신뢰", a:"소음이 크고 통제가 어려운 현장", l:["work24","kmooc"] } ],
+      it:[
+        { n:"서류 트레이 3단", w:"눈에 보이는 자리가 있으면 선을 지키기가 훨씬 쉬워집니다.", t:"A4가 살짝 넉넉한 크기가 실용적입니다." },
+        { n:"이어플러그(귀마개)", w:"사람 많은 공간에서 조용히 쉬는 방법이 필요합니다.", t:"차음 등급 표기(Snr)를 확인하세요." },
+        { n:"주간 다이어리", w:"약속과 내 시간을 한눈에 갈라 두는 용도입니다.", t:"한 주가 한 장에 펼쳐지는 형식이 좋습니다." } ] },
+
     "HRLB":{ e:"🔥", n:"즉흥 사자", t:"일단 부딪히고, 사람으로 푼다",
       d:"계획표보다 발이 먼저 나갑니다. 사람 만나면서 일이 풀리고, 갈등도 정면으로 붙어서 끝냅니다. 뒤끝이 없는 대신 주변은 가끔 숨이 찹니다.",
-      r:["아침 — 오늘 제일 하고 싶은 것 하나만 정하기","저녁 — 내일 첫 약속 시간만 확인하고 나머지는 열어 두기"] },
+      r:["아침 — 오늘 제일 하고 싶은 것 하나만 정하기","저녁 — 내일 첫 약속 시간만 확인하고 나머지는 열어 두기"],
+      cl:"그날그날 판이 벌어지고, 사람과 직접 부딪히는 자리",
+      c:[
+        { n:"영업·제휴 담당", w:"말과 추진력으로 판을 여는 일이라 계획이 없어도 결과가 납니다.", s:"설득 · 돌파 · 관계", a:"혼자 자료만 정리하는 조용한 자리", l:["work24","ncs"] },
+        { n:"이벤트·프로모션 진행", w:"현장에서 변수가 생길 때 즉석에서 메우는 힘이 큽니다.", s:"현장 대응 · 진행 · 에너지", a:"사전 승인만 기다리는 느린 조직", l:["work24","kmooc"] },
+        { n:"콘텐츠 진행(MC·라이브)", w:"즉흥 반응과 말맛이 그대로 쓰이는 자리입니다.", s:"말맛 · 분위기 · 순발력", a:"완벽한 대본과 반복 촬영만 하는 환경", l:["work24","ncs"] } ],
+      it:[
+        { n:"접이식 스마트폰 삼각대", w:"즉석에서 찍고 바로 보여 주는 일이 많은 성향입니다.", t:"높이 조절과 각도 고정을 우선하세요." },
+        { n:"크로스백", w:"양손이 비어 있어야 현장에서 움직입니다.", t:"A4 한 장이 들어가는 크기가 실용적입니다." },
+        { n:"화이트보드 스티커", w:"떠오른 판을 벽에 바로 붙여 두는 용도입니다.", t:"잘 지워지는 필름형이 편합니다." } ] },
+
     "HRLC":{ e:"🍃", n:"바람 같은 여우", t:"능청스럽게, 상처 없이 빠져나간다",
       d:"사람 사이를 가볍게 오가며 분위기를 살립니다. 정면 승부 대신 웃음으로 피하고, 싸움은 시간이 해결하게 둡니다. 정작 자기 속마음은 아무에게도 다 보여주지 않습니다.",
-      r:["아침 — 오늘 웃어넘길 일 하나를 미리 정해 두기","저녁 — 오늘 내 진짜 기분을 한 줄로 적어 보기"] },
+      r:["아침 — 오늘 웃어넘길 일 하나를 미리 정해 두기","저녁 — 오늘 내 진짜 기분을 한 줄로 적어 보기"],
+      cl:"사람을 오가며 분위기를 다루는 자리",
+      c:[
+        { n:"커뮤니티·SNS 운영", w:"여러 사람 사이를 오가며 말투를 맞추는 감각이 그대로 쓰입니다.", s:"눈치 · 말투 · 위기 넘기기", a:"감정적으로 몰아붙이는 응대 환경", l:["work24","kmooc"] },
+        { n:"마케팅 콘텐츠 운영", w:"기획서보다 반응을 보며 고치는 쪽이라 이 리듬과 잘 맞습니다.", s:"반응 읽기 · 표현 · 속도", a:"1년 단위 계획만 세우는 자리", l:["work24","ncs"] },
+        { n:"예약·여행 코디네이터", w:"변수 많은 예약을 사람 기분 상하지 않게 정리하는 일입니다.", s:"조율 · 대안 제시 · 친화력", a:"규정만 반복해서 읽어 주는 단순 응대", l:["work24","qnet"] } ],
+      it:[
+        { n:"미니 파우치 정리 세트", w:"가방을 자주 바꾸는 사람은 작은 정리가 제일 크게 작동합니다.", t:"지퍼 2~3개면 충분합니다." },
+        { n:"접이식 우산", w:"밖에서 시간을 보내는 날이 많으면 가방에 늘 있어야 합니다.", t:"자동 개폐는 무게가 늘어납니다." },
+        { n:"휴대용 손소독 티슈", w:"밖에서 먹고 만지는 일이 잦은 성향의 기본템입니다.", t:"낱개 포장이 오래갑니다." } ] },
+
     "HDAB":{ e:"🌈", n:"꿈꾸는 다람쥐", t:"상상은 크게, 일정표는 촘촘하게",
       d:"번뜩이는 아이디어를 그냥 두지 않고 계획표에 올려 하나씩 해냅니다. 사람들과 떠들다 보면 아이디어가 불어나고, 그걸 정리하는 것도 즐깁니다. 계획이 틀어지면 하루가 같이 흔들리는 게 약점입니다.",
-      r:["아침 — 떠오른 아이디어 하나를 세 단계로 쪼개기","저녁 — 못 한 일은 내일로 넘기고 스스로 칭찬하기"] },
+      r:["아침 — 떠오른 아이디어 하나를 세 단계로 쪼개기","저녁 — 못 한 일은 내일로 넘기고 스스로 칭찬하기"],
+      cl:"아이디어를 사람들과 키워 일정으로 떨어뜨리는 자리",
+      c:[
+        { n:"서비스 기획(PM)", w:"상상과 일정표를 동시에 다루는 사람이 가장 드물게 필요합니다.", s:"아이디어 구조화 · 일정 관리 · 소통", a:"의사결정 없이 요구만 쌓이는 조직", l:["work24","ncs"] },
+        { n:"교육 콘텐츠 기획", w:"머릿속 그림을 단계로 나눠 남에게 옮기는 일이 즐거운 편입니다.", s:"설계 · 설명 · 자료 만들기", a:"같은 교재만 반복 배포하는 자리", l:["work24","kmooc"] },
+        { n:"브랜드 마케팅 기획", w:"사람 반응을 보면서 아이디어를 고치는 일이라 지루할 틈이 적습니다.", s:"발상 · 협업 · 실행", a:"예산 없이 아이디어만 내라는 환경", l:["work24","kmooc"] } ],
+      it:[
+        { n:"자석 화이트보드(중형)", w:"떠오른 것을 눈앞에 붙여 두면 계획으로 넘어가기 쉬워집니다.", t:"벽 부착형은 무게를 확인하세요." },
+        { n:"포모도로 타이머", w:"아이디어가 많을수록 한 덩어리씩 끊는 장치가 필요합니다.", t:"소리 끄기가 되는 제품이 좋습니다." },
+        { n:"색 형광펜 4색", w:"메모를 성격별로 나눠 두면 정리가 빨라집니다.", t:"번지지 않는 잉크 타입을 고르세요." } ] },
+
     "HDAC":{ e:"🕯", n:"조용한 등불", t:"상상은 크게, 말은 천천히",
       d:"사람 곁에 있으면서도 자기 세계가 깊습니다. 머릿속엔 이미 완성된 그림이 있고, 그걸 말로 꺼내는 데는 시간이 걸립니다. 갈등은 잘 만들지 않지만, 속에 쌓이면 오래 갑니다.",
-      r:["아침 — 머릿속 그림 한 조각을 말이나 글로 꺼내 두기","저녁 — 오늘 고마웠던 사람 한 명 떠올리기"] },
+      r:["아침 — 머릿속 그림 한 조각을 말이나 글로 꺼내 두기","저녁 — 오늘 고마웠던 사람 한 명 떠올리기"],
+      cl:"상상한 것을 글로 꺼내 사람에게 닿게 하는 자리",
+      c:[
+        { n:"카피라이터·에디터", w:"짧은 문장으로 상대 마음을 움직이는 일이 이 조합의 강점입니다.", s:"문장 · 감정 읽기 · 다듬기", a:"즉석에서 큰 소리로 발표하는 자리", l:["work24","kmooc"] },
+        { n:"번역·교정", w:"혼자 오래 집중하면서 정확함을 지키는 일입니다.", s:"집중 · 정확성 · 문장 감각", a:"하루 수십 건씩 전화 응대가 붙는 자리", l:["work24","qnet"] },
+        { n:"UX 리서처", w:"사람 마음을 관찰해 말로 정리하는 일이라 말수 적어도 됩니다.", s:"관찰 · 인터뷰 정리 · 해석", a:"실시간으로 결론을 소리 내야 하는 회의", l:["work24","ncs"] } ],
+      it:[
+        { n:"각도 조절 독서대", w:"오래 앉아 글을 보는 사람에게는 목 각도가 곧 작업 시간입니다.", t:"접이식은 흔들림을 확인하세요." },
+        { n:"밀로그 노트(줄 없음)", w:"그림과 글을 같이 두는 사람은 줄이 없는 편이 편합니다.", t:"종이 두께 100g 이상이 좋습니다." },
+        { n:"소프트 조명 스탠드", w:"늦은 시간 작업에서 눈부심을 줄이는 용도입니다.", t:"밝기 단계와 색온도 조절이 있는 제품." } ] },
+
     "HDLB":{ e:"🎈", n:"들뜬 강아지", t:"번뜩이면 그 자리에서 해본다",
       d:"아이디어가 생기면 계획표 없이 바로 시작합니다. 사람들 사이에서 에너지가 붙고, 궁금한 건 끝까지 물어봅니다. 시작은 늘 화려하고 마무리는 조금 느립니다.",
-      r:["아침 — 오늘 시작할 것 하나, 끝낼 것 하나 정하기","저녁 — 시작만 해 둔 일 하나를 10분만 마무리하기"] },
+      r:["아침 — 오늘 시작할 것 하나, 끝낼 것 하나 정하기","저녁 — 시작만 해 둔 일 하나를 10분만 마무리하기"],
+      cl:"빠르게 시작하고 사람 반응을 바로 받는 자리",
+      c:[
+        { n:"콘텐츠 제작·편집", w:"찍고 바로 올려 반응을 보는 흐름이 이 리듬과 맞습니다.", s:"속도 · 감각 · 시도", a:"한 달짜리 승인만 기다리는 자리", l:["work24","kmooc"] },
+        { n:"퍼포먼스 마케팅", w:"작은 실험을 계속 돌리는 일이라 즉흥성이 무기가 됩니다.", s:"실험 · 수치 보기 · 빠른 수정", a:"정답표만 따라야 하는 반복 업무", l:["work24","ncs"] },
+        { n:"이벤트·체험 운영", w:"사람과 부대끼며 현장을 굴리는 일이 재미있는 쪽입니다.", s:"현장 에너지 · 진행 · 순발력", a:"조용한 사무실 단독 근무", l:["work24","kmooc"] } ],
+      it:[
+        { n:"스마트폰 리모컨 셔터", w:"혼자서도 찍고 확인하는 일이 많은 성향에 맞습니다.", t:"블루투스 연결 거리를 확인하세요." },
+        { n:"미니 삼각대+클립", w:"책상과 바닥 어디에나 붙여 쓸 수 있습니다.", t:"무게를 견디는 클립 세기를 보세요." },
+        { n:"타임박스(체크 시계)", w:"시작만 하고 마무리를 놓치는 습관을 잡아 줍니다.", t:"10·20·30분 단위가 있으면 충분합니다." } ] },
+
     "HDLC":{ e:"🌙", n:"밤하늘 고래", t:"감성으로 사람을 잇는다",
       d:"말수는 적은데 이상하게 사람이 모입니다. 분위기를 읽고, 싸움보다 여백을 택합니다. 혼자 상상하는 시간이 길고, 그 상상을 가끔 글로 꺼내 주변을 놀라게 합니다.",
-      r:["아침 — 오늘의 기분을 색이나 단어 하나로 정해 두기","저녁 — 좋았던 장면 하나를 사진이나 메모로 남기기"] },
+      r:["아침 — 오늘의 기분을 색이나 단어 하나로 정해 두기","저녁 — 좋았던 장면 하나를 사진이나 메모로 남기기"],
+      cl:"감정과 장면을 만들어 사람에게 전하는 자리",
+      c:[
+        { n:"일러스트레이터", w:"머릿속 장면을 직접 그려 내는 일이 이 유형의 자연스러운 출구입니다.", s:"색 · 분위기 · 꾸준함", a:"하루 수십 건 수정 요구가 쏟아지는 환경", l:["work24","kmooc"] },
+        { n:"스토리 작가(웹툰·영상)", w:"말보다 장면으로 이야기하는 쪽이 편한 사람에게 맞습니다.", s:"구성 · 감정선 · 대사", a:"회의에서 즉석 발표를 계속 해야 하는 자리", l:["work24","kmooc"] },
+        { n:"사운드·영상 편집", w:"혼자 오래 앉아 분위기를 다듬는 작업입니다.", s:"집중 · 감각 · 마감", a:"전화 응대가 계속 끼어드는 자리", l:["work24","ncs"] } ],
+      it:[
+        { n:"스케치북 + 펜 세트", w:"떠오른 장면을 바로 붙잡는 도구입니다.", t:"종이 두께 120g 이상이 번짐이 적습니다." },
+        { n:"무드등(따뜻한 색)", w:"밤 작업의 분위기를 만드는 데 실제로 자주 쓰입니다.", t:"밝기 최소 단계가 있는 제품." },
+        { n:"이어폰(밀폐형)", w:"주변 소리를 줄이고 자기 리듬으로 들어가는 용도입니다.", t:"케이블·충전 방식부터 확인하세요." } ] },
+
     "ORAB":{ e:"🦅", n:"고요한 매", t:"혼자서도, 정면으로, 끝까지",
       d:"말은 아끼지만 할 말은 합니다. 혼자 계획하고 혼자 해내는 데 익숙하고, 부탁은 받아도 도움은 잘 안 청합니다. 겉으로는 차가워 보이지만 속은 생각이 많습니다.",
-      r:["아침 — 오늘 혼자 끝낼 일 하나를 정하기","저녁 — 도움 한 번은 일부러 청해 보기"] },
+      r:["아침 — 오늘 혼자 끝낼 일 하나를 정하기","저녁 — 도움 한 번은 일부러 청해 보기"],
+      cl:"혼자 정확하게 끝내는 자리",
+      c:[
+        { n:"품질관리(QC)·검사", w:"기준을 정확히 적용하고 혼자 집중하는 일이 맞습니다.", s:"정확성 · 기준 준수 · 집중", a:"사람 응대가 계속 끼어드는 자리", l:["work24","qnet"] },
+        { n:"설비·기계 정비", w:"원인을 파고들어 직접 고치는 일에 강합니다.", s:"문제 추적 · 손기술 · 책임", a:"매뉴얼 없이 즉흥적으로만 돌아가는 현장", l:["work24","ncs"] },
+        { n:"데이터 검증·감사 보조", w:"숫자와 기록이 맞는지 끝까지 확인하는 성향입니다.", s:"꼼꼼함 · 근거 · 보고", a:"근거 없이 빨리 결론을 내라는 환경", l:["work24","qnet"] } ],
+      it:[
+        { n:"정밀 드라이버 세트", w:"직접 열어 보고 고치는 사람에게 기본입니다.", t:"비트 규격 표기를 확인하세요." },
+        { n:"방수 포켓 노트", w:"현장에서 바로 적는 습관이 원인 추적을 빠르게 합니다.", t:"젖어도 번지지 않는지를 보세요." },
+        { n:"라벨 메이커", w:"공구·부품 자리를 정해 두면 다음 작업이 빨라집니다.", t:"테이프 폭 종류를 확인하세요." } ] },
+
     "ORAC":{ e:"🐢", n:"단단한 거북", t:"조용히, 내 속도로, 정확하게",
       d:"남들 속도에 휘둘리지 않고 자기 페이스를 지킵니다. 싫은 건 싫다고 조용히 말하고, 화는 시간을 두고 삭힙니다. 한번 시작한 건 끝까지 가져갑니다.",
-      r:["아침 — 오늘의 속도(느긋·보통·빠름)를 미리 정해 두기","저녁 — 오늘 잘 지켜낸 것 하나 적기"] },
+      r:["아침 — 오늘의 속도(느긋·보통·빠름)를 미리 정해 두기","저녁 — 오늘 잘 지켜낸 것 하나 적기"],
+      cl:"자기 속도로 정확하게 처리하는 사무·정리 자리",
+      c:[
+        { n:"사무 행정·문서 관리", w:"정해진 절차를 정확히 지키는 힘이 그대로 평가받습니다.", s:"정확성 · 꾸준함 · 신뢰", a:"속도만 재촉하는 분위기", l:["work24","ncs"] },
+        { n:"데이터 입력·정리", w:"반복 속에서도 흐트러지지 않는 집중력이 필요합니다.", s:"집중 · 규칙 · 검산", a:"즉석에서 방향이 계속 바뀌는 자리", l:["work24","qnet"] },
+        { n:"회계·세무 보조", w:"기한과 순서를 지키는 일이 몸에 맞습니다.", s:"기한 준수 · 꼼꼼함 · 기록", a:"사람 응대가 계속 붙는 창구 업무", l:["work24","qnet"] } ],
+      it:[
+        { n:"서류 바인더 세트", w:"종이를 묶어 두는 방식이 정리 속도를 좌우합니다.", t:"링 두께와 표지 재질을 보세요." },
+        { n:"데스크 위 서랍 정리함", w:"손이 닿는 자리에 기준을 만드는 도구입니다.", t:"높이 조합이 되는 제품이 편합니다." },
+        { n:"독서대(각도 고정형)", w:"문서를 눈높이에 두면 오래 봐도 덜 지칩니다.", t:"흔들림 없는 힌지가 중요합니다." } ] },
+
     "ORLB":{ e:"🐗", n:"외골수 오소리", t:"내 길이면 밤새서라도 간다",
       d:"하고 싶은 게 정해지면 계획 없이도 끝까지 팝니다. 남이 뭐라 해도 크게 흔들리지 않고, 싫은 소리도 그 자리에서 합니다. 내 일에 끼어드는 건 유독 못 참습니다.",
-      r:["아침 — 오늘 밀고 나갈 것 하나만 정하기","저녁 — 한 가지는 일부러 남에게 물어보기"] },
+      r:["아침 — 오늘 밀고 나갈 것 하나만 정하기","저녁 — 한 가지는 일부러 남에게 물어보기"],
+      cl:"혼자 깊게 파서 결과물을 내는 자리",
+      c:[
+        { n:"소프트웨어 개발", w:"한 문제를 오래 붙잡고 끝까지 가는 힘이 그대로 쓰입니다.", s:"집중 · 문제 해결 · 자율", a:"회의가 하루를 다 잡아먹는 조직", l:["work24","ncs"] },
+        { n:"조사·리서치", w:"궁금한 것을 파고들어 근거로 정리하는 일입니다.", s:"탐구 · 근거 · 정리", a:"결론을 미리 정해 놓고 맞추는 자리", l:["work24","kmooc"] },
+        { n:"제작·목공·수리", w:"손으로 만들고 고치는 일은 혼자 몰입하기 좋습니다.", s:"손기술 · 완성도 · 책임", a:"과정 없이 결과만 재촉하는 환경", l:["work24","qnet"] } ],
+      it:[
+        { n:"기계식 키보드(저소음축)", w:"오래 치는 사람에게는 손목 부담과 소음이 중요합니다.", t:"축 종류와 소음을 비교하세요." },
+        { n:"헤드램프", w:"어두운 곳에서 손을 쓰는 일이 많은 성향에 맞습니다.", t:"밝기 단계와 충전 방식을 보세요." },
+        { n:"공구 정리함", w:"흩어진 공구를 찾는 시간이 몰입을 끊습니다.", t:"칸 조절이 되는 제품이 실용적입니다." } ] },
+
     "ORLC":{ e:"🦝", n:"느긋한 너구리", t:"적당히, 알아서, 편하게",
       d:"남 신경 안 쓰는 것 같으면서 은근히 다 보고 있습니다. 싫으면 말없이 빠지고, 화는 하루 지나면 잊습니다. 계획에 묶이는 것보다 그때그때가 편합니다.",
-      r:["아침 — 오늘 꼭 해야 할 것 하나만 정하기","저녁 — 오늘 흘려보낸 일 하나를 가볍게 넘겨 주기"] },
+      r:["아침 — 오늘 꼭 해야 할 것 하나만 정하기","저녁 — 오늘 흘려보낸 일 하나를 가볍게 넘겨 주기"],
+      cl:"정해진 틀 안에서 적당히 굴러가는 자리",
+      c:[
+        { n:"물류·재고 관리", w:"정해진 흐름을 크게 흔들리지 않고 따라가는 일입니다.", s:"안정 · 파악 · 처리", a:"실적 압박이 센 영업 자리", l:["work24","ncs"] },
+        { n:"시설·건물 관리", w:"돌아가는지 보고 고칠 곳을 알리는 일이 잘 맞습니다.", s:"점검 · 판단 · 연락", a:"사람 응대만 계속 몰리는 자리", l:["work24","qnet"] },
+        { n:"배송·운영 지원", w:"변수를 그때그때 처리하는 리듬이 편한 사람에게 맞습니다.", s:"현장 대응 · 동선 · 처리", a:"계획을 매일 다시 짜라는 자리", l:["work24","ncs"] } ],
+      it:[
+        { n:"접이식 손수레", w:"무거운 걸 한 번에 옮기는 게 결국 편합니다.", t:"바퀴 지름과 접힌 두께를 보세요." },
+        { n:"작업 장갑 2켤레", w:"손 보호는 미루면 바로 손해로 옵니다.", t:"코팅 유무로 용도가 갈립니다." },
+        { n:"멀티툴", w:"급할 때 하나로 해결되는 도구가 가장 자주 쓰입니다.", t:"잠금 방식과 무게를 확인하세요." } ] },
+
     "ODAB":{ e:"🦉", n:"밤샘 부엉이", t:"새벽에 혼자 다 짠다",
       d:"낮엔 조용하고 밤에 머리가 돕니다. 혼자 계획을 세우고, 결정은 빠르게 밀어붙입니다. 사람 많은 자리보다 한 명과 깊게 이야기하는 쪽을 좋아합니다.",
-      r:["아침 — 밤에 짠 계획 중 하나만 오늘 실행하기","저녁 — 화면 끄고 10분은 그냥 앉아 있기"] },
+      r:["아침 — 밤에 짠 계획 중 하나만 오늘 실행하기","저녁 — 화면 끄고 10분은 그냥 앉아 있기"],
+      cl:"혼자 분석하고 결정을 밀어붙이는 자리",
+      c:[
+        { n:"데이터 분석", w:"밤에 정리한 생각을 숫자로 확인하는 일이 맞습니다.", s:"분석 · 구조화 · 판단", a:"즉석 발표가 계속 이어지는 자리", l:["work24","kmooc"] },
+        { n:"연구·실험 보조", w:"한 주제를 깊게 파는 일은 혼자 있을 때 가장 잘 됩니다.", s:"집중 · 기록 · 검증", a:"사람 응대가 하루를 채우는 자리", l:["work24","kmooc"] },
+        { n:"보안·모니터링 관제", w:"이상한 것을 먼저 알아채고 조용히 대응하는 일입니다.", s:"관찰 · 판단 · 기록", a:"큰 소리로 계속 소통해야 하는 환경", l:["work24","qnet"] } ],
+      it:[
+        { n:"암막 커튼", w:"낮에 자는 사람에게는 빛 차단이 수면 환경을 바꿉니다.", t:"암막률 표기와 핀 고정 방식을 보세요." },
+        { n:"모니터 조명(바 타입)", w:"화면 주변을 밝혀 눈부심을 줄이는 용도입니다.", t:"밝기·색온도 조절이 되는 제품." },
+        { n:"저소음 마우스", w:"밤 작업에서 클릭 소리를 줄입니다.", t:"무소음 스위치 표기를 확인하세요." } ] },
+
     "ODAC":{ e:"🐈", n:"방구석 고양이", t:"혼자 조용히, 완성형",
       d:"혼자 있는 시간이 곧 충전입니다. 머릿속 계획은 세밀하고, 싫은 건 말없이 피합니다. 겉으론 무심한데 챙길 사람은 조용히 다 챙깁니다.",
-      r:["아침 — 오늘 혼자만의 30분을 미리 확보하기","저녁 — 챙기고 싶은 사람에게 짧은 안부 한 줄"] },
+      r:["아침 — 오늘 혼자만의 30분을 미리 확보하기","저녁 — 챙기고 싶은 사람에게 짧은 안부 한 줄"],
+      cl:"조용한 공간에서 혼자 완성도를 올리는 자리",
+      c:[
+        { n:"번역·감수", w:"말 없이 오래 집중하는 일이 가장 자연스럽습니다.", s:"정확성 · 집중 · 문장력", a:"전화·방문 응대가 잦은 자리", l:["work24","kmooc"] },
+        { n:"편집·교정", w:"남의 글을 다듬어 완성도를 올리는 일입니다.", s:"꼼꼼함 · 기준 · 마감", a:"회의에서 즉석 의견을 계속 내야 하는 자리", l:["work24","ncs"] },
+        { n:"원격 개발·운영", w:"혼자 일하는 환경이 곧 성과로 이어집니다.", s:"집중 · 자기관리 · 문제 해결", a:"자리에서 계속 불려 다니는 환경", l:["work24","ncs"] } ],
+      it:[
+        { n:"무릎 담요", w:"집중하는 동안 몸이 차가워지는 걸 막는 기본템입니다.", t:"세탁 가능한 소재인지 확인하세요." },
+        { n:"노트북 받침대", w:"집에서 오래 앉아 일하는 사람에게 체감이 큽니다.", t:"높이·각도 조절이 되는 제품." },
+        { n:"소형 가습기", w:"방 안 공기를 덜 건조하게 유지하는 생활용품입니다.", t:"물통 분리 세척이 되는지 보세요." } ] },
+
     "ODLB":{ e:"🐺", n:"떠돌이 늑대", t:"혼자서도 돌진한다",
       d:"하고 싶으면 혼자서라도 판을 벌입니다. 계획은 즉석에서 짜고, 마음에 안 들면 바로 말합니다. 함께 가자는 제안은 많은데, 인원이 늘면 피곤해집니다.",
-      r:["아침 — 오늘 혼자 벌일 판 하나 정하기","저녁 — 오늘 부딪힌 사람에게 짧은 사과나 감사 한 줄"] },
+      r:["아침 — 오늘 혼자 벌일 판 하나 정하기","저녁 — 오늘 부딪힌 사람에게 짧은 사과나 감사 한 줄"],
+      cl:"혼자 판을 벌이고 빠르게 결과를 내는 자리",
+      c:[
+        { n:"프리랜서 디자인·제작", w:"혼자 시작해서 끝내는 방식이 편한 사람에게 맞습니다.", s:"실행력 · 감각 · 책임", a:"매일 승인을 기다려야 하는 조직", l:["work24","kmooc"] },
+        { n:"1인 콘텐츠·상품 판매", w:"기획·제작·판매를 혼자 돌리는 일입니다.", s:"자기 주도 · 실행 · 응대", a:"사람이 많아 결정이 느린 환경", l:["work24","ncs"] },
+        { n:"개발 외주", w:"한 건씩 혼자 책임지고 끝내는 구조가 잘 맞습니다.", s:"집중 · 일정 관리 · 완성", a:"회의 비중이 큰 상주 근무", l:["work24","ncs"] } ],
+      it:[
+        { n:"휴대용 SSD", w:"작업 파일을 들고 움직이는 사람의 필수품입니다.", t:"속도 규격(USB 3.2)을 확인하세요." },
+        { n:"노트북 거치대(접이식)", w:"카페·집 어디서든 작업 높이를 맞춥니다.", t:"무게와 각도 고정력을 보세요." },
+        { n:"이어플러그(카페용)", w:"소음 많은 곳에서 혼자 집중하는 데 필요합니다.", t:"반복 사용 가능한 실리콘 타입." } ] },
+
     "ODLC":{ e:"🌫", n:"안개 속 산책자", t:"머릿속에서 이미 여행 중",
       d:"상상이 많고 혼자가 편합니다. 갈등은 피하고, 대신 마음속에 자기만의 풍경을 쌓습니다. 한 번 마음을 열면 깊고 오래 갑니다. 다만 해야 할 일은 자꾸 뒤로 밀립니다.",
-      r:["아침 — 오늘 꼭 끝낼 일 하나를 눈에 보이는 곳에 붙이기","저녁 — 머릿속 풍경을 한 줄 시로 적기"] }
+      r:["아침 — 오늘 꼭 끝낼 일 하나를 눈에 보이는 곳에 붙이기","저녁 — 머릿속 풍경을 한 줄 시로 적기"],
+      cl:"혼자 오래 머물며 자기 세계를 기록하는 자리",
+      c:[
+        { n:"글쓰기(작가·에세이)", w:"혼자 쌓은 장면을 글로 꺼내는 일이 가장 자연스럽습니다.", s:"관찰 · 문장 · 꾸준함", a:"실시간으로 반응을 요구하는 자리", l:["work24","kmooc"] },
+        { n:"사진·영상 기록", w:"말 없이 장면을 남기는 방식이 편한 사람에게 맞습니다.", s:"시선 · 기다림 · 편집", a:"하루 여러 건 촬영을 재촉하는 환경", l:["work24","ncs"] },
+        { n:"자료·아카이브 정리", w:"조용히 모으고 분류하는 일이 오래 갑니다.", s:"분류 · 기록 · 인내", a:"사람 응대가 계속 붙는 자리", l:["work24","qnet"] } ],
+      it:[
+        { n:"포켓 노트 3권 묶음", w:"떠오른 장면을 바로 적는 습관이 원고가 됩니다.", t:"주머니에 들어가는 크기." },
+        { n:"슬링백", w:"가볍게 들고 나가는 산책용 가방입니다.", t:"몸에 붙는 형태가 피로가 적습니다." },
+        { n:"필름 카메라(또는 컴팩트)", w:"한 장 한 장 아끼는 방식이 이 성향과 잘 맞습니다.", t:"필름값까지 생각해 고르세요." } ] }
   };
 
-  var AXIS_LETTERS = [["H","O"],["R","D"],["A","L"],["B","C"]];
+  /* ══════════ 4. 직접 만들어 파는 상품 (리틀리 샵, 2026-11-18 확인) ══════════ */
+  var SHOP = {
+    life:{ id:"e5H2gyJ", n:"설치 없이 열리는 생활 도구 6종", price:"4,900원",
+      why:"루틴 체크보드·집중 타이머·선택장애 정리 시트를 한 묶음으로 담았습니다." },
+    free:{ id:"2jmNrOS", n:"결정 3분 정리 시트", price:"0원", free:true,
+      why:"고르기 어려운 순간에 3분만 쓰는 무료 시트입니다. 즉흥적으로 정하는 편이 먼저 써 보기 좋습니다." },
+    checklist:{ id:"ePFaJRA", n:"이사·재계약 전 관리비·하자 점검표", price:"4,900원",
+      why:"계약 전에 확인할 것을 표로 훑는 문서입니다. 꼼꼼한 쪽에 맞는 실무형 도구입니다." },
+    security:{ id:"d1qKOgn", n:"해킹·스미싱 원클릭 긴급대처 허브", price:"4,900원",
+      why:"공식 조회 창구와 대처 순서를 한 장에 모은 자료입니다. 혼자 확인하는 편에 맞습니다." },
+    hongik:{ id:"DZrEjEN", n:"홍익 한 줄 · 따뜻한 응원 카드 8종", price:"4,900원",
+      why:"마음을 말로 꺼내기 어려울 때 대신 건네는 카드입니다. 감정을 문장으로 다루는 편에 맞습니다." }
+  };
+  var SHOP_PICK = {
+    HRAB:"life", HRAC:"checklist", HRLB:"free", HRLC:"free",
+    HDAB:"life", HDAC:"hongik", HDLB:"free", HDLC:"hongik",
+    ORAB:"security", ORAC:"checklist", ORLB:"security", ORLC:"life",
+    ODAB:"security", ODAC:"life", ODLB:"free", ODLC:"hongik"
+  };
+  var SHOP_HOME = "https://litt.ly/mireunote";
+  var SHOP_WHY = {
+    HRAB:"사람을 모으는 편이면 루틴표를 남에게 보여 주는 데 바로 씁니다.",
+    HRAC:"확인할 것을 종이에 남기는 방식이 편한 성향입니다.",
+    HRLB:"즉흥적으로 정하는 날, 3분짜리 정리 시트가 가장 가볍습니다.",
+    HRLC:"가볍게 시작하는 쪽이라 무료 시트부터가 맞습니다.",
+    HDAB:"아이디어를 표와 타이머로 떨어뜨릴 때 가장 자주 열게 됩니다.",
+    HDAC:"말로 못 한 마음을 카드로 건네는 방식이 어울립니다.",
+    HDLB:"일단 해보는 성향이라 3분 정리부터가 부담이 적습니다.",
+    HDLC:"감정을 담아 건네는 카드가 이 유형의 언어입니다.",
+    ORAB:"혼자 확인하고 정리하는 자료가 맞습니다.",
+    ORAC:"순서대로 확인하는 표가 손에 익습니다.",
+    ORLB:"혼자 점검하고 끝내는 자료가 편합니다.",
+    ORLC:"정해진 표에 하나씩 표시하는 방식이 부담이 적습니다.",
+    ODAB:"혼자 조용히 확인하는 자료가 맞습니다.",
+    ODAC:"집에서 조용히 쓰는 도구 묶음이 어울립니다.",
+    ODLB:"혼자 빠르게 결정할 때 쓰는 무료 시트가 맞습니다.",
+    ODLC:"문장으로 마음을 남기는 쪽이라 카드가 어울립니다."
+  };
+  var LINKS = {
+    work24:{ u:"https://www.work24.go.kr", l:"고용24 직업정보" },
+    kmooc:{ u:"https://www.kmooc.kr", l:"K-MOOC 강좌" },
+    qnet:{ u:"https://www.q-net.or.kr", l:"Q-Net 자격정보" },
+    ncs:{ u:"https://www.ncs.go.kr", l:"NCS 직무정보" }
+  };
 
-  /* ══════════ 3. 상태 ══════════ */
+  /* ══════════ 5. 상태 ══════════ */
   var SITE = "https://soonsoo1004.github.io/personality-test/";
-  var state = { idx:0, answers:new Array(QUESTIONS.length).fill(null), mode:"mine", code:null, percents:null, lock:false };
+  var state = { idx:0, answers:[], qs:QUICK, mode:"full", code:null, percents:null, lock:false };
 
   var $ = function(id){ return document.getElementById(id); };
   var intro = $("intro"), quiz = $("quiz"), result = $("result");
 
-  /* 인트로 축 카드 */
-  (function(){
+  (function initAxes(){
     var box = $("axesBox"), html = "";
     AXES.forEach(function(ax){
-      html += '<div class="axis"><div class="ai" aria-hidden="true">' + ax.ai + '</div>' +
-        '<div><b>' + ax.name + ' — ' + ax.al + ' / ' + ax.bl + '</b>' +
-        '<span>' + ax.desc + '</span></div></div>';
+      html += '<div class="axisrow"><b>' + ax.name + ' — ' + ax.al + ' / ' + ax.bl + '</b>' +
+        '<span>' + ax.desc + '</span><span class="k">' + ax.a + ax.b + '</span></div>';
     });
     box.innerHTML = html;
   })();
@@ -436,17 +764,17 @@ h1 em{font-style:normal;color:var(--accent)}
     window.scrollTo(0, 0);
   }
 
-  /* ══════════ 4. 퀴즈 ══════════ */
+  /* ══════════ 6. 퀴즈 ══════════ */
   function renderQ(){
-    var q = QUESTIONS[state.idx];
+    var q = state.qs[state.idx];
     $("qNow").textContent = state.idx + 1;
-    $("qAll").textContent = QUESTIONS.length;
+    $("qAll").textContent = state.qs.length;
     $("qNum").textContent = "QUESTION " + (state.idx < 9 ? "0" : "") + (state.idx + 1);
     $("qText").textContent = q.q;
     $("optAText").textContent = q.o[0].t;
     $("optBText").textContent = q.o[1].t;
-    var bar = $("qBar");
-    bar.style.width = Math.round(state.idx / QUESTIONS.length * 100) + "%";
+    $("qBar").style.width = Math.round(state.idx / state.qs.length * 100) + "%";
+    $("qBarWrap").setAttribute("aria-valuemax", String(state.qs.length));
     $("qBarWrap").setAttribute("aria-valuenow", String(state.idx));
     var prev = state.answers[state.idx];
     $("optA").classList.toggle("sel", prev === 0);
@@ -458,14 +786,23 @@ h1 em{font-style:normal;color:var(--accent)}
     if (state.lock) return;
     state.lock = true;
     state.answers[state.idx] = which;
-    var a = $("optA"), b = $("optB");
-    a.classList.toggle("sel", which === 0);
-    b.classList.toggle("sel", which === 1);
+    $("optA").classList.toggle("sel", which === 0);
+    $("optB").classList.toggle("sel", which === 1);
     window.setTimeout(function(){
       state.lock = false;
-      if (state.idx < QUESTIONS.length - 1){ state.idx++; renderQ(); }
+      if (state.idx < state.qs.length - 1){ state.idx++; renderQ(); }
       else { finish(); }
-    }, 130);
+    }, 140);
+  }
+
+  function start(mode){
+    state.mode = mode;
+    state.qs = (mode === "quick") ? QUICK : FULL;
+    state.idx = 0;
+    state.answers = new Array(state.qs.length).fill(null);
+    state.percents = null;
+    state.lock = false;
+    show("quiz"); renderQ();
   }
 
   $("optA").addEventListener("click", function(){ pick(0); });
@@ -474,34 +811,41 @@ h1 em{font-style:normal;color:var(--accent)}
     if (state.idx > 0){ state.idx--; renderQ(); }
   });
   $("btnQuit").addEventListener("click", function(){
-    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
+    state.idx = 0; state.answers = new Array(state.qs.length).fill(null);
     show("intro");
   });
-  $("btnStart").addEventListener("click", function(){
-    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
-    state.mode = "mine"; state.lock = false; state.percents = null;
-    show("quiz"); renderQ();
-  });
+  $("modePrecise").addEventListener("click", function(){ start("full"); });
+  $("modeQuick").addEventListener("click", function(){ start("quick"); });
 
-  /* ══════════ 5. 채점 ══════════ */
-  function score(){
-    var counts = AXES.map(function(){ return [0,0]; }); // [a편, b편]
-    state.answers.forEach(function(which, i){
-      var q = QUESTIONS[i];
+  /* ══════════ 7. 채점 ══════════ */
+  function scoreOf(qs, answers){
+    var counts = AXES.map(function(){ return [0,0]; });
+    var tieAns = AXES.map(function(){ return null; });
+    qs.forEach(function(q, i){
+      var which = answers[i];
+      if (which === null || which === undefined) return;
       var pole = q.o[which].p;
-      var ax = q.ax;
-      var pos = (pole === AXES[ax].a) ? 0 : 1;
-      counts[ax][pos]++;
+      var pos = (pole === AXES[q.ax].a) ? 0 : 1;
+      counts[q.ax][pos]++;
+      if (q.k) tieAns[q.ax] = pos;
     });
     var letters = "", percents = [];
     AXES.forEach(function(ax, i){
       var tot = counts[i][0] + counts[i][1];
       var pA = tot ? Math.round(counts[i][0] / tot * 100) : 50;
       percents.push(pA);
-      letters += (pA >= 50) ? ax.a : ax.b;   // 동점은 앞 글자 (3문항이라 실제로는 발생하지 않음)
+      var posA;
+      if (counts[i][0] === counts[i][1] && tieAns[i] !== null){ posA = (tieAns[i] === 0); }
+      else { posA = pA >= 50; }
+      letters += posA ? ax.a : ax.b;
     });
     return { code:letters, percents:percents };
   }
+  function score(){ return scoreOf(state.qs, state.answers); }
+
+  // 검수용 읽기 전용 훅 (폼·저장·전송 없음)
+  window.__ptScore = scoreOf;
+  window.__ptQuestions = { full:FULL, quick:QUICK };
 
   function flip(code, idx){
     var pair = AXIS_LETTERS[idx];
@@ -509,11 +853,44 @@ h1 em{font-style:normal;color:var(--accent)}
     return code.substring(0, idx) + (cur === pair[0] ? pair[1] : pair[0]) + code.substring(idx + 1);
   }
 
-  /* ══════════ 6. 결과 렌더 ══════════ */
+  function strengthLabel(mainPct){
+    var d = Math.abs(mainPct - 50);
+    if (d === 0) return "균형형";
+    if (d <= 20) return "조금 더 뚜렷";
+    if (d <= 40) return "뚜렷";
+    return "아주 뚜렷";
+  }
+
+  /* ══════════ 8. 결과 렌더 ══════════ */
   function chipHTML(code, hard){
     var t = TYPES[code];
-    return '<div class="chipu' + (hard ? " hard" : "") + '"><span class="e" aria-hidden="true">' + t.e + '</span>' +
-           '<span><span class="n">' + t.n + '</span><span class="c">' + code + '</span></span></div>';
+    return '<div class="chipu' + (hard ? "" : "") + '"><span class="e" aria-hidden="true">' + t.e + '</span>' +
+           '<span class="n">' + t.n + '</span><span class="c">' + code + '</span></div>';
+  }
+
+  function renderAxisList(p, code){
+    var html = "";
+    AXES.forEach(function(ax, i){
+      if (!p){
+        var picked = (code.charAt(i) === ax.a) ? ax.al : ax.bl;
+        html += '<div class="axrow"><div class="axtop">' +
+          '<span class="axlab"><small>' + ax.name + '</small>' + picked + '</span></div></div>';
+        return;
+      }
+      var pct = p[i];
+      var leftIsA = pct > 50 || (pct === 50 && code.charAt(i) === ax.a);
+      var main = leftIsA ? ax.al : ax.bl;
+      var other = leftIsA ? ax.bl : ax.al;
+      var mainPct = leftIsA ? pct : 100 - pct;
+      html += '<div class="axrow">' +
+        '<div class="axtop"><span class="axlab"><small>' + ax.name + '</small>' + main + '</span>' +
+        '<span class="axright"><span class="axpct">' + mainPct + '%</span>' +
+        '<span class="axstrength">' + strengthLabel(mainPct) + '</span></span></div>' +
+        '<div class="axbar"><i style="width:' + mainPct + '%"></i></div>' +
+        '<div class="axother"><span></span><span>' + other + ' ' + (100 - mainPct) + '%</span></div>' +
+      '</div>';
+    });
+    $("axisList").innerHTML = html;
   }
 
   function renderResult(code, opts){
@@ -524,7 +901,7 @@ h1 em{font-style:normal;color:var(--accent)}
 
     $("friendBand").hidden = !opts.friend;
     if (opts.friend) $("friendName").textContent = t.n;
-    state.mode = opts.friend ? "friend" : "mine";
+    state.mode = opts.friend ? "friend" : state.mode;
     $("axisNote").hidden = !opts.friend;
     $("actionsMine").hidden = !!opts.friend;
     $("actionsFriend").hidden = !opts.friend;
@@ -538,43 +915,60 @@ h1 em{font-style:normal;color:var(--accent)}
 
     var p = opts.percents || null;
     state.percents = p;
-    var list = $("axisList"), html = "";
-    AXES.forEach(function(ax, i){
-      if (!p){
-        var picked = (code.charAt(i) === ax.a) ? ax.al : ax.bl;
-        html += '<div class="axrow"><div class="axtop">' +
-          '<span class="axlab"><small>' + ax.name + '</small>' + picked + '</span>' +
-          '<span class="c" style="font-size:11.5px;color:var(--ink3);letter-spacing:.1em">' + code.charAt(i) + '</span>' +
-        '</div></div>';
-        return;
-      }
-      var pct = p[i];
-      var leftIsA = pct >= 50;
-      var main = leftIsA ? ax.al : ax.bl;
-      var other = leftIsA ? ax.bl : ax.al;
-      var mainPct = leftIsA ? pct : 100 - pct;
-      var fill = leftIsA ? pct : 100 - pct;
-      html += '<div class="axrow">' +
-        '<div class="axtop"><span class="axlab"><small>' + ax.name + '</small>' + main + '</span>' +
-        '<span class="axpct">' + mainPct + '%</span></div>' +
-        '<div class="axbar"><i style="width:' + fill + '%"></i></div>' +
-        '<div class="axother">' + other + ' ' + (100 - mainPct) + '%</div>' +
-      '</div>';
-    });
-    $("axisList").innerHTML = html;
+    renderAxisList(p, code);
+    $("modeNote").textContent = opts.friend ? "" : (state.mode === "quick" ? "빠른 12문항 기준" : "정밀 24문항 기준");
+    $("axisNote").textContent = "친구가 고른 쪽만 보여 줍니다. 내 점수는 문항을 마치면 나옵니다.";
 
-    var best1 = flip(flip(code, 0), 3);   // 에너지·대처 반대, 보는 눈·리듬 같음
-    var best2 = flip(flip(code, 1), 2);   // 보는 눈·리듬 반대, 에너지·대처 같음
-    var hard1 = flip(code, 2);            // 리듬만 반대
-    var hard2 = flip(code, 1);            // 보는 눈만 반대
+    $("careerLead").textContent = t.cl + " — 이 셋부터.";
+    $("careerList").innerHTML = t.c.map(function(j, i){
+      var links = j.l.map(function(k){
+        var L = LINKS[k];
+        return '<a href="' + L.u + '" target="_blank" rel="noopener">' + L.l + ' →</a>';
+      }).join("");
+      return '<div class="job">' +
+        '<div class="jobtop"><span class="jnum">' + (i + 1) + '</span>' +
+        '<h4 class="jtitle">' + j.n + '</h4></div>' +
+        '<p class="jwhy">' + j.w + '</p>' +
+        '<div class="jmeta">' +
+          '<div class="jline"><span class="lb">강점</span><span class="tx">' + j.s + '</span></div>' +
+          '<div class="jline avoid"><span class="lb">피할 환경</span><span class="tx">' + j.a + '</span></div>' +
+        '</div>' +
+        '<div class="jlink">' + links + '</div>' +
+      '</div>';
+    }).join("");
+
+    $("itemLead").textContent = "비싼 것보다 매일 쓰는 것. 세 가지만.";
+    $("itemList").innerHTML = t.it.map(function(it, i){
+      return '<div class="item"><span class="jnum">' + (i + 1) + '</span><div>' +
+        '<p class="iname">' + it.n + '</p>' +
+        '<p class="iwhy">' + it.w + '</p>' +
+        '<p class="itip">고르는 기준 — ' + it.t + '</p>' +
+      '</div></div>';
+    }).join("");
+
+    var key = SHOP_PICK[code] || "life";
+    var sp = SHOP[key];
+    $("shopPick").innerHTML =
+      '<span class="plabel">만든 사람이 직접 파는 것 · 광고</span>' +
+      '<span class="pname">' + sp.n + '</span>' +
+      '<div class="prow">' + (sp.free ? '<span class="free">무료</span>' : '<span class="price">' + sp.price + '</span>') + '</div>' +
+      '<p class="pwhy">' + sp.why + ' ' + (SHOP_WHY[code] || "") + '</p>' +
+      '<div class="pbtns">' +
+        '<a class="go" href="' + SHOP_HOME + '/sale/' + sp.id + '" target="_blank" rel="noopener">상품 보기</a>' +
+        '<a class="all" href="' + SHOP_HOME + '" target="_blank" rel="noopener">샵 전체 보기</a>' +
+      '</div>';
+
+    var best1 = flip(flip(code, 0), 3);
+    var best2 = flip(flip(code, 1), 2);
+    var hard1 = flip(code, 2);
+    var hard2 = flip(code, 1);
 
     $("bestList").innerHTML = chipHTML(best1) + chipHTML(best2);
-    $("hardList").innerHTML = chipHTML(hard1, true) + chipHTML(hard2, true);
-    $("bestWhy").textContent = "한쪽은 내 빈 곳을 정확히 채워 주고(" + TYPES[best1].n + "), 다른 한쪽은 같이 있으면 세상이 두 배로 넓어지는 쪽(" + TYPES[best2].n + ")입니다.";
+    $("hardList").innerHTML = chipHTML(hard1) + chipHTML(hard2);
+    $("bestWhy").textContent = "한쪽은 내 빈 곳을 채워 주고(" + TYPES[best1].n + "), 다른 한쪽은 같이 있으면 세상이 두 배로 넓어지는 쪽(" + TYPES[best2].n + ")입니다.";
     $("hardWhy").textContent = "둘 다 나와 한 글자만 다릅니다. " + TYPES[hard1].n + "과는 하루 리듬이, " + TYPES[hard2].n + "과는 같은 말을 다르게 듣는 지점이 부딪히기 쉽습니다.";
 
     $("routineList").innerHTML = t.r.map(function(x){
-      var i = x.indexOf(" ");
       return '<div class="rt"><span class="d" aria-hidden="true">' + (x.charAt(0) === "아" ? "🌅" : "🌙") + '</span><span>' + x + '</span></div>';
     }).join("");
 
@@ -589,7 +983,7 @@ h1 em{font-style:normal;color:var(--accent)}
     window.scrollTo(0, 0);
   }
 
-  /* ══════════ 7. 공유 ══════════ */
+  /* ══════════ 9. 공유 ══════════ */
   function toast(msg){
     var el = $("toast");
     el.textContent = msg;
@@ -600,12 +994,13 @@ h1 em{font-style:normal;color:var(--accent)}
 
   function shareText(code){
     var t = TYPES[code];
-    var lines = [
+    return [
       "나의 성향 유형은 " + t.e + " " + t.n + " (" + code + ")",
       "“" + t.t + "”",
-      "12문항 1분 · 나도 해보기 → " + SITE + "?t=" + code
-    ];
-    return lines.join("\n");
+      "어울리는 진로 — " + t.c.map(function(j){ return j.n; }).join(" · "),
+      "생활 아이템 — " + t.it.map(function(i){ return i.n; }).join(" · "),
+      "나도 해보기 → " + SITE + "?t=" + code
+    ].join("\n");
   }
 
   function copyText(txt, okMsg){
@@ -631,19 +1026,17 @@ h1 em{font-style:normal;color:var(--accent)}
   $("btnCopy").addEventListener("click", function(){ copyText(shareText(state.code)); });
   $("btnCopy2").addEventListener("click", function(){ copyText(shareText(state.code)); });
   $("btnRetry").addEventListener("click", function(){
-    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
-    state.mode = "mine";
+    state.idx = 0; state.answers = new Array(state.qs.length).fill(null);
+    state.mode = "full";
     try { history.replaceState(null, "", location.pathname); } catch(e){}
     show("intro");
   });
   $("btnMine").addEventListener("click", function(){
-    state.idx = 0; state.answers = new Array(QUESTIONS.length).fill(null);
-    state.mode = "mine"; state.lock = false; state.percents = null;
     try { history.replaceState(null, "", location.pathname); } catch(e){}
-    show("quiz"); renderQ();
+    start("full");
   });
 
-  /* ══════════ 8. 결과 카드 PNG ══════════ */
+  /* ══════════ 10. 결과 카드 PNG (1080×1620) ══════════ */
   function roundRect(x, rx, ry, w, h, r){
     x.beginPath();
     x.moveTo(rx + r, ry);
@@ -653,7 +1046,6 @@ h1 em{font-style:normal;color:var(--accent)}
     x.arcTo(rx, ry, rx + w, ry, r);
     x.closePath();
   }
-
   function wrapText(ctx, text, maxW){
     var out = [], cur = "";
     for (var i = 0; i < text.length; i++){
@@ -667,103 +1059,93 @@ h1 em{font-style:normal;color:var(--accent)}
 
   function makeCard(code){
     var t = TYPES[code];
-    var W = 1080, H = 1350;
+    var W = 1080, H = 1620;
     var c = document.createElement("canvas");
     c.width = W; c.height = H;
     var x = c.getContext("2d");
     if (!x) return null;
 
     var g = x.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, "#fff4e6"); g.addColorStop(.55, "#fffdf9"); g.addColorStop(1, "#eef8f2");
+    g.addColorStop(0, "#ffffff"); g.addColorStop(.6, "#fbfbfd"); g.addColorStop(1, "#f2f5f9");
     x.fillStyle = g; x.fillRect(0, 0, W, H);
 
-    x.save();
-    x.globalAlpha = .55;
-    var g2 = x.createRadialGradient(880, 210, 10, 880, 210, 420);
-    g2.addColorStop(0, "#ffd9bb"); g2.addColorStop(1, "rgba(255,217,187,0)");
-    x.fillStyle = g2; x.beginPath(); x.arc(880, 210, 420, 0, Math.PI * 2); x.fill();
-    var g3 = x.createRadialGradient(180, 1180, 10, 180, 1180, 380);
-    g3.addColorStop(0, "#cdeedd"); g3.addColorStop(1, "rgba(205,238,221,0)");
-    x.fillStyle = g3; x.beginPath(); x.arc(180, 1180, 380, 0, Math.PI * 2); x.fill();
-    x.restore();
-
-    // 테두리 카드
-    x.strokeStyle = "rgba(214,170,132,.45)"; x.lineWidth = 3;
-    roundRect(x, 44, 44, W - 88, H - 88, 44); x.stroke();
+    x.strokeStyle = "rgba(0,0,0,.08)"; x.lineWidth = 2;
+    roundRect(x, 40, 40, W - 80, H - 80, 44); x.stroke();
 
     x.textAlign = "center";
-    x.fillStyle = "#a08d7c";
-    x.font = '500 32px Gulim, "Noto Sans KR", sans-serif';
-    x.fillText("🔮 오리지널 16유형 성향 테스트", W / 2, 130);
+    x.fillStyle = "#8e8e93";
+    x.font = '500 30px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("오리지널 16유형 · 성향 테스트", W / 2, 122);
 
-    x.font = '150px "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
-    x.fillText(t.e, W / 2, 330);
+    x.font = '132px "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+    x.fillText(t.e, W / 2, 288);
 
-    x.fillStyle = "#2f2a26";
-    x.font = '700 88px Gulim, "Noto Sans KR", sans-serif';
-    x.fillText(t.n, W / 2, 460);
+    x.fillStyle = "#1d1d1f";
+    x.font = '700 84px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText(t.n, W / 2, 408);
 
-    // 코드 배지
-    x.font = '700 34px Gulim, "Noto Sans KR", sans-serif';
-    var cw = x.measureText(code).width + 90;
-    x.fillStyle = "#f7e3d6";
-    roundRect(x, (W - cw) / 2, 500, cw, 62, 31); x.fill();
-    x.fillStyle = "#c4552b";
-    x.fillText(code, W / 2, 544);
+    x.font = '700 30px Gulim, "Noto Sans KR", sans-serif';
+    var cw = x.measureText(code).width + 84;
+    x.fillStyle = "#eaf3fe";
+    roundRect(x, (W - cw) / 2, 442, cw, 60, 30); x.fill();
+    x.fillStyle = "#0071e3";
+    x.fillText(code, W / 2, 484);
 
-    // 한 줄 요약
-    x.fillStyle = "#5c4a3d";
-    x.font = '700 42px Gulim, "Noto Sans KR", sans-serif';
-    var lines = wrapText(x, "“" + t.t + "”", W - 220);
-    var ty = 640;
-    for (var i = 0; i < lines.length && i < 2; i++){ x.fillText(lines[i], W / 2, ty + i * 56); }
+    x.fillStyle = "#3a3a3c";
+    x.font = '700 40px Gulim, "Noto Sans KR", sans-serif';
+    var lines = wrapText(x, "“" + t.t + "”", W - 200);
+    var ty = 580;
+    for (var i = 0; i < lines.length && i < 2; i++){ x.fillText(lines[i], W / 2, ty + i * 54); }
 
-    // 4축 바
-    var percents = (state.code === code && state.mode === "mine" && state.percents)
-      ? state.percents : null;
-    var by = ty + Math.max(1, Math.min(lines.length, 2)) * 56 + 34;
+    var percents = (state.code === code && state.mode !== "friend" && state.percents) ? state.percents : null;
+    var by = ty + Math.max(1, Math.min(lines.length, 2)) * 54 + 26;
     AXES.forEach(function(ax, k){
       var pct = percents ? percents[k] : (code.charAt(k) === ax.a ? 70 : 30);
-      var leftIsA = pct >= 50;
+      var leftIsA = pct > 50 || (pct === 50 && code.charAt(k) === ax.a);
       var main = leftIsA ? ax.al : ax.bl;
       var mainPct = leftIsA ? pct : 100 - pct;
-      var y = by + k * 108;
+      var y = by + k * 92;
 
       x.textAlign = "left";
-      x.fillStyle = "#2f2a26";
-      x.font = '700 36px Gulim, "Noto Sans KR", sans-serif';
-      x.fillText(main + "  " + mainPct + "%", 120, y);
+      x.fillStyle = "#1d1d1f";
+      x.font = '700 32px Gulim, "Noto Sans KR", sans-serif';
+      x.fillText(main + "  " + mainPct + "%", 116, y);
       x.textAlign = "right";
-      x.fillStyle = "#a08d7c";
-      x.font = '500 28px Gulim, "Noto Sans KR", sans-serif';
-      x.fillText(ax.name, W - 120, y);
+      x.fillStyle = "#8e8e93";
+      x.font = '500 26px Gulim, "Noto Sans KR", sans-serif';
+      x.fillText(ax.name + " · " + strengthLabel(mainPct), W - 116, y);
 
-      var barY = y + 22, barW = W - 240;
-      x.fillStyle = "#f1e6d8";
-      roundRect(x, 120, barY, barW, 16, 8); x.fill();
-      var fw = Math.max(16, Math.round(barW * (leftIsA ? pct : 100 - pct) / 100));
-      var bg = x.createLinearGradient(120, 0, 120 + barW, 0);
-      bg.addColorStop(0, "#f4a878"); bg.addColorStop(1, "#d9663a");
-      x.fillStyle = bg;
-      roundRect(x, 120, barY, fw, 16, 8); x.fill();
+      var barY = y + 18, barW = W - 232;
+      x.fillStyle = "#eeeef1";
+      roundRect(x, 116, barY, barW, 12, 6); x.fill();
+      var fw = Math.max(14, Math.round(barW * mainPct / 100));
+      x.fillStyle = "#0071e3";
+      roundRect(x, 116, barY, fw, 12, 6); x.fill();
     });
 
-    // 궁합
-    var best1 = flip(flip(code, 0), 3);
-    var hard2 = flip(code, 1);
+    var y2 = by + 4 * 92 + 34;
     x.textAlign = "left";
-    x.fillStyle = "#8d7b6b";
-    x.font = '500 30px Gulim, "Noto Sans KR", sans-serif';
-    x.fillText("찰떡궁합  " + TYPES[best1].e + " " + TYPES[best1].n, 120, 1130);
-    x.fillText("부딪히기 쉬운  " + TYPES[hard2].e + " " + TYPES[hard2].n, 120, 1182);
+    x.fillStyle = "#8e8e93";
+    x.font = '700 24px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("어울리는 진로", 116, y2);
+    x.fillStyle = "#1d1d1f";
+    x.font = '700 32px Gulim, "Noto Sans KR", sans-serif';
+    t.c.forEach(function(j, i){ x.fillText((i + 1) + ".  " + j.n, 116, y2 + 48 + i * 50); });
 
-    // 푸터
+    var y3 = y2 + 48 + 3 * 50 + 34;
+    x.fillStyle = "#8e8e93";
+    x.font = '700 24px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("생활 아이템", 116, y3);
+    x.fillStyle = "#1d1d1f";
+    x.font = '700 32px Gulim, "Noto Sans KR", sans-serif';
+    t.it.forEach(function(it, i){ x.fillText((i + 1) + ".  " + it.n, 116, y3 + 48 + i * 50); });
+
     x.textAlign = "center";
-    x.fillStyle = "#b0a094";
-    x.font = '500 28px Gulim, "Noto Sans KR", sans-serif';
-    x.fillText("soonsoo1004.github.io/personality-test", W / 2, 1258);
-    x.font = '500 24px Gulim, "Noto Sans KR", sans-serif';
-    x.fillText("12문항 · 약 1분 · 가입 없음 · 진단이 아닌 재미용", W / 2, 1296);
+    x.fillStyle = "#a1a1a6";
+    x.font = '500 26px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("soonsoo1004.github.io/personality-test", W / 2, H - 96);
+    x.font = '500 22px Gulim, "Noto Sans KR", sans-serif';
+    x.fillText("진단이 아닌 참고용 · 자체 문항 16유형", W / 2, H - 62);
 
     return c;
   }
@@ -791,7 +1173,7 @@ h1 em{font-style:normal;color:var(--accent)}
   $("btnPng").addEventListener("click", savePng);
   $("btnPng2").addEventListener("click", savePng);
 
-  /* ══════════ 9. 공유 링크로 들어온 경우 ══════════ */
+  /* ══════════ 11. 공유 링크로 들어온 경우 ══════════ */
   (function boot(){
     var code = null;
     try {
