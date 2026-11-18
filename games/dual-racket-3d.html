@@ -272,7 +272,7 @@ button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;-webki
       </div>
       <button class="go" id="btnStart">경기 시작 <span aria-hidden="true">→</span></button>
       <p class="best">최고 랠리 <b id="bestRally">0</b> · 최다 연속 득점 <b id="bestStreak">0</b></p>
-      <p class="hint">이동 <b>스틱</b> 또는 화면 <b>드래그</b>·방향키 · <b>스매시</b> Space · <b>드라이브</b> Shift<br>공이 오면 <b>반드시 버튼으로 받아쳐야</b> 합니다. 그냥 두면 그대로 지나가 실점합니다.</p>
+      <p class="hint">이동 <b>스틱</b>·화면 <b>드래그</b>·방향키 · PC는 <b>마우스만 움직여도 따라옵니다</b> · <b>스매시</b> Space 또는 화면 클릭 · <b>드라이브</b> Shift<br>공이 오면 <b>반드시 버튼으로 받아쳐야</b> 합니다. 그냥 두면 그대로 지나가 실점합니다.</p>
     </div>
   </div>
 
@@ -2870,6 +2870,7 @@ $("#btnDrive").addEventListener("contextmenu", function (e) { e.preventDefault()
 
 /* ---------- 입력: 화면 드래그 — 손으로 직접 플레이어를 끌고 간다 ---------- */
 var dragId = null, dragX0 = 0, dragY0 = 0, dragPX = 0, dragPZ = 0;
+var downX = 0, downY = 0, downT = 0;
 function dragStart(e) {
   if (G.state !== "play") return;
   dragId = e.pointerId;
@@ -2900,6 +2901,38 @@ cv.addEventListener("pointermove", function (e) { if (dragId !== null) { e.preve
 cv.addEventListener("pointerup", function (e) { dragEnd(e); });
 cv.addEventListener("pointercancel", function (e) { dragEnd(e); });
 cv.addEventListener("lostpointercapture", function () { dragEnd(null); });
+
+/* ---------- 입력: PC 마우스 — 커서만 움직여도 따라오고, 클릭하면 스매시 ----------
+   예전에는 마우스를 누른 채 끌어야만 움직이고 받아치려면 화면 우측 버튼을
+   정확히 눌러야 했다. PC에서는 커서 이동만으로 라켓이 따라오고,
+   화면 아무 데나 클릭해도 스매시가 나가게 바꿨다. 터치 경로는 그대로다. */
+var hoverX = null;
+function nearDown(px, py) { return Math.abs(px - downX) < 6 && Math.abs(py - downY) < 6; }
+cv.addEventListener("pointermove", function (e) {
+  if (e.pointerType !== "mouse") return;
+  if (dragId !== null || G.state !== "play") { hoverX = e.clientX; return; }
+  if (hoverX === null) { hoverX = e.clientX; return; }
+  var dx = e.clientX - hoverX;
+  hoverX = e.clientX;
+  if (Math.abs(dx) < 0.25) return;
+  var M = CFG();
+  var s = depthScale(P.x, 0, P.z) || 60;
+  P.x = clamp(P.x + dx / s, -M.moveX, M.moveX);
+  P.lean = clamp(dx * 0.1, -1, 1);
+  P.walk += Math.min(0.3, Math.abs(dx) * 0.012);
+}, { passive: true });
+cv.addEventListener("pointerdown", function (e) {
+  if (e.pointerType !== "mouse") return;
+  downX = e.clientX; downY = e.clientY; downT = performance.now();
+  hoverX = e.clientX;
+}, { passive: true });
+cv.addEventListener("pointerup", function (e) {
+  if (e.pointerType !== "mouse") return;
+  if (G.state !== "play") return;
+  if (!nearDown(e.clientX, e.clientY)) return;
+  if (performance.now() - downT > 420) return;
+  doAction("smash");
+}, { passive: true });
 
 /* 스윙이 필요한 순간, 버튼이 은은하게 빛난다 */
 var readySig = 0;
