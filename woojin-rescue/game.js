@@ -274,7 +274,7 @@ function computeFit() {
     }
   }
   const pad = 3;
-  const zoom = 1.14;
+  const zoom = 1.22;
   const k = Math.min((W - pad * 2) / (mxx - mnx), (H - pad * 2) / (mxy - mny)) * zoom;
   FIT.k = k;
   FIT.ox = pad + (W - pad * 2 - (mxx - mnx) * k) / 2 - mnx * k;
@@ -1322,16 +1322,16 @@ function renderTerrain() {
     quad(c, [proj(p.x, wy, pd), proj(p.x + p.w, wy, pd), proj(p.x + p.w, wy + 30, pd), proj(p.x, wy + 30, pd)], 'rgba(22,52,84,.9)');
     // 웅덩이 물기둥: 아래로 갈수록 진한 물색
     const wf = c.createLinearGradient(0, proj(p.x, wy, 0).y, 0, proj(p.x, wy + 30, 0).y);
-    wf.addColorStop(0, 'rgba(126,206,244,.98)');
-    wf.addColorStop(0.5, 'rgba(72,164,214,.98)');
-    wf.addColorStop(1, 'rgba(44,122,176,.98)');
+    wf.addColorStop(0, 'rgba(96,178,222,.97)');
+    wf.addColorStop(0.45, 'rgba(56,134,186,.97)');
+    wf.addColorStop(1, 'rgba(32,92,142,.97)');
     quad(c, [proj(p.x, wy, 0), proj(p.x + p.w, wy, 0), proj(p.x + p.w, wy + 30, 0), proj(p.x, wy + 30, 0)], wf);
     // 수면
     const a = proj(p.x, wy, pd), b = proj(p.x + p.w, wy, pd), d2 = proj(p.x + p.w, wy, 0), e2 = proj(p.x, wy, 0);
     const g = c.createLinearGradient(0, a.y, 0, e2.y);
-    g.addColorStop(0, 'rgba(120,198,238,.97)');
-    g.addColorStop(0.55, 'rgba(80,170,220,.97)');
-    g.addColorStop(1, 'rgba(58,146,200,.97)');
+    g.addColorStop(0, 'rgba(140,206,240,.97)');
+    g.addColorStop(0.55, 'rgba(86,168,216,.97)');
+    g.addColorStop(1, 'rgba(56,132,182,.97)');
     quad(c, [a, b, d2, e2], g);
     // 물결
     c.save();
