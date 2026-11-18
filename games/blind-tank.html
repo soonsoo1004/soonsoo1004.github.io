@@ -942,7 +942,7 @@
   function fxShell(from, to, kind) {
     var a = centerOf(cellAt(from.r, from.c));
     var b = centerOf(cellAt(to.r, to.c));
-    var size = Math.max(9, a.w * 0.3);
+    var size = Math.max(10, a.w * 0.34);
     var el = document.createElement('div');
     el.className = 'shell' + (kind === 'enemy' ? ' enemy' : '');
     el.style.width = size + 'px';
@@ -960,9 +960,9 @@
     if (el.animate) {
       var an = el.animate(kf, { duration: FLIGHT, easing: 'cubic-bezier(.42,0,.62,1)', fill: 'forwards' });
       an.onfinish = function () { if (el.parentNode) el.parentNode.removeChild(el); };
-    } else {
-      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, FLIGHT);
     }
+    /* 애니메이션이 끝나지 않는 예외(탭 전환 등)에서도 포탄이 남지 않도록 안전 삭제 */
+    setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, FLIGHT + 500);
     sfx(kind === 'enemy' ? 'enemyfire' : 'fire');
   }
 
