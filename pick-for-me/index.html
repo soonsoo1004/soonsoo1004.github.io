@@ -186,6 +186,16 @@ section{margin-top:30px}
 .btn.soft{background:var(--card2);border:1px solid var(--line);color:var(--ink2)}
 .btn.ok{background:var(--green);color:#fff}
 .cardbox{margin-top:20px}
+.help{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-s);
+  padding:15px 16px;box-shadow:var(--shadow-s)}
+.help-h{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);margin-bottom:8px}
+.help-h b{font-weight:700;color:var(--ink)}
+.help-h .hi{font-size:16px;line-height:1.2}
+.help-it{font-size:16px;font-weight:700;letter-spacing:-.01em;margin:0 0 3px}
+.help-why{font-size:13.5px;color:var(--ink2);margin:0 0 8px;line-height:1.55}
+.help-q{display:inline-block;font-size:12.5px;color:var(--blue-d);background:var(--blue-soft);
+  border-radius:999px;padding:5px 12px;margin:0}
+.help-note{font-size:11.5px;color:var(--ink3);margin:10px 0 0;line-height:1.5}
 .cardbox canvas{width:100%;height:auto;display:block;border-radius:var(--r-s);
   border:1px solid var(--line);box-shadow:var(--shadow);background:#fff}
 .card-note{font-size:12.5px;color:var(--ink3);text-align:center;margin:9px 0 0;line-height:1.55}
@@ -322,6 +332,13 @@ footer b{color:var(--ink2)}
         <button class="btn soft" type="button" id="nextPick" hidden>다음 후보 보기</button>
         <button class="btn soft" type="button" id="again">다른 고민 고르기</button>
       </div>
+    </div>
+    <div class="help" id="resHelp" hidden>
+      <div class="help-h"><span class="hi" aria-hidden="true">🧺</span><b>이 결정에 도움 되는 준비물</b></div>
+      <p class="help-it" id="helpItem"></p>
+      <p class="help-why" id="helpWhy"></p>
+      <p class="help-q" id="helpQ"></p>
+      <p class="help-note">광고 아님 · 판매 링크 없음. 집에 하나 두면 다음 결정이 빨라지는 것만 적었습니다.</p>
     </div>
     <div class="cardbox"><canvas id="cardOut" width="1080" height="1350" role="img" aria-label="결정 카드 미리보기"></canvas></div>
     <p class="card-note">1080×1350 · 폰에 저장해 두거나 단톡방에 보내기 좋은 크기입니다.</p>
@@ -686,6 +703,43 @@ footer b{color:var(--ink2)}
   var KEY = "pick44.hist.v1";
   var WD = ["일","월","화","수","목","금","토"];
 
+  /* ── 결정에 도움 되는 준비물 (음식·선물·휴식에만, 링크 없음) ──
+     실제 제휴 링크가 발급되면 AFF 에 {pick: {url, seller}} 를 채우고
+     안내 문구를 "쿠팡 파트너스 활동의 일환으로 수수료를 받을 수 있습니다"로 바꾼다.
+     지금은 발급된 링크가 없으므로 링크를 만들지 않는다. */
+  var AFF = {};
+  var HELP = {
+    eat: {
+      "국밥 한 그릇":   {it:"즉석 국밥 2~3개", why:"찬 바람 부는 날 집에서 3분이면 뜨끈한 한 그릇이 됩니다.", q:"즉석국밥"},
+      "집에서 찌개 하나": {it:"손질 채소·두부 소분팩", why:"끓이기만 하면 되니 30분이 15분으로 줄어듭니다.", q:"손질채소 두부"},
+      "치킨 한 마리":   {it:"에어프라이어용 냉동 치킨", why:"배달 기다리는 30분에 집에서 바로 구워 먹습니다.", q:"냉동치킨 에어프라이어"},
+      "고깃집 한 판":   {it:"1인분 소분 정육", why:"집에서 구워 먹을 때 양을 정하기 쉽고 남기지 않습니다.", q:"소분 정육"},
+      "김밥·분식":     {it:"김·단무지·즉석밥", why:"집에서 김밥 한 줄은 10분이면 됩니다.", q:"김밥 재료"},
+      "샐러드·샌드위치": {it:"씻어 먹는 채소·닭가슴살", why:"씻어 둔 채소가 있으면 저녁 준비가 5분입니다.", q:"샐러드 채소 닭가슴살"},
+      "파스타·양식":   {it:"건면 파스타·소스 한 병", why:"한 봉지면 두 번은 먹습니다. 소스만 바꾸면 메뉴도 바뀝니다.", q:"파스타면 소스"},
+      "떡볶이·쫄면":   {it:"떡볶이 떡·소스", why:"포장보다 싸고 매운맛은 소스로 조절합니다.", q:"떡볶이 재료"},
+      "짬뽕·마라":     {it:"즉석 짬뽕·마라면", why:"배달 40분을 기다리지 않고 5분에 끝납니다.", q:"즉석 짬뽕"}
+    },
+    gift: {
+      "제철 과일 한 상자": {it:"제철 과일 세트", why:"크기보다 종류가 중요합니다. 못 먹는 과일은 빼고 고르세요.", q:"제철과일 세트"},
+      "좋은 수건·양말":  {it:"수건·양말 세트", why:"같은 것으로 두 개를 묶으면 한 세트로 보입니다.", q:"수건 세트"},
+      "국거리·정육 세트": {it:"손질 국거리 세트", why:"손질된 것으로 사면 받는 분이 바로 쓰십니다.", q:"국거리 세트"},
+      "손편지 + 작은 문구": {it:"편지지·카드 세트", why:"편지는 값이 아니라 정성으로 남습니다.", q:"편지지 세트"},
+      "커피 기프티콘":   {it:"모바일 커피 상품권", why:"취향을 몰라도 실패가 거의 없습니다.", q:"커피 기프티콘"},
+      "차·과일 세트":   {it:"차·과일 세트", why:"포장이 과하지 않은 쪽이 오히려 부담이 없습니다.", q:"차 선물세트"},
+      "오래 쓰는 것 하나": {it:"오래 쓰는 지갑·가방", why:"자주 쓰는 것일수록 오래 가는 쪽이 남습니다.", q:"가죽 지갑"},
+      "집에서 쓸 좋은 것": {it:"주방용품 하나", why:"지금 쓰는 것 중 낡은 것부터 바꾸면 체감이 큽니다.", q:"주방용품"}
+    },
+    rest: {
+      "10분 스트레칭":   {it:"요가 매트·폼롤러", why:"바닥에 아무것도 깔지 않으면 결국 안 하게 됩니다.", q:"폼롤러 요가매트"},
+      "20분 낮잠":      {it:"눈가리개·귀마개", why:"20분을 20분으로 만들려면 빛과 소리를 먼저 막습니다.", q:"수면 안대 귀마개"},
+      "20분 산책":      {it:"가벼운 운동화", why:"신발이 문 앞에 있으면 시작이 5분 빨라집니다.", q:"가벼운 운동화"},
+      "따뜻한 물·샤워":  {it:"큰 수건·보온 물병", why:"씻고 나온 뒤 마실 물이 준비돼 있으면 하루가 다릅니다.", q:"보온병 큰수건"},
+      "집안일 하나":    {it:"걸레·분무기", why:"한 곳만 닦을 때 필요한 것만 있으면 10분에 끝납니다.", q:"청소 걸레"},
+      "그냥 눕기":      {it:"얇은 담요·쿠션", why:"눕는 자리에 담요가 있으면 쉬는 시간이 길어집니다.", q:"담요 쿠션"}
+    }
+  };
+
   /* ───────────────────────── 상태 ───────────────────────── */
   var cur = { topic:null, qs:null, i:0, ans:{}, custom:false, answers:[], rank:0, pick:null, viewing:false };
   var hist = [];
@@ -948,6 +1002,7 @@ footer b{color:var(--ink2)}
     else { one.hidden = true; one.textContent = ""; }
 
     $("nextPick").hidden = !d.custom;
+    renderHelp(d);
 
     var dt = new Date(d.ts || Date.now());
     $("rWhen").textContent = dt.getMonth()+1 + "월 " + dt.getDate() + "일 (" + WD[dt.getDay()] + ")";
@@ -957,7 +1012,7 @@ footer b{color:var(--ink2)}
 
     if(!fromHistory){
       hist.unshift({
-        ts:d.ts, ico:d.ico, topicName:d.topicName, pick:d.pick,
+        ts:d.ts, ico:d.ico, topicId:d.topicId, topicName:d.topicName, pick:d.pick,
         why:d.why, alt:d.alt, act:d.act, conds:d.conds, oneLine:d.oneLine, custom:!!d.custom
       });
       hist = hist.slice(0,12);
@@ -1062,6 +1117,30 @@ footer b{color:var(--ink2)}
     btn.textContent = "복사됨";
     setTimeout(function(){ btn.textContent = old; }, 1500);
   });
+
+  /* ── 준비물 블록 ── */
+  function renderHelp(d){
+    var box = $("resHelp");
+    var group = HELP[d.topicId];
+    var h = group ? group[d.pick] : null;
+    if(!h){ box.hidden = true; return; }
+    $("helpItem").textContent = h.it;
+    $("helpWhy").textContent = h.why;
+    var aff = AFF[d.topicId] && AFF[d.topicId][d.pick];
+    var q = $("helpQ");
+    if(aff){
+      q.innerHTML = "";
+      var a = document.createElement("a");
+      a.href = aff.url; a.target = "_blank"; a.rel = "noopener sponsored";
+      a.textContent = (aff.seller || "쿠팡") + "에서 보기 →";
+      q.appendChild(a);
+      q.hidden = false;
+    }else{
+      q.textContent = h.q ? ("검색어 · " + h.q) : "";
+      q.hidden = !h.q;
+    }
+    box.hidden = false;
+  }
 
   /* ───────────────────────── 카드 ───────────────────────── */
   var cvs = $("cardOut"), ctx = cvs.getContext("2d");
