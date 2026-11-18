@@ -2686,10 +2686,15 @@ function stageX(clientX){
   if(!r.width) return W / 2;
   return Math.max(0, Math.min(W, (clientX - r.left) / r.width * W));
 }
+function isMousePtr(e){
+  /* pointerType을 못 채우는 구형 브라우저는 hover가 되는지(마우스)를 보고 판단 */
+  if(e.pointerType) return e.pointerType === "mouse";
+  try{ return window.matchMedia("(hover:hover) and (pointer:fine)").matches; }catch(err){ return false; }
+}
 var wrap = document.getElementById("brkStageWrap");
 wrap.addEventListener("pointerdown", function(e){
   if(!G.running || G.overlay) return;
-  G.pointer = true;
+  if(!isMousePtr(e)) G.pointer = true;
   try{ wrap.setPointerCapture(e.pointerId); }catch(err){}
   G.paddle.tx = stageX(e.clientX);
   G.paddle.x = G.paddle.tx;
@@ -2697,7 +2702,15 @@ wrap.addEventListener("pointerdown", function(e){
   if(e.cancelable) e.preventDefault();
 });
 wrap.addEventListener("pointermove", function(e){
-  if(!G.pointer || !G.running || G.overlay) return;
+  if(!G.running || G.overlay) return;
+  /* PC 마우스: 버튼을 누르지 않아도 커서 X를 1:1로 지연 0ms 추종 (보간 없음) */
+  if(isMousePtr(e)){
+    G.paddle.tx = stageX(e.clientX);
+    G.paddle.x = G.paddle.tx;
+    if(e.cancelable) e.preventDefault();
+    return;
+  }
+  if(!G.pointer) return;
   G.paddle.tx = stageX(e.clientX);
   if(e.cancelable) e.preventDefault();
 });
