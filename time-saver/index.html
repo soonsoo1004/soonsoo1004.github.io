@@ -110,6 +110,8 @@ section{margin-top:26px}
 .pickbtn:active{background:var(--blue-d)}
 .pickbtn.on{background:var(--green-soft);color:var(--green);border:1px solid rgba(48,180,95,.4)}
 .pickbtn[disabled]{background:#ececef;color:#9a9aa0}
+.copybtn{width:100%;margin-top:7px;border-radius:var(--r-xs);padding:11px;font-size:13.5px;font-weight:700;
+  color:var(--ink2);background:var(--card2);border:1px solid var(--line)}
 
 /* ── 오늘 3가지 ── */
 .slots{display:grid;gap:9px}
@@ -564,6 +566,12 @@ footer b{color:var(--ink2)}
           togglePick(t.id);
         });
         body.appendChild(pb);
+        var cb = document.createElement("button");
+        cb.type = "button";
+        cb.className = "copybtn";
+        cb.textContent = "요령 세 줄 복사";
+        cb.addEventListener("click", function(){ copyTip(t); });
+        body.appendChild(cb);
         d.appendChild(body);
       }
       list.appendChild(d);
@@ -855,6 +863,22 @@ footer b{color:var(--ink2)}
     try { document.execCommand("copy"); done(); }
     catch(e){ toast("복사가 막혔어요. 길게 눌러 복사해 주세요."); }
     ta.remove();
+  }
+
+  function copyTip(t){
+    var lines = [t.t, ""];
+    t.s.forEach(function(line, k){ lines.push((k + 1) + ". " + line); });
+    lines.push("");
+    lines.push("1회 약 " + t.m + "분 · 시간절약 꿀팁 전수 44");
+    copyRaw(lines.join("\n"), "이 팁 요령을 복사했어요.");
+  }
+  function copyRaw(text, okMsg){
+    var done = function(){ toast(okMsg); };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fallbackCopy(text, done); });
+    } else {
+      fallbackCopy(text, done);
+    }
   }
 
   var tTimer = null;
