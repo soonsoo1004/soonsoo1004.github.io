@@ -196,6 +196,34 @@ section{margin-top:30px}
 .help-q{display:inline-block;font-size:12.5px;color:var(--blue-d);background:var(--blue-soft);
   border-radius:999px;padding:5px 12px;margin:0}
 .help-note{font-size:11.5px;color:var(--ink3);margin:10px 0 0;line-height:1.5}
+
+/* ── 고른 메뉴 한 접시 ── */
+.menubox{margin-top:12px;background:var(--blue-soft);border:1px solid rgba(0,113,227,.16);
+  border-radius:var(--r-xs);padding:13px 15px}
+.menubox .lb{font-size:11.5px;font-weight:700;letter-spacing:.03em;color:var(--blue-d)}
+.menubox .nm{display:block;font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.32;margin:3px 0 0}
+.menubox .nt{font-size:13px;color:var(--ink2);margin:5px 0 0;line-height:1.55}
+
+/* ── 주문·검색 바로가기 ── */
+.orderwrap{margin-top:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r-s);padding:14px 15px 13px;box-shadow:var(--shadow-s)}
+.order-h{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);margin:0 0 10px}
+.order-h .hi{font-size:15px;line-height:1.2}
+.ordfull{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  background:var(--blue);color:#fff;border-radius:12px;padding:14px 10px;font-size:15px;font-weight:700;
+  text-align:center;line-height:1.3;text-decoration:none}
+.ordfull:active{background:var(--blue-d)}
+.ordgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.ord{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--card2);
+  border:1px solid var(--line2);border-radius:12px;padding:12px 6px;font-size:13.5px;font-weight:700;
+  color:var(--ink);text-align:center;line-height:1.3;text-decoration:none;width:100%}
+.ord:active{background:#e9e9ee}
+.ord .em{font-size:15px}
+.ord-copy{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:8px;
+  background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:11px 6px;
+  font-size:13px;font-weight:700;color:var(--ink2)}
+.ord-copy:active{background:#e9e9ee}
+.ord-note{font-size:11.5px;color:var(--ink3);margin:9px 0 0;line-height:1.55}
 .cardbox canvas{width:100%;height:auto;display:block;border-radius:var(--r-s);
   border:1px solid var(--line);box-shadow:var(--shadow);background:#fff}
 .card-note{font-size:12.5px;color:var(--ink3);text-align:center;margin:9px 0 0;line-height:1.55}
@@ -320,12 +348,27 @@ footer b{color:var(--ink2)}
     <div class="rescard">
       <div><span class="kicker">제가 고른 건</span><span class="restopic" id="resTopic"></span></div>
       <h2 class="big" id="resBig"></h2>
+      <div class="menubox" id="resMenu" hidden>
+        <span class="lb">오늘은 이 메뉴 하나</span>
+        <span class="nm" id="menuName"></span>
+        <p class="nt" id="menuNote"></p>
+      </div>
       <div class="conds" id="resConds"></div>
       <div class="oneline" id="resOneLine" hidden></div>
       <div class="resdiv"></div>
       <div class="rline"><span class="lb">이유</span><span class="tx" id="resWhy"></span></div>
       <div class="rline"><span class="lb">대안</span><span class="tx" id="resAlt"></span></div>
       <div class="rline act"><span class="lb">지금 할 일</span><span class="tx" id="resAct"></span></div>
+      <div class="orderwrap" id="resOrder" hidden>
+        <p class="order-h"><span class="hi" aria-hidden="true">🛵</span><span id="orderH">바로 주문까지</span></p>
+        <a class="ordfull" id="ordMap" target="_blank" rel="noopener">🗺️ <span id="ordMapTx">지도에서 보기</span></a>
+        <div class="ordgrid">
+          <a class="ord" id="ordEats">🛵 <span>쿠팡이츠 앱</span></a>
+          <a class="ord" id="ordBaemin">🍚 <span>배민 앱</span></a>
+        </div>
+        <button class="ord-copy" type="button" id="ordCopy">📋 <span id="ordCopyTx">메뉴 이름 복사</span></button>
+        <p class="ord-note" id="orderNote"></p>
+      </div>
       <div class="btnrow">
         <button class="btn primary" type="button" id="saveCard">결정 카드 저장 (1080×1350)</button>
         <button class="btn ghost" type="button" id="copyRes">결과 문구 복사</button>
@@ -338,7 +381,7 @@ footer b{color:var(--ink2)}
       <p class="help-it" id="helpItem"></p>
       <p class="help-why" id="helpWhy"></p>
       <p class="help-q" id="helpQ"></p>
-      <p class="help-note">광고 아님 · 판매 링크 없음. 집에 하나 두면 다음 결정이 빨라지는 것만 적었습니다.</p>
+      <p class="help-note" id="helpNote">광고 아님 · 판매 링크 없음. 집에 하나 두면 다음 결정이 빨라지는 것만 적었습니다.</p>
     </div>
     <div class="cardbox"><canvas id="cardOut" width="1080" height="1350" role="img" aria-label="결정 카드 미리보기"></canvas></div>
     <p class="card-note">1080×1350 · 폰에 저장해 두거나 단톡방에 보내기 좋은 크기입니다.</p>
@@ -703,11 +746,76 @@ footer b{color:var(--ink2)}
   var KEY = "pick44.hist.v1";
   var WD = ["일","월","화","수","목","금","토"];
 
-  /* ── 결정에 도움 되는 준비물 (음식·선물·휴식에만, 링크 없음) ──
-     실제 제휴 링크가 발급되면 AFF 에 {pick: {url, seller}} 를 채우고
-     안내 문구를 "쿠팡 파트너스 활동의 일환으로 수수료를 받을 수 있습니다"로 바꾼다.
-     지금은 발급된 링크가 없으므로 링크를 만들지 않는다. */
-  var AFF = {};
+  /* ── 고른 메뉴를 한 접시까지 좁힌다 (먹을 것 전용) ──
+     같은 답이라도 늘 같은 메뉴가 나오도록 점수 계산만 쓴다(무작위 없음). */
+  var MENU = {
+    "국밥 한 그릇": [
+      {nm:"얼큰 순대국밥", pr:{hot:3,spicy:2,now:2,low:2}, nt:"순대와 국물이 한 번에 와서 말이 필요 없는 한 그릇입니다."},
+      {nm:"돼지국밥", pr:{hot:3,meat:2,low:2,soon:1}, nt:"고기 양이 넉넉해서 저녁까지 버티기 좋습니다."},
+      {nm:"소머리국밥", pr:{hot:2,meat:3,any:2}, nt:"예산을 크게 안 보는 날, 국물과 고기를 같이 챙기는 쪽입니다."}
+    ],
+    "집에서 찌개 하나": [
+      {nm:"돼지고기 김치찌개", pr:{hot:3,low:3,meat:2}, nt:"김치와 돼지고기만 있으면 20분에 끓습니다."},
+      {nm:"순두부찌개", pr:{hot:3,spicy:2,light:2}, nt:"매콤하면서 부담이 적어 저녁에 가장 무난합니다."},
+      {nm:"된장찌개", pr:{hot:2,light:3,low:2}, nt:"속이 편한 쪽으로 가고 싶은 날의 기본값입니다."}
+    ],
+    "치킨 한 마리": [
+      {nm:"바삭 후라이드 치킨", pr:{meat:3,late:2,any:1}, nt:"실패가 가장 적은 선택입니다. 소스는 따로 달라고 하세요."},
+      {nm:"양념 반 후라이드 반", pr:{meat:3,spicy:1,late:2}, nt:"맵고 안 매운 걸 같이 먹을 때 싸움이 없습니다."},
+      {nm:"매콤 양념치킨", pr:{spicy:3,meat:2}, nt:"매운 게 당기는 날은 양념 한 종류로 가는 게 깔끔합니다."}
+    ],
+    "고깃집 한 판": [
+      {nm:"삼겹살 두 판", pr:{meat:3,any:3,late:2}, nt:"가장 확실한 만족. 두 판이면 밥까지 덮습니다."},
+      {nm:"목살 구이", pr:{meat:3,light:2}, nt:"기름이 적어 속이 덜 부대낍니다."},
+      {nm:"차돌박이 구이", pr:{spicy:1,meat:2,light:2}, nt:"얇아서 빨리 익고 혼자 먹기에도 양이 맞습니다."}
+    ],
+    "김밥·분식": [
+      {nm:"참치김밥 두 줄", pr:{now:2,light:3,low:2}, nt:"두 줄이면 든든하고, 기다림이 거의 없습니다."},
+      {nm:"야채김밥 + 라면", pr:{now:2,low:3,hot:2}, nt:"국물까지 챙기고 싶을 때 가장 싼 조합입니다."},
+      {nm:"치즈김밥 한 줄", pr:{light:2,spicy:1,soon:1}, nt:"양이 적게 필요할 때 한 줄로 끝내는 쪽입니다."}
+    ],
+    "샐러드·샌드위치": [
+      {nm:"닭가슴살 샐러드", pr:{light:3,soon:2,mid:2}, nt:"단백질이 있어서 30분 뒤에 다시 배고프지 않습니다."},
+      {nm:"에그 샌드위치", pr:{light:3,now:2,low:2}, nt:"한 손으로 먹기 좋고 값이 가볍습니다."},
+      {nm:"연어 샐러드", pr:{light:2,late:2,any:1,mid:1}, nt:"예산이 조금 여유 있을 때 기분까지 챙기는 쪽입니다."}
+    ],
+    "파스타·양식": [
+      {nm:"토마토 스파게티", pr:{late:3,light:2,mid:2}, nt:"소스가 자극적이지 않아 누구와 먹어도 무난합니다."},
+      {nm:"크림 파스타", pr:{late:3,meat:1,any:2}, nt:"진한 쪽이 당기는 날은 크림으로 한 번에 정하세요."},
+      {nm:"알리오올리오", pr:{light:3,low:2,late:1}, nt:"재료가 단순해서 맛이 실패할 일이 적습니다."}
+    ],
+    "떡볶이·쫄면": [
+      {nm:"로제 떡볶이", pr:{spicy:2,now:2,mid:1}, nt:"매운맛이 부담스러우면 로제가 가장 안전합니다."},
+      {nm:"국물 떡볶이", pr:{hot:3,spicy:2,low:2}, nt:"국물까지 마시고 싶은 날, 값도 가장 착합니다."},
+      {nm:"쫄면", pr:{spicy:2,now:2,light:2}, nt:"씹는 맛이 필요할 때, 밀가루 부담은 더 적습니다."}
+    ],
+    "짬뽕·마라": [
+      {nm:"얼큰 짬뽕", pr:{hot:2,spicy:3,soon:2}, nt:"해장이 필요한 날 가장 빠른 선택입니다."},
+      {nm:"마라탕 1단계", pr:{spicy:3,now:2,light:1}, nt:"맵기를 1단계로 두면 다음 날 속이 편합니다."},
+      {nm:"볶음짬뽕", pr:{spicy:2,meat:2,light:2}, nt:"국물이 부담스러우면 볶음으로 바꾸세요."}
+    ]
+  };
+
+  /* ── 결정에 도움 되는 준비물 (음식·선물·휴식에만) ──
+     AFF 에 실제 제휴 링크를 넣는다. 링크가 없는 항목은 검색어만 보여 준다.
+     쿠팡 파트너스 링크(lptag=AF5026335)는 2026-11-18 실제 상품 페이지 도착까지 확인했다. */
+  var AFF = {
+    eat: {
+      "국밥 한 그릇":   {url:"https://link.coupang.com/a/iLK8JM9AJg", seller:"쿠팡", item:"신의주찹쌀순대 순대국 즉석국"},
+      "집에서 찌개 하나": {url:"https://link.coupang.com/a/iLLaSstknQ", seller:"쿠팡", item:"아빠식당 옛날 돼지고기 김치찌개 5개"},
+      "치킨 한 마리":   {url:"https://link.coupang.com/a/iLLb2Bi8xo", seller:"쿠팡", item:"하림 에어프라이어 순살치킨 1kg"},
+      "고깃집 한 판":   {url:"https://link.coupang.com/a/iLLdfeNawe", seller:"쿠팡", item:"곰곰 돌돌이 무연골 대패 삼겹살 1kg"},
+      "김밥·분식":     {url:"https://link.coupang.com/a/iLLfwEecUu", seller:"쿠팡", item:"한성기업 프리미엄 김밥세트S"},
+      "샐러드·샌드위치": {url:"https://link.coupang.com/a/iLLhLenonQ", seller:"쿠팡", item:"곰곰 닭가슴살 샐러드 2개"},
+      "파스타·양식":   {url:"https://link.coupang.com/a/iLLkqY1xng", seller:"쿠팡", item:"청정원 파스타소스 + 스파게티면 세트"},
+      "떡볶이·쫄면":   {url:"https://link.coupang.com/a/iLLlOgbVSe", seller:"쿠팡", item:"고래사어묵 어묵떡볶이 2인분"},
+      "짬뽕·마라":     {url:"https://link.coupang.com/a/iLLnRc1fTU", seller:"쿠팡", item:"프로즌 원팩 마라탕 470g"}
+    },
+    /* 수건·귀마개는 쿠팡 파트너스에서 링크 생성이 제한된 상품이라 링크 없이 검색어만 보여 준다. */
+    rest: {
+      "10분 스트레칭":   {url:"https://link.coupang.com/a/iLLqOyIjdY", seller:"쿠팡", item:"밸런시스 TPE 요가매트 + 스트랩"}
+    }
+  };
   var HELP = {
     eat: {
       "국밥 한 그릇":   {it:"즉석 국밥 2~3개", why:"찬 바람 부는 날 집에서 3분이면 뜨끈한 한 그릇이 됩니다.", q:"즉석국밥"},
@@ -856,11 +964,25 @@ footer b{color:var(--ink2)}
     });
     rows.sort(function(a,b){ return (b.s - a.s) || (a.idx - b.idx); });
     var conds = t.qs.map(function(q, i){ return cur.answers[i] || ""; }).filter(Boolean);
+    var menu = (t.id === "eat") ? pickMenu(rows[0].o.nm) : null;
     return {
       topicId:t.id, ico:t.ico, topicName:t.nm,
       pick:rows[0].o.nm, why:rows[0].o.why, alt:rows[0].o.alt, act:rows[0].o.act,
-      conds:conds, oneLine:"", custom:false, ts:Date.now()
+      conds:conds, menu:menu, oneLine:"", custom:false, ts:Date.now()
     };
+  }
+
+  /* 고른 갈래 안에서 메뉴 한 접시까지 좁힌다 (같은 답 = 같은 메뉴) */
+  function pickMenu(pick){
+    var cand = MENU[pick];
+    if(!cand || !cand.length) return null;
+    var best = null, bestScore = -1e9;
+    cand.forEach(function(m){
+      var s = 0;
+      for(var k in cur.ans){ var v = cur.ans[k]; if(m.pr && m.pr[v]) s += m.pr[v]; }
+      if(s > bestScore){ bestScore = s; best = m; }
+    });
+    return best ? {nm:best.nm, nt:best.nt} : null;
   }
 
   /* ───────────────────────── 직접 입력 ───────────────────────── */
@@ -989,6 +1111,8 @@ footer b{color:var(--ink2)}
     $("resWhy").textContent = d.why;
     $("resAlt").textContent = d.alt;
     $("resAct").textContent = d.act;
+    renderMenu(d);
+    renderOrder(d);
 
     var cbox = $("resConds"); cbox.innerHTML = "";
     (d.conds || []).forEach(function(c){
@@ -1013,13 +1137,45 @@ footer b{color:var(--ink2)}
     if(!fromHistory){
       hist.unshift({
         ts:d.ts, ico:d.ico, topicId:d.topicId, topicName:d.topicName, pick:d.pick,
-        why:d.why, alt:d.alt, act:d.act, conds:d.conds, oneLine:d.oneLine, custom:!!d.custom
+        why:d.why, alt:d.alt, act:d.act, conds:d.conds, oneLine:d.oneLine, custom:!!d.custom,
+        menu:d.menu || null
       });
       hist = hist.slice(0,12);
       saveHist();
       renderHist();
     }
   }
+
+  /* ── 메뉴 한 접시 ── */
+  function renderMenu(d){
+    var box = $("resMenu");
+    if(!d.menu || !d.menu.nm){ box.hidden = true; $("menuName").textContent = ""; $("menuNote").textContent = ""; return; }
+    $("menuName").textContent = d.menu.nm;
+    $("menuNote").textContent = d.menu.nt || "";
+    box.hidden = false;
+  }
+
+  /* ── 주문·검색 바로가기 (링크 이동만, 외부 호출 없음) ── */
+  function orderWord(d){
+    return (d.menu && d.menu.nm) ? d.menu.nm : d.pick;
+  }
+  function renderOrder(d){
+    var wrap = $("resOrder");
+    if(d.topicId !== "eat" || d.custom){ wrap.hidden = true; return; }
+    var word = orderWord(d);
+    $("ordMap").href = "https://m.map.naver.com/search?query=" + encodeURIComponent(word);
+    $("ordMapTx").textContent = "지도에서 '" + word + "' 보기";
+    $("orderH").textContent = word + " — 바로 이어서";
+    $("ordCopyTx").textContent = "'" + word + "' 복사";
+    $("orderNote").textContent = "쿠팡이츠·배민 버튼은 앱이 깔려 있으면 앱을 열고, 없으면 설치 화면으로 갑니다. 앱에서 방금 복사한 이름을 붙여 넣으면 그 메뉴부터 나옵니다.";
+    wrap.hidden = false;
+  }
+
+  $("ordCopy").addEventListener("click", function(){
+    var d = cur.pick;
+    if(!d){ return; }
+    copyText(orderWord(d), "'" + orderWord(d) + "'를 복사했습니다. 배달앱 검색창에 붙여 넣으세요.");
+  });
 
   $("nextPick").addEventListener("click", function(){
     if(!cur.custom || !cur.copts) return;
@@ -1083,6 +1239,7 @@ footer b{color:var(--ink2)}
     L.push(d.topicName + (d.conds && d.conds.length ? " · " + d.conds.join(" · ") : ""));
     L.push("");
     L.push("제가 고른 건: " + d.pick);
+    if(d.menu && d.menu.nm) L.push("메뉴는: " + d.menu.nm);
     L.push("이유: " + d.why);
     L.push("대안: " + d.alt);
     L.push("지금 할 일: " + d.act);
@@ -1092,7 +1249,7 @@ footer b{color:var(--ink2)}
     return L.join("\n");
   }
 
-  function copyText(text){
+  function copyText(text, okMsg){
     function fallback(){
       try{
         var ta = document.createElement("textarea");
@@ -1101,11 +1258,11 @@ footer b{color:var(--ink2)}
         document.body.appendChild(ta); ta.select();
         var ok = document.execCommand("copy");
         ta.remove();
-        toast(ok ? "복사했습니다" : "복사가 안 되면 길게 눌러 직접 복사해 주세요");
+        toast(ok ? (okMsg || "복사했습니다") : "복사가 안 되면 길게 눌러 직접 복사해 주세요");
       }catch(e){ toast("복사가 안 되면 길게 눌러 직접 복사해 주세요"); }
     }
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ toast("결과 문구를 복사했습니다"); }, fallback);
+      navigator.clipboard.writeText(text).then(function(){ toast(okMsg || "결과 문구를 복사했습니다"); }, fallback);
     }else{ fallback(); }
   }
 
@@ -1132,12 +1289,14 @@ footer b{color:var(--ink2)}
       q.innerHTML = "";
       var a = document.createElement("a");
       a.href = aff.url; a.target = "_blank"; a.rel = "noopener sponsored";
-      a.textContent = (aff.seller || "쿠팡") + "에서 보기 →";
+      a.textContent = (aff.item || h.it) + " · " + (aff.seller || "쿠팡") + "에서 보기 →";
       q.appendChild(a);
       q.hidden = false;
+      $("helpNote").textContent = "쿠팡 파트너스 활동의 일환으로, 이 링크를 거쳐 구매가 이루어지면 일정액의 수수료를 받을 수 있습니다. 값과 재고는 쿠팡에서 바뀔 수 있습니다.";
     }else{
       q.textContent = h.q ? ("검색어 · " + h.q) : "";
       q.hidden = !h.q;
+      $("helpNote").textContent = "광고 아님 · 판매 링크 없음. 집에 하나 두면 다음 결정이 빨라지는 것만 적었습니다.";
     }
     box.hidden = false;
   }
@@ -1212,6 +1371,17 @@ footer b{color:var(--ink2)}
     c.fillStyle = "#1d1d1f";
     lines.forEach(function(ln, i){ c.fillText(ln, CW/2, by + i*lh); });
     var bigEnd = by + (lines.length-1)*lh;
+
+    /* 메뉴 한 접시 */
+    if(d.menu && d.menu.nm){
+      c.font = f("700", 46);
+      c.fillStyle = "#0071e3";
+      var ml = wrapLines(c, d.menu.nm, 880).slice(0,2);
+      var mh = 54;
+      var my = bigEnd + 78;
+      ml.forEach(function(ln, i){ c.fillText(ln, CW/2, my + i*mh); });
+      bigEnd = my + (ml.length-1)*mh + 10;
+    }
 
     /* 조건 */
     if(d.conds && d.conds.length){
@@ -1301,6 +1471,13 @@ footer b{color:var(--ink2)}
   }
 
   /* ───────────────────────── 시작 ───────────────────────── */
+  (function bindAppLinks(){
+    var eatsFallback = encodeURIComponent("https://play.google.com/store/apps/details?id=com.coupang.mobile.eats");
+    var bmFallback   = encodeURIComponent("https://play.google.com/store/apps/details?id=com.sampleapp");
+    $("ordEats").href = "intent://#Intent;package=com.coupang.mobile.eats;S.browser_fallback_url=" + eatsFallback + ";end";
+    $("ordBaemin").href = "https://www.baemin.com/?af_force_deeplink=true";
+  })();
+
   loadHist();
   renderHist();
 })();
