@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>🏛️ 헛소리 박물관 — 확신에 찬 라벨 넷 중 진짜를 고르는 게임</title>
-<meta name="description" content="평범한 물건에 거창한 이름이 붙은 박물관. 라벨 네 개 중 진짜 설명은 하나뿐입니다. 틀리면 그 헛소리가 내 전시관에 걸립니다. 가입·설치·광고 없는 단일 HTML 게임.">
+<title>🏛️ 헛소리 박물관 — 50점 유물, 다섯 전시관, 관장 승급</title>
+<meta name="description" content="평범한 물건에 거창한 이름이 붙은 박물관. 라벨 네 개 중 진짜 설명은 하나뿐입니다. 다섯 전시관 50점 유물, 도감 저장, 관장 승급 10단계. 가입·설치·광고 없는 단일 HTML 게임.">
 <meta name="author" content="린다 (Linda)">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#f3ece0">
@@ -15,214 +15,342 @@
   html{-webkit-text-size-adjust:100%}
   body{
     min-height:100dvh;
-    background:
-      radial-gradient(120% 60% at 50% -10%,#fdf9f0 0%,#f3ece0 46%,#e9dfcd 100%);
+    background:radial-gradient(120% 60% at 50% -10%,#fdf9f0 0%,#f3ece0 46%,#e9dfcd 100%);
     color:#241d14;
     font-family:"Pretendard","Apple SD Gothic Neo",-apple-system,BlinkMacSystemFont,"Segoe UI","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
     letter-spacing:-.012em;
     overflow-x:hidden;
     -webkit-tap-highlight-color:transparent;
   }
-  .wrap{
+  button{font:inherit;color:inherit}
+  .app{
     width:100%;max-width:420px;margin:0 auto;min-height:100dvh;
-    padding:calc(12px + env(safe-area-inset-top)) 15px calc(14px + env(safe-area-inset-bottom));
-    display:flex;flex-direction:column;gap:10px;
+    padding:calc(11px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom));
+    display:flex;flex-direction:column;gap:9px;
   }
+  .screen{display:flex;flex-direction:column;gap:9px;flex:1 1 auto;min-height:0}
+  .screen[hidden]{display:none}
 
   /* ---------- 상단 ---------- */
-  .top{display:flex;align-items:center;gap:9px}
+  .top{display:flex;align-items:center;gap:8px}
   .mark{font-size:17px;line-height:1}
-  .top h1{margin:0;font-size:16.5px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
+  .top h1{margin:0;font-size:16px;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
   .rank{
     margin-left:auto;flex:none;
-    font-size:11px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;
-    padding:6px 10px;border-radius:999px;
+    font-size:10.5px;font-weight:800;letter-spacing:-.01em;white-space:nowrap;
+    padding:5px 9px;border-radius:999px;
     color:#8a6614;background:#fbf1d8;border:1px solid #e8d29a;
     transition:background .2s,color .2s,border-color .2s,transform .2s;
   }
-  .rank.up{animation:rankUp .5s ease}
-  @keyframes rankUp{0%{transform:scale(1)}40%{transform:scale(1.14)}100%{transform:scale(1)}}
+  .rank.up{animation:rankUp .55s ease}
+  @keyframes rankUp{0%{transform:scale(1)}38%{transform:scale(1.16)}100%{transform:scale(1)}}
   .icon-btn{
-    flex:none;width:31px;height:31px;border-radius:50%;cursor:pointer;
+    flex:none;width:30px;height:30px;border-radius:50%;cursor:pointer;
     border:1px solid #ded2ba;background:#fffdf8;color:#7a6c56;
-    font-size:14px;line-height:1;display:grid;place-items:center;
+    font-size:13px;line-height:1;display:grid;place-items:center;
     transition:transform .12s ease,background .15s ease;
   }
   .icon-btn:active{transform:scale(.92);background:#f1e8d8}
+  .icon-btn.off{color:#c0b198;background:#f7f1e6}
 
-  /* ---------- 진행 ---------- */
-  .prog{display:flex;align-items:center;gap:7px}
-  .dots{display:flex;gap:6px;flex:1}
-  .dots i{
-    flex:1;height:5px;border-radius:999px;background:#e2d6c0;
-    transition:background .28s ease;
+  /* ---------- 홈 ---------- */
+  .hero{
+    position:relative;overflow:hidden;flex:none;
+    border-radius:19px;padding:13px 14px 12px;
+    background:linear-gradient(158deg,#fff8e6 0%,#fbe9b9 46%,#f3d795 100%);
+    border:1px solid #e8d09a;
+    box-shadow:0 1px 0 #fff inset,0 10px 24px rgba(120,86,20,.13);
   }
+  .hero::before{
+    content:"";position:absolute;inset:-40% -10% auto -10%;height:150%;
+    background:repeating-conic-gradient(from 0deg at 50% 30%,rgba(255,255,255,.55) 0deg 2.5deg,rgba(255,255,255,0) 2.5deg 11deg);
+    opacity:.5;pointer-events:none;
+    -webkit-mask-image:radial-gradient(circle at 50% 26%,#000 0%,rgba(0,0,0,.45) 42%,transparent 68%);
+    mask-image:radial-gradient(circle at 50% 26%,#000 0%,rgba(0,0,0,.45) 42%,transparent 68%);
+  }
+  .hero .row{position:relative;display:flex;align-items:center;gap:10px}
+  .hero .crest{
+    flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:23px;
+    background:linear-gradient(180deg,#fffdf6,#f6e6bc);border:1px solid #e3c88b;
+    box-shadow:0 6px 14px rgba(120,86,20,.16);
+  }
+  .hero .who{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .hero .lbl{font-size:10px;font-weight:800;letter-spacing:.11em;color:#a9822c}
+  .hero .name{font-size:19px;font-weight:900;letter-spacing:-.04em;color:#4a3310;line-height:1.15}
+  .hero .next{margin-left:auto;flex:none;text-align:right;font-size:10px;font-weight:700;color:#9a7a33;line-height:1.35}
+  .hero .next b{display:block;font-size:12px;color:#6d5119}
+  .bar{position:relative;height:6px;margin-top:10px;border-radius:999px;background:rgba(255,255,255,.62);overflow:hidden;border:1px solid rgba(180,140,50,.18)}
+  .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#e0b33c,#b8860b);transition:width .45s cubic-bezier(.2,.8,.3,1)}
+  .stats{position:relative;display:flex;margin-top:9px;gap:6px}
+  .stat{flex:1;min-width:0;text-align:center;padding:5px 2px;border-radius:10px;background:rgba(255,255,255,.55);border:1px solid rgba(190,150,60,.16)}
+  .stat b{display:block;font-size:13px;font-weight:800;color:#4a3310;font-variant-numeric:tabular-nums;line-height:1.2}
+  .stat span{font-size:9.5px;font-weight:700;color:#9a7a33;letter-spacing:-.01em}
+
+  .sechead{display:flex;align-items:center;gap:6px;padding:1px 3px 0;font-size:10.5px;font-weight:800;letter-spacing:.02em;color:#a08d68}
+  .sechead em{margin-left:auto;font-style:normal;font-weight:700;color:#b6a382}
+
+  .halls{display:flex;flex-direction:column;gap:7px}
+  .hall{
+    position:relative;display:flex;align-items:center;gap:9px;width:100%;text-align:left;cursor:pointer;
+    padding:9px 11px;border-radius:14px;background:#fffdf8;border:1px solid #e6dac4;
+    box-shadow:0 1px 0 #fff inset,0 3px 9px rgba(120,92,40,.055);
+    transition:transform .1s ease,border-color .16s,background .16s;
+  }
+  .hall:active{transform:scale(.988);background:#fbf4e6}
+  .hall .badge{
+    flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;
+    font-size:12px;font-weight:900;color:#8a6614;
+    background:linear-gradient(180deg,#fdf4dc,#f4e2b4);border:1px solid #e6d09b;
+  }
+  .hall .hbody{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+  .hall .hname{font-size:13px;font-weight:800;letter-spacing:-.03em;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hall .htag{font-size:10.5px;color:#9c8a6c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hall .hright{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  .hall .stars{font-size:10px;letter-spacing:1px;color:#d9b03c;line-height:1}
+  .hall .stars .e{color:#e0d6c2}
+  .hall .hprog{font-size:9.5px;font-weight:700;color:#a89a80;font-variant-numeric:tabular-nums}
+  .hall.locked{background:#f8f3e9;border-style:dashed;box-shadow:none}
+  .hall.locked .badge{color:#b9a888;background:#f1e9da;border-color:#e0d4bd}
+  .hall.locked .hname{color:#8d7f68}
+  .hall.locked .htag{color:#b3a68f}
+  .hall.locked .hright{color:#b3a68f;font-size:9.5px;font-weight:700}
+  .hall.done .badge{color:#2c6a4d;background:linear-gradient(180deg,#eef8f1,#d8ecdf);border-color:#a8cdb6}
+
+  .relay{
+    display:flex;align-items:center;gap:9px;width:100%;text-align:left;cursor:pointer;
+    padding:10px 12px;border-radius:14px;color:#fdf4dd;
+    background:linear-gradient(160deg,#3c3325,#221c14);
+    border:1px solid #4a3f2d;box-shadow:0 8px 18px rgba(45,34,16,.22);
+    transition:transform .1s ease;
+  }
+  .relay:active{transform:scale(.988)}
+  .relay .ico{flex:none;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14)}
+  .relay .hbody{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}
+  .relay .hname{font-size:13px;font-weight:800;letter-spacing:-.03em}
+  .relay .htag{font-size:10.5px;color:#c9b795}
+  .relay .best{flex:none;font-size:10px;font-weight:800;color:#f0d48a;font-variant-numeric:tabular-nums}
+
+  .homefoot{display:flex;gap:7px;padding-top:2px}
+  .rule{margin:1px 0 0;padding:0 6px;text-align:center;font-size:10px;line-height:1.5;color:#a29174;letter-spacing:-.005em}
+  .mini{
+    flex:1;height:38px;border-radius:12px;cursor:pointer;font-size:11.5px;font-weight:800;
+    border:1px solid #e2d6c0;background:#fffdf8;color:#5d5140;
+    transition:transform .1s ease,background .15s;
+  }
+  .mini:active{transform:scale(.985);background:#f7efe0}
+  .mini.warn{color:#a0442a;border-color:#e6c3b6}
+
+  /* ---------- 플레이 ---------- */
+  .playbar{display:flex;align-items:center;gap:7px;flex:none}
+  .playbar .hb{
+    flex:none;width:27px;height:27px;border-radius:9px;border:1px solid #ded2ba;background:#fffdf8;
+    color:#7a6c56;cursor:pointer;display:grid;place-items:center;font-size:12px;
+  }
+  .playbar .hb:active{transform:scale(.93)}
+  .playbar .where{font-size:11px;font-weight:800;color:#7b6a4e;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lives{margin-left:auto;flex:none;display:flex;gap:2px;font-size:11px;line-height:1}
+  .lives i{font-style:normal;filter:saturate(1);transition:opacity .2s,transform .2s}
+  .lives i.gone{opacity:.22;transform:scale(.85)}
+  .combo{
+    flex:none;font-size:10px;font-weight:900;color:#8a5a12;letter-spacing:-.01em;
+    padding:4px 7px;border-radius:999px;background:#fbe9b8;border:1px solid #eccf83;
+    opacity:0;transform:scale(.8);transition:opacity .18s,transform .18s;
+  }
+  .combo.on{opacity:1;transform:none}
+
+  .dots{display:flex;gap:4px;flex:none}
+  .dots i{flex:1;height:4.5px;border-radius:999px;background:#e2d6c0;transition:background .28s ease}
   .dots i.now{background:#c9a227}
   .dots i.ok{background:#2f7d5c}
   .dots i.no{background:#bd553a}
-  .count{font-size:11px;font-weight:700;color:#98876c;font-variant-numeric:tabular-nums}
 
-  /* ---------- 유물 액자 ---------- */
   .frame{
     position:relative;flex:1 1 auto;display:flex;flex-direction:column;min-height:0;
-    border-radius:20px;padding:9px;
+    border-radius:19px;padding:8px;
     background:linear-gradient(160deg,#fffdf8,#f6efe0);
     border:1px solid #e3d7c1;
     box-shadow:0 1px 0 #fff inset,0 10px 26px rgba(90,68,32,.10);
   }
-  .frame::before{
-    content:"";position:absolute;inset:9px;border-radius:13px;pointer-events:none;
-    border:1px solid #ecdfc7;
-  }
+  .frame::before{content:"";position:absolute;inset:8px;border-radius:12px;border:1px solid #ecdfc7;pointer-events:none}
   .stage{
-    position:relative;flex:1 1 auto;width:100%;min-height:clamp(144px,24vh,220px);border-radius:13px;overflow:hidden;
-    background:
-      radial-gradient(70% 90% at 50% 16%,#fdf7e7 0%,#f2e7cf 58%,#e8dabc 100%);
+    position:relative;flex:1 1 auto;width:100%;min-height:clamp(140px,23vh,214px);border-radius:12px;overflow:hidden;
+    background:radial-gradient(circle at 50% 40%,#fffaea 0%,#ffeeb8 34%,#f8da90 70%,#efcd84 100%);
     display:grid;place-items:center;
   }
-  .stage .lamp{
-    position:absolute;top:-34px;left:50%;width:150px;height:150px;transform:translateX(-50%);
-    background:radial-gradient(50% 50% at 50% 50%,rgba(255,241,196,.95) 0%,rgba(255,241,196,0) 72%);
-    pointer-events:none;
+  .stage::after{
+    content:"";position:absolute;inset:-25%;pointer-events:none;opacity:.55;
+    background:repeating-conic-gradient(from 0deg at 50% 38%,rgba(255,255,255,.62) 0deg 2.4deg,rgba(255,255,255,0) 2.4deg 10deg);
+    -webkit-mask-image:radial-gradient(circle at 50% 38%,#000 0%,rgba(0,0,0,.30) 40%,transparent 64%);
+    mask-image:radial-gradient(circle at 50% 38%,#000 0%,rgba(0,0,0,.30) 40%,transparent 64%);
   }
-  #art{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    height:84%;aspect-ratio:1/1;max-width:78%;display:grid;place-items:center;
-  }
-  .stage svg{position:relative;width:100%;height:100%;display:block;
-    animation:artIn .42s cubic-bezier(.2,.85,.3,1) both;
-    filter:drop-shadow(0 9px 16px rgba(120,92,40,.22));}
-  @keyframes artIn{from{opacity:0;transform:translateY(9px) scale(.94)}to{opacity:1;transform:none}}
-  .stage .pedestal{
-    position:absolute;left:50%;bottom:12%;transform:translateX(-50%);
-    width:56%;height:10px;border-radius:50%;
-    background:radial-gradient(50% 50% at 50% 50%,rgba(120,92,40,.20),rgba(120,92,40,0) 72%);
-    pointer-events:none;
-  }
-  .art{display:contents}
-  .tag{
-    position:absolute;bottom:7px;right:9px;font-size:9.5px;font-weight:800;letter-spacing:.06em;
-    color:#a8926a;
-  }
+  #art{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:94%;aspect-ratio:1/1;max-width:84%;display:grid;place-items:center;z-index:1}
+  #art svg{width:100%;height:100%;display:block;animation:artIn .42s cubic-bezier(.2,.85,.3,1) both}
+  @keyframes artIn{from{opacity:0;transform:translateY(9px) scale(.93)}to{opacity:1;transform:none}}
+  #art .sp{animation:tw 2.6s ease-in-out infinite}
+  #art .sp:nth-child(2n){animation-delay:.7s}
+  #art .sp:nth-child(3n){animation-delay:1.3s}
+  @keyframes tw{0%,100%{opacity:.32}50%{opacity:1}}
+  .stage .tag{position:absolute;bottom:6px;right:8px;z-index:2;font-size:9px;font-weight:800;letter-spacing:.06em;color:#b28d3f;opacity:.9}
 
-  /* ---------- 명패 ---------- */
-  .plaque{display:flex;flex-direction:column;gap:2px;padding:0 3px}
-  .plaque h2{margin:0;font-size:17px;font-weight:800;letter-spacing:-.035em;line-height:1.3}
-  .plaque p{margin:0;font-size:11px;color:#9c8a6c;letter-spacing:.01em}
-  .ask{margin:0;padding:0 3px;font-size:13px;font-weight:700;color:#6f6047}
+  .plaque{display:flex;flex-direction:column;gap:1px;padding:0 3px;flex:none}
+  .plaque h2{margin:0;font-size:16px;font-weight:800;letter-spacing:-.035em;line-height:1.3}
+  .plaque p{margin:0;font-size:10.5px;color:#9c8a6c;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ask{margin:0;padding:0 3px;font-size:12px;font-weight:700;color:#6f6047;flex:none}
 
-  /* ---------- 선택지 ---------- */
-  .choices{display:flex;flex-direction:column;gap:9px}
+  .choices{display:flex;flex-direction:column;gap:7px;flex:none}
   .choice{
-    position:relative;width:100%;text-align:left;font:inherit;cursor:pointer;
-    padding:12px 14px 12px 36px;border-radius:14px;
+    position:relative;width:100%;text-align:left;cursor:pointer;
+    padding:9px 12px 9px 31px;border-radius:12px;
     border:1px solid #e2d6c0;background:#fffdf9;color:#2c2419;
-    font-size:13.5px;line-height:1.45;letter-spacing:-.018em;
+    font-size:12.5px;line-height:1.4;letter-spacing:-.018em;
     transition:transform .1s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease;
   }
   .choice .n{
-    position:absolute;left:12px;top:13px;width:16px;height:16px;border-radius:50%;
-    display:grid;place-items:center;font-size:10px;font-weight:800;
+    position:absolute;left:10px;top:10px;width:15px;height:15px;border-radius:50%;
+    display:grid;place-items:center;font-size:9.5px;font-weight:800;
     color:#a1906f;background:#f3ebdb;border:1px solid #e6d9c1;
   }
   .choice:active{transform:scale(.985);background:#faf3e5}
   .choice[disabled]{cursor:default}
-  .choice.right{
-    background:#eaf6ef;border-color:#8fc4a8;color:#1d5a41;
-    box-shadow:0 0 0 2px rgba(47,125,92,.10);
-  }
+  .choice.right{background:#eaf6ef;border-color:#8fc4a8;color:#1d5a41;box-shadow:0 0 0 2px rgba(47,125,92,.10)}
   .choice.right .n{background:#2f7d5c;border-color:#2f7d5c;color:#fff}
-  .choice.wrong{
-    background:#fdeee9;border-color:#e6ae9a;color:#8f3a22;
-    animation:shake .34s ease;
-  }
+  .choice.wrong{background:#fdeee9;border-color:#e6ae9a;color:#8f3a22;animation:shake .34s ease}
   .choice.wrong .n{background:#bd553a;border-color:#bd553a;color:#fff}
-  .choice.dim{opacity:.46}
+  .choice.dim{opacity:.45}
   @keyframes shake{0%,100%{transform:translateX(0)}22%{transform:translateX(-4px)}48%{transform:translateX(4px)}72%{transform:translateX(-2px)}}
 
-  /* ---------- 하단 ---------- */
-  .note{
-    margin:0;min-height:35px;padding:0 3px;font-size:12.5px;line-height:1.42;
-    color:#8a7a5f;
-  }
-  .foot{
-    margin:0;padding:0 4px 2px;text-align:center;
-    font-size:10.5px;line-height:1.5;color:#a29174;letter-spacing:-.005em;
-  }
+  .note{margin:0;min-height:31px;padding:0 3px;font-size:11.5px;line-height:1.4;color:#8a7a5f;flex:none}
   .note b{font-weight:800}
   .note.ok{color:#23704f}
   .note.no{color:#a0442a}
   .cta{
-    width:100%;height:50px;font:inherit;font-size:14.5px;font-weight:800;cursor:pointer;
-    border:0;border-radius:15px;color:#fff;letter-spacing:-.02em;
+    width:100%;height:47px;font-size:14px;font-weight:800;cursor:pointer;flex:none;
+    border:0;border-radius:14px;color:#fff;letter-spacing:-.02em;
     background:linear-gradient(180deg,#3a3226,#241d14);
     box-shadow:0 8px 20px rgba(50,38,18,.20);
-    transition:transform .1s ease,opacity .2s ease,box-shadow .15s ease;
+    transition:transform .1s ease,background .2s,box-shadow .15s;
   }
   .cta:active{transform:scale(.985)}
   .cta[hidden]{display:none}
-  .cta[disabled]{
-    background:#f7f0e3;color:#a89a80;border:1px dashed #dccdb2;box-shadow:none;cursor:default;
-  }
+  .cta[disabled]{background:#f7f0e3;color:#a89a80;border:1px dashed #dccdb2;box-shadow:none;cursor:default}
   .cta.ghost{background:#fffdf9;color:#4a3f2f;border:1px solid #e2d6c0;box-shadow:none}
 
-  /* ---------- 결과 ---------- */
-  .result{
-    position:fixed;inset:0;z-index:20;overflow-y:auto;
+  /* ---------- 오버레이 ---------- */
+  .overlay{
+    position:fixed;inset:0;z-index:30;overflow-y:auto;-webkit-overflow-scrolling:touch;
     background:linear-gradient(180deg,#fdf8ee 0%,#f0e6d4 100%);
-    padding:calc(20px + env(safe-area-inset-top)) 18px calc(20px + env(safe-area-inset-bottom));
-    opacity:0;transition:opacity .26s ease;
-    display:flex;align-items:center;justify-content:center;
+    padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom));
   }
-  .result[hidden]{display:none}
-  .result.show{opacity:1}
-  .result .inner{width:100%;max-width:390px;margin:auto;display:flex;flex-direction:column;gap:12px;text-align:center}
-  .result .crest{
-    width:74px;height:74px;margin:4px auto 0;border-radius:22px;display:grid;place-items:center;
-    font-size:34px;background:#fffdf8;border:1px solid #e6d8bd;
-    box-shadow:0 10px 26px rgba(120,92,40,.14);
-  }
-  .result .kicker{margin:0;font-size:11px;font-weight:800;letter-spacing:.12em;color:#b09768}
-  .result .grade{margin:0;font-size:27px;font-weight:900;letter-spacing:-.04em;line-height:1.15}
-  .result .score{margin:0;font-size:13px;color:#7c6d53}
-  .result .score b{font-size:16px;color:#241d14;font-variant-numeric:tabular-nums}
-  .shelf{
-    display:flex;flex-direction:column;gap:7px;text-align:left;
-    padding:12px;border-radius:16px;background:#fffdf8;border:1px solid #e7dac1;
-  }
-  .shelf .h{
-    display:flex;align-items:center;gap:6px;
-    font-size:11px;font-weight:800;letter-spacing:.02em;color:#a48d63;
-  }
-  .shelf .h span{margin-left:auto;font-variant-numeric:tabular-nums}
-  .shelf ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
-  .shelf li{
-    font-size:11.5px;line-height:1.42;color:#4e422f;
-    padding-left:17px;position:relative;
-  }
-  .shelf li::before{
-    content:"";position:absolute;left:0;top:4px;width:9px;height:9px;
-    border:1.5px solid #b8a079;border-radius:2px;box-sizing:border-box;
-  }
-  .shelf .empty{font-size:11.5px;color:#8d7d62;line-height:1.5;padding-left:0!important}
-  .shelf li.empty::before{display:none}
-  .hint{margin:0;font-size:11.5px;line-height:1.5;color:#9c8a6c}
-  .result .cta{margin-top:2px}
+  .overlay[hidden]{display:none}
+  .overlay .inner{width:100%;max-width:392px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 
-  @media (max-height:760px){
-    .wrap{gap:6px}
-    .stage{min-height:clamp(84px,14vh,118px)}
-    #art{max-width:56%}
-    .plaque h2{font-size:15px}
-    .plaque p{font-size:10px}
-    .choice{padding:7px 12px 7px 30px;font-size:12.5px;line-height:1.38}
-    .choice .n{top:8px;left:9px}
-    .note{min-height:27px;font-size:11.5px}
-    .cta{height:43px;font-size:14px}
-    .foot{display:none}
-    .result .crest{width:60px;height:60px;font-size:28px}
-    .result .grade{font-size:23px}
-    .result .inner{gap:9px}
+  .resTop{text-align:center;display:flex;flex-direction:column;gap:5px;align-items:center}
+  .resTop .crest{
+    width:64px;height:64px;border-radius:20px;display:grid;place-items:center;font-size:30px;
+    background:linear-gradient(180deg,#fffdf6,#f7e8c2);border:1px solid #e6d3a2;
+    box-shadow:0 10px 24px rgba(120,92,40,.16);
+  }
+  .kicker{margin:0;font-size:10px;font-weight:800;letter-spacing:.13em;color:#b09768}
+  .grade{margin:0;font-size:25px;font-weight:900;letter-spacing:-.045em;line-height:1.15}
+  .resSub{margin:0;font-size:12px;color:#7c6d53;line-height:1.45}
+  .resSub b{font-size:15px;color:#241d14;font-variant-numeric:tabular-nums}
+  .starbar{font-size:20px;letter-spacing:3px;color:#d9b03c;line-height:1}
+  .starbar .e{color:#e2d8c4}
+
+  .card{
+    display:flex;flex-direction:column;gap:7px;text-align:left;
+    padding:11px 12px;border-radius:15px;background:#fffdf8;border:1px solid #e7dac1;
+  }
+  .card .h{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:800;letter-spacing:.02em;color:#a48d63}
+  .card .h span{margin-left:auto;font-variant-numeric:tabular-nums}
+  .card ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .card li{font-size:11px;line-height:1.42;color:#4e422f;padding-left:15px;position:relative}
+  .card li::before{content:"";position:absolute;left:0;top:4px;width:8px;height:8px;border:1.5px solid #b8a079;border-radius:2px}
+  .card li.empty{padding-left:0;color:#8d7d62}
+  .card li.empty::before{display:none}
+  .kv{display:flex;flex-wrap:wrap;gap:6px}
+  .kv div{flex:1 1 30%;min-width:0;text-align:center;padding:6px 2px;border-radius:10px;background:#faf5ea;border:1px solid #efe4cd}
+  .kv b{display:block;font-size:13px;font-variant-numeric:tabular-nums;color:#3d3324}
+  .kv span{font-size:9px;font-weight:700;color:#a2906f}
+  .unlock{
+    display:flex;align-items:center;gap:8px;padding:9px 11px;border-radius:13px;
+    background:linear-gradient(160deg,#eef8f1,#dcf0e3);border:1px solid #a9cfba;color:#1d5a41;
+    font-size:11.5px;font-weight:800;line-height:1.35;
+  }
+  .unlock[hidden]{display:none}
+
+  /* ---------- 도감 ---------- */
+  .tabs{display:flex;gap:5px;overflow-x:auto;padding-bottom:2px;flex:none;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:none;padding:6px 10px;border-radius:999px;cursor:pointer;white-space:nowrap;
+    font-size:10.5px;font-weight:800;color:#8d7d62;background:#fffdf8;border:1px solid #e5d9c3;
+  }
+  .tab.on{color:#5c4410;background:#fbe9b8;border-color:#e6c97f}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .cell{
+    position:relative;aspect-ratio:1/1;border-radius:12px;cursor:pointer;padding:0;
+    background:linear-gradient(180deg,#fffdf7,#f7edda);border:1px solid #e7dac1;
+    display:grid;place-items:center;overflow:hidden;
+  }
+  .cell svg{width:88%;height:88%;display:block}
+  .cell .q{font-size:17px;font-weight:900;color:#ddd0b7}
+  .cell.locked{background:#f8f3e9;border-style:dashed;cursor:default}
+  .cell.locked svg{opacity:.18;filter:grayscale(1)}
+  .cell .dot{position:absolute;right:4px;top:4px;width:5px;height:5px;border-radius:50%;background:#2f7d5c}
+  .cell.new{animation:cellIn .4s ease}
+  @keyframes cellIn{from{transform:scale(.86);opacity:0}to{transform:none;opacity:1}}
+
+  .sheet{
+    position:fixed;left:0;right:0;bottom:0;z-index:40;
+    background:linear-gradient(180deg,#fffdf8,#f8f0e0);
+    border-radius:20px 20px 0 0;border-top:1px solid #e6d8bd;
+    box-shadow:0 -14px 40px rgba(70,52,24,.22);
+    padding:14px 16px calc(16px + env(safe-area-inset-bottom));
+    transform:translateY(102%);transition:transform .28s cubic-bezier(.2,.85,.3,1);
+  }
+  .sheet.show{transform:none}
+  .sheet[hidden]{display:none}
+  .sheet .grip{width:38px;height:4px;border-radius:999px;background:#e0d3ba;margin:0 auto 10px}
+  .sheet .sh{display:flex;gap:10px;align-items:center}
+  .sheet .sic{
+    flex:none;width:62px;height:62px;border-radius:15px;overflow:hidden;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 40%,#fffaea,#ffe6a4 70%,#f6d78c);
+    border:1px solid #e8d09a;
+  }
+  .sheet .sic svg{width:100%;height:100%}
+  .sheet .sinfo{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .sheet .stitle{margin:0;font-size:14.5px;font-weight:800;letter-spacing:-.03em;line-height:1.3}
+  .sheet .struth{margin:7px 0 0;font-size:12px;line-height:1.55;color:#3f3527;background:#f7eeda;border:1px solid #ecdfc5;border-radius:11px;padding:9px 11px}
+  .sheet .smeta{margin:0;font-size:10.5px;color:#9c8a6c}
+  .sheet .close{margin-top:10px;width:100%;height:40px;border-radius:12px;cursor:pointer;font-size:12px;font-weight:800;background:#fffdf7;border:1px solid #e2d6c0;color:#5d5140}
+
+  .toast{
+    position:fixed;left:50%;top:calc(56px + env(safe-area-inset-top));transform:translate(-50%,-14px);
+    z-index:60;padding:9px 15px;border-radius:999px;pointer-events:none;
+    background:linear-gradient(160deg,#3c3325,#221c14);color:#fdf4dd;
+    font-size:11.5px;font-weight:800;letter-spacing:-.02em;
+    box-shadow:0 12px 28px rgba(40,30,14,.30);
+    opacity:0;transition:opacity .22s,transform .22s;
+  }
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-height:740px){
+    .app{gap:6px}
+    .stage{min-height:clamp(86px,13vh,120px)}
+    #art{max-width:62%}
+    .plaque h2{font-size:14.5px}
+    .plaque p{font-size:9.5px}
+    .ask{font-size:11px}
+    .choice{padding:7px 10px 7px 28px;font-size:11.5px;line-height:1.34}
+    .choice .n{top:8px;left:8px;width:14px;height:14px;font-size:9px}
+    .note{min-height:26px;font-size:10.5px}
+    .cta{height:42px;font-size:13px}
+    .hero{padding:10px 12px}
+    .hero .name{font-size:17px}
+    .hall{padding:7px 10px}
+    .resTop .crest{width:54px;height:54px;font-size:25px}
+    .grade{font-size:21px}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
@@ -230,73 +358,244 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<svg id="defs" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <radialGradient id="gHalo" cx="50%" cy="44%" r="54%">
+      <stop offset="0" stop-color="#fffdf2" stop-opacity=".99"/>
+      <stop offset="42%" stop-color="#fff0c0" stop-opacity=".88"/>
+      <stop offset="72%" stop-color="#ffdd94" stop-opacity=".44"/>
+      <stop offset="100%" stop-color="#ffd27a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gCore" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="gShadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#a9701a" stop-opacity=".34"/>
+      <stop offset="62%" stop-color="#a9701a" stop-opacity=".16"/>
+      <stop offset="100%" stop-color="#a9701a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gGold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3c6"/><stop offset=".38" stop-color="#f6cd5c"/>
+      <stop offset=".72" stop-color="#dda829"/><stop offset="1" stop-color="#a97712"/>
+    </linearGradient>
+    <linearGradient id="gGoldSoft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff8dd"/><stop offset=".5" stop-color="#f5dc9a"/><stop offset="1" stop-color="#d9b358"/>
+    </linearGradient>
+    <linearGradient id="gCream" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#fffef9"/><stop offset=".55" stop-color="#f6efdf"/><stop offset="1" stop-color="#e4d7bb"/>
+    </linearGradient>
+    <linearGradient id="gPaper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf6"/><stop offset=".7" stop-color="#f4ecd9"/><stop offset="1" stop-color="#e0d2b4"/>
+    </linearGradient>
+    <linearGradient id="gGlass" x1=".1" y1="0" x2=".5" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".42" stop-color="#eef8fd"/>
+      <stop offset=".78" stop-color="#c4e0f0"/><stop offset="1" stop-color="#9cc4dc"/>
+    </linearGradient>
+    <linearGradient id="gBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b6e6fb"/><stop offset=".5" stop-color="#5eb3e0"/><stop offset="1" stop-color="#2c7cb0"/>
+    </linearGradient>
+    <linearGradient id="gMetal" x1=".1" y1="0" x2=".4" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#dbe5ee"/>
+      <stop offset=".7" stop-color="#a6b6c5"/><stop offset="1" stop-color="#74858f"/>
+    </linearGradient>
+    <linearGradient id="gSilver" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbfdff"/><stop offset=".5" stop-color="#d3dee7"/><stop offset="1" stop-color="#93a4b1"/>
+    </linearGradient>
+    <linearGradient id="gSteel" x1="0" y1="0" x2=".3" y2="1">
+      <stop offset="0" stop-color="#9aa7b2"/><stop offset=".45" stop-color="#6d7a86"/><stop offset="1" stop-color="#414c56"/>
+    </linearGradient>
+    <linearGradient id="gWood" x1="0" y1="0" x2=".2" y2="1">
+      <stop offset="0" stop-color="#e3b277"/><stop offset=".5" stop-color="#c08a4d"/><stop offset="1" stop-color="#8b5a28"/>
+    </linearGradient>
+    <linearGradient id="gRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff9f8b"/><stop offset=".5" stop-color="#dc6450"/><stop offset="1" stop-color="#a63c2c"/>
+    </linearGradient>
+    <linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffdfe6"/><stop offset=".55" stop-color="#f3a8b8"/><stop offset="1" stop-color="#cf7288"/>
+    </linearGradient>
+    <linearGradient id="gGreen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c3e6a8"/><stop offset=".5" stop-color="#7cbb63"/><stop offset="1" stop-color="#4a8443"/>
+    </linearGradient>
+    <linearGradient id="gTeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b4e9df"/><stop offset=".5" stop-color="#63b5ac"/><stop offset="1" stop-color="#317a75"/>
+    </linearGradient>
+    <linearGradient id="gPurple" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ddcbf3"/><stop offset=".5" stop-color="#a884d4"/><stop offset="1" stop-color="#7553a3"/>
+    </linearGradient>
+    <linearGradient id="gCopper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6c9a2"/><stop offset=".5" stop-color="#cd8a55"/><stop offset="1" stop-color="#8d5326"/>
+    </linearGradient>
+    <linearGradient id="gDark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6b6157"/><stop offset=".55" stop-color="#3d362d"/><stop offset="1" stop-color="#201b15"/>
+    </linearGradient>
+    <linearGradient id="gYellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff2a8"/><stop offset=".55" stop-color="#ffd94d"/><stop offset="1" stop-color="#d9a81a"/>
+    </linearGradient>
+    <linearGradient id="gOrange" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd0a2"/><stop offset=".5" stop-color="#f39a4d"/><stop offset="1" stop-color="#bd661f"/>
+    </linearGradient>
+    <radialGradient id="gShine" cx="34%" cy="26%" r="42%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".92"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity=".28"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gSheen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9f5ff"/><stop offset=".25" stop-color="#ffe9a8"/>
+      <stop offset=".5" stop-color="#ffb3f2"/><stop offset=".75" stop-color="#a8fff0"/>
+      <stop offset="1" stop-color="#c3c8ff"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="app">
   <header class="top">
     <span class="mark" aria-hidden="true">🏛️</span>
     <h1>헛소리 박물관</h1>
     <span class="rank" id="rank">관람객</span>
-    <button class="icon-btn" id="restart" type="button" aria-label="처음부터" title="처음부터">↻</button>
+    <button class="icon-btn" id="sound" type="button" aria-label="소리 켜기/끄기" title="소리">🔊</button>
+    <button class="icon-btn" id="restart" type="button" aria-label="처음으로" title="처음으로">↻</button>
   </header>
 
-  <div class="prog">
-    <div class="dots" id="dots" aria-hidden="true"></div>
-    <span class="count" id="count">1 / 5</span>
-  </div>
-
-  <div class="frame">
-    <div class="stage">
-      <div class="lamp" aria-hidden="true"></div>
-      <div class="pedestal" aria-hidden="true"></div>
-      <div id="art"></div>
-      <span class="tag" aria-hidden="true">유물</span>
+  <!-- ================= 홈 ================= -->
+  <section class="screen" id="scHome">
+    <div class="hero">
+      <div class="row">
+        <div class="crest" id="homeCrest">🎫</div>
+        <div class="who">
+          <span class="lbl">오늘의 관장 등급</span>
+          <span class="name" id="homeRank">관람객</span>
+        </div>
+        <div class="next" id="homeNext">다음 승급까지<b>6점</b></div>
+      </div>
+      <div class="bar" aria-hidden="true"><i id="homeBar" style="width:0%"></i></div>
+      <div class="stats">
+        <div class="stat"><b id="stCorrect">0</b><span>누적 정답</span></div>
+        <div class="stat"><b id="stCombo">0</b><span>최고 콤보</span></div>
+        <div class="stat"><b id="stFound">0/50</b><span>도감 수집</span></div>
+      </div>
     </div>
-  </div>
 
-  <div class="plaque">
-    <h2 id="title">—</h2>
-    <p id="meta">—</p>
-  </div>
+    <div class="sechead">전시관 <em id="hallHint">제1관은 언제나 열려 있어요</em></div>
+    <div class="halls" id="halls"></div>
 
-  <p class="ask" id="ask">이 유물의 진짜 정체는?</p>
+    <button class="relay" id="relayBtn" type="button">
+      <span class="ico" aria-hidden="true">🎲</span>
+      <span class="hbody">
+        <span class="hname">무한 릴레이</span>
+        <span class="htag">50점 유물이 무작위로 · 목숨 3개</span>
+      </span>
+      <span class="best" id="relayBest">최고 0</span>
+    </button>
 
-  <div class="choices" id="choices" role="group" aria-label="라벨 네 개"></div>
+    <div class="homefoot">
+      <button class="mini" id="codexBtn" type="button">📖 내 도감</button>
+      <button class="mini warn" id="resetBtn" type="button">기록 지우기</button>
+    </div>
+    <p class="rule">라벨 넷 중 진짜는 하나 · 틀리면 그 헛소리가 내 전시관에 걸린다<br>도감·등급은 이 기기에만 저장된다</p>
+  </section>
 
-  <p class="note" id="note" aria-live="polite"></p>
-  <button class="cta" id="next" type="button" hidden>다음 유물 →</button>
-  <p class="foot">라벨 넷 중 진짜는 하나 · 틀리면 그 헛소리가 내 전시관에 걸린다</p>
+  <!-- ================= 플레이 ================= -->
+  <section class="screen" id="scPlay" hidden>
+    <div class="playbar">
+      <button class="hb" id="backHome" type="button" aria-label="전시관 선택으로">←</button>
+      <span class="where" id="where">제1관</span>
+      <span class="lives" id="lives" aria-label="남은 목숨"></span>
+      <span class="combo" id="combo">×2</span>
+    </div>
+    <div class="dots" id="dots" aria-hidden="true"></div>
+    <div class="frame">
+      <div class="stage">
+        <div id="art"></div>
+        <span class="tag" aria-hidden="true">유물</span>
+      </div>
+    </div>
+    <div class="plaque">
+      <h2 id="title">—</h2>
+      <p id="meta">—</p>
+    </div>
+    <p class="ask" id="ask">이 유물의 진짜 정체는?</p>
+    <div class="choices" id="choices" role="group" aria-label="라벨 네 개"></div>
+    <p class="note" id="note" aria-live="polite"></p>
+    <button class="cta" id="next" type="button" disabled>라벨 하나를 골라 봐</button>
+  </section>
 </div>
 
-<div class="result" id="result" hidden aria-live="polite">
+<!-- ================= 결과 ================= -->
+<div class="overlay" id="scResult" hidden aria-live="polite">
   <div class="inner">
-    <div class="crest" id="crest">🏛️</div>
-    <p class="kicker">오늘의 관장 등급</p>
-    <p class="grade" id="rGrade">관람객</p>
-    <p class="score" id="rScore"><b>0</b> / 5점</p>
-    <div class="shelf">
+    <div class="resTop">
+      <div class="crest" id="rCrest">🏛️</div>
+      <p class="kicker" id="rKicker">전시관 결과</p>
+      <p class="grade" id="rGrade">관장</p>
+      <div class="starbar" id="rStars">★★★</div>
+      <p class="resSub" id="rSub"><b>10</b> / 10점</p>
+    </div>
+    <div class="unlock" id="rUnlock" hidden>🔓 <span id="rUnlockText"></span></div>
+    <div class="card">
+      <div class="h">이번 판 기록 <span id="rRankNow">관람객</span></div>
+      <div class="kv">
+        <div><b id="rScore">0</b><span>점수</span></div>
+        <div><b id="rCombo2">0</b><span>최고 콤보</span></div>
+        <div><b id="rLives">3</b><span>남은 목숨</span></div>
+      </div>
+    </div>
+    <div class="card">
       <div class="h">내 전시관에 걸린 헛소리 <span id="rCount">0점</span></div>
       <ul id="rList"></ul>
     </div>
-    <p class="hint" id="rHint"></p>
-    <button class="cta" id="again" type="button">한 세트 더</button>
-    <button class="cta ghost" id="home" type="button">처음 화면으로</button>
+    <button class="cta" id="rAgain" type="button">한 번 더</button>
+    <button class="cta ghost" id="rNextHall" type="button" hidden>다음 전시관 →</button>
+    <button class="cta ghost" id="rHome" type="button">전시관 선택</button>
   </div>
 </div>
+
+<!-- ================= 도감 ================= -->
+<div class="overlay" id="scCodex" hidden>
+  <div class="inner">
+    <div class="resTop">
+      <div class="crest">📖</div>
+      <p class="kicker">내 헛소리 박물관</p>
+      <p class="grade" id="cxTitle">도감 0 / 50</p>
+      <p class="resSub" id="cxSub">맞힌 유물의 진짜 정체가 여기 쌓인다.</p>
+    </div>
+    <div class="tabs" id="cxTabs"></div>
+    <div class="grid" id="cxGrid"></div>
+    <button class="cta ghost" id="cxClose" type="button">닫기</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet" hidden aria-live="polite">
+  <div class="grip" aria-hidden="true"></div>
+  <div class="sh">
+    <div class="sic" id="shIcon"></div>
+    <div class="sinfo">
+      <p class="stitle" id="shTitle">—</p>
+      <p class="smeta" id="shMeta">—</p>
+    </div>
+  </div>
+  <p class="struth" id="shTruth">—</p>
+  <button class="close" id="shClose" type="button">닫기</button>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 (function () {
   'use strict';
 
-  var SIZE = 5;            // 한 세트 유물 수
-  var params = new URLSearchParams(location.search);
-  var TEST = params.get('test') === '1';
-  var seedParam = params.get('seed');
-  var seed = seedParam ? (parseInt(seedParam, 10) || 1) : ((Date.now() >>> 0) % 2147483647);
-  var DELAY = TEST ? 0 : 340;
-
+  var VERSION = 2;
+  var TEST = /[?&]test=1/.test(location.search);
   var errors = [];
   window.addEventListener('error', function (e) { errors.push(String((e && e.message) || e)); });
   window.addEventListener('unhandledrejection', function (e) { errors.push('rejection: ' + String(e && e.reason)); });
 
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
   function mulberry32(a) {
     return function () {
       a |= 0; a = (a + 0x6D2B79F5) | 0;
@@ -313,9 +612,182 @@
     }
     return a;
   }
+  function hashStr(s) {
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return (h >>> 0);
+  }
 
   /* =========================================================
-     유물 SVG (전부 자체 제작 · 외부 이미지 0)
+     사운드 — Web Audio 자체 합성 (외부 음원 0)
+     ========================================================= */
+  var AUDIO = (function () {
+    var ctx = null, master = null, bgmGain = null, an = null, buf = null;
+    var muted = false, bgmWant = true, timer = null, step = 0, nextT = 0;
+    var STEP = 0.34;
+    var CH = [[60, 64, 67, 71], [57, 60, 64, 67], [53, 57, 60, 64], [55, 59, 62, 67]];
+
+    function mtof(n) { return 440 * Math.pow(2, (n - 69) / 12); }
+
+    function ensure() {
+      if (ctx) { if (ctx.state === 'suspended') { try { ctx.resume(); } catch (e) {} } return ctx; }
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return null;
+      try { ctx = new AC(); } catch (e) { return null; }
+      master = ctx.createGain();
+      master.gain.value = muted ? 0 : 0.85;
+      an = ctx.createAnalyser();
+      an.fftSize = 1024;
+      an.smoothingTimeConstant = 0;
+      buf = new Float32Array(an.fftSize);
+      master.connect(an);
+      an.connect(ctx.destination);
+      bgmGain = ctx.createGain();
+      bgmGain.gain.value = 0.55;
+      bgmGain.connect(master);
+      return ctx;
+    }
+
+    function tone(dest, type, f0, f1, t0, dur, peak) {
+      if (!ctx || !dest) return;
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = type;
+      o.frequency.setValueAtTime(Math.max(20, f0), t0);
+      if (f1 && f1 !== f0) o.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t0 + dur);
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t0 + Math.min(0.02, dur * 0.25));
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+      o.connect(g); g.connect(dest);
+      o.start(t0); o.stop(t0 + dur + 0.03);
+    }
+
+    function thwack(t0, gain) {
+      if (!ctx) return;
+      var n = Math.floor(ctx.sampleRate * 0.16);
+      var b = ctx.createBuffer(1, n, ctx.sampleRate);
+      var d = b.getChannelData(0);
+      for (var i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / n, 3);
+      var src = ctx.createBufferSource(); src.buffer = b;
+      var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 620; bp.Q.value = 1.1;
+      var g = ctx.createGain(); g.gain.value = gain;
+      src.connect(bp); bp.connect(g); g.connect(master);
+      src.start(t0);
+    }
+
+    function sfx(name) {
+      if (muted) return;
+      if (!ensure()) return;
+      var t = ctx.currentTime + 0.005;
+      if (name === 'click') {
+        tone(master, 'triangle', 780, 620, t, 0.07, 0.10);
+      } else if (name === 'ding') {
+        tone(master, 'sine', 1046.5, 1046.5, t, 0.62, 0.17);
+        tone(master, 'sine', 1568, 1568, t + 0.09, 0.70, 0.13);
+        tone(master, 'sine', 2637, 2637, t + 0.10, 0.42, 0.045);
+      } else if (name === 'boing') {
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(680, t);
+        o.frequency.exponentialRampToValueAtTime(196, t + 0.46);
+        var lfo = ctx.createOscillator(), lg = ctx.createGain();
+        lfo.frequency.value = 13; lg.gain.value = 34;
+        lfo.connect(lg); lg.connect(o.frequency);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.15, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.52);
+        o.connect(g); g.connect(master);
+        o.start(t); lfo.start(t); o.stop(t + 0.55); lfo.stop(t + 0.55);
+        tone(master, 'sine', 120, 62, t + 0.42, 0.22, 0.16);
+        thwack(t + 0.40, 0.10);
+      } else if (name === 'promote') {
+        var seq = [523.25, 659.25, 783.99, 1046.5];
+        for (var i = 0; i < seq.length; i++) {
+          tone(master, 'triangle', seq[i], seq[i], t + i * 0.085, 0.55, 0.12);
+          tone(master, 'sine', seq[i] * 2, seq[i] * 2, t + i * 0.085, 0.30, 0.03);
+        }
+      } else if (name === 'clear') {
+        var s2 = [392, 523.25, 659.25, 783.99, 1046.5];
+        for (var k = 0; k < s2.length; k++) tone(master, 'sine', s2[k], s2[k], t + k * 0.10, 0.62, 0.13);
+      } else if (name === 'fail') {
+        var s3 = [440, 349.23, 261.63];
+        for (var m = 0; m < s3.length; m++) tone(master, 'triangle', s3[m], s3[m], t + m * 0.13, 0.55, 0.11);
+      } else if (name === 'flip') {
+        tone(master, 'sine', 880, 1320, t, 0.13, 0.07);
+      }
+    }
+
+    function schedule() {
+      if (!ctx || muted || !bgmWant) return;
+      var now = ctx.currentTime;
+      if (nextT < now) nextT = now + 0.05;
+      var guard = 0;
+      while (nextT < now + 0.5 && guard++ < 24) {
+        var bar = Math.floor(step / 8) % 4;
+        var ch = CH[bar];
+        var i = step % 8;
+        var f = mtof(ch[i % 4] + 12);
+        tone(bgmGain, 'triangle', f, f, nextT, 0.52, 0.042);
+        if (i === 0) {
+          var bf = mtof(ch[0] - 12);
+          tone(bgmGain, 'sine', bf, bf, nextT, 1.55, 0.05);
+        }
+        if (i === 4) {
+          var hf = mtof(ch[2] + 24);
+          tone(bgmGain, 'sine', hf, hf, nextT, 0.60, 0.014);
+        }
+        nextT += STEP; step++;
+      }
+    }
+
+    function startBgm() {
+      if (!ensure() || muted || !bgmWant || timer) return;
+      nextT = ctx.currentTime + 0.08;
+      timer = setInterval(schedule, 120);
+      schedule();
+    }
+    function stopBgm() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    function rms() {
+      if (!an) return 0;
+      an.getFloatTimeDomainData(buf);
+      var s = 0;
+      for (var i = 0; i < buf.length; i++) s += buf[i] * buf[i];
+      return Math.sqrt(s / buf.length);
+    }
+    function probe(ms) {
+      ensure();
+      return new Promise(function (res) {
+        var max = 0, t0 = performance.now();
+        (function loop() {
+          var v = rms(); if (v > max) max = v;
+          if (performance.now() - t0 < ms) setTimeout(loop, 16); else res(max);
+        })();
+      });
+    }
+
+    return {
+      unlock: function () { if (!ensure()) return; if (!muted) startBgm(); },
+      sfx: sfx,
+      bgm: function (on) { bgmWant = !!on; if (bgmWant && !muted) startBgm(); else stopBgm(); },
+      stop: function () { stopBgm(); },
+      muted: function () { return muted; },
+      setMuted: function (v) {
+        muted = !!v;
+        if (!ctx || !master) { if (muted) stopBgm(); return; }
+        master.gain.setTargetAtTime(muted ? 0 : 0.85, ctx.currentTime, 0.01);
+        if (muted) stopBgm(); else if (bgmWant) startBgm();
+      },
+      rms: rms,
+      probe: probe,
+      state: function () { return ctx ? ctx.state : 'none'; }
+    };
+  })();
+
+  /* =========================================================
+     유물 SVG 50점 — 전부 자체 제작 (외부 이미지 0)
+     따뜻한 금빛 후광 + 스파클 + 입체 그라데이션 + 바닥 그림자
      ========================================================= */
   function cog(cx, cy, r1, r2, teeth) {
     var pts = [], n = teeth * 2;
@@ -328,309 +800,1103 @@
   }
 
   var ICON = {
-    cap: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="' + cog(60, 60, 46, 39, 21) + '" fill="#c9a227"/>' +
-      '<path d="' + cog(60, 60, 45, 38, 21) + '" fill="none" stroke="#8f6a20" stroke-width="1.4" opacity=".55"/>' +
-      '<circle cx="60" cy="60" r="33" fill="#f7f0dd"/>' +
-      '<circle cx="60" cy="60" r="33" fill="none" stroke="#b3862f" stroke-width="2.4"/>' +
-      '<circle cx="60" cy="60" r="22" fill="none" stroke="#c9b489" stroke-width="1.6" stroke-dasharray="3 4"/>' +
-      '<circle cx="60" cy="60" r="5" fill="#b3862f" opacity=".7"/></svg>',
+    /* ---- 제1관 · 일상 고고학 ---- */
+    cap: '<circle cx="60" cy="62" r="44" fill="url(#gRed)"/>' +
+      '<path d="' + cog(60, 60, 45, 38, 21) + '" fill="url(#gRed)"/>' +
+      '<path d="' + cog(60, 60, 45, 38, 21) + '" fill="none" stroke="#8e2f22" stroke-width="1.2" opacity=".5"/>' +
+      '<circle cx="60" cy="60" r="36" fill="url(#gRed)"/>' +
+      '<circle cx="60" cy="60" r="35" fill="none" stroke="#8e2f22" stroke-width="1.4" opacity=".45"/>' +
+      '<circle cx="60" cy="60" r="25" fill="url(#gSilver)"/>' +
+      '<circle cx="60" cy="60" r="25" fill="none" stroke="#7e8d99" stroke-width="1.6"/>' +
+      '<circle cx="60" cy="60" r="17" fill="none" stroke="#c3ced8" stroke-width="1.6" opacity=".9"/>' +
+      '<circle cx="60" cy="60" r="8" fill="#dbe4ec" opacity=".45"/>' +
+      '<ellipse cx="50" cy="50" rx="12" ry="7" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="96" rx="34" ry="5" fill="#000" opacity=".10"/>',
 
-    bulb: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<circle cx="60" cy="50" r="30" fill="#fdf3cd"/>' +
-      '<circle cx="60" cy="50" r="30" fill="none" stroke="#c9a227" stroke-width="2.6"/>' +
-      '<path d="M48 72h24l-2 7H50z" fill="#b3862f"/>' +
-      '<rect x="50" y="79" width="20" height="13" rx="3" fill="#9a7a33"/>' +
-      '<path d="M50 84h20M50 88h20" stroke="#6f5622" stroke-width="1.5" opacity=".6"/>' +
-      '<path d="M54 44l6 8 6-8" fill="none" stroke="#c08a1c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M60 52v16" stroke="#c08a1c" stroke-width="2.4" stroke-linecap="round"/>' +
-      '<circle cx="60" cy="46" r="26" fill="none" stroke="#fff" stroke-width="3" opacity=".5" stroke-dasharray="30 200"/></svg>',
+    pin: '<g transform="rotate(-9 60 62)"><rect x="40" y="16" width="16" height="78" rx="8" fill="url(#gWood)"/>' +
+      '<rect x="43" y="22" width="4.5" height="64" rx="2" fill="#fff" opacity=".26"/></g>' +
+      '<g transform="rotate(9 60 62)"><rect x="64" y="16" width="16" height="78" rx="8" fill="url(#gWood)"/>' +
+      '<rect x="67" y="22" width="4.5" height="64" rx="2" fill="#8b5a28" opacity=".28"/></g>' +
+      '<circle cx="60" cy="56" r="10" fill="url(#gSilver)"/>' +
+      '<circle cx="60" cy="56" r="4.2" fill="#7a8794"/>' +
+      '<ellipse cx="52" cy="34" rx="5" ry="9" fill="#fff" opacity=".18"/>',
 
-    pin: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<g transform="rotate(-10 60 60)"><rect x="40" y="18" width="17" height="66" rx="8" fill="#e0c48c"/></g>' +
-      '<g transform="rotate(10 60 60)"><rect x="63" y="18" width="17" height="66" rx="8" fill="#d3b475"/></g>' +
-      '<circle cx="60" cy="62" r="11" fill="#f7f0dd" stroke="#8f6a20" stroke-width="3"/>' +
-      '<circle cx="60" cy="62" r="4.5" fill="#8f6a20"/>' +
-      '<path d="M46 26h5M69 26h5" stroke="#a8843c" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></svg>',
+    band: '<ellipse cx="60" cy="60" rx="43" ry="24" fill="none" stroke="url(#gPink)" stroke-width="9" transform="rotate(-16 60 60)"/>' +
+      '<ellipse cx="60" cy="60" rx="43" ry="24" fill="none" stroke="#fff" stroke-width="2.6" opacity=".45" transform="rotate(-16 60 60)"/>' +
+      '<ellipse cx="60" cy="62" rx="36" ry="19" fill="none" stroke="#e88ea2" stroke-width="8" transform="rotate(13 60 62)"/>' +
+      '<ellipse cx="60" cy="62" rx="36" ry="19" fill="none" stroke="#fff" stroke-width="1.8" opacity=".30" transform="rotate(13 60 62)"/>',
 
-    cup: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M38 34h44l-6 58a6 6 0 0 1-6 5H50a6 6 0 0 1-6-5z" fill="#f2e7cf"/>' +
-      '<path d="M38 34h44l-6 58a6 6 0 0 1-6 5H50a6 6 0 0 1-6-5z" fill="none" stroke="#c9b489" stroke-width="2.2"/>' +
-      '<ellipse cx="60" cy="34" rx="22" ry="7" fill="#fbf6e8" stroke="#b3862f" stroke-width="2.2"/>' +
-      '<path d="M43 54h34M45 70h30" stroke="#d8c8a6" stroke-width="2" stroke-linecap="round"/>' +
-      '<circle cx="60" cy="34" r="9" fill="#c9a227" opacity=".35"/></svg>',
+    clip: '<g transform="translate(0,-2)">' +
+      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" fill="none" stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" fill="none" stroke="#6f7d8a" stroke-width="2" opacity=".55" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" fill="none" stroke="#fff" stroke-width="2.6" opacity=".55" stroke-linecap="round" stroke-linejoin="round" transform="translate(-1.4,-1.4)"/></g>',
 
-    band: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<ellipse cx="60" cy="60" rx="44" ry="26" fill="none" stroke="#c98a8a" stroke-width="7" transform="rotate(-18 60 60)"/>' +
-      '<ellipse cx="60" cy="60" rx="44" ry="26" fill="none" stroke="#e0a8a8" stroke-width="2.4" transform="rotate(-18 60 60)" opacity=".8"/>' +
-      '<ellipse cx="60" cy="60" rx="38" ry="21" fill="none" stroke="#c98a8a" stroke-width="6" transform="rotate(14 60 60)"/>' +
-      '<ellipse cx="60" cy="60" rx="38" ry="21" fill="none" stroke="#e8bcbc" stroke-width="2" transform="rotate(14 60 60)" opacity=".7"/></svg>',
+    coin: '<circle cx="60" cy="60" r="42" fill="url(#gGold)"/>' +
+      '<circle cx="60" cy="60" r="42" fill="none" stroke="#8a5f10" stroke-width="1.4" opacity=".45"/>' +
+      '<circle cx="60" cy="60" r="32" fill="url(#gGoldSoft)"/>' +
+      '<circle cx="60" cy="60" r="32" fill="none" stroke="#b3862f" stroke-width="2"/>' +
+      '<path d="M60 38l6.4 14.6H82l-12 9.4 4.4 15.4L60 68.8l-14.4 8.6 4.4-15.4-12-9.4h15.6z" fill="#a97f26" opacity=".55"/>' +
+      '<ellipse cx="46" cy="42" rx="15" ry="8" fill="url(#gShine)"/>' +
+      '<path d="M36 96a42 42 0 0 0 48 0" fill="none" stroke="#8a5f10" stroke-width="2" opacity=".2"/>',
 
-    pad: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M18 58l30-20h44l10 16-4 34a5 5 0 0 1-5 4H28a5 5 0 0 1-5-4z" fill="#8b9a8b"/>' +
-      '<path d="M18 58l30-20h44l10 16z" fill="#a3b2a2"/>' +
-      '<path d="M26 62h68M27 72h66M29 82h62" stroke="#6f7d6f" stroke-width="1.6" opacity=".55"/>' +
-      '<rect x="50" y="40" width="22" height="30" rx="11" fill="#f4efe3" stroke="#6f7d6f" stroke-width="2"/>' +
-      '<path d="M60 44v10" stroke="#6f7d6f" stroke-width="2" stroke-linecap="round"/></svg>',
+    key: '<circle cx="60" cy="36" r="19" fill="url(#gGold)"/>' +
+      '<circle cx="60" cy="36" r="19" fill="none" stroke="#9a7415" stroke-width="1.4" opacity=".55"/>' +
+      '<circle cx="60" cy="36" r="7" fill="#fff8e2" opacity=".92"/>' +
+      '<rect x="54" y="52" width="12" height="52" rx="4" fill="url(#gGold)"/>' +
+      '<rect x="64" y="80" width="17" height="8" rx="3" fill="url(#gGold)"/>' +
+      '<rect x="64" y="92" width="13" height="7" rx="3" fill="url(#gGold)"/>' +
+      '<rect x="56.5" y="56" width="3.4" height="42" rx="1.7" fill="#fff" opacity=".42"/>' +
+      '<ellipse cx="53" cy="30" rx="7" ry="5" fill="#fff" opacity=".35"/>',
 
-    straw: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M40 104V54a20 20 0 0 1 20-20h18" fill="none" stroke="#d8b6d8" stroke-width="13" stroke-linecap="round"/>' +
-      '<path d="M40 104V54a20 20 0 0 1 20-20h18" fill="none" stroke="#e8cfe8" stroke-width="5" stroke-linecap="round"/>' +
-      '<path d="M78 34h14" stroke="#b98cb9" stroke-width="13" stroke-linecap="round"/>' +
-      '<path d="M40 76h-2M40 88h-2M40 62h-2" stroke="#fff" stroke-width="2" opacity=".7"/></svg>',
+    umbrella: '<path d="M16 68a44 36 0 0 1 88 0z" fill="url(#gBlue)"/>' +
+      '<path d="M38 40l-6 28M60 33v35M82 40l6 28" stroke="#8fc9e8" stroke-width="2" opacity=".9"/>' +
+      '<path d="M16 68a44 36 0 0 1 88 0" fill="none" stroke="#2c7cb0" stroke-width="2.4"/>' +
+      '<path d="M16 68c7.3 9 14.7 9 22 0 7.3 9 14.7 9 22 0 7.3 9 14.7 9 22 0 7.3 9 14.7 9 22 0" fill="none" stroke="#2c7cb0" stroke-width="2.4" stroke-linejoin="round"/>' +
+      '<path d="M30 54a36 30 0 0 1 20-17" fill="none" stroke="#fff" stroke-width="3.2" opacity=".45" stroke-linecap="round"/>' +
+      '<rect x="58" y="22" width="4" height="9" rx="2" fill="#2c7cb0"/>' +
+      '<path d="M60 68v28a11 11 0 0 1-22 0" fill="none" stroke="url(#gCopper)" stroke-width="5" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="106" rx="20" ry="3.4" fill="#000" opacity=".06"/>',
 
-    slipper: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M26 74c0-16 12-28 30-28s30 10 30 26c0 12-9 20-24 20H40c-9 0-14-7-14-18z" fill="#c98f7a"/>' +
-      '<path d="M26 74c0-16 12-28 30-28s30 10 30 26c0 12-9 20-24 20H40c-9 0-14-7-14-18z" fill="none" stroke="#a9715d" stroke-width="2.2"/>' +
-      '<path d="M38 58c8 12 34 12 40 0" fill="none" stroke="#f0d6c6" stroke-width="8" stroke-linecap="round"/>' +
-      '<path d="M22 84h3M30 92h3" stroke="#a9715d" stroke-width="2.4" stroke-linecap="round" opacity=".7"/></svg>',
+    glasses: '<rect x="16" y="46" width="36" height="29" rx="12" fill="url(#gGlass)" stroke="url(#gCopper)" stroke-width="4"/>' +
+      '<rect x="68" y="46" width="36" height="29" rx="12" fill="url(#gGlass)" stroke="url(#gCopper)" stroke-width="4"/>' +
+      '<path d="M52 57h16" stroke="url(#gCopper)" stroke-width="4.4" stroke-linecap="round"/>' +
+      '<path d="M16 54c-7 0-10 4-10 10M104 54c7 0 10 4 10 10" fill="none" stroke="url(#gCopper)" stroke-width="4.4" stroke-linecap="round"/>' +
+      '<path d="M23 53h15" stroke="#fff" stroke-width="2.6" opacity=".8"/>' +
+      '<path d="M75 53h15" stroke="#fff" stroke-width="2.6" opacity=".8"/>' +
+      '<path d="M24 70h18" stroke="#8fc9e8" stroke-width="3" opacity=".35" stroke-linecap="round"/>' +
+      '<path d="M76 70h18" stroke="#8fc9e8" stroke-width="3" opacity=".35" stroke-linecap="round"/>' +
+      '<ellipse cx="34" cy="79" rx="13" ry="3.4" fill="#7a4a1c" opacity=".12"/>',
 
-    receipt: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M36 16h48v82l-6-5-6 5-6-5-6 5-6-5-6 5-6-5-6 5z" fill="#fdfaf1" stroke="#c9b489" stroke-width="2"/>' +
-      '<path d="M44 30h32M44 40h32M44 50h20" stroke="#a8977a" stroke-width="2.4" stroke-linecap="round"/>' +
-      '<path d="M44 64h9M58 64h9M72 64h8M44 74h9M58 74h9" stroke="#d5c7ab" stroke-width="2.2" stroke-linecap="round"/>' +
-      '<path d="M46 88h28" stroke="#b3862f" stroke-width="3" stroke-linecap="round"/>' +
-      '<path d="M40 20h40" stroke="#e5d9c0" stroke-width="2"/></svg>',
+    button: '<circle cx="60" cy="60" r="37" fill="url(#gGreen)"/>' +
+      '<circle cx="60" cy="60" r="37" fill="none" stroke="#3d6f39" stroke-width="1.6"/>' +
+      '<circle cx="60" cy="60" r="26" fill="none" stroke="#fff" stroke-width="1.4" opacity=".34" stroke-dasharray="2 4"/>' +
+      '<circle cx="51" cy="51" r="5" fill="#2d5a2c" opacity=".8"/>' +
+      '<circle cx="69" cy="51" r="5" fill="#2d5a2c" opacity=".8"/>' +
+      '<circle cx="51" cy="69" r="5" fill="#2d5a2c" opacity=".8"/>' +
+      '<circle cx="69" cy="69" r="5" fill="#2d5a2c" opacity=".8"/>' +
+      '<ellipse cx="46" cy="38" rx="14" ry="8" fill="url(#gShine)"/>',
 
-    mask: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M34 46c0-6 12-10 26-10s26 4 26 10v18c0 14-11 22-26 22S34 78 34 64z" fill="#e8f1f4"/>' +
-      '<path d="M34 46c0-6 12-10 26-10s26 4 26 10v18c0 14-11 22-26 22S34 78 34 64z" fill="none" stroke="#a9c2cc" stroke-width="2.2"/>' +
-      '<path d="M35 52h50M35 60h50M35 68h50" stroke="#c2d5dc" stroke-width="2" opacity=".9"/>' +
-      '<path d="M34 50c-10 2-14 8-13 16M86 50c10 2 14 8 13 16" fill="none" stroke="#9db6c0" stroke-width="2.6" stroke-linecap="round"/>' +
-      '<path d="M58 36h4" stroke="#a9c2cc" stroke-width="2.4" stroke-linecap="round"/></svg>',
+    hanger: '<path d="M60 18c9 0 14 5 14 12 0 8-9 10-14 15" fill="none" stroke="url(#gSilver)" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M60 18c9 0 14 5 14 12 0 8-9 10-14 15" fill="none" stroke="#5f6e7b" stroke-width="1.6" opacity=".5" stroke-linecap="round"/>' +
+      '<path d="M60 46L22 78h76z" fill="none" stroke="url(#gSilver)" stroke-width="6" stroke-linejoin="round"/>' +
+      '<path d="M22 78h76" stroke="url(#gSilver)" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M60 50L27 79" stroke="#fff" stroke-width="1.8" opacity=".55"/>',
 
-    papercup: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M34 40h52l-7 54a6 6 0 0 1-6 5H47a6 6 0 0 1-6-5z" fill="#fdfaf1"/>' +
-      '<path d="M34 40h52l-7 54a6 6 0 0 1-6 5H47a6 6 0 0 1-6-5z" fill="none" stroke="#c9b489" stroke-width="2.2"/>' +
-      '<rect x="32" y="34" width="56" height="9" rx="4" fill="#c9a227" opacity=".85"/>' +
-      '<path d="M42 62h36M45 78h30" stroke="#e2d6bd" stroke-width="2.4" stroke-linecap="round"/>' +
-      '<path d="M60 46v42" stroke="#eee3cc" stroke-width="2" opacity=".8"/></svg>',
+    /* ---- 제2관 · 부엌 유적 ---- */
+    cup: '<path d="M36 42h48l-6 54a6 6 0 0 1-6 5H48a6 6 0 0 1-6-5z" fill="url(#gCream)"/>' +
+      '<path d="M36 42h48l-1.2 10H37.2z" fill="url(#gGoldSoft)"/>' +
+      '<ellipse cx="60" cy="42" rx="24" ry="7" fill="#fffdf3" stroke="#d9c9a8" stroke-width="1.6"/>' +
+      '<path d="M44 62h32M46 78h28" stroke="#e0d3b6" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<ellipse cx="47" cy="58" rx="8" ry="15" fill="url(#gShine)" opacity=".8"/>' +
+      '<path d="M39 96a6 6 0 0 0 6 5h30a6 6 0 0 0 6-5" fill="#000" opacity=".07"/>',
 
-    clip: '<svg viewBox="0 0 120 120" aria-hidden="true">' +
-      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" ' +
-      'fill="none" stroke="#9aa6b2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>' +
-      '<path d="M84 46v34a22 22 0 0 1-44 0V40a14 14 0 0 1 28 0v40a7 7 0 0 1-14 0V48" ' +
-      'fill="none" stroke="#cfd8e2" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    papercup: '<path d="M34 44h52l-8 52a6 6 0 0 1-6 5H48a6 6 0 0 1-6-5z" fill="url(#gPaper)"/>' +
+      '<rect x="30" y="34" width="60" height="12" rx="6" fill="url(#gGold)"/>' +
+      '<path d="M42 64h32M45 80h26" stroke="#ded0b2" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="M41 50l3 44" stroke="#fff" stroke-width="4" opacity=".5" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="96" rx="24" ry="4" fill="#000" opacity=".07"/>',
+
+    straw: '<path d="M42 104V56a20 20 0 0 1 20-20h16" fill="none" stroke="url(#gPink)" stroke-width="14" stroke-linecap="round"/>' +
+      '<path d="M78 36h14" stroke="url(#gPink)" stroke-width="14" stroke-linecap="round"/>' +
+      '<path d="M42 104V56a20 20 0 0 1 20-20h16" fill="none" stroke="#fff" stroke-width="4" opacity=".45" stroke-linecap="round"/>' +
+      '<path d="M42 72h0.5M42 84h0.5M42 96h0.5" stroke="#fff" stroke-width="3" opacity=".55" stroke-linecap="round"/>' +
+      '<ellipse cx="42" cy="108" rx="10" ry="4" fill="#000" opacity=".08"/>',
+
+    spatula: '<g transform="rotate(-14 60 60)">' +
+      '<path d="M14 32h92a8 8 0 0 1 8 8v12a8 8 0 0 1-8 8H14a8 8 0 0 1-8-8V40a8 8 0 0 1 8-8z" fill="url(#gTeal)"/>' +
+      '<path d="M14 32h92a8 8 0 0 1 8 8v3H6v-3a8 8 0 0 1 8-8z" fill="#fff" opacity=".18"/>' +
+      '<path d="M30 44v13M46 44v13M62 44v13" stroke="#2c6b66" stroke-width="4" opacity=".42" stroke-linecap="round"/>' +
+      '<path d="M14 60h92" stroke="#2c6b66" stroke-width="2" opacity=".35"/>' +
+      '<rect x="70" y="58" width="9" height="42" rx="4.5" fill="url(#gWood)"/>' +
+      '<circle cx="74.5" cy="94" r="3.6" fill="#7a4a1c" opacity=".55"/>' +
+      '</g>' +
+      '<ellipse cx="60" cy="108" rx="22" ry="3.4" fill="#000" opacity=".06"/>',
+
+    ladle: '<path d="M62 68l30-34" stroke="url(#gSilver)" stroke-width="9" stroke-linecap="round"/>' +
+      '<path d="M62 68l30-34" stroke="#fff" stroke-width="2.6" opacity=".5" stroke-linecap="round"/>' +
+      '<circle cx="96" cy="29" r="5" fill="#69767f"/>' +
+      '<ellipse cx="44" cy="82" rx="26" ry="24" fill="url(#gSilver)"/>' +
+      '<ellipse cx="44" cy="80" rx="19" ry="17" fill="#b3c2ce"/>' +
+      '<ellipse cx="36" cy="72" rx="9" ry="6" fill="url(#gShine)"/>' +
+      '<ellipse cx="44" cy="104" rx="20" ry="4" fill="#000" opacity=".08"/>',
+
+    chopsticks: '<g transform="rotate(7 60 60)"><rect x="50" y="12" width="7.5" height="94" rx="3.7" fill="url(#gWood)"/>' +
+      '<rect x="52" y="18" width="2.4" height="80" rx="1.2" fill="#fff" opacity=".3"/></g>' +
+      '<g transform="rotate(-7 60 60)"><rect x="63" y="12" width="7.5" height="94" rx="3.7" fill="url(#gWood)"/>' +
+      '<rect x="65" y="18" width="2.4" height="80" rx="1.2" fill="#8b5a28" opacity=".3"/></g>' +
+      '<ellipse cx="60" cy="108" rx="20" ry="4" fill="#000" opacity=".07"/>',
+
+    spoon: '<ellipse cx="60" cy="80" rx="22" ry="27" fill="url(#gSilver)"/>' +
+      '<ellipse cx="60" cy="80" rx="15" ry="19" fill="#c3d0da"/>' +
+      '<rect x="55" y="18" width="10" height="44" rx="5" fill="url(#gSilver)"/>' +
+      '<ellipse cx="54" cy="70" rx="7" ry="10" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="107" rx="17" ry="4" fill="#000" opacity=".08"/>',
+
+    opener: '<g transform="rotate(-18 60 60)">' +
+      '<circle cx="78" cy="74" r="17" fill="url(#gRed)"/>' +
+      '<path d="' + cog(78, 74, 18, 14, 15) + '" fill="url(#gRed)"/>' +
+      '<circle cx="78" cy="74" r="11" fill="#d9d2c6" opacity=".55"/>' +
+      '<rect x="14" y="38" width="82" height="18" rx="8" fill="url(#gSteel)"/>' +
+      '<path d="M14 38h82v4H14a8 8 0 0 1 0-4z" fill="#fff" opacity=".22"/>' +
+      '<path d="M66 56l9-12h10l-9 12z" fill="#242b31"/>' +
+      '<circle cx="32" cy="47" r="7" fill="#242b31"/>' +
+      '</g>' +
+      '<ellipse cx="60" cy="102" rx="26" ry="3.6" fill="#000" opacity=".07"/>',
+
+    whisk: '<rect x="55" y="20" width="10" height="34" rx="5" fill="url(#gSilver)"/>' +
+      '<circle cx="60" cy="22" r="7" fill="url(#gSilver)"/>' +
+      '<path d="M60 52c-17 9-21 32-8 44 8 7 24 7 32 0 13-12 9-35-8-44" fill="none" stroke="url(#gSilver)" stroke-width="4"/>' +
+      '<path d="M60 52c-9 11-11 31-2 44M60 52c9 11 11 31 2 44M60 52v45" fill="none" stroke="#b7c5d0" stroke-width="3"/>' +
+      '<ellipse cx="60" cy="106" rx="17" ry="4" fill="#000" opacity=".07"/>',
+
+    lid: '<ellipse cx="60" cy="72" rx="47" ry="19" fill="#95a3ae"/>' +
+      '<ellipse cx="60" cy="67" rx="47" ry="19" fill="url(#gSilver)"/>' +
+      '<ellipse cx="60" cy="67" rx="47" ry="19" fill="none" stroke="#7d8b96" stroke-width="1.8"/>' +
+      '<ellipse cx="60" cy="67" rx="33" ry="13" fill="none" stroke="#fff" stroke-width="2" opacity=".35"/>' +
+      '<rect x="53" y="38" width="14" height="16" rx="6" fill="url(#gWood)"/>' +
+      '<ellipse cx="60" cy="36" rx="11" ry="8" fill="url(#gWood)"/>' +
+      '<ellipse cx="56" cy="33" rx="5" ry="2.6" fill="#fff" opacity=".3"/>' +
+      '<ellipse cx="60" cy="94" rx="34" ry="5" fill="#000" opacity=".07"/>',
+
+    /* ---- 제3관 · 문방구 미스터리 ---- */
+    pad: '<rect x="16" y="30" width="88" height="62" rx="11" fill="url(#gTeal)"/>' +
+      '<rect x="16" y="30" width="88" height="62" rx="11" fill="none" stroke="#3f6d68" stroke-width="2"/>' +
+      '<path d="M24 48h72M24 58h72M24 68h72M24 78h72" stroke="#fff" stroke-width="1.4" opacity=".17"/>' +
+      '<rect x="47" y="45" width="21" height="32" rx="10.5" fill="#f4efe3" stroke="#5e8b85" stroke-width="2"/>' +
+      '<path d="M57.5 50v10" stroke="#5e8b85" stroke-width="2" stroke-linecap="round"/>' +
+      '<rect x="24" y="34" width="26" height="3" rx="1.5" fill="#fff" opacity=".3"/>' +
+      '<ellipse cx="60" cy="94" rx="38" ry="4" fill="#000" opacity=".06"/>',
+
+    receipt: '<path d="M38 14h44v86l-7-5-7 5-7-5-7 5-7-5-9 5z" fill="url(#gPaper)" stroke="#cdbb98" stroke-width="1.6" stroke-linejoin="round"/>' +
+      '<path d="M46 28h28M46 38h28M46 48h16" stroke="#b3a184" stroke-width="2.6" stroke-linecap="round"/>' +
+      '<path d="M46 62h8M58 62h8M70 62h4M46 72h8M58 72h8" stroke="#d5c7ab" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<path d="M48 88h24" stroke="#b3862f" stroke-width="3.4" stroke-linecap="round"/>' +
+      '<path d="M42 18h36" stroke="#fff" stroke-width="2" opacity=".8"/>' +
+      '<ellipse cx="60" cy="102" rx="20" ry="3.4" fill="#000" opacity=".07"/>',
+
+    sharpener: '<g transform="rotate(-12 60 60)">' +
+      '<g transform="rotate(32 45 61)"><rect x="41" y="10" width="9" height="30" rx="2" fill="url(#gYellow)"/>' +
+      '<rect x="41" y="10" width="3" height="30" fill="#fff" opacity=".4"/>' +
+      '<path d="M41 40h9l-4.5 9z" fill="#f0dcae"/></g>' +
+      '<rect x="24" y="42" width="72" height="38" rx="10" fill="url(#gTeal)"/>' +
+      '<rect x="24" y="42" width="72" height="11" rx="5.5" fill="#fff" opacity=".17"/>' +
+      '<circle cx="45" cy="61" r="13" fill="#e8f4f1"/>' +
+      '<circle cx="45" cy="61" r="8.5" fill="#2f5c58"/>' +
+      '<path d="M66 51h22M66 61h22M66 71h16" stroke="#fff" stroke-width="2" opacity=".25" stroke-linecap="round"/>' +
+      '<rect x="24" y="42" width="72" height="38" rx="10" fill="none" stroke="#2f5c58" stroke-width="1.6"/>' +
+      '</g>' +
+      '<ellipse cx="60" cy="92" rx="32" ry="4" fill="#000" opacity=".06"/>',
+
+    eraser: '<rect x="24" y="42" width="72" height="40" rx="9" fill="url(#gPink)"/>' +
+      '<rect x="24" y="42" width="72" height="15" rx="7.5" fill="#fffdf8" opacity=".92"/>' +
+      '<path d="M24 57h72" stroke="#c9788c" stroke-width="1.6" opacity=".45"/>' +
+      '<rect x="24" y="62" width="72" height="16" fill="url(#gPaper)" opacity=".95"/>' +
+      '<path d="M32 47h22" stroke="#fff" stroke-width="3" opacity=".8" stroke-linecap="round"/>' +
+      '<rect x="24" y="42" width="72" height="40" rx="9" fill="none" stroke="#b95f76" stroke-width="1.5" opacity=".5"/>' +
+      '<ellipse cx="60" cy="86" rx="30" ry="4" fill="#000" opacity=".07"/>',
+
+    ruler: '<g transform="rotate(-11 60 60)">' +
+      '<rect x="8" y="48" width="104" height="26" rx="5" fill="url(#gGoldSoft)"/>' +
+      '<rect x="8" y="48" width="104" height="26" rx="5" fill="none" stroke="#b3862f" stroke-width="1.6"/>' +
+      '<path d="M20 48v13M32 48v8M44 48v13M56 48v8M68 48v13M80 48v8M92 48v13" stroke="#a9852e" stroke-width="2"/>' +
+      '<rect x="8" y="52" width="104" height="3" fill="#fff" opacity=".3"/>' +
+      '</g>',
+
+    glue: '<path d="M44 46h32a8 8 0 0 1 8 8v40a8 8 0 0 1-8 8H44a8 8 0 0 1-8-8V54a8 8 0 0 1 8-8z" fill="url(#gCream)"/>' +
+      '<path d="M44 46h32a8 8 0 0 1 8 8v40a8 8 0 0 1-8 8H44a8 8 0 0 1-8-8V54a8 8 0 0 1 8-8z" fill="none" stroke="#d3c3a4" stroke-width="1.6"/>' +
+      '<rect x="55" y="30" width="10" height="18" rx="3" fill="url(#gSilver)"/>' +
+      '<path d="M60 18l7 12H53z" fill="url(#gOrange)"/>' +
+      '<rect x="36" y="62" width="48" height="20" rx="4" fill="url(#gBlue)"/>' +
+      '<path d="M42 68h20" stroke="#fff" stroke-width="2.6" opacity=".8" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="103" rx="24" ry="4" fill="#000" opacity=".07"/>',
+
+    stapler: '<rect x="18" y="66" width="84" height="19" rx="8" fill="url(#gSteel)"/>' +
+      '<path d="M26 66V55a9 9 0 0 1 9-9h58a11 11 0 0 1 11 11v9z" fill="url(#gRed)"/>' +
+      '<path d="M32 50h48" stroke="#fff" stroke-width="3" opacity=".28" stroke-linecap="round"/>' +
+      '<rect x="34" y="70" width="52" height="5.5" rx="2.7" fill="#2b3238"/>' +
+      '<circle cx="94" cy="62" r="3" fill="#8f9ea9"/>' +
+      '<ellipse cx="60" cy="89" rx="34" ry="4" fill="#000" opacity=".07"/>',
+
+    postit: '<path d="M26 24h60l14 14v58H26z" fill="url(#gYellow)"/>' +
+      '<path d="M86 24v14h14z" fill="#e0b93c"/>' +
+      '<path d="M38 48h44M38 62h44M38 76h26" stroke="#b58f1b" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>' +
+      '<path d="M26 24h60" stroke="#fff" stroke-width="2.4" opacity=".5"/>' +
+      '<ellipse cx="60" cy="99" rx="32" ry="3.6" fill="#000" opacity=".07"/>',
+
+    highlighter: '<rect x="36" y="26" width="48" height="58" rx="10" fill="url(#gYellow)"/>' +
+      '<rect x="35" y="16" width="50" height="18" rx="8" fill="url(#gOrange)"/>' +
+      '<path d="M46 84h28l-6 17H52z" fill="#f7edb8"/>' +
+      '<path d="M46 84h28l-6 17H52z" fill="none" stroke="#c9a227" stroke-width="1.5" stroke-linejoin="round"/>' +
+      '<path d="M56 90h8" stroke="#c9a227" stroke-width="2"/>' +
+      '<rect x="43" y="34" width="6" height="42" rx="3" fill="#fff" opacity=".45"/>' +
+      '<ellipse cx="60" cy="104" rx="16" ry="3.4" fill="#000" opacity=".07"/>',
+
+    tape: '<circle cx="60" cy="60" r="43" fill="url(#gGlass)" opacity=".96"/>' +
+      '<circle cx="60" cy="60" r="43" fill="none" stroke="#a9c2cc" stroke-width="2"/>' +
+      '<circle cx="60" cy="60" r="31" fill="none" stroke="#fff" stroke-width="1.8" opacity=".6" stroke-dasharray="2 5"/>' +
+      '<circle cx="60" cy="60" r="16" fill="#f6efe0" stroke="#b9cbd4" stroke-width="2"/>' +
+      '<path d="M60 17a43 43 0 0 1 37 21l-14 8" fill="none" stroke="#fff" stroke-width="3.4" opacity=".55"/>' +
+      '<ellipse cx="44" cy="40" rx="13" ry="8" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="105" rx="30" ry="4" fill="#000" opacity=".06"/>',
+
+    /* ---- 제4관 · 전파의 성지 ---- */
+    bulb: '<circle cx="60" cy="52" r="31" fill="url(#gGlass)"/>' +
+      '<circle cx="60" cy="52" r="31" fill="none" stroke="#d8b45c" stroke-width="2"/>' +
+      '<circle cx="60" cy="52" r="31" fill="url(#gShine)"/>' +
+      '<path d="M48 74h24l-3 9H51z" fill="#b9a06a"/>' +
+      '<rect x="50" y="83" width="20" height="15" rx="3" fill="url(#gSteel)"/>' +
+      '<path d="M52 88h16M52 92.5h16" stroke="#2c343a" stroke-width="1.6" opacity=".5"/>' +
+      '<path d="M54 46l6 9 6-9M60 55v13" fill="none" stroke="#d99a1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<ellipse cx="60" cy="104" rx="19" ry="4" fill="#000" opacity=".07"/>',
+
+    earbuds: '<g><path d="M40 80v9c0 8 8 12 20 15" fill="none" stroke="#a9b8c2" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M80 80v9c0 8-8 12-20 15" fill="none" stroke="#a9b8c2" stroke-width="6" stroke-linecap="round"/>' +
+      '<path d="M40 80v9c0 8 8 12 20 15" fill="none" stroke="#f4f7f9" stroke-width="4" stroke-linecap="round"/>' +
+      '<path d="M80 80v9c0 8-8 12-20 15" fill="none" stroke="#f4f7f9" stroke-width="4" stroke-linecap="round"/>' +
+      '<circle cx="40" cy="56" r="15" fill="url(#gGlass)" stroke="#b6c6d0" stroke-width="1.6"/>' +
+      '<circle cx="80" cy="56" r="15" fill="url(#gGlass)" stroke="#b6c6d0" stroke-width="1.6"/>' +
+      '<rect x="36" y="66" width="8" height="15" rx="4" fill="#eef3f6" stroke="#b6c6d0" stroke-width="1.2"/>' +
+      '<rect x="76" y="66" width="8" height="15" rx="4" fill="#eef3f6" stroke="#b6c6d0" stroke-width="1.2"/>' +
+      '<circle cx="40" cy="56" r="6" fill="#8fa3b0" opacity=".3"/>' +
+      '<circle cx="80" cy="56" r="6" fill="#8fa3b0" opacity=".3"/>' +
+      '<ellipse cx="34" cy="49" rx="6" ry="4" fill="#fff" opacity=".8"/>' +
+      '<ellipse cx="74" cy="49" rx="6" ry="4" fill="#fff" opacity=".8"/>' +
+      '<ellipse cx="60" cy="106" rx="22" ry="3.4" fill="#000" opacity=".07"/></g>',
+
+    remote: '<rect x="34" y="13" width="52" height="94" rx="15" fill="url(#gDark)"/>' +
+      '<rect x="34" y="13" width="52" height="94" rx="15" fill="none" stroke="#181410" stroke-width="1.6"/>' +
+      '<circle cx="60" cy="33" r="9" fill="url(#gRed)"/>' +
+      '<circle cx="57" cy="30" r="3" fill="#fff" opacity=".45"/>' +
+      '<g fill="#8d8478"><rect x="43" y="50" width="15" height="10" rx="4"/><rect x="62" y="50" width="15" height="10" rx="4"/>' +
+      '<rect x="43" y="66" width="15" height="10" rx="4"/><rect x="62" y="66" width="15" height="10" rx="4"/></g>' +
+      '<rect x="43" y="86" width="34" height="9" rx="4.5" fill="#6f675c"/>' +
+      '<ellipse cx="60" cy="109" rx="24" ry="4" fill="#000" opacity=".1"/>',
+
+    battery: '<rect x="42" y="24" width="36" height="76" rx="8" fill="url(#gGreen)"/>' +
+      '<rect x="42" y="24" width="36" height="24" rx="8" fill="url(#gGoldSoft)"/>' +
+      '<rect x="50" y="13" width="20" height="13" rx="4" fill="url(#gSilver)"/>' +
+      '<rect x="42" y="24" width="36" height="76" rx="8" fill="none" stroke="#3d6f39" stroke-width="1.5" opacity=".6"/>' +
+      '<path d="M62 54l-11 17h9l-5 15 16-21h-9z" fill="#fff" opacity=".88"/>' +
+      '<rect x="46" y="30" width="5" height="62" rx="2.5" fill="#fff" opacity=".22"/>' +
+      '<ellipse cx="60" cy="103" rx="20" ry="3.6" fill="#000" opacity=".08"/>',
+
+    usb: '<rect x="28" y="44" width="54" height="42" rx="9" fill="url(#gPurple)"/>' +
+      '<rect x="28" y="44" width="54" height="12" rx="6" fill="#fff" opacity=".18"/>' +
+      '<rect x="82" y="54" width="24" height="21" rx="3" fill="url(#gSilver)"/>' +
+      '<rect x="82" y="54" width="24" height="21" rx="3" fill="none" stroke="#8f9aa4" stroke-width="1.2"/>' +
+      '<path d="M87 60h14M87 68h14" stroke="#8f9aa4" stroke-width="2"/>' +
+      '<circle cx="42" cy="66" r="5" fill="#fff" opacity=".6"/>' +
+      '<path d="M38 50h24" stroke="#fff" stroke-width="2.4" opacity=".3" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="91" rx="26" ry="4" fill="#000" opacity=".08"/>',
+
+    cd: '<circle cx="60" cy="60" r="44" fill="url(#gSilver)"/>' +
+      '<circle cx="60" cy="60" r="44" fill="url(#gSheen)" opacity=".5"/>' +
+      '<path d="M60 16a44 44 0 0 1 31 13L60 60z" fill="url(#gSheen)" opacity=".55"/>' +
+      '<path d="M60 104a44 44 0 0 1-31-13L60 60z" fill="#c9d6e0" opacity=".55"/>' +
+      '<circle cx="60" cy="60" r="44" fill="none" stroke="#9aa9b4" stroke-width="1.6"/>' +
+      '<circle cx="60" cy="60" r="33" fill="none" stroke="#fff" stroke-width="1.6" opacity=".55"/>' +
+      '<circle cx="60" cy="60" r="13" fill="#f4efe3" stroke="#c6d2dc" stroke-width="2"/>' +
+      '<circle cx="60" cy="60" r="6" fill="#fffdf6"/>' +
+      '<ellipse cx="60" cy="106" rx="32" ry="4" fill="#000" opacity=".07"/>',
+
+    cable: '<path d="M44 22c24-8 36 8 26 20-10 12-30 8-30 22s24 14 32 28" fill="none" stroke="#8e959c" stroke-width="11" stroke-linecap="round"/>' +
+      '<path d="M44 22c24-8 36 8 26 20-10 12-30 8-30 22s24 14 32 28" fill="none" stroke="#f6f7f8" stroke-width="8" stroke-linecap="round"/>' +
+      '<path d="M44 22c24-8 36 8 26 20-10 12-30 8-30 22s24 14 32 28" fill="none" stroke="#fff" stroke-width="2.4" opacity=".7" stroke-linecap="round"/>' +
+      '<rect x="62" y="86" width="20" height="24" rx="6" fill="url(#gSilver)" transform="rotate(9 72 98)"/>' +
+      '<path d="M68 92h8M68 100h8" stroke="#8f9aa4" stroke-width="2" transform="rotate(9 72 98)"/>' +
+      '<ellipse cx="60" cy="111" rx="24" ry="3.4" fill="#000" opacity=".07"/>',
+
+    jack: '<path d="M60 12a6 6 0 0 1 6 6v24H54V18a6 6 0 0 1 6-6z" fill="url(#gSilver)"/>' +
+      '<path d="M54 12h12v8H54z" fill="#e6ebef"/>' +
+      '<rect x="52" y="42" width="16" height="9" fill="#d8dde2"/>' +
+      '<rect x="52" y="51" width="16" height="8" fill="#8f9aa4"/>' +
+      '<rect x="52" y="59" width="16" height="9" fill="#d8dde2"/>' +
+      '<rect x="52" y="68" width="16" height="8" fill="#8f9aa4"/>' +
+      '<rect x="45" y="76" width="30" height="28" rx="9" fill="url(#gDark)"/>' +
+      '<path d="M50 86h20" stroke="#fff" stroke-width="2" opacity=".16" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="107" rx="17" ry="3.4" fill="#000" opacity=".08"/>',
+
+    antenna: '<rect x="56" y="26" width="8" height="74" rx="4" fill="url(#gSilver)"/>' +
+      '<rect x="57.5" y="22" width="5" height="78" rx="2.5" fill="#fff" opacity=".5"/>' +
+      '<circle cx="60" cy="18" r="6" fill="url(#gGold)"/>' +
+      '<path d="M56 42h8M56 56h8M56 70h8M56 84h8" stroke="#8f9aa4" stroke-width="2"/>' +
+      '<path d="M52 30h16" stroke="#8f9aa4" stroke-width="2.4" stroke-linecap="round"/>' +
+      '<rect x="46" y="96" width="28" height="13" rx="6" fill="url(#gDark)"/>' +
+      '<ellipse cx="60" cy="112" rx="18" ry="3" fill="#000" opacity=".08"/>',
+
+    adapter: '<rect x="28" y="30" width="64" height="58" rx="12" fill="url(#gCream)"/>' +
+      '<rect x="28" y="30" width="64" height="58" rx="12" fill="none" stroke="#d8cbb0" stroke-width="1.6"/>' +
+      '<rect x="44" y="13" width="8" height="20" rx="3" fill="url(#gSilver)"/>' +
+      '<rect x="68" y="13" width="8" height="20" rx="3" fill="url(#gSilver)"/>' +
+      '<rect x="54" y="88" width="12" height="15" rx="4" fill="url(#gSilver)"/>' +
+      '<circle cx="44" cy="58" r="5" fill="#c9b489" opacity=".45"/>' +
+      '<path d="M36 36h20" stroke="#fff" stroke-width="2.6" opacity=".7" stroke-linecap="round"/>' +
+      '<ellipse cx="60" cy="106" rx="22" ry="3.4" fill="#000" opacity=".07"/>',
+
+    /* ---- 제5관 · 심연의 서랍장 ---- */
+    mask: '<path d="M30 46c0-8 14-13 30-13s30 5 30 13v20c0 16-13 26-30 26S30 82 30 66z" fill="url(#gGlass)"/>' +
+      '<path d="M30 46c0-8 14-13 30-13s30 5 30 13v20c0 16-13 26-30 26S30 82 30 66z" fill="none" stroke="#9fc0cf" stroke-width="2"/>' +
+      '<path d="M31 54h58M31 62h58M31 70h58" stroke="#cfe1e8" stroke-width="2" opacity=".95"/>' +
+      '<path d="M30 50c-11 3-15 9-14 17M90 50c11 3 15 9 14 17" fill="none" stroke="#a9c6d2" stroke-width="3" stroke-linecap="round"/>' +
+      '<ellipse cx="46" cy="44" rx="13" ry="7" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="95" rx="26" ry="4" fill="#000" opacity=".07"/>',
+
+    slipper: '<path d="M22 74c0-18 14-30 34-30s34 11 34 28c0 13-10 21-27 21H39c-10 0-17-8-17-19z" fill="url(#gPink)"/>' +
+      '<path d="M22 74c0-18 14-30 34-30s34 11 34 28c0 13-10 21-27 21H39c-10 0-17-8-17-19z" fill="none" stroke="#b95f76" stroke-width="2"/>' +
+      '<path d="M36 58c8 13 36 13 44 0" fill="none" stroke="#fff2f5" stroke-width="9" stroke-linecap="round"/>' +
+      '<path d="M26 84h18" stroke="#b95f76" stroke-width="2.4" opacity=".45" stroke-linecap="round"/>' +
+      '<ellipse cx="48" cy="56" rx="10" ry="5" fill="#fff" opacity=".35"/>' +
+      '<ellipse cx="60" cy="98" rx="30" ry="4" fill="#000" opacity=".07"/>',
+
+    scrunchie: '<circle cx="60" cy="60" r="31" fill="none" stroke="url(#gPurple)" stroke-width="19"/>' +
+      '<circle cx="60" cy="60" r="31" fill="none" stroke="#b79ade" stroke-width="17" stroke-dasharray="8 6" opacity=".9"/>' +
+      '<circle cx="60" cy="60" r="31" fill="none" stroke="#8f6bb8" stroke-width="3" stroke-dasharray="8 6" opacity=".55"/>' +
+      '<circle cx="60" cy="60" r="14" fill="#f8f0dd"/>' +
+      '<ellipse cx="46" cy="40" rx="8" ry="5" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="100" rx="26" ry="4" fill="#000" opacity=".07"/>',
+
+    pillbox: '<rect x="20" y="40" width="80" height="48" rx="11" fill="url(#gCream)"/>' +
+      '<rect x="20" y="40" width="80" height="48" rx="11" fill="none" stroke="#d6c8ab" stroke-width="1.8"/>' +
+      '<path d="M46 40v48M73 40v48M20 64h80" stroke="#d6c8ab" stroke-width="2"/>' +
+      '<circle cx="33" cy="52" r="6.2" fill="url(#gRed)"/>' +
+      '<circle cx="60" cy="52" r="6.2" fill="url(#gGoldSoft)"/>' +
+      '<circle cx="86" cy="52" r="6.2" fill="url(#gGreen)"/>' +
+      '<circle cx="33" cy="76" r="6.2" fill="url(#gBlue)"/>' +
+      '<circle cx="60" cy="76" r="6.2" fill="url(#gPink)"/>' +
+      '<circle cx="86" cy="76" r="6.2" fill="url(#gPurple)"/>' +
+      '<rect x="20" y="40" width="80" height="20" rx="10" fill="url(#gShine)" opacity=".55"/>' +
+      '<ellipse cx="60" cy="92" rx="32" ry="4" fill="#000" opacity=".06"/>',
+
+    handwarmer: '<path d="M40 28c4-6 10-6 14 0M66 28c4-6 10-6 14 0" fill="none" stroke="#f39a4d" stroke-width="3" stroke-linecap="round" opacity=".65"/>' +
+      '<path d="M28 46c0-7 5-12 12-12h40c7 0 12 5 12 12v34c0 9-7 16-16 16H44c-9 0-16-7-16-16z" fill="url(#gOrange)"/>' +
+      '<path d="M28 46c0-7 5-12 12-12h40c7 0 12 5 12 12v34c0 9-7 16-16 16H44c-9 0-16-7-16-16z" fill="none" stroke="#a85c1c" stroke-width="2"/>' +
+      '<path d="M44 54h32M44 64h32M44 74h20" stroke="#fff" stroke-width="2.2" opacity=".35" stroke-linecap="round"/>' +
+      '<ellipse cx="44" cy="44" rx="10" ry="5" fill="#fff" opacity=".28"/>' +
+      '<ellipse cx="60" cy="89" rx="28" ry="4" fill="#000" opacity=".07"/>',
+
+    lighter: '<rect x="32" y="48" width="56" height="54" rx="11" fill="url(#gRed)"/>' +
+      '<rect x="32" y="48" width="56" height="54" rx="11" fill="none" stroke="#8f3126" stroke-width="1.5" opacity=".55"/>' +
+      '<rect x="32" y="40" width="56" height="15" rx="6" fill="url(#gSilver)"/>' +
+      '<path d="M60 22c4-7 10-7 12-2 2 4-3 9-12 9z" fill="#ffcf6b" opacity=".8"/>' +
+      '<rect x="48" y="28" width="24" height="14" rx="4" fill="url(#gSteel)"/>' +
+      '<circle cx="60" cy="35" r="5.4" fill="#cfd8de"/>' +
+      '<circle cx="60" cy="35" r="2.2" fill="#8f9aa4"/>' +
+      '<rect x="38" y="58" width="5" height="32" rx="2.5" fill="#fff" opacity=".22"/>' +
+      '<ellipse cx="60" cy="106" rx="24" ry="3.6" fill="#000" opacity=".08"/>',
+
+    padlock: '<path d="M42 54V42a18 18 0 0 1 36 0v12" fill="none" stroke="url(#gSilver)" stroke-width="10" stroke-linecap="round"/>' +
+      '<path d="M42 54V42a18 18 0 0 1 36 0v12" fill="none" stroke="#6f7d8a" stroke-width="2" opacity=".4" stroke-linecap="round"/>' +
+      '<rect x="30" y="52" width="60" height="51" rx="11" fill="url(#gGold)"/>' +
+      '<rect x="30" y="52" width="60" height="51" rx="11" fill="none" stroke="#9a7415" stroke-width="1.6"/>' +
+      '<circle cx="60" cy="72" r="7.5" fill="#7a5c12"/>' +
+      '<path d="M60 77v13" stroke="#7a5c12" stroke-width="5" stroke-linecap="round"/>' +
+      '<ellipse cx="44" cy="62" rx="9" ry="5" fill="url(#gShine)"/>' +
+      '<ellipse cx="60" cy="105" rx="24" ry="4" fill="#000" opacity=".08"/>',
+
+    bandage: '<g transform="rotate(-30 60 60)">' +
+      '<rect x="12" y="48" width="96" height="27" rx="13.5" fill="url(#gCream)"/>' +
+      '<rect x="12" y="48" width="96" height="27" rx="13.5" fill="none" stroke="#d6c8ab" stroke-width="1.6"/>' +
+      '<rect x="45" y="50" width="30" height="23" rx="6" fill="#f2ddc4"/>' +
+      '<path d="M50 56h4M57 56h4M64 56h4M50 63h4M57 63h4M64 63h4" stroke="#dcbe9c" stroke-width="1.6"/>' +
+      '<circle cx="22" cy="61" r="2" fill="#d6c8ab"/><circle cx="30" cy="61" r="2" fill="#d6c8ab"/>' +
+      '<circle cx="90" cy="61" r="2" fill="#d6c8ab"/><circle cx="98" cy="61" r="2" fill="#d6c8ab"/>' +
+      '</g>',
+
+    flashlight: '<path d="M32 40l12-20h32l12 20z" fill="url(#gSilver)"/>' +
+      '<ellipse cx="60" cy="21" rx="23" ry="7" fill="#efe4bc"/>' +
+      '<ellipse cx="60" cy="21" rx="16" ry="4.6" fill="#fff8d8"/>' +
+      '<ellipse cx="60" cy="21" rx="7" ry="2.4" fill="#fffdf0"/>' +
+      '<rect x="30" y="33" width="60" height="8" rx="4" fill="#c9d3da"/>' +
+      '<rect x="37" y="41" width="46" height="61" rx="9" fill="url(#gSteel)"/>' +
+      '<rect x="37" y="41" width="46" height="61" rx="9" fill="none" stroke="#2f383f" stroke-width="1.4" opacity=".45"/>' +
+      '<circle cx="60" cy="74" r="6.5" fill="url(#gGold)"/>' +
+      '<path d="M45 54h8M45 62h5" stroke="#fff" stroke-width="2" opacity=".2" stroke-linecap="round"/>' +
+      '<path d="M60 6l-4 8h3l-2 7 6-9h-3z" fill="#fff6c8" opacity=".55"/>' +
+      '<ellipse cx="60" cy="104" rx="24" ry="4" fill="#000" opacity=".08"/>',
+
+    magnifier: '<circle cx="52" cy="50" r="31" fill="url(#gGlass)"/>' +
+      '<circle cx="52" cy="50" r="31" fill="none" stroke="url(#gGold)" stroke-width="8"/>' +
+      '<circle cx="52" cy="50" r="23" fill="#eaf6fb" opacity=".5"/>' +
+      '<path d="M74 72l23 24" stroke="url(#gGold)" stroke-width="13" stroke-linecap="round"/>' +
+      '<path d="M74 72l23 24" stroke="#fff" stroke-width="4" opacity=".35" stroke-linecap="round"/>' +
+      '<ellipse cx="40" cy="38" rx="11" ry="6" fill="url(#gShine)"/>' +
+      '<ellipse cx="66" cy="102" rx="18" ry="3.4" fill="#000" opacity=".06"/>'
   };
 
-  /* =========================================================
-     유물 12점 · 라벨 4개씩 (전부 자체 창작)
-     ========================================================= */
-  var RELICS = [
-    { key: 'cap', icon: 'cap', title: '심해 왕국의 봉인 인장', meta: '추정 연대: 기원전 3세기 · 출토지: 미상',
-      truth: '탄산음료 병뚜껑. 병을 한 번 열면 다시 닫아 둘 수 없다.',
-      lies: [
-        '심해 왕국이 성문을 닫을 때마다 찍던 의식용 인장. 톱니 21개는 문지기의 수를 새긴 것이다.',
-        '초기 천문학자들이 별의 높이를 재던 원판. 가운데 원은 북극성, 바깥 톱니는 계절의 눈금이다.',
-        '전쟁 포로의 목에 걸던 신분패. 톱니 하나가 하루 노동량을 뜻해, 하루가 끝나면 하나씩 떼어 냈다.'
-      ] },
+  var SPARK = 'M0-11C1.5-2.6 2.6-1.5 11 0 2.6 1.5 1.5 2.6 0 11-1.5 2.6-2.6 1.5-11 0-2.6-1.5-1.5-2.6 0-11Z';
 
-    { key: 'bulb', icon: 'bulb', title: '천 년을 밝힌 소원의 등불', meta: '추정 연대: 12세기 · 재질: 결정체',
-      truth: '백열전구. 안을 진공으로 비워 두어야 필라멘트가 타지 않는다.',
-      lies: [
-        '유목민이 여름의 햇빛을 가두어 두었다가 장마철에 꺼내 쓰던 빛 저장 그릇.',
-        '점술사가 미래를 비추던 수정구의 초기형. 안쪽을 가로지르는 실은 사람의 운명을 상징한다.',
-        '기도할 때 안에 향을 넣고 돌리던 향로. 유리벽은 연기가 새지 않게 하는 장치다.'
-      ] },
-
-    { key: 'pin', icon: 'pin', title: '바다를 붙들어 둔 왕의 빗장', meta: '추정 연대: 15세기 · 재질: 목재(추정)',
-      truth: '빨래집게. 빨랫줄에 걸어 빨래가 날아가지 않게 집어 둔다.',
-      lies: [
-        '해적이 항로를 표시할 때 돛대에 끼우던 나침 고정구. 두 쪽으로 벌어지는 구조가 파도를 견뎠다.',
-        '갓난아기의 손가락이 펴지지 않게 물려 두던 습관 교정구.',
-        '한 부족의 혼인 증표. 두 개의 다리가 서로를 물고 있어야 계약이 성립한다고 믿었다.'
-      ] },
-
-    { key: 'cup', icon: 'cup', title: '달의 눈물을 받아 두던 그릇', meta: '추정 연대: 미상 · 용도: 의례',
-      truth: '요거트 용기. 뚜껑을 뜯어 먹고, 다 먹으면 컵은 버린다.',
-      lies: [
-        '사제가 달빛이 가장 강한 밤에만 이슬을 모으던 성배. 목이 좁은 것은 증발을 막기 위해서다.',
-        '작은 새를 길들일 때 쓰던 이동식 우리. 아래로 좁아지는 형태가 새를 편안하게 했다.',
-        '죽은 이의 이름을 적어 바다에 띄우던 봉헌함. 뚜껑이 덮여 있는 것은 이름을 감추기 위해서다.'
-      ] },
-
-    { key: 'band', icon: 'band', title: '시간을 묶어 두는 매듭 고리', meta: '추정 연대: 18세기 · 재질: 수액(추정)',
-      truth: '고무줄. 신문지와 상자를 한데 묶는 데 쓴다.',
-      lies: [
-        '전령이 봉인한 편지를 다시 열지 못하게 감던 봉인끈. 늘어나는 재질이라 봉인이 뜯기면 바로 티가 났다.',
-        '적의 손가락을 세던 계수기. 손가락에 끼워 하나씩 옮겨 가며 수를 셌다.',
-        '사냥꾼의 덫에 쓰이던 탄성 부품. 당겨 두었다 놓으면 먹잇감의 발목을 붙든다.'
-      ] },
-
-    { key: 'pad', icon: 'pad', title: '잊힌 신전의 제단 받침', meta: '추정 연대: 8세기 · 출토지: 폐허 3호',
-      truth: '마우스패드. 책상에서 마우스가 미끄러지지 않게 받쳐 준다.',
-      lies: [
-        '신전 제단 앞에 깔던 무릎 보호대. 가장자리를 따라 새겨진 선은 기도 횟수를 세는 눈금이다.',
-        '서기관이 글을 쓰던 각도 받침. 무늬는 잉크가 번지지 않게 짠 천의 결을 그대로 옮긴 것이다.',
-        '왕이 서는 자리 아래에만 깔던 의전용 깔개. 발소리를 죽여 신을 놀라게 하지 않으려 했다.'
-      ] },
-
-    { key: 'straw', icon: 'straw', title: '사막의 바람을 세던 관', meta: '추정 연대: 10세기 · 용도: 측정',
-      truth: '플라스틱 빨대. 음료를 마실 때 입에 물고 쓴다.',
-      lies: [
-        '모래 폭풍의 세기를 재던 관. 속이 좁을수록 강한 바람만 통과해 위험을 예고했다.',
-        '독을 걸러 마시던 정화관. 구부러진 부분에 모래와 독이 가라앉는다고 믿었다.',
-        '관리들이 문서를 말아 넣던 서류함. 길이가 제각각인 것은 문서의 등급을 뜻한다.'
-      ] },
-
-    { key: 'slipper', icon: 'slipper', title: '밤을 새우는 자의 갑옷', meta: '추정 연대: 13세기 · 재질: 가죽',
-      truth: '슬리퍼. 발에 훌렁 신고 집안을 걸어 다닌다.',
-      lies: [
-        '전사의 발을 지키던 가죽 갑주. 발등만 덮는 이유는 발가락이 자유로워야 검을 딛고 설 수 있었기 때문이다.',
-        '사제가 성스러운 땅을 밟을 때 신던 의전화. 밑창 무늬는 땅의 신에게 남기는 서명이다.',
-        '도망친 죄수를 쫓던 추적관이 발자국을 뜰 때 쓰던 표본 틀.'
-      ] },
-
-    { key: 'receipt', icon: 'receipt', title: '별의 좌표를 적어 둔 두루마리', meta: '추정 연대: 미상 · 재질: 박막',
-      truth: '편의점 영수증. 산 물건과 값이 줄마다 인쇄되어 있다.',
-      lies: [
-        '천문대가 매일 밤 관측한 별의 위치를 적은 일지. 글자가 흐린 것은 세월이 아니라 잉크가 스스로 사라지기 때문이다.',
-        '왕실의 하루 지출을 신에게 보고하던 회계 문서. 맨 아래 큰 숫자는 그날의 재앙을 뜻한다.',
-        '상단의 숫자는 흉조의 등급, 아래로 갈수록 위험이 커진다는 뜻으로 읽었다.'
-      ] },
-
-    { key: 'mask', icon: 'mask', title: '침묵을 지키는 의식용 고리', meta: '추정 연대: 20세기 초 · 용도: 의례',
-      truth: '일회용 보건 마스크. 침방울이 퍼지지 않게 막는다.',
-      lies: [
-        '광부가 유독가스를 거르던 첫 안면구. 귀에 거는 끈은 사고가 났을 때 한 손으로 벗기기 위한 구조다.',
-        '재판관이 증언을 더는 듣지 않겠다는 뜻으로 쓰던 얼굴 가리개.',
-        '전염병의 신을 달래는 행렬에서 참가자 전원이 반드시 써야 했던 가면.'
-      ] },
-
-    { key: 'papercup', icon: 'papercup', title: '순례자의 작은 물동이', meta: '추정 연대: 미상 · 출토지: 길가',
-      truth: '종이컵. 물을 한 번 따르고 나면 다시 쓰지 않는다.',
-      lies: [
-        '순례자가 성지의 물을 담아 오던 물동이. 한 번만 쓰는 것은 남의 업을 옮기지 않기 위해서였다.',
-        '높이를 재던 자. 두 줄의 홈은 계절의 경계를 표시해 두었다.',
-        '의회에서 표를 던질 때 쓰던 작은 투표함. 위쪽 테두리가 안쪽으로 말린 것은 표를 다시 꺼내지 못하게 하기 위해서다.'
-      ] },
-
-    { key: 'clip', icon: 'clip', title: '영원을 걸어 잠근 열쇠', meta: '추정 연대: 19세기 · 재질: 금속',
-      truth: '클립. 종이 몇 장을 한데 묶어 두는 물건이다.',
-      lies: [
-        '왕가의 서약을 임시로 고정하던 약혼 표식. 끝을 두 번 감는 것을 반드시 지켜야 했다.',
-        '시계의 태엽을 감는 도구. 철사가 두 번 꺾인 모양은 손가락 힘을 아끼려는 설계다.',
-        '적의 칼날에서 화살을 튕겨 내던 미세 방패. 크기가 작아 옷깃에 숨겨 다녔다.'
-      ] }
-  ];
-
-  /* =========================================================
-     등급
-     ========================================================= */
-  var RANKS = [
-    { min: 5, name: '관장',   crest: '🏛️' },
-    { min: 4, name: '수석 큐레이터', crest: '🎖️' },
-    { min: 3, name: '큐레이터', crest: '🖼️' },
-    { min: 2, name: '도슨트',  crest: '🎧' },
-    { min: 1, name: '안내데스크', crest: '🪧' },
-    { min: 0, name: '관람객',  crest: '🎫' }
-  ];
-  function rankOf(score) {
-    for (var i = 0; i < RANKS.length; i++) if (score >= RANKS[i].min) return RANKS[i];
-    return RANKS[RANKS.length - 1];
+  function artSVG(key) {
+    var body = ICON[key];
+    if (!body) body = '<circle cx="60" cy="60" r="30" fill="#e6d8bb"/>';
+    var h = hashStr(key);
+    var pos = [[34, 44, .58], [126, 48, .72], [40, 116, .46], [122, 114, .52], [92, 32, .40], [28, 88, .34], [133, 90, .44]];
+    var s = '';
+    for (var i = 0; i < pos.length; i++) {
+      var p = pos[(i + (h % 7)) % 7];
+      var sc = p[2] * (0.9 + ((h >> (i * 3)) & 7) / 24);
+      s += '<path class="sp" d="' + SPARK + '" fill="#ffffff" opacity=".92" transform="translate(' +
+        p[0] + ',' + p[1] + ') scale(' + sc.toFixed(2) + ')"/>';
+    }
+    return '<svg viewBox="0 0 160 160" role="img" aria-label="유물 그림">' +
+      '<circle cx="80" cy="76" r="67" fill="url(#gHalo)"/>' +
+      '<circle cx="80" cy="74" r="34" fill="url(#gCore)" opacity=".5"/>' +
+      s +
+      '<ellipse cx="80" cy="140" rx="41" ry="7" fill="url(#gShadow)"/>' +
+      '<g class="body" transform="translate(20,14)">' + body + '</g>' +
+      '</svg>';
   }
 
   /* =========================================================
-     요소
+     50점 유물 · 5개 전시관 · 전부 자체 창작 (진짜 설명 1 + 헛소리 3)
      ========================================================= */
-  var elArt = document.getElementById('art');
-  var elTitle = document.getElementById('title');
-  var elMeta = document.getElementById('meta');
-  var elAsk = document.getElementById('ask');
-  var elChoices = document.getElementById('choices');
-  var elNote = document.getElementById('note');
-  var elNext = document.getElementById('next');
-  var elDots = document.getElementById('dots');
-  var elCount = document.getElementById('count');
-  var elRank = document.getElementById('rank');
-  var elResult = document.getElementById('result');
-  var elGrade = document.getElementById('rGrade');
-  var elScore = document.getElementById('rScore');
-  var elCrest = document.getElementById('crest');
-  var elList = document.getElementById('rList');
-  var elRCount = document.getElementById('rCount');
-  var elHint = document.getElementById('rHint');
+  var HALLS = [
+    {
+      name: '제1관 · 일상 고고학', tag: '오늘 아침에도 만진 것들',
+      relics: [
+        { k: 'cap', title: '왕관을 닮은 봉인 인장', meta: '추정 연대: 기원전 3세기 · 출토지: 주방 서랍',
+          truth: '탄산음료 병뚜껑. 한 번 열면 다시 밀봉할 수 없다.',
+          lies: [
+            '심해 왕국이 성문을 닫을 때마다 찍던 의식용 인장. 톱니 스물한 개는 문지기의 수다.',
+            '초기 천문학자가 별의 높이를 재던 원판. 바깥 톱니는 계절의 눈금이다.',
+            '전쟁 포로의 목에 걸던 신분패. 톱니 하나가 하루 노동량을 뜻했다.'
+          ] },
+        { k: 'pin', title: '바다를 붙들어 둔 왕의 빗장', meta: '추정 연대: 15세기 · 재질: 목재(추정)',
+          truth: '빨래집게. 빨랫줄에 걸어 빨래가 날아가지 않게 집어 둔다.',
+          lies: [
+            '해적이 항로를 표시할 때 돛대에 끼우던 나침 고정구. 두 쪽으로 벌어지는 구조가 파도를 견뎠다.',
+            '갓난아기의 손가락이 펴지지 않게 물려 두던 습관 교정구.',
+            '한 부족의 혼인 증표. 두 다리가 서로를 물고 있어야 계약이 성립한다고 믿었다.'
+          ] },
+        { k: 'band', title: '시간을 묶어 두는 매듭 고리', meta: '추정 연대: 18세기 · 재질: 수액(추정)',
+          truth: '고무줄. 신문지나 상자를 한데 묶는 데 쓴다.',
+          lies: [
+            '전령이 봉인한 편지를 다시 열지 못하게 감던 봉인끈. 늘어나는 재질이라 뜯기면 바로 티가 났다.',
+            '적의 손가락을 세던 계수기. 하나씩 옮겨 가며 수를 셌다.',
+            '사냥꾼의 덫에 쓰이던 탄성 부품. 당겨 두었다 놓으면 짐승의 발목을 붙든다.'
+          ] },
+        { k: 'clip', title: '영원을 걸어 잠근 열쇠', meta: '추정 연대: 19세기 · 재질: 금속',
+          truth: '클립. 종이 몇 장을 한데 묶어 두는 물건이다.',
+          lies: [
+            '왕가의 서약을 임시로 고정하던 약혼 표식. 끝을 두 번 감는 것을 반드시 지켜야 했다.',
+            '시계의 태엽을 감는 도구. 철사가 두 번 꺾인 모양은 손가락 힘을 아끼려는 설계다.',
+            '적의 칼날에서 화살을 튕겨 내던 미세 방패. 옷깃에 숨겨 다녔다.'
+          ] },
+        { k: 'coin', title: '저승의 뱃삯 대신 쓰던 원판', meta: '추정 연대: 미상 · 재질: 합금',
+          truth: '동전. 물건을 사고팔 때 값으로 주고받는 금속 돈이다.',
+          lies: [
+            '저승으로 가는 배에 오를 때 배삯으로 바치던 원판. 가운데 구멍이 없는 것은 돌아오지 않겠다는 서약이다.',
+            '점술가가 하루에 한 번 던져 길흉을 가리던 점패. 앞뒤 그림이 반대인 것은 운명도 뒤집히기 때문이다.',
+            '우물을 파기 전 땅의 신에게 묻던 봉헌물. 흙에 묻으면 광택이 사라져 다시 올릴 수 없었다.'
+          ] },
+        { k: 'key', title: '문 너머를 잠근 첫 손가락', meta: '추정 연대: 12세기 · 재질: 황동',
+          truth: '열쇠. 자물쇠를 열고 잠글 때 쓰는 금속 조각이다.',
+          lies: [
+            '성직자가 침묵 서약의 증표로 목에 걸던 표식. 이빨의 높낮이는 서약한 날의 기도 횟수다.',
+            '음악가가 첫 조율을 할 때 쓰던 소리쇠. 끝을 두드리면 그날 악단의 기준음이 정해졌다.',
+            '귀족의 이름을 새긴 인장 대용품. 이빨 모양이 곧 그 집안의 문양이라 베낄 수 없었다.'
+          ] },
+        { k: 'umbrella', title: '비를 세우는 자의 지팡이', meta: '추정 연대: 17세기 · 용도: 의전',
+          truth: '우산. 펼치면 비와 햇빛을 막아 준다.',
+          lies: [
+            '사제가 성지를 걸을 때 세우던 의전 지팡이. 접히는 마디는 하늘에 닿는 단계를 뜻했다.',
+            '연극 무대에서 인물의 등장을 알리던 소리 막대. 바닥을 한 번 치면 막이 올랐다.',
+            '물을 길어 오던 긴 관. 끝의 갈고리는 양동이 손잡이를 걸어 올리는 장치다.'
+          ] },
+        { k: 'glasses', title: '영혼의 얼굴에 걸친 창틀', meta: '추정 연대: 16세기 · 재질: 수정(추정)',
+          truth: '안경. 눈앞의 글씨와 사물을 또렷하게 보게 한다.',
+          lies: [
+            '재판관이 형을 선고할 때만 쓰던 판결안. 렌즈가 두 장인 것은 죄와 벌을 함께 보기 위해서다.',
+            '야간 순찰자가 눈의 피로를 감추려고 쓰던 위장구. 다리가 길어야 갑옷 위에 걸 수 있었다.',
+            '연금술사가 불꽃의 색을 판별하던 감별구. 테가 둥근 것은 정신을 한 점에 모으기 위해서다.'
+          ] },
+        { k: 'button', title: '옷을 봉인한 작은 인장', meta: '추정 연대: 14세기 · 재질: 상아(추정)',
+          truth: '단추. 옷깃을 여며 옷이 흘러내리지 않게 한다.',
+          lies: [
+            '사제가 옷자락을 여밀 때마다 하나씩 달던 서약 고리. 구멍 네 개는 사방의 신을 뜻한다.',
+            '편지를 봉한 뒤 붙이던 밀랍 인장 대용품. 실을 네 번 꿰어야 봉인이 살아 있다고 믿었다.',
+            '갑옷 안쪽 천을 고정하던 리벳. 둥근 테두리가 있어야 칼날이 미끄러져 나갔다.'
+          ] },
+        { k: 'hanger', title: '날개를 편 강철 새', meta: '추정 연대: 19세기 · 출토지: 옷장 2호',
+          truth: '옷걸이. 옷의 어깨를 받쳐 걸어 두는 물건이다.',
+          lies: [
+            '낫을 걸어 두던 수확 도구 거치대. 갈고리 구조가 낫자루를 붙든다.',
+            '사냥꾼의 활을 걸어 두던 거치대. 아래 가로대는 시위가 늘어나지 않게 눌러 준다.',
+            '천을 펼쳐 말리던 건조틀. 어깨 모양으로 굽은 것은 천에 자국이 남지 않게 하기 위해서다.'
+          ] }
+      ]
+    },
+    {
+      name: '제2관 · 부엌 유적', tag: '밥상에서 발굴된 생활사',
+      relics: [
+        { k: 'cup', title: '달의 눈물을 받아 두던 그릇', meta: '추정 연대: 미상 · 용도: 의례',
+          truth: '요거트 컵. 뚜껑을 뜯어 먹고 다 먹으면 버린다.',
+          lies: [
+            '사제가 달빛이 가장 강한 밤에만 이슬을 모으던 성배. 목이 좁은 것은 증발을 막기 위해서다.',
+            '작은 새를 길들일 때 쓰던 이동식 우리. 아래로 좁아지는 형태가 새를 편안하게 했다.',
+            '죽은 이의 이름을 적어 바다에 띄우던 봉헌함. 뚜껑이 덮인 것은 이름을 감추기 위해서다.'
+          ] },
+        { k: 'papercup', title: '순례자의 작은 물동이', meta: '추정 연대: 미상 · 출토지: 길가',
+          truth: '종이컵. 물을 한 번 따르고 나면 다시 쓰지 않는다.',
+          lies: [
+            '순례자가 성지의 물을 담아 오던 물동이. 한 번만 쓰는 것은 남의 업을 옮기지 않기 위해서였다.',
+            '높이를 재던 자. 두 줄의 홈은 계절의 경계를 표시해 두었다.',
+            '의회에서 표를 던질 때 쓰던 투표함. 위쪽 테두리가 안쪽으로 말린 것은 표를 꺼내지 못하게 하기 위해서다.'
+          ] },
+        { k: 'straw', title: '사막의 바람을 세던 관', meta: '추정 연대: 10세기 · 용도: 측정',
+          truth: '플라스틱 빨대. 음료를 마실 때 입에 물고 쓴다.',
+          lies: [
+            '모래 폭풍의 세기를 재던 관. 속이 좁을수록 강한 바람만 통과해 위험을 예고했다.',
+            '독을 걸러 마시던 정화관. 구부러진 부분에 모래와 독이 가라앉는다고 믿었다.',
+            '관리들이 문서를 말아 넣던 서류함. 길이가 제각각인 것은 문서의 등급을 뜻한다.'
+          ] },
+        { k: 'spatula', title: '부엌의 재판관', meta: '추정 연대: 20세기 · 재질: 합성수지',
+          truth: '뒤집개. 팬에서 음식을 엎어 뒤집을 때 쓴다.',
+          lies: [
+            '화로의 숯을 고르게 펴던 불 판. 판이 넓을수록 불의 세기가 고르게 유지됐다.',
+            '가옥을 지을 때 흙을 다지는 흙손. 손잡이가 길어야 벽 높은 곳까지 팔이 닿았다.',
+            '짚신을 엮을 때 보풀을 눌러 주던 누름대. 구멍 난 판이 공기를 빼내면서 결이 고르게 됐다.'
+          ] },
+        { k: 'ladle', title: '강을 한 그릇씩 옮긴 항아리', meta: '추정 연대: 11세기 · 재질: 금속',
+          truth: '국자. 국이나 물을 떠서 옮길 때 쓴다.',
+          lies: [
+            '사제가 제단에 물을 부을 때 쓰던 물 바가지. 긴 손잡이는 불 가까이 손이 가지 않게 하려는 것이다.',
+            '배 밖으로 들어온 물을 퍼내던 구제구. 오목한 깊이가 정해져 있어 한 번에 정량만 퍼낼 수 있었다.',
+            '곡식의 겉껍질을 걷어 내던 선별구. 오목한 모양이 겨를 한쪽으로 몰아 주는 구조다.'
+          ] },
+        { k: 'chopsticks', title: '한 쌍의 직립한 쌍둥이', meta: '추정 연대: 9세기 · 재질: 목재',
+          truth: '젓가락. 음식을 집어 먹을 때 두 개를 한 손에 쥐고 쓴다.',
+          lies: [
+            '점을 볼 때 땅에 던져 괘를 만들던 점대. 반듯하게 서면 길하고 쓰러지면 흉하다고 읽었다.',
+            '실을 팽팽하게 당겨 재단하던 실패의 축. 두 개가 한 쌍이어야 천이 밀리지 않았다.',
+            '기둥 사이의 틈을 재던 틈새자. 두 개의 폭이 같아야 벽이 비뚤어지지 않는다.'
+          ] },
+        { k: 'spoon', title: '약을 다려 재던 작은 달', meta: '추정 연대: 7세기 · 재질: 은(추정)',
+          truth: '티스푼. 음료를 저어 풀거나 한 숟가락씩 떠서 먹는다.',
+          lies: [
+            '약초를 다릴 때 정량을 재던 약첩. 오목한 정도가 정해져 있어 눈금 없이도 같은 양을 떴다.',
+            '귀족의 찻잔에 향을 한 번 얹을 때 쓰던 향시개. 얕은 곡면이 향이 흩어지지 않게 눌러 준다.',
+            '새장 안 모이통을 청소하던 좁은 삽. 손잡이가 가늘어야 철창 사이로 들이밀 수 있었다.'
+          ] },
+        { k: 'opener', title: '봉인을 깨는 이빨 하나', meta: '추정 연대: 18세기 · 재질: 철',
+          truth: '병따개. 병뚜껑을 걸어 따서 병을 연다.',
+          lies: [
+            '갑옷의 끈을 조이던 매듭 도구. 톱니 홈이 끈을 물어 잡아당기는 역할을 했다.',
+            '양초 심지를 잘라 내던 심지 집게. 홈에 심지를 넣고 한 번 꺾으면 끝이 정확히 잘렸다.',
+            '마차 바퀴의 쇠테를 벌리던 틀. 둥근 구멍이 쇠테를 붙들어 놓는 구조다.'
+          ] },
+        { k: 'whisk', title: '공기를 채찍질하던 채', meta: '추정 연대: 19세기 · 재질: 철사',
+          truth: '거품기. 달걀이나 크림을 빠르게 저어 부풀게 한다.',
+          lies: [
+            '사냥감의 털을 털어 내던 채찍. 가는 철사가 많을수록 털이 잘 빠졌다.',
+            '성수에 향을 섞을 때 휘젓던 의식 채. 여러 갈래의 고리가 소리가 나지 않게 물을 가른다.',
+            '모래시계의 모래를 고르게 흔들던 교반기. 철사 사이로 큰 자갈이 걸러졌다.'
+          ] },
+        { k: 'lid', title: '열을 가두는 둥근 방패', meta: '추정 연대: 20세기 전반 · 재질: 금속',
+          truth: '냄비 뚜껑. 냄비 위에 덮어 열과 김이 빠져나가지 않게 한다.',
+          lies: [
+            '전쟁에서 화살을 쳐내던 둥근 방패. 가운데 손잡이는 칼날을 비스듬히 흘려 보내는 구조다.',
+            '종을 매달던 울림판. 볼록한 모양이 소리를 사방으로 퍼뜨린다.',
+            '우물 위를 덮어 아이가 빠지지 않게 하던 덮개. 가운데 손잡이는 혼자서도 열 수 있게 하려는 것이다.'
+          ] }
+      ]
+    },
+    {
+      name: '제3관 · 문방구 미스터리', tag: '책상 위 작은 유적들',
+      relics: [
+        { k: 'pad', title: '잊힌 신전의 제단 받침', meta: '추정 연대: 8세기 · 출토지: 폐허 3호',
+          truth: '마우스패드. 책상에서 마우스가 미끄러지지 않게 받쳐 준다.',
+          lies: [
+            '신전 제단 앞에 깔던 무릎 보호대. 가장자리의 선은 기도 횟수를 세는 눈금이다.',
+            '서기관이 글을 쓰던 각도 받침. 무늬는 잉크가 번지지 않게 짠 천의 결을 옮긴 것이다.',
+            '왕이 서는 자리 아래에만 깔던 의전용 깔개. 발소리를 죽여 신을 놀라게 하지 않으려 했다.'
+          ] },
+        { k: 'receipt', title: '별의 좌표를 적어 둔 두루마리', meta: '추정 연대: 미상 · 재질: 박막',
+          truth: '편의점 영수증. 산 물건과 값이 줄마다 인쇄되어 있다.',
+          lies: [
+            '천문대가 매일 밤 관측한 별의 위치를 적은 일지. 글자가 흐린 것은 잉크가 스스로 사라지기 때문이다.',
+            '왕실의 하루 지출을 신에게 보고하던 회계 문서. 맨 아래 큰 숫자는 그날의 재앙을 뜻한다.',
+            '상단의 숫자는 흉조의 등급, 아래로 갈수록 위험이 커진다는 뜻으로 읽었다.'
+          ] },
+        { k: 'sharpener', title: '심장을 갈아 내는 작은 방', meta: '추정 연대: 15세기 · 재질: 청동(추정)',
+          truth: '연필깎이. 연필을 넣고 돌리면 심 끝이 뾰족해진다.',
+          lies: [
+            '성화를 그릴 때 금분을 갈던 작은 맷돌. 구멍에 금조각을 넣고 돌리면 가루가 통에 모였다.',
+            '향을 빚어 말리던 향통. 원통 안에서 향이 굴러야 두께가 고르게 마른다.',
+            '주화를 세어 통에 담던 계수기. 안쪽 칼날이 있어야 서로 붙은 주화가 떨어졌다.'
+          ] },
+        { k: 'eraser', title: '기억을 지우는 흰 돌', meta: '추정 연대: 16세기 · 재질: 광물(추정)',
+          truth: '지우개. 연필로 쓴 자국을 문질러 지운다.',
+          lies: [
+            '사제가 죄를 씻었다는 표시로 죄인의 이름을 문질러 지우던 흰 돌. 다 지워지면 벌이 끝났다.',
+            '조각가가 석재의 거친 면을 다듬던 연마석. 모서리가 둥근 것이 오래 쓴 증표다.',
+            '약을 반죽하기 전 손을 닦던 정화 덩이. 문지르면 가루가 일어나 손때를 함께 걷어 냈다.'
+          ] },
+        { k: 'ruler', title: '세상을 눕힌 직선', meta: '추정 연대: 18세기 · 재질: 목재',
+          truth: '자. 길이를 재거나 곧은 선을 그을 때 쓴다.',
+          lies: [
+            '시신의 키를 재어 관의 길이를 정하던 장례 도구. 눈금이 한쪽에만 있는 것은 재는 방향이 정해져 있었기 때문이다.',
+            '밭두렁의 경계를 정하는 땅의 증표. 숫자가 작은 것부터 시작하는 것은 땅을 나눈 순서를 뜻했다.',
+            '활을 만들 때 나무의 휨을 확인하던 평판. 눈금 간격이 손가락 폭인 것은 손으로 대어 보기 위해서다.'
+          ] },
+        { k: 'glue', title: '두 뼈를 잇는 투명 수액', meta: '추정 연대: 미상 · 재질: 수지',
+          truth: '풀. 종이나 나무 같은 것을 붙이는 데 쓴다.',
+          lies: [
+            '사냥한 짐승의 상처에 바르던 수지. 뚜껑에 달린 작은 침은 상처에 흘려 넣는 도구다.',
+            '벽화의 색이 바래지 않게 덧바르던 광택액. 물처럼 흐르는 성질이 얇게 퍼지게 했다.',
+            '신전 기둥의 틈을 메우던 수액. 마르면 돌보다 단단해져 다시 벌어지지 않았다.'
+          ] },
+        { k: 'stapler', title: '종이의 뼈를 묶는 악어', meta: '추정 연대: 19세기 말 · 재질: 철',
+          truth: '스테이플러. 종이 여러 장을 철심으로 찍어 묶는다.',
+          lies: [
+            '가죽에 구멍을 내고 실을 꿰던 송곳틀. 입이 벌어지는 구조가 가죽을 물고 늘어지는 힘을 냈다.',
+            '도장을 찍는 의전 기구. 아래 판에 먹을 묻히고 위에서 눌러 인장을 남겼다.',
+            '직물에 장식 못을 박던 압착기. 한 번 누르면 못이 두 줄로 들어가 결이 고르게 남았다.'
+          ] },
+        { k: 'postit', title: '벽에 붙은 노란 파피루스', meta: '추정 연대: 20세기 · 용도: 경고',
+          truth: '포스트잇. 한쪽 끝에 붙임성이 있어 벽에 붙였다 떼었다 할 수 있다.',
+          lies: [
+            '왕의 명을 여러 성문에 동시에 알리던 경고지. 위쪽만 풀이 발려 있어 벽을 훼손하지 않고 뗄 수 있었다.',
+            '회계관이 하루 지출을 임시로 적던 초서지. 노란 빛은 햇빛에 바래지 않는 안료를 썼기 때문이다.',
+            '공연의 대사가 바뀔 때 배우 대본에 덧붙이던 보충지. 손에 쥐고 읽었기 때문에 위쪽만 붙였다.'
+          ] },
+        { k: 'highlighter', title: '빛을 머금은 나무 관', meta: '추정 연대: 20세기 후반 · 용도: 표시',
+          truth: '형광펜. 중요한 글자 위를 칠해 눈에 띄게 한다.',
+          lies: [
+            '성화의 후광을 칠하던 황금 물감 붓. 뚜껑이 길어서 마르지 않고 오래 보관할 수 있었다.',
+            '등불의 심지를 적시던 기름 묻힌 막대. 눌러 칠하면 기름이 얇게 퍼져 불이 오래갔다.',
+            '점술사가 꿈에서 본 문양을 표시하던 표시봉. 색이 비치도록 속을 비운 구조다.'
+          ] },
+        { k: 'tape', title: '상처를 감싼 투명 띠', meta: '추정 연대: 20세기 · 재질: 합성수지',
+          truth: '테이프. 종이나 상자를 붙이고 봉할 때 쓴다.',
+          lies: [
+            '미라를 감을 때 마지막 층을 붙이던 접착 띠. 투명한 재질은 몸을 훼손하지 않기 위한 것이다.',
+            '비단 그림을 벽에 고정하던 봉안 띠. 한쪽 면이 끈적한 것은 세월이 지나도 떨어지지 않게 하려는 것이다.',
+            '연극 무대에서 벽의 균열을 감춘 눈속임 띠. 빛을 그대로 통과시켜 관객에게 보이지 않았다.'
+          ] }
+      ]
+    },
+    {
+      name: '제4관 · 전파의 성지', tag: '플러그와 전선의 연대기',
+      relics: [
+        { k: 'bulb', title: '천 년을 밝힌 소원의 등불', meta: '추정 연대: 12세기 · 재질: 결정체',
+          truth: '백열전구. 안을 진공으로 비워 두어야 필라멘트가 타지 않는다.',
+          lies: [
+            '유목민이 여름의 햇빛을 가두어 두었다가 장마철에 꺼내 쓰던 빛 저장 그릇.',
+            '점술사가 미래를 비추던 수정구의 초기형. 안쪽을 가로지르는 실은 사람의 운명을 상징한다.',
+            '기도할 때 안에 향을 넣고 돌리던 향로. 유리벽은 연기가 새지 않게 하는 장치다.'
+          ] },
+        { k: 'earbuds', title: '두 사람의 귀를 잇던 실', meta: '추정 연대: 20세기 말 · 용도: 의례',
+          truth: '이어폰. 귀에 꽂아 혼자만 소리를 듣는다.',
+          lies: [
+            '밀사할 때 두 사람의 기도를 이어 주던 성음실. 한쪽 귀에만 넣는 것은 신의 말씀을 한 사람이 받기 위해서다.',
+            '광산에서 갱부끼리 위험을 알리던 신호구. 귀에 넣고 줄을 당기면 진동이 전해졌다.',
+            '점술사가 손님의 속마음을 듣는다며 귀에 꽂던 은밀구. 줄이 길수록 더 멀리서 들린다고 믿었다.'
+          ] },
+        { k: 'remote', title: '멀리서 명을 내리는 판', meta: '추정 연대: 20세기 후반 · 용도: 호령',
+          truth: '리모컨. TV 같은 기계를 멀리서 조작한다.',
+          lies: [
+            '왕이 신하를 부를 때 쓰던 명판. 버튼을 누르면 다른 방의 종이 울렸다.',
+            '사제가 제단을 멀리서 움직이던 조작판. 손때가 번진 것은 위치를 외우지 못한 사람이 쓰기 위해서다.',
+            '지도 위에 깃발을 꽂아 전황을 표시하던 지휘판. 한쪽 끝의 붉은 점은 최후의 명령을 뜻한다.'
+          ] },
+        { k: 'battery', title: '작은 몸에 갇힌 번개', meta: '추정 연대: 미상 · 재질: 금속 초대',
+          truth: '건전지. 안에 든 화학 물질이 전기를 만들어 낸다.',
+          lies: [
+            '번개를 한 번 가두었다 쓰던 뇌전통. 양쪽 끝의 금속은 번개가 탈출하지 못하게 막는 마개다.',
+            '점등용 향초를 세우던 초대. 원통 모양이 초를 똑바로 세우고 촛농이 흐르지 않게 했다.',
+            '약을 넣어 두던 금속 캡슐. 바닥의 볼록한 부분은 약이 고루 섞이도록 돌리는 손잡이다.'
+          ] },
+        { k: 'usb', title: '기억을 꽂아 두는 못', meta: '추정 연대: 20세기 말 · 용도: 보관',
+          truth: 'USB 메모리. 컴퓨터에 꽂아 파일을 넣고 뺀다.',
+          lies: [
+            '인장을 꽂아 두던 도장함. 꽂는 방향이 정해져 있어야 왕의 인장이 뒤집히지 않았다.',
+            '암호문을 새긴 금속 조각. 한쪽만 들어맞는 홈이 있어야 다른 사람이 열어 볼 수 없었다.',
+            '물약을 한 번에 데우던 작은 봉. 금속 끝이 약병에 닿아 열을 옮겼다.'
+          ] },
+        { k: 'cd', title: '빛을 갈무리한 거울 원반', meta: '추정 연대: 20세기 말 · 재질: 합성수지',
+          truth: 'CD. 안쪽에 새긴 무늬를 빛으로 읽어 소리와 데이터를 꺼낸다.',
+          lies: [
+            '사제가 햇빛을 반사해 신전 안을 밝히던 거울판. 가운데 구멍은 빛을 한 점으로 모으는 통로다.',
+            '달의 위상을 기록하던 관측판. 표면의 무지갯빛은 달빛의 각도를 새긴 흔적이다.',
+            '귀인의 초상 대신 관에 넣던 영혼판. 반짝임이 사라지지 않아 영혼이 길을 잃지 않는다고 믿었다.'
+          ] },
+        { k: 'cable', title: '전류가 흐르던 뱀의 길', meta: '추정 연대: 미상 · 재질: 구리와 고무',
+          truth: '충전 케이블. 기기와 전원을 이어 전기를 보낸다.',
+          lies: [
+            '성수를 멀리 보내던 물길 줄. 구리 심이 있어 물이 상하지 않았다.',
+            '죄수의 발목을 묶던 구속 줄. 끝의 쇠는 풀리지 않게 잠그는 자물쇠다.',
+            '음악가가 연주 중에 악기와 몸을 이어 두던 연결 줄. 움직여도 끊어지지 않는 것이 핵심이었다.'
+          ] },
+        { k: 'jack', title: '소리를 꽂는 세 개의 고리', meta: '추정 연대: 20세기 · 재질: 금속',
+          truth: '이어폰 잭. 기기의 구멍에 꽂아 소리를 보낸다.',
+          lies: [
+            '세 가지 약을 한 번에 재던 계량 막대. 고리마다 다른 약이 묻어 정량을 맞췄다.',
+            '맥박을 세던 의료봉. 세 칸의 금속이 손목의 떨림을 각각 다르게 받아 냈다.',
+            '사슬의 마디 수를 세던 세는 못. 세 번 꺾인 홈이 사슬이 풀리지 않게 잡아 주었다.'
+          ] },
+        { k: 'antenna', title: '하늘을 찌르는 바늘', meta: '추정 연대: 20세기 중반 · 재질: 금속',
+          truth: '안테나. 뽑아 세우면 전파를 더 잘 받는다.',
+          lies: [
+            '별의 위치를 겨누던 조준봉. 마디마다 길이를 바꿔 다른 별을 가리켰다.',
+            '사냥꾼이 새를 부르던 소리막대. 끝을 퉁기면 높은 소리가 멀리 퍼졌다.',
+            '지팡이 속에 숨긴 칼. 마디가 나뉜 것은 접어 넣기 위해서다.'
+          ] },
+        { k: 'adapter', title: '벽에서 불을 훔치는 상자', meta: '추정 연대: 미상 · 용도: 공급',
+          truth: '충전 어댑터. 콘센트에 꽂아 기기에 맞는 전기를 보낸다.',
+          lies: [
+            '향을 태워 연기를 모으던 작은 향로. 두 다리는 불을 붙이는 쇠다.',
+            '우물의 물을 퍼 올리던 도르래 몸체. 두 개의 쇠는 벽에 걸어 고정하는 갈고리다.',
+            '사제가 성수를 뿌릴 때 쓰던 분무함. 흰 몸체는 신성함을, 쇠는 땅과의 연결을 뜻했다.'
+          ] }
+      ]
+    },
+    {
+      name: '제5관 · 심연의 서랍장', tag: '아무도 설명 못 하는 마지막 칸',
+      relics: [
+        { k: 'mask', title: '침묵을 지키는 의식용 고리', meta: '추정 연대: 20세기 초 · 용도: 의례',
+          truth: '일회용 보건 마스크. 침방울이 퍼지지 않게 막는다.',
+          lies: [
+            '광부가 유독가스를 거르던 첫 안면구. 귀에 거는 끈은 사고가 났을 때 한 손으로 벗기기 위한 구조다.',
+            '재판관이 증언을 더는 듣지 않겠다는 뜻으로 쓰던 얼굴 가리개.',
+            '전염병의 신을 달래는 행렬에서 참가자 전원이 반드시 써야 했던 가면.'
+          ] },
+        { k: 'slipper', title: '밤을 새우는 자의 갑옷', meta: '추정 연대: 13세기 · 재질: 가죽',
+          truth: '슬리퍼. 발에 훌렁 신고 집안을 걸어 다닌다.',
+          lies: [
+            '전사의 발을 지키던 가죽 갑주. 발등만 덮는 것은 발가락이 자유로워야 검을 딛고 설 수 있었기 때문이다.',
+            '사제가 성스러운 땅을 밟을 때 신던 의전화. 밑창 무늬는 땅의 신에게 남기는 서명이다.',
+            '도망친 죄수를 쫓던 추적관이 발자국을 뜰 때 쓰던 표본 틀.'
+          ] },
+        { k: 'scrunchie', title: '머리카락을 묶어 둔 고리', meta: '추정 연대: 18세기 · 재질: 직물',
+          truth: '머리끈. 머리카락을 한데 모아 묶을 때 쓴다.',
+          lies: [
+            '사제가 서약할 때 손목에 감던 축복끈. 한 번 묶으면 스스로 풀지 못하는 것이 규율이었다.',
+            '사냥개가 짐승을 쫓을 때 목에 거는 표식 끈. 색이 밝을수록 주인의 지위가 높았다.',
+            '편지 다발을 묶어 보관하던 봉서끈. 매듭이 늘어나면 누군가 열어 본 것으로 여겼다.'
+          ] },
+        { k: 'pillbox', title: '하루를 나눠 담은 작은 방', meta: '추정 연대: 19세기 · 재질: 나무(추정)',
+          truth: '약통. 하루치 알약을 칸칸이 나눠 담는다.',
+          lies: [
+            '향료를 칸마다 담아 방에 두던 향함. 요일마다 다른 향을 피워 시간을 가늠했다.',
+            '귀금속을 세어 담던 계수함. 뚜껑이 여러 겹인 것은 값이 다른 보석을 섞지 않기 위해서다.',
+            '제사에 쓸 곡식 씨앗을 담던 씨앗함. 칸이 나뉜 것은 씨앗마다 다른 밭에 심기 위해서다.'
+          ] },
+        { k: 'handwarmer', title: '겨울을 품은 주머니 돌', meta: '추정 연대: 20세기 · 용도: 보온',
+          truth: '손난로. 흔들거나 눌러서 따뜻해지는 작은 난로다.',
+          lies: [
+            '얼음 창고에서 성수가 식지 않게 품에 넣던 온기 돌. 천으로 감아야 열이 한 번에 빠져나가지 않았다.',
+            '부싯돌을 감춘 불 피우는 주머니. 한 번 누르면 안에서 불씨가 살아났다.',
+            '약을 섞어 데우던 찜질 주머니. 안의 액체가 굳으면 약효가 식은 것으로 여겼다.'
+          ] },
+        { k: 'lighter', title: '한 번에 불을 부리는 손', meta: '추정 연대: 20세기 · 재질: 금속과 수지',
+          truth: '라이터. 돌리거나 누르면 불이 붙는 휴대용 도구다.',
+          lies: [
+            '사제가 향에 불을 옮길 때 쓰던 성화통. 뚜껑을 열면 공기가 들어와 불이 살아났다.',
+            '봉인을 태워 굳히던 밀랍 인장기. 손잡이를 누르면 작은 화염이 인장에 닿았다.',
+            '연극에서 불을 흉내 내던 소품. 바람을 막는 덮개가 있어 무대 위에서도 꺼지지 않았다.'
+          ] },
+        { k: 'padlock', title: '약속을 잠근 강철 주먹', meta: '추정 연대: 17세기 · 재질: 철',
+          truth: '자물쇠. 열쇠나 숫자를 맞춰야 열린다.',
+          lies: [
+            '창고의 곡식을 지키는 봉인. 열면 안쪽 쇠고리가 끊어져 누가 열었는지 알 수 있었다.',
+            '기사가 맹세를 어기면 스스로 채우는 손목 고리. 여는 열쇠는 왕이 보관했다.',
+            '배의 닻줄을 고정하던 잠금구. 걸쇠가 풀리지 않게 두 겹으로 잠갔다.'
+          ] },
+        { k: 'bandage', title: '상처에 붙인 작은 깃발', meta: '추정 연대: 미상 · 재질: 직물과 약',
+          truth: '반창고. 상처에 붙여 피와 먼지가 들어가지 않게 막는다.',
+          lies: [
+            '전사가 죽은 동료의 이름을 적어 옷에 붙이던 표식. 떨어지지 않게 접착면이 넓었다.',
+            '사제가 축복한 종이 조각. 아픈 곳에 붙이면 병이 옮겨 가지 않는다고 믿었다.',
+            '활을 쏘기 전 손가락을 감던 가죽 띠. 가운데 천은 시위가 손을 베지 않게 받쳐 주었다.'
+          ] },
+        { k: 'flashlight', title: '어둠을 베는 막대', meta: '추정 연대: 20세기 초 · 용도: 신호',
+          truth: '손전등. 건전지로 불을 밝혀 앞을 비춘다.',
+          lies: [
+            '광부가 갱의 위험을 알리던 신호봉. 앞부분을 돌리면 약속된 깜빡임이 나왔다.',
+            '점술사가 어둠 속에서 손님의 그림자를 비추던 조명구. 빛이 곧게 뻗는 것은 운명의 방향을 뜻했다.',
+            '배의 등대지를 밝히던 휴대용 등. 손잡이가 굵은 것은 배 위에서 떨어뜨리지 않기 위해서다.'
+          ] },
+        { k: 'magnifier', title: '작은 것을 크게 만드는 눈', meta: '추정 연대: 17세기 · 재질: 유리와 황동',
+          truth: '돋보기. 렌즈로 빛을 모아 작은 글씨나 물건을 크게 본다.',
+          lies: [
+            '보석의 진위를 가리던 감별경. 테가 둥근 것은 빛을 한 점에 모아 결점을 찾기 위해서다.',
+            '사제가 성화의 글자를 읽던 독경경. 손잡이가 길어야 눈에 닿지 않고 글을 볼 수 있었다.',
+            '연극에서 달빛을 만드는 데 쓰던 유리. 무대 뒤에서 돌리면 배우의 얼굴이 밝아졌다.'
+          ] }
+      ]
+    }
+  ];
 
+  var ALL = [];
+  for (var hi = 0; hi < HALLS.length; hi++) {
+    HALLS[hi].idx = hi;
+    for (var ri = 0; ri < HALLS[hi].relics.length; ri++) {
+      var rr = HALLS[hi].relics[ri];
+      rr.hall = hi;
+      rr.no = ri;
+      ALL.push(rr);
+    }
+  }
+
+  /* 관장 승급 10단계 (누적 정답 기준) */
+  var RANKS = [
+    { min: 0, name: '관람객', crest: '🎫' },
+    { min: 6, name: '견습 안내원', crest: '🧹' },
+    { min: 14, name: '수석 도슨트', crest: '🎧' },
+    { min: 24, name: '고고학 인턴', crest: '🧭' },
+    { min: 36, name: '헛소리 감별사', crest: '🔍' },
+    { min: 50, name: '부관장', crest: '🗝️' },
+    { min: 66, name: '수석 큐레이터', crest: '🖼️' },
+    { min: 84, name: '박물관장', crest: '🏛️' },
+    { min: 104, name: '명예 전당', crest: '⭐' },
+    { min: 126, name: '전설의 헛소리 대제', crest: '👑' }
+  ];
+  function rankOf(total) {
+    var k = RANKS[0];
+    for (var i = 0; i < RANKS.length; i++) if (total >= RANKS[i].min) k = RANKS[i];
+    return k;
+  }
+  function nextRank(total) {
+    for (var i = 0; i < RANKS.length; i++) if (total < RANKS[i].min) return RANKS[i];
+    return null;
+  }
+  function rankIndex(total) {
+    for (var i = RANKS.length - 1; i >= 0; i--) if (total >= RANKS[i].min) return i;
+    return 0;
+  }
+
+  var LIVES = 3;
+  var HALL_SIZE = 10;
+
+  /* =========================================================
+     저장
+     ========================================================= */
+  var SAVE_KEY = 'wrongMuseum.v2';
+  var SAVE = { found: {}, best: {}, totalCorrect: 0, bestCombo: 0, relayBest: 0, sound: true, runs: 0 };
+
+  function loadSave() {
+    try {
+      var raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      if (!d || typeof d !== 'object') return;
+      if (d.found && typeof d.found === 'object') SAVE.found = d.found;
+      if (d.best && typeof d.best === 'object') SAVE.best = d.best;
+      SAVE.totalCorrect = Math.max(0, parseInt(d.totalCorrect, 10) || 0);
+      SAVE.bestCombo = Math.max(0, parseInt(d.bestCombo, 10) || 0);
+      SAVE.relayBest = Math.max(0, parseInt(d.relayBest, 10) || 0);
+      SAVE.sound = d.sound !== false;
+      SAVE.runs = Math.max(0, parseInt(d.runs, 10) || 0);
+    } catch (e) {}
+  }
+  function saveNow() {
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(SAVE)); } catch (e) {}
+  }
+  function foundCount() {
+    var n = 0;
+    for (var k in SAVE.found) if (SAVE.found[k] > 0) n++;
+    return n;
+  }
+  function isCleared(i) {
+    var b = SAVE.best[i];
+    return !!(b && b.cleared);
+  }
+  function isUnlocked(i) {
+    if (i === 0) return true;
+    var prev = SAVE.best[i - 1];
+    return !!(prev && prev.correct >= 7);
+  }
+
+  /* =========================================================
+     상태
+     ========================================================= */
   var S = null;
+  var CX_HALL = 0;
+
+  var elArt = $('art'), elTitle = $('title'), elMeta = $('meta'), elAsk = $('ask');
+  var elChoices = $('choices'), elNote = $('note'), elNext = $('next');
+  var elDots = $('dots'), elWhere = $('where'), elLives = $('lives'), elCombo = $('combo');
+  var elRank = $('rank');
 
   function buildDots() {
     var h = '';
-    for (var i = 0; i < SIZE; i++) h += '<i></i>';
+    for (var i = 0; i < HALL_SIZE; i++) h += '<i></i>';
     elDots.innerHTML = h;
   }
 
-  function newSet() {
-    var rng = mulberry32(seed + Math.floor(Math.random() * 100000));
-    var picked = shuffle(RELICS, rng).slice(0, SIZE);
-    var rounds = picked.map(function (r) {
-      var opts = shuffle([{ text: r.truth, ok: true }].concat(
-        r.lies.map(function (t) { return { text: t, ok: false }; })
-      ), rng);
-      return { relic: r, opts: opts, truthIdx: opts.findIndex(function (o) { return o.ok; }) };
-    });
-    S = {
-      step: 0, score: 0, answered: false, over: false,
-      rounds: rounds, marks: [], picked: [], collection: []
-    };
+  function soundUI() {
+    var b = $('sound');
+    b.textContent = SAVE.sound ? '🔊' : '🔇';
+    b.classList.toggle('off', !SAVE.sound);
+    b.setAttribute('aria-pressed', SAVE.sound ? 'true' : 'false');
+    b.setAttribute('aria-label', SAVE.sound ? '소리 끄기' : '소리 켜기');
   }
 
-  function render() {
-    var r = S.rounds[S.step].relic;
-    elArt.innerHTML = ICON[r.icon] || '';
-    elArt.className = 'art';
+  /* =========================================================
+     홈
+     ========================================================= */
+  function renderHome() {
+    var rk = rankOf(SAVE.totalCorrect);
+    var nx = nextRank(SAVE.totalCorrect);
+    $('homeCrest').textContent = rk.crest;
+    $('homeRank').textContent = rk.name;
+    elRank.textContent = rk.name;
+    if (nx) {
+      $('homeNext').innerHTML = '다음 승급까지<b>' + (nx.min - SAVE.totalCorrect) + '점</b>';
+      var prev = rk.min;
+      var pct = Math.max(0, Math.min(100, ((SAVE.totalCorrect - prev) / Math.max(1, nx.min - prev)) * 100));
+      $('homeBar').style.width = pct.toFixed(1) + '%';
+    } else {
+      $('homeNext').innerHTML = '최고 등급<b>달성</b>';
+      $('homeBar').style.width = '100%';
+    }
+    $('stCorrect').textContent = SAVE.totalCorrect;
+    $('stCombo').textContent = SAVE.bestCombo;
+    $('stFound').textContent = foundCount() + '/50';
+    $('relayBest').textContent = '최고 ' + SAVE.relayBest;
+
+    var h = '';
+    for (var i = 0; i < HALLS.length; i++) {
+      var open = isUnlocked(i), b = SAVE.best[i] || null;
+      var got = 0;
+      for (var j = 0; j < HALLS[i].relics.length; j++) if (SAVE.found[HALLS[i].relics[j].k]) got++;
+      var stars = b ? (b.correct >= 10 ? 3 : b.correct >= 8 ? 2 : b.correct >= 6 ? 1 : 0) : 0;
+      var starHtml = '';
+      for (var s = 0; s < 3; s++) starHtml += s < stars ? '★' : '<span class="e">★</span>';
+      h += '<button class="hall' + (open ? '' : ' locked') + (b && b.cleared ? ' done' : '') + '" type="button" data-hall="' + i + '">' +
+        '<span class="badge">' + (open ? (i + 1) : '🔒') + '</span>' +
+        '<span class="hbody"><span class="hname">' + esc(HALLS[i].name) + '</span>' +
+        '<span class="htag">' + esc(open ? HALLS[i].tag : '제' + i + '관에서 7점 이상 받으면 열린다') + '</span></span>' +
+        '<span class="hright">' + (open ? '<span class="stars">' + starHtml + '</span><span class="hprog">' + got + '/10 도감</span>' : '<span>잠김</span>') + '</span>' +
+        '</button>';
+    }
+    $('halls').innerHTML = h;
+
+    var anyOpen = false;
+    for (var q = 0; q < HALLS.length; q++) if (isUnlocked(q)) anyOpen = true;
+    $('hallHint').textContent = anyOpen ? '관 하나에 10점이면 ★★★' : '제1관부터 열려 있어요';
+  }
+
+  function showScreen(name) {
+    $('scHome').hidden = name !== 'home';
+    $('scPlay').hidden = name !== 'play';
+    if (name === 'play') { $('scResult').hidden = true; $('scCodex').hidden = true; }
+    if (name === 'home') { $('scResult').hidden = true; $('scCodex').hidden = true; renderHome(); }
+  }
+
+  /* =========================================================
+     플레이
+     ========================================================= */
+  function startHall(i) {
+    if (!isUnlocked(i)) { toast('제' + i + '관에서 7점 이상 받으면 열려요'); AUDIO.sfx('click'); return false; }
+    AUDIO.unlock();
+    var rng = mulberry32((Date.now() >>> 0) % 2147483647);
+    var order = HALLS[i].relics.slice();
+    if (SAVE.best[i] && SAVE.best[i].runs > 0) order = shuffle(order, rng); // 다시 할 땐 순서 섞기
+    S = {
+      mode: 'hall', hall: i, order: order, step: 0,
+      correct: 0, lives: LIVES, combo: 0, maxCombo: 0, score: 0,
+      answered: false, over: false, collected: [], marks: [], startRank: rankIndex(SAVE.totalCorrect),
+      promoted: null, round: null
+    };
+    SAVE.runs += 1;
+    showScreen('play');
+    elWhere.textContent = HALLS[i].name.replace(' · ', ' — ');
+    renderRound();
+    return true;
+  }
+
+  function startRelay() {
+    AUDIO.unlock();
+    var rng = mulberry32((Date.now() >>> 0) % 2147483647);
+    var order = shuffle(ALL.map(function (r) { return r; }), rng);
+    S = {
+      mode: 'relay', hall: -1, order: order, step: 0,
+      correct: 0, lives: LIVES, combo: 0, maxCombo: 0, score: 0,
+      answered: false, over: false, collected: [], marks: [], startRank: rankIndex(SAVE.totalCorrect),
+      promoted: null, round: null
+    };
+    showScreen('play');
+    elWhere.textContent = '무한 릴레이';
+    buildDotsRelay();
+    renderRound();
+    return true;
+  }
+
+  function buildDotsRelay() {
+    var h = '';
+    for (var i = 0; i < HALL_SIZE; i++) h += '<i></i>';
+    elDots.innerHTML = h;
+  }
+
+  function currentRelic() {
+    if (!S) return null;
+    return S.order[S.step];
+  }
+
+  function renderRound() {
+    var r = currentRelic();
+    if (!r) return;
+    var rng = mulberry32(hashStr(r.k + ':' + S.step));
+    var opts = shuffle([{ text: r.truth, ok: true }].concat(r.lies.map(function (t) { return { text: t, ok: false }; })), rng);
+    S.round = { relic: r, opts: opts, truthIdx: opts.map(function (o) { return o.ok; }).indexOf(true) };
+    S.answered = false;
+
+    elArt.innerHTML = artSVG(r.k);
     elTitle.textContent = r.title;
     elMeta.textContent = r.meta;
     elAsk.textContent = '이 유물의 진짜 정체는?';
 
-    var idx = 0;
-    elChoices.innerHTML = S.rounds[S.step].opts.map(function (o) {
-      idx += 1;
-      return '<button class="choice" type="button" data-i="' + (idx - 1) + '">' +
-        '<span class="n" aria-hidden="true">' + idx + '</span>' + escapeHtml(o.text) + '</button>';
-    }).join('');
+    var h = '';
+    for (var i = 0; i < opts.length; i++) {
+      h += '<button class="choice" type="button" data-i="' + i + '"><span class="n" aria-hidden="true">' +
+        (i + 1) + '</span>' + esc(opts[i].text) + '</button>';
+    }
+    elChoices.innerHTML = h;
 
-    S.answered = false;
     elNote.textContent = '';
     elNote.className = 'note';
     elNext.hidden = false;
     elNext.disabled = true;
     elNext.textContent = '라벨 하나를 골라 봐';
-    elCount.textContent = (S.step + 1) + ' / ' + SIZE;
-    syncDots();
-    syncRank();
+    syncHud();
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"]/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
-    });
-  }
-
-  function syncDots() {
+  function syncHud() {
+    var total = S.mode === 'relay' ? HALL_SIZE : HALL_SIZE;
     var kids = elDots.children;
-    for (var i = 0; i < kids.length; i++) {
-      var m = S.marks[i];
-      kids[i].className = m === 'ok' ? 'ok' : (m === 'no' ? 'no' : (i === S.step ? 'now' : ''));
+    if (S.mode === 'relay') {
+      for (var i = 0; i < kids.length; i++) {
+        var rel = S.step - (HALL_SIZE - 1) + i;
+        var mk = rel >= 0 ? S.marks[rel] : '';
+        kids[i].className = mk === 'ok' ? 'ok' : (mk === 'no' ? 'no' : (i === kids.length - 1 ? 'now' : ''));
+      }
+    } else {
+      for (var j = 0; j < kids.length; j++) {
+        var m = S.marks[j];
+        kids[j].className = m === 'ok' ? 'ok' : (m === 'no' ? 'no' : (j === S.step ? 'now' : ''));
+      }
     }
-  }
 
-  function syncRank() {
-    var rk = rankOf(S.score);
-    if (elRank.textContent !== rk.name) {
-      elRank.textContent = rk.name;
-      elRank.classList.remove('up');
-      void elRank.offsetWidth;
-      elRank.classList.add('up');
-    }
+    var lv = '';
+    for (var k = 0; k < LIVES; k++) lv += '<i class="' + (k < S.lives ? '' : 'gone') + '">❤️</i>';
+    elLives.innerHTML = lv;
+
+    if (S.combo >= 2) { elCombo.textContent = '🔥 ×' + S.combo; elCombo.classList.add('on'); }
+    else elCombo.classList.remove('on');
+
+    var rk = rankOf(SAVE.totalCorrect);
+    elRank.textContent = rk.name;
   }
 
   function answer(i) {
     if (!S || S.over || S.answered) return false;
-    var round = S.rounds[S.step];
+    var round = S.round;
+    if (!round) return false;
     var btn = elChoices.querySelector('[data-i="' + i + '"]');
     if (!btn) return false;
-
     S.answered = true;
+
     var correct = (i === round.truthIdx);
     var all = elChoices.querySelectorAll('.choice');
     for (var k = 0; k < all.length; k++) {
@@ -642,108 +1908,415 @@
     }
 
     if (correct) {
-      S.score += 1;
+      S.correct += 1;
+      S.combo += 1;
+      if (S.combo > S.maxCombo) S.maxCombo = S.combo;
+      var bonus = Math.min(100, (S.combo - 1) * 25);
+      S.score += 100 + bonus;
       S.marks[S.step] = 'ok';
-      elNote.className = 'note ok';
-      elNote.innerHTML = '<b>정답.</b> 이건 그냥 ' + shortTruth(round) + '. 관장 등급이 올라간다.';
-      syncRank();
-    } else {
-      S.marks[S.step] = 'no';
-      S.picked[S.step] = i;
-      S.collection.push(round.opts[i].text);
-      elNote.className = 'note no';
-      elNote.innerHTML = '<b>틀렸어.</b> 고른 라벨이 내 전시관에 걸렸다. 초록색이 진짜야.';
-    }
+      SAVE.totalCorrect += 1;
+      SAVE.found[round.relic.k] = (SAVE.found[round.relic.k] || 0) + 1;
+      if (S.combo > SAVE.bestCombo) SAVE.bestCombo = S.combo;
 
-    syncDots();
+      var nRank = rankIndex(SAVE.totalCorrect);
+      if (nRank > S.startRank) {
+        S.startRank = nRank;
+        S.promoted = RANKS[nRank];
+        setTimeout(function () { AUDIO.sfx('promote'); }, 180);
+        toast('🎖️ 승급! ' + RANKS[nRank].name);
+        elRank.classList.remove('up'); void elRank.offsetWidth; elRank.classList.add('up');
+      } else {
+        setTimeout(function () { AUDIO.sfx('ding'); }, 60);
+      }
+      elNote.className = 'note ok';
+      elNote.innerHTML = '<b>정답.</b> 이건 그냥 ' + esc(shortTruth(round.relic.truth)) + '.' +
+        (S.combo >= 2 ? ' <b>' + S.combo + '연속</b> +' + (100 + bonus) + '점' : ' +' + (100 + bonus) + '점');
+    } else {
+      S.lives -= 1;
+      S.combo = 0;
+      S.marks[S.step] = 'no';
+      S.collected.push(round.opts[i].text);
+      setTimeout(function () { AUDIO.sfx('boing'); }, 40);
+      elNote.className = 'note no';
+      elNote.innerHTML = S.lives > 0
+        ? '<b>틀렸어.</b> 고른 라벨이 내 전시관에 걸렸다. 초록색이 진짜야. 목숨 ' + S.lives + '개 남음.'
+        : '<b>틀렸어.</b> 라벨이 걸렸고, 목숨이 다했다.';
+    }
+    saveNow();
+    syncHud();
+
     elNext.hidden = false;
     elNext.disabled = false;
-    elNext.textContent = (S.step + 1 >= SIZE) ? '전시 결과 보기 →' : '다음 유물 →';
+    var last = (S.mode === 'hall' && S.step + 1 >= HALL_SIZE);
+    elNext.textContent = (last || S.lives <= 0) ? '전시 결과 보기 →' : '다음 유물 →';
     elNext.focus({ preventScroll: true });
     return true;
   }
 
-  function shortTruth(round) {
-    var t = round.relic.truth;
+  function shortTruth(t) {
     var cut = t.indexOf('.');
     return cut > 0 ? t.slice(0, cut) : t;
   }
 
-  function next() {
+  function nextRound() {
     if (!S || !S.answered) return false;
-    if (S.step + 1 >= SIZE) { finish(); return true; }
+    if (S.lives <= 0) { finish(); return true; }
+    if (S.mode === 'hall' && S.step + 1 >= HALL_SIZE) { finish(); return true; }
     S.step += 1;
-    render();
+    if (S.mode === 'relay') {
+      if (S.step >= S.order.length - 1) {
+        // 50점을 다 돌면 새로 섞어 계속
+        var rng = mulberry32((Date.now() >>> 0) % 2147483647);
+        S.order = S.order.concat(shuffle(ALL.map(function (r) { return r; }), rng));
+      }
+    }
+    renderRound();
     return true;
   }
 
+  function starsOf(correct) { return correct >= 10 ? 3 : correct >= 8 ? 2 : correct >= 6 ? 1 : 0; }
+
   function finish() {
+    if (!S || S.over) return false;
     S.over = true;
-    var rk = rankOf(S.score);
-    elCrest.textContent = rk.crest;
-    elGrade.textContent = rk.name;
-    elScore.innerHTML = '<b>' + S.score + '</b> / ' + SIZE + '점';
-    elRCount.textContent = S.collection.length + '점';
+    var rk = rankOf(SAVE.totalCorrect);
+    var stars = starsOf(S.correct);
+    var hall = S.hall;
+    var isNewBest = false;
 
-    if (S.collection.length) {
-      elList.innerHTML = S.collection.map(function (t) {
-        return '<li>' + escapeHtml(t) + '</li>';
-      }).join('');
+    if (S.mode === 'hall') {
+      var prev = SAVE.best[hall] || { correct: 0, score: 0, stars: 0, cleared: false, runs: 0 };
+      if (S.score > prev.score) isNewBest = true;
+      SAVE.best[hall] = {
+        correct: Math.max(prev.correct, S.correct),
+        score: Math.max(prev.score, S.score),
+        stars: Math.max(prev.stars, stars),
+        cleared: prev.cleared || stars > 0,
+        runs: (prev.runs || 0) + 1
+      };
     } else {
-      elList.innerHTML = '<li class="empty" style="padding-left:0">걸린 헛소리가 없다. 오늘 이 박물관에 진실만 남았다.</li>';
+      if (S.score > SAVE.relayBest) SAVE.relayBest = S.score;
     }
-    elHint.textContent = S.score >= SIZE
-      ? '헛소리 없이 통과. 이 박물관에서 제일 무서운 관람객이다.'
-      : (SIZE - S.score) + '점 모자란다. 다 맞히면 관장이 된다.';
+    if (S.maxCombo > SAVE.bestCombo) SAVE.bestCombo = S.maxCombo;
+    saveNow();
 
-    elResult.hidden = false;
-    requestAnimationFrame(function () { elResult.classList.add('show'); });
+    $('rCrest').textContent = rk.crest;
+    $('rKicker').textContent = S.mode === 'relay' ? '무한 릴레이 종료' : '전시관 결과';
+    $('rGrade').textContent = rk.name;
+    var sh = '';
+    for (var s = 0; s < 3; s++) sh += s < stars ? '★' : '<span class="e">★</span>';
+    $('rStars').innerHTML = S.mode === 'relay' ? '' : sh;
+    $('rSub').innerHTML = S.mode === 'relay'
+      ? '<b>' + S.correct + '</b>점 유물 정답 · 점수 <b>' + S.score + '</b>'
+      : '<b>' + S.correct + '</b> / 10점 · 점수 <b>' + S.score + '</b>' + (isNewBest ? ' · 최고 기록!' : '');
+    $('rRankNow').textContent = rk.name;
+    $('rScore').textContent = S.score;
+    $('rCombo2').textContent = S.maxCombo;
+    $('rLives').textContent = S.lives;
+    $('rCount').textContent = S.collected.length + '점';
+
+    if (S.collected.length) {
+      $('rList').innerHTML = S.collected.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+    } else {
+      $('rList').innerHTML = '<li class="empty">걸린 헛소리가 없다. 이 박물관에 진실만 남았다.</li>';
+    }
+
+    var nx = null;
+    if (S.mode === 'hall' && hall + 1 < HALLS.length && S.correct >= 7) nx = hall + 1;
+    var ul = $('rUnlock');
+    if (nx !== null) {
+      ul.hidden = false;
+      $('rUnlockText').textContent = '제' + (nx + 1) + '관 · ' + HALLS[nx].name.split(' · ')[1] + '이 열렸다!';
+      $('rNextHall').hidden = false;
+      $('rNextHall').textContent = '제' + (nx + 1) + '관 →';
+      $('rNextHall').setAttribute('data-next', String(nx));
+    } else {
+      ul.hidden = true;
+      $('rNextHall').hidden = true;
+    }
+    $('rAgain').textContent = S.mode === 'relay' ? '릴레이 한 번 더' : '한 번 더';
+    if (stars >= 1) setTimeout(function () { AUDIO.sfx('clear'); }, 220);
+    else setTimeout(function () { AUDIO.sfx('fail'); }, 200);
+
+    $('scResult').hidden = false;
+    showScreenKeep();
+    return true;
   }
 
-  function restart() {
-    elResult.classList.remove('show');
-    elResult.hidden = true;
-    newSet();
-    render();
+  function showScreenKeep() {
+    $('scHome').hidden = true;
+    $('scPlay').hidden = true;
   }
 
-  /* ---------- 입력 ---------- */
+  /* =========================================================
+     도감
+     ========================================================= */
+  function openCodex(hallIdx) {
+    CX_HALL = typeof hallIdx === 'number' ? hallIdx : CX_HALL;
+    AUDIO.sfx('click');
+    renderCodex();
+    $('scCodex').hidden = false;
+  }
+
+  function renderCodex() {
+    var tabs = '';
+    for (var i = 0; i < HALLS.length; i++) {
+      tabs += '<button class="tab' + (i === CX_HALL ? ' on' : '') + '" type="button" data-cx="' + i + '">' + (i + 1) + '관</button>';
+    }
+    $('cxTabs').innerHTML = tabs;
+    var hall = HALLS[CX_HALL];
+    var cells = '';
+    for (var j = 0; j < hall.relics.length; j++) {
+      var r = hall.relics[j];
+      var got = SAVE.found[r.k] > 0;
+      cells += '<button class="cell' + (got ? '' : ' locked') + '" type="button" data-relic="' + esc(r.k) + '" aria-label="' + esc(got ? r.title : '아직 못 밝힌 유물') + '">' +
+        (got ? artInline(r.k) + '<span class="dot"></span>' : '<span class="q">?</span>') + '</button>';
+    }
+    $('cxGrid').innerHTML = cells;
+    $('cxTitle').textContent = '도감 ' + foundCount() + ' / 50';
+    $('cxSub').textContent = foundCount() >= 50 ? '50점 전부 밝혔다. 이 박물관은 이제 네 것이다.' : '맞힌 유물의 진짜 정체가 여기 쌓인다.';
+  }
+
+  function artInline(key) {
+    var h = hashStr(key);
+    var pos = [[34, 44, .58], [126, 48, .72], [40, 116, .46], [122, 114, .52], [92, 32, .40], [28, 88, .34], [133, 90, .44]];
+    var s = '';
+    for (var i = 0; i < 4; i++) {
+      var p = pos[(i + (h % 7)) % 7];
+      s += '<path d="' + SPARK + '" fill="#ffffff" opacity=".9" transform="translate(' + p[0] + ',' + p[1] + ') scale(' + (p[2] * 0.8).toFixed(2) + ')"/>';
+    }
+    return '<svg viewBox="0 0 160 160" aria-hidden="true"><circle cx="80" cy="76" r="67" fill="url(#gHalo)"/>' + s +
+      '<ellipse cx="80" cy="140" rx="41" ry="7" fill="url(#gShadow)"/>' +
+      '<g transform="translate(20,14)">' + (ICON[key] || '') + '</g></svg>';
+  }
+
+  function openSheet(key) {
+    var r = null;
+    for (var i = 0; i < ALL.length; i++) if (ALL[i].k === key) { r = ALL[i]; break; }
+    if (!r || !SAVE.found[key]) return false;
+    $('shIcon').innerHTML = artInline(key);
+    $('shTitle').textContent = r.title;
+    $('shMeta').textContent = r.meta;
+    $('shTruth').textContent = r.truth;
+    $('sheet').hidden = false;
+    requestAnimationFrame(function () { $('sheet').classList.add('show'); });
+    AUDIO.sfx('flip');
+    return true;
+  }
+  function closeSheet() {
+    $('sheet').classList.remove('show');
+    setTimeout(function () { $('sheet').hidden = true; }, 260);
+  }
+
+  /* =========================================================
+     토스트
+     ========================================================= */
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('on'); }, 2100);
+  }
+
+  /* =========================================================
+     입력
+     ========================================================= */
+  $('halls').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.hall') : null;
+    if (!b) return;
+    AUDIO.sfx('click');
+    startHall(parseInt(b.getAttribute('data-hall'), 10));
+  });
+  $('relayBtn').addEventListener('click', function () { AUDIO.sfx('click'); startRelay(); });
+  $('codexBtn').addEventListener('click', function () { openCodex(0); });
+  $('resetBtn').addEventListener('click', function () {
+    AUDIO.sfx('click');
+    if (window.confirm('도감·기록·등급을 모두 지울까요?')) {
+      SAVE = { found: {}, best: {}, totalCorrect: 0, bestCombo: 0, relayBest: 0, sound: SAVE.sound, runs: 0 };
+      saveNow(); renderHome(); toast('기록을 지웠다. 다시 관람객부터.');
+    }
+  });
+  $('sound').addEventListener('click', function () {
+    SAVE.sound = !SAVE.sound;
+    AUDIO.setMuted(!SAVE.sound);
+    if (SAVE.sound) AUDIO.sfx('click');
+    soundUI(); saveNow();
+  });
+  $('restart').addEventListener('click', function () {
+    AUDIO.sfx('click');
+    if (S && !S.over) finish();
+    else showScreen('home');
+    S = null;
+    showScreen('home');
+  });
+  $('backHome').addEventListener('click', function () {
+    AUDIO.sfx('click');
+    if (S && !S.over && S.step > 0 && !window.confirm('전시관을 나가면 이번 판은 기록되지 않아요. 나갈까요?')) return;
+    S = null; showScreen('home');
+  });
   elChoices.addEventListener('click', function (e) {
     var b = e.target.closest ? e.target.closest('.choice') : null;
     if (!b || b.disabled) return;
+    AUDIO.sfx('click');
     answer(parseInt(b.getAttribute('data-i'), 10));
   });
+  elNext.addEventListener('click', function () {
+    if (elNext.disabled) return;
+    AUDIO.sfx('click');
+    nextRound();
+  });
+  $('rAgain').addEventListener('click', function () {
+    AUDIO.sfx('click');
+    var m = S.mode, h = S.hall, o = S.over;
+    if (!S) { showScreen('home'); return; }
+    if (m === 'relay') startRelay(); else startHall(h);
+  });
+  $('rNextHall').addEventListener('click', function () {
+    AUDIO.sfx('click');
+    var n = parseInt($('rNextHall').getAttribute('data-next'), 10);
+    if (!isNaN(n)) startHall(n);
+  });
+  $('rHome').addEventListener('click', function () { AUDIO.sfx('click'); S = null; showScreen('home'); });
+  $('cxClose').addEventListener('click', function () { AUDIO.sfx('click'); $('scCodex').hidden = true; });
+  $('cxTabs').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.tab') : null;
+    if (!b) return;
+    CX_HALL = parseInt(b.getAttribute('data-cx'), 10);
+    AUDIO.sfx('click');
+    renderCodex();
+  });
+  $('cxGrid').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('.cell') : null;
+    if (!b) return;
+    openSheet(b.getAttribute('data-relic'));
+  });
+  $('shClose').addEventListener('click', closeSheet);
+  $('sheet').addEventListener('click', function (e) { if (e.target === $('sheet')) closeSheet(); });
+  document.addEventListener('pointerdown', function once() {
+    AUDIO.unlock();
+    document.removeEventListener('pointerdown', once);
+  }, { once: true });
 
-  elNext.addEventListener('click', function () { if (!elNext.disabled) next(); });
-  document.getElementById('restart').addEventListener('click', restart);
-  document.getElementById('again').addEventListener('click', restart);
-  document.getElementById('home').addEventListener('click', restart);
-
-  /* ---------- 테스트 API ---------- */
+  /* =========================================================
+     테스트 API (개발·검증용)
+     ========================================================= */
   window.__wrongMuseum = {
-    version: 1,
+    version: VERSION,
     get errors() { return errors.slice(); },
-    get state() {
+    halls: function () {
+      return HALLS.map(function (h) {
+        return { name: h.name, tag: h.tag, count: h.relics.length, keys: h.relics.map(function (r) { return r.k; }) };
+      });
+    },
+    state: function () {
+      if (!S) return { running: false, save: JSON.parse(JSON.stringify(SAVE)) };
       return {
-        step: S.step, score: S.score, answered: S.answered, over: S.over,
-        total: SIZE, marks: S.marks.slice(),
-        title: S.rounds[S.step].relic.title,
-        truthIdx: S.rounds[S.step].truthIdx,
-        options: S.rounds[S.step].opts.map(function (o) { return o.text; }),
-        collection: S.collection.slice(),
-        rank: rankOf(S.score).name,
-        resultVisible: !elResult.hidden
+        running: true, mode: S.mode, hall: S.hall, step: S.step, answered: S.answered, over: S.over,
+        correct: S.correct, lives: S.lives, combo: S.combo, maxCombo: S.maxCombo, score: S.score,
+        total: HALL_SIZE, marks: S.marks.slice(), collected: S.collected.slice(),
+        rank: rankOf(SAVE.totalCorrect).name, totalCorrect: SAVE.totalCorrect,
+        relicKey: S.round ? S.round.relic.k : null,
+        title: S.round ? S.round.relic.title : null,
+        truthIdx: S.round ? S.round.truthIdx : -1,
+        options: S.round ? S.round.opts.map(function (o) { return o.text; }) : [],
+        resultVisible: !$('scResult').hidden,
+        promoted: S.promoted ? S.promoted.name : null
       };
     },
+    save: function () { return JSON.parse(JSON.stringify(SAVE)); },
+    start: startHall,
+    startRelay: startRelay,
     answer: answer,
-    next: next,
-    reset: restart,
-    rankOf: rankOf
+    next: nextRound,
+    finish: finish,
+    home: function () { S = null; showScreen('home'); },
+    codex: openCodex,
+    sheet: openSheet,
+    rankOf: rankOf,
+    nextRank: nextRank,
+    art: artSVG,
+    unlockAll: function () {
+      for (var i = 0; i < HALLS.length; i++) {
+        SAVE.best[i] = SAVE.best[i] || { correct: 7, score: 700, stars: 1, cleared: true, runs: 1 };
+        if (SAVE.best[i].correct < 7) SAVE.best[i].correct = 7;
+        SAVE.best[i].cleared = true;
+      }
+      saveNow(); renderHome(); return true;
+    },
+    reset: function () {
+      SAVE = { found: {}, best: {}, totalCorrect: 0, bestCombo: 0, relayBest: 0, sound: true, runs: 0 };
+      saveNow(); S = null; showScreen('home'); return true;
+    },
+    audio: {
+      rms: function () { return AUDIO.rms(); },
+      probe: function (ms) { return AUDIO.probe(ms || 300); },
+      setMuted: function (v) { return AUDIO.setMuted(v); },
+      muted: function () { return AUDIO.muted(); },
+      state: function () { return AUDIO.state(); },
+      sfx: function (n) { return AUDIO.sfx(n); }
+    },
+    /* 50점 전수 검사: 아이콘 존재·도형 수·bbox 넘침·라벨 구성 */
+    audit: function () {
+      var box = document.createElement('div');
+      box.style.cssText = 'position:fixed;left:-9999px;top:0;width:160px;height:160px;visibility:hidden';
+      document.body.appendChild(box);
+      var out = { total: ALL.length, halls: [], problems: [], keys: [] };
+      var seen = {};
+      for (var i = 0; i < ALL.length; i++) {
+        var r = ALL[i];
+        var rec = { key: r.k, hall: r.hall, no: r.no, ok: true, issues: [] };
+        if (seen[r.k]) rec.issues.push('중복 key');
+        seen[r.k] = 1;
+        out.keys.push(r.k);
+        if (!ICON[r.k]) rec.issues.push('아이콘 없음');
+        if (!r.truth) rec.issues.push('진짜 설명 없음');
+        if (!r.lies || r.lies.length !== 3) rec.issues.push('헛소리 개수 != 3');
+        if (!r.title) rec.issues.push('명패 없음');
+        if (!r.meta) rec.issues.push('연대 없음');
+        for (var L = 0; L < (r.lies || []).length; L++) {
+          if (r.lies[L] === r.truth) rec.issues.push('진짜=헛소리 중복');
+          if (!r.lies[L] || r.lies[L].length < 8) rec.issues.push('헛소리 ' + L + ' 너무 짧음');
+        }
+        box.innerHTML = artSVG(r.k);
+        var svg = box.querySelector('svg');
+        if (!svg) rec.issues.push('SVG 렌더 실패');
+        else {
+          var g = svg.querySelector('g.body');
+          if (!g) rec.issues.push('body 없음');
+          else {
+            var bb = g.getBBox();
+            rec.bbox = { x: +bb.x.toFixed(1), y: +bb.y.toFixed(1), w: +bb.width.toFixed(1), h: +bb.height.toFixed(1) };
+            rec.shapes = g.querySelectorAll('path,rect,circle,ellipse,line,polygon').length;
+            if (rec.shapes < 3) rec.issues.push('도형 3개 미만');
+            if (bb.width <= 2 || bb.height <= 2) rec.issues.push('도형 크기 0');
+            if (bb.x < -3 || bb.y < -3 || bb.x + bb.width > 123 || bb.y + bb.height > 123) rec.issues.push('120 상자 넘침');
+            if (isNaN(bb.x) || isNaN(bb.width)) rec.issues.push('bbox NaN');
+          }
+        }
+        if (rec.issues.length) { rec.ok = false; out.problems.push(rec); }
+        out.halls.push(rec);
+      }
+      box.remove();
+      return out;
+    }
   };
 
+  /* ---------- 부팅 ---------- */
+  loadSave();
+  AUDIO.setMuted(!SAVE.sound);
+  soundUI();
   buildDots();
-  newSet();
-  render();
+  renderHome();
+  if (/[?&]hall=(\d)/.test(location.search)) {
+    var mm = location.search.match(/[?&]hall=(\d)/);
+    var hh = parseInt(mm[1], 10) - 1;
+    if (hh >= 0 && hh < HALLS.length) window.__wrongMuseum.unlockAll(), startHall(hh);
+  }
+  if (/[?&]relay=1/.test(location.search)) startRelay();
+  if (/[?&]codex=1/.test(location.search)) openCodex(0);
+
 })();
 </script>
 </body>
