@@ -1,0 +1,1288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>한 줄 카피 생성기 — 원하는 것만 넣으면 다섯 가지 결</title>
+<meta name="description" content="가게·메뉴, 블로그·유튜브 제목, 인스타·당근, 공모전 슬로건, 안부 문자까지 — 대상과 자랑할 점만 넣으면 결이 다른 한 줄 카피 다섯 가지를 만들어 드립니다. 원클릭 복사와 1080×1350 카드 저장, 즐겨찾기 보관함. 가입·광고·서버 전송 0건.">
+<meta name="keywords" content="카피라이팅, 한 줄 카피, 슬로건 만들기, 문구 생성, 가게 홍보 문구, 블로그 제목, 인스타 글귀, 공모전 슬로건, 무료 카피 생성기">
+<meta name="author" content="천장지구 1004">
+<meta name="robots" content="index,follow">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f5f5f7">
+<meta property="og:type" content="website">
+<meta property="og:title" content="한 줄 카피 생성기 — 다섯 가지 결">
+<meta property="og:description" content="대상과 자랑할 점만 넣으면 카피 다섯 개. 복사·카드 저장·보관함까지. 가입·광고 없음.">
+<meta property="og:locale" content="ko_KR">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --bg:#f5f5f7; --card:#ffffff; --card2:#f7f7f9;
+  --ink:#1d1d1f; --ink2:#5f5f66; --ink3:#8e8e93;
+  --line:rgba(0,0,0,.08); --line2:rgba(0,0,0,.14);
+  --blue:#0071e3; --blue-d:#0062c4; --blue-soft:#eaf3fe;
+  --green:#30b45f; --green-soft:#e9f7ee;
+  --r:24px; --r-s:18px; --r-xs:14px;
+  --sans:Gulim,"GulimChe","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 14px 34px rgba(0,0,0,.055);
+  --shadow-s:0 1px 2px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;padding:0;min-height:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;
+  touch-action:manipulation;min-height:100dvh;
+}
+button{font-family:inherit;font-size:inherit;color:inherit;border:0;background:none;cursor:pointer}
+input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+a{color:var(--blue);text-decoration:none}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 90px}
+@media(max-width:389px){ .wrap{padding:0 15px 80px} body{font-size:16.5px} }
+
+/* ── hero ── */
+header.top{padding:30px 0 6px}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;letter-spacing:.03em;
+  color:var(--blue-d);background:var(--blue-soft);border-radius:999px;padding:6px 13px;font-weight:700}
+h1{font-size:32px;line-height:1.3;letter-spacing:-.025em;margin:14px 0 10px;font-weight:700}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:16px;color:var(--ink2);margin:0 0 16px}
+.privacy{display:flex;gap:10px;align-items:flex-start;font-size:12.8px;line-height:1.55;color:var(--ink2);
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);padding:12px 14px;box-shadow:var(--shadow-s)}
+.privacy b{color:var(--ink)}
+.privacy i{font-style:normal;font-size:14px;flex:0 0 auto;line-height:1.4}
+
+/* ── section ── */
+section{margin-top:26px}
+.sec-h{display:flex;align-items:baseline;gap:9px;margin:0 0 11px;flex-wrap:wrap}
+.sec-n{font-size:12.5px;font-weight:700;color:#fff;background:var(--ink);border-radius:999px;
+  width:23px;height:23px;display:grid;place-items:center;flex:0 0 auto}
+.sec-h h2{font-size:18.5px;margin:0;letter-spacing:-.015em;font-weight:700}
+.sec-h .sub{font-size:12.5px;color:var(--ink3);margin-left:auto;text-align:right;line-height:1.4}
+
+/* ── 용도 ── */
+.pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.pchip{display:flex;align-items:center;gap:9px;text-align:left;background:var(--card);
+  border:1px solid var(--line);border-radius:var(--r-xs);padding:13px 13px;
+  box-shadow:var(--shadow-s);font-size:14.5px;font-weight:700;letter-spacing:-.01em;
+  transition:transform .1s,border-color .15s,background .15s}
+.pchip:active{transform:scale(.985)}
+.pchip .pi{font-size:18px;line-height:1;flex:0 0 auto}
+.pchip[aria-pressed="true"]{border-color:var(--blue);background:#f4faff;box-shadow:0 0 0 1px var(--blue) inset}
+
+/* ── 입력 ── */
+.fields{display:grid;gap:11px}
+.field{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);
+  padding:12px 14px 13px;box-shadow:var(--shadow-s)}
+.field:focus-within{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--ink3);margin:0 0 5px;letter-spacing:-.005em}
+.field input,.field textarea{width:100%;border:0;background:transparent;outline:none;padding:0;
+  font-size:16.5px;line-height:1.5;font-weight:400;resize:none;color:var(--ink)}
+.field textarea{min-height:27px;overflow:hidden}
+.field input::placeholder,.field textarea::placeholder{color:#b4b4b9;font-weight:400}
+.exrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:11px}
+.exlabel{font-size:12px;color:var(--ink3);margin-right:2px}
+.exbtn{font-size:12.5px;font-weight:700;color:var(--blue-d);background:var(--blue-soft);
+  border-radius:999px;padding:0 13px;min-height:36px;display:inline-flex;align-items:center;line-height:1.2}
+.exbtn:active{transform:scale(.97)}
+
+/* ── 톤 ── */
+.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tchip{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);
+  padding:12px 13px;text-align:left;box-shadow:var(--shadow-s)}
+.tchip .tn{display:block;font-size:14.5px;font-weight:700;letter-spacing:-.01em}
+.tchip .td{display:block;font-size:11.8px;color:var(--ink3);line-height:1.4;margin-top:2px}
+.tchip[aria-pressed="true"]{border-color:var(--blue);background:#f4faff;box-shadow:0 0 0 1px var(--blue) inset}
+.tchip[aria-pressed="true"] .td{color:var(--blue-d)}
+
+/* ── 실행 ── */
+.go{width:100%;margin-top:20px;background:var(--blue);color:#fff;border-radius:16px;
+  padding:17px;font-size:17px;font-weight:700;letter-spacing:-.01em;
+  box-shadow:0 8px 22px rgba(0,113,227,.22);transition:transform .1s,opacity .2s}
+.go:active{transform:scale(.99);background:var(--blue-d)}
+.go[disabled]{background:#cfcfd4;box-shadow:none;opacity:1}
+.gonote{font-size:12.3px;color:var(--ink3);text-align:center;margin:9px 0 0;min-height:18px}
+
+/* ── 결과 ── */
+.reshead{display:flex;align-items:flex-end;gap:10px;margin:0 0 12px;flex-wrap:wrap}
+.reslabel{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--ink3)}
+.reshead h2{font-size:20px;margin:2px 0 0;letter-spacing:-.02em;line-height:1.3}
+.restag{font-size:11.8px;color:var(--ink2);background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:4px 11px;margin-left:auto}
+.cards{display:grid;gap:10px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:15px 16px 13px;box-shadow:var(--shadow)}
+.chead{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.cno{font-size:13px;color:var(--blue-d);font-weight:700}
+.cnm{font-size:12px;font-weight:700;color:var(--ink2);letter-spacing:-.005em}
+.star{margin-left:auto;width:38px;height:38px;display:grid;place-items:center;font-size:20px;
+  line-height:1;color:#c9c9ce;border-radius:11px}
+.star:active{background:var(--card2)}
+.star[aria-pressed="true"]{color:#f5a623}
+.ctext{font-size:18px;line-height:1.55;letter-spacing:-.018em;margin:0;white-space:pre-line;font-weight:400}
+.cbtns{display:flex;gap:7px;margin-top:11px}
+.cbtn{flex:1 1 0;background:var(--card2);border:1px solid var(--line);border-radius:11px;
+  padding:9px 6px;font-size:13px;font-weight:700;color:var(--ink2);text-align:center}
+.cbtn:active{transform:scale(.98);background:#efeff2}
+.cbtn.done{background:var(--green-soft);color:var(--green);border-color:rgba(48,180,95,.3)}
+.resbtns{display:grid;gap:8px;margin-top:13px}
+.btn{width:100%;border-radius:14px;padding:15px 14px;font-size:16px;font-weight:700;
+  letter-spacing:-.01em;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn.primary{background:var(--ink);color:#fff}
+.btn.primary:active{background:#000}
+.btn.ghost{background:var(--card);border:1px solid var(--line2);color:var(--ink)}
+.btn.ghost:active{background:var(--card2)}
+.resnote{margin:11px 0 0;font-size:12.5px;line-height:1.55;color:var(--ink2);
+  background:#fff8e8;border:1px solid #f3e2bb;border-radius:12px;padding:10px 12px}
+
+/* ── 즐겨찾기 ── */
+.favlist{display:grid;gap:8px}
+.fitem{background:var(--card);border:1px solid var(--line);border-radius:var(--r-xs);
+  padding:12px 13px;box-shadow:var(--shadow-s)}
+.fmeta{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);margin-bottom:5px}
+.fmeta .fno{color:var(--blue-d);font-weight:700}
+.ftext{font-size:15px;line-height:1.55;margin:0 0 9px;white-space:pre-line}
+.fbtns{display:flex;gap:6px}
+.fbtn{background:var(--card2);border:1px solid var(--line);border-radius:10px;
+  padding:7px 11px;font-size:12.3px;font-weight:700;color:var(--ink2)}
+.fbtn.del{margin-left:auto;color:var(--ink3)}
+.fempty{background:var(--card);border:1px dashed var(--line2);border-radius:var(--r-xs);
+  padding:20px 16px;text-align:center;color:var(--ink2);font-size:13.5px;line-height:1.6}
+.fempty b{color:var(--ink)}
+
+/* ── 안내 ── */
+.guide{background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:18px 18px 14px;box-shadow:var(--shadow-s);margin-top:26px}
+.guide h2{font-size:15.5px;margin:0 0 9px;letter-spacing:-.01em}
+.guide ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.guide li{display:flex;gap:9px;font-size:13.2px;line-height:1.6;color:var(--ink2)}
+.guide li b{color:var(--ink);font-weight:700}
+.guide .dot{flex:0 0 auto;width:5px;height:5px;border-radius:50%;background:var(--blue);margin-top:9px}
+.gfine{font-size:11.5px;color:var(--ink3);margin:12px 0 0;line-height:1.55}
+
+/* ── 꼬리 ── */
+footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px}
+.frow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:12.5px;color:var(--ink3)}
+.flogo{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:var(--ink);
+  color:#fff;font-size:9.5px;font-weight:700;letter-spacing:-.02em}
+footer a{font-weight:700}
+
+/* ── 토스트 ── */
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);opacity:0;
+  background:rgba(29,29,31,.94);color:#fff;font-size:13.5px;font-weight:700;
+  padding:11px 17px;border-radius:999px;pointer-events:none;transition:opacity .22s,transform .22s;
+  max-width:calc(100vw - 32px);text-align:center;z-index:80}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.riser{position:fixed;right:16px;bottom:18px;width:0;height:0;pointer-events:none}
+canvas#cvs{position:fixed;left:-9999px;top:0;width:1080px;height:1350px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <span class="eyebrow">✍️ 한 줄 카피 생성기</span>
+    <h1>쓸 말이 안 떠오를 때,<br><em>다섯 가지 결</em>로.</h1>
+    <p class="lead">대상과 자랑할 점만 넣으면 됩니다. 나머지는 문장 규칙이 조합합니다.</p>
+    <div class="privacy">
+      <i aria-hidden="true">🔒</i>
+      <div><b>입력한 내용은 이 브라우저에서만 계산됩니다.</b> 서버 전송 0건, 가입·광고·외부 API 없음. 즐겨찾기는 이 기기에만 저장됩니다.</div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h1s">
+    <div class="sec-h"><span class="sec-n">1</span><h2 id="h1s">어디에 쓸 카피인가요?</h2></div>
+    <div class="pgrid" id="pgrid" role="group" aria-label="용도 선택"></div>
+  </section>
+
+  <section aria-labelledby="h2s">
+    <div class="sec-h"><span class="sec-n">2</span><h2 id="h2s">내용을 적어 주세요</h2><span class="sub">두 칸이면 충분해요</span></div>
+    <div class="fields">
+      <div class="field">
+        <label for="f1" id="l1">가게·메뉴 이름</label>
+        <input id="f1" type="text" autocomplete="off" enterkeyhint="next" maxlength="40" placeholder="주안 손칼국수">
+      </div>
+      <div class="field">
+        <label for="f2" id="l2">자랑하고 싶은 점</label>
+        <textarea id="f2" rows="1" maxlength="70" enterkeyhint="next" placeholder="매일 아침 직접 뽑는 면"></textarea>
+      </div>
+      <div class="field">
+        <label for="f3" id="l3">누구에게 보여줄까요? (선택)</label>
+        <input id="f3" type="text" autocomplete="off" enterkeyhint="done" maxlength="30" placeholder="퇴근길 혼밥러">
+      </div>
+    </div>
+    <div class="exrow" id="exrow" role="group" aria-label="예시 채우기">
+      <span class="exlabel">예시로 채우기</span>
+    </div>
+  </section>
+
+  <section aria-labelledby="h3s">
+    <div class="sec-h"><span class="sec-n">3</span><h2 id="h3s">어떤 분위기로?</h2></div>
+    <div class="tgrid" id="tgrid" role="group" aria-label="분위기 선택"></div>
+  </section>
+
+  <button class="go" id="go" type="button" disabled>카피 5종 뽑기</button>
+  <p class="gonote" id="gonote">두 칸을 채우면 버튼이 켜집니다.</p>
+
+  <section id="result" hidden aria-labelledby="resTitle" aria-live="polite">
+    <div class="reshead">
+      <div>
+        <span class="reslabel">RESULT</span>
+        <h2 id="resTitle">결과</h2>
+      </div>
+      <span class="restag" id="resTag"></span>
+    </div>
+    <div class="cards" id="cards"></div>
+    <div class="resbtns">
+      <button class="btn primary" id="again" type="button">다시 뽑기 <span aria-hidden="true">↻</span></button>
+      <button class="btn ghost" id="copyAll" type="button">다섯 개 한 번에 복사</button>
+    </div>
+    <p class="resnote" id="resNote" hidden></p>
+  </section>
+
+  <section aria-labelledby="h4s">
+    <div class="sec-h"><span class="sec-n">4</span><h2 id="h4s">즐겨찾기 보관함</h2><span class="sub" id="favCount">0개</span></div>
+    <div class="favlist" id="favList"></div>
+  </section>
+
+  <section class="guide" aria-labelledby="gh">
+    <h2 id="gh">이렇게 만듭니다</h2>
+    <ul>
+      <li><span class="dot" aria-hidden="true"></span><span>적어 주신 <b>대상·자랑할 점·보는 사람</b>을 그대로 살리고, 용도별 문장 구조와 호흡에 맞춰 조합합니다. 그래서 같은 입력이어도 <b>다시 뽑기</b>를 누르면 다른 결이 나옵니다.</span></li>
+      <li><span class="dot" aria-hidden="true"></span><span>유명 브랜드의 슬로건이나 남의 문구는 <b>옮겨 쓰지 않고</b> 새로 만듭니다. 상표 기호도 넣지 않습니다.</span></li>
+      <li><span class="dot" aria-hidden="true"></span><span>치료·수익 보장·최고 같은 <b>과장·보증 표현</b>은 부드러운 말로 바꿔 내보냅니다.</span></li>
+    </ul>
+    <p class="gfine">카피는 참고용 초안입니다. 병원·법·금융처럼 판단이 필요한 곳에 그대로 쓰지 마세요. 저장한 카드는 1080×1350 픽셀 PNG입니다.</p>
+  </section>
+
+  <footer>
+    <div class="frow">
+      <span class="flogo" aria-hidden="true">1004</span>
+      <span>천장지구 1004</span>
+      <span aria-hidden="true">·</span>
+      <a href="https://soonsoo1004.github.io/">다른 도구 보기</a>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<canvas id="cvs" width="1080" height="1350" aria-hidden="true"></canvas>
+
+<script>
+/* ============================================================
+   copy-maker engine — 입력한 대상·장점·상황을 실제 문장 규칙으로 조합해
+   다섯 가지 결의 한 줄 카피를 만든다. 외부 요청·외부 API 없음.
+   ============================================================ */
+var CM = (function () {
+  "use strict";
+
+  /* ───────── 한국어 조사 처리 ───────── */
+  function hasJong(word) {
+    var s = String(word || "").trim();
+    if (!s) return false;
+    var c = s.charAt(s.length - 1);
+    var code = c.charCodeAt(0);
+    if (code >= 0xAC00 && code <= 0xD7A3) return (code - 0xAC00) % 28 !== 0;
+    if (/[013678]$/.test(c)) return true;        // 영·숫자 끝: 0,1,3,6,7,8 은 받침 있음
+    if (/[a-z]$/i.test(c)) return false;         // 대부분 외래어는 받침 없이 읽힘
+    return false;
+  }
+  function attach(word, pair) {
+    var w = String(word || "").trim();
+    if (!w || !pair) return w;
+    var p = pair.split("/");
+    if (p.length < 2) return w + p[0];
+    var jong = hasJong(w);
+    // 받침 없는 'ㄹ' 예외(로/으로)는 단순 규칙으로 처리
+    if (pair === "으로/로") {
+      var code = w.charCodeAt(w.length - 1);
+      var jongNo = (code >= 0xAC00 && code <= 0xD7A3) ? (code - 0xAC00) % 28 : 0;
+      return w + (jong && jongNo !== 8 ? "으로" : "로");
+    }
+    return w + (jong ? p[0] : p[1]);
+  }
+
+  /* ───────── 입력 정리 ───────── */
+  function tidy(s) {
+    return String(s || "")
+      .replace(/[\u200b\ufeff]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  function stripEnd(s) {
+    return tidy(s).replace(/[.?!~,、。]+$/g, "").trim();
+  }
+  function nounish(p) {
+    var t = stripEnd(p);
+    if (!t) return false;
+    if (/[,·]/.test(t)) return false;
+    var last = t.split(" ").pop();
+    if (/(요|다|까|죠|네|냐|니|자|야|어|아|지|는데|지만|서요)$/.test(last)) return false;
+    if (/(은|는|이|가|을|를|의|도|만|들|면|고|서|게|함|음)$/.test(last) && last.length <= 2) return false;
+    return true;
+  }
+
+  /* ───────── 안전 가드 ───────── */
+  // 과장·보증·단정으로 읽히는 표현은 부드러운 말로 바꾼다(원문 복제 없음).
+  var SOFTEN = [
+    [/(100\s*%\s*)?(완치|치료\s*효과|치료됩니다|부작용\s*(없|전혀))|만병통치|특효약/gi, "회복에 도움이 되는"],
+    [/(수익|원금|고수익|급등)\s*(보장|확정|100%)|무조건\s*(오른|수익|돈)/gi, "꾸준히 관리하는"],
+    [/(승소|이김|보상)\s*보장|무조건\s*이깁니다/gi, "차분히 준비하는"],
+    [/100\s*%\s*(보장|효과|만족)/gi, "확실한 도움"],
+    [/(국내|업계|세계)\s*(최고|1위|최강)|유일무이|최고의|최강/gi, "오래 해 온"],
+    [/(무조건|절대|반드시)\s*(좋|성공|오른|됩니다|돼요)/gi, "꾸준히 좋아지는"],
+    [/부작용\s*없는/gi, "자극이 적은"],
+    [/다이어트\s*(보장|확정)/gi, "가벼워지는 습관"]
+  ];
+  // 유명 슬로건·상표 문구는 그대로 옮기지 않는다.
+  var SLOGAN = [
+    /just\s*do\s*it/i, /think\s*different/i, /i'?m\s*lovin'?\s*it/i,
+    /because\s*you'?re\s*worth\s*it/i, /the\s*taste\s*of\s*a\s*new\s*generation/i,
+    /impossible\s*is\s*nothing/i, /connect\s*to\s*what'?s\s*next/i,
+    /open\s*happiness/i, /life'?s\s*good/i, /have\s*it\s*your\s*way/i
+  ];
+
+  function guard(text) {
+    var flags = { softened: false, slogan: false };
+    var out = String(text || "");
+    for (var s = 0; s < SLOGAN.length; s++) {
+      if (SLOGAN[s].test(out)) { out = out.replace(SLOGAN[s], "직접 쓴 한 줄"); flags.slogan = true; }
+    }
+    out = out.replace(/(™|®)/g, "");
+    for (var i = 0; i < SOFTEN.length; i++) {
+      if (SOFTEN[i][0].test(out)) { out = out.replace(SOFTEN[i][0], SOFTEN[i][1]); flags.softened = true; }
+    }
+    return { text: out, flags: flags };
+  }
+
+  /* ───────── 용도 ───────── */
+  var PURPOSES = {
+    shop: {
+      nm: "가게·메뉴 홍보", ico: "🍜", aud: "손님",
+      f: ["가게·메뉴 이름", "자랑하고 싶은 점", "누구에게 보여줄까요? (선택)"],
+      ph: ["주안 손칼국수", "매일 아침 직접 뽑는 면", "퇴근길 혼밥러"],
+      ex: [
+        ["주안 손칼국수", "매일 아침 직접 뽑는 면", "퇴근길 혼밥러"],
+        ["금요일 베이커리", "버터 대신 우리밀만 쓰는 빵", "주말 아침 가족"],
+        ["명동 왕족발", "매일 저녁 새로 삶는 앞다리", "야식 찾는 이웃"]
+      ],
+      tags: ["동네맛집", "가게", "메뉴"]
+    },
+    blog: {
+      nm: "블로그·유튜브 제목", ico: "📝", aud: "처음 찾는 분",
+      f: ["다룰 주제", "핵심 내용·결론", "읽을 사람 (선택)"],
+      ph: ["전세 계약 전 확인할 것", "등기부등본 세 줄이면 끝납니다", "첫 자취 준비생"],
+      ex: [
+        ["전세 계약 전 확인할 것", "등기부등본 세 줄이면 끝납니다", "첫 자취 준비생"],
+        ["겨울철 보일러 요금 줄이기", "10도만 낮춰도 체감이 다릅니다", "월세 사는 직장인"],
+        ["초보 라이더 장갑 고르기", "방수보다 통기성부터 보세요", "배달 시작한 분"]
+      ],
+      tags: ["정리", "초보", "체크리스트"]
+    },
+    sns: {
+      nm: "인스타·당근", ico: "📸", aud: "이웃",
+      f: ["올릴 것", "한 줄 포인트", "보는 사람 (선택)"],
+      ph: ["동네 골목 산책", "해 질 무렵이 제일 좋습니다", "퇴근길 이웃"],
+      ex: [
+        ["동네 골목 산책", "해 질 무렵이 제일 좋습니다", "퇴근길 이웃"],
+        ["직접 만든 김치", "이번엔 덜 맵게 성공", "요리 초보 이웃"],
+        ["중고 유모차 정리", "오늘까지 가져가실 분", "신생아 키우는 이웃"]
+      ],
+      tags: ["일상", "기록", "동네"]
+    },
+    contest: {
+      nm: "공모전 슬로건", ico: "🏆", aud: "우리 동네",
+      f: ["슬로건 주제", "담고 싶은 뜻", "공모 대상 (선택)"],
+      ph: ["골목 상권", "작은 가게가 오래 남는 도시", "지역 주민"],
+      ex: [
+        ["골목 상권", "작은 가게가 오래 남는 도시", "지역 주민"],
+        ["청년 정착", "떠나지 않아도 되는 고향", "귀향을 고민하는 청년"],
+        ["안전한 통학로", "아이 걸음에 맞춘 속도", "학부모"]
+      ],
+      tags: ["공모전", "슬로건", "지역"]
+    },
+    letter: {
+      nm: "안부·문자", ico: "💌", aud: "그 사람",
+      f: ["받는 사람", "전하고 싶은 말·근황", "상황 (선택)"],
+      ph: ["엄마", "요즘 일찍 자고 아침에 걷고 있어", "오랜만에 보내는 안부"],
+      ex: [
+        ["엄마", "요즘 일찍 자고 아침에 걷고 있어", "오랜만에 보내는 안부"],
+        ["도현", "시험 끝나면 같이 밥 먹자", "수고했다고 말해 주고 싶어서"],
+        ["창덕 형님", "지난번 빌린 책 아직 잘 보고 있어", "고맙다는 말을 못 했어서"]
+      ],
+      tags: ["안부", "마음", "문자"]
+    },
+    custom: {
+      nm: "직접 입력", ico: "✏️", aud: "가까운 사람",
+      f: ["무엇에 대한 카피인가요?", "가장 하고 싶은 말", "누구에게 (선택)"],
+      ph: ["주말 등산 모임", "처음 오셔도 천천히 갑니다", "동네 산악회 회원"],
+      ex: [
+        ["주말 등산 모임", "처음 오셔도 천천히 갑니다", "동네 산악회 회원"],
+        ["우리 집 반려견", "산책만 나가면 세상이 즐거워집니다", "동네 강아지 친구"],
+        ["손편지 쓰기", "한 장이면 충분합니다", "마음 표현이 어려운 사람"]
+      ],
+      tags: ["한줄", "문구", "카피"]
+    }
+  };
+
+  var TYPES = [
+    { k: "hook", nm: "시선 끄는 첫 줄", no: "①", hint: "스크롤을 멈추게 하는 한 줄" },
+    { k: "story", nm: "공감·이야기형", no: "②", hint: "읽는 사람이 자기 일처럼 느끼는 문장" },
+    { k: "twist", nm: "위트·반전형", no: "③", hint: "한 번 꺾어 웃음이 나는 문장" },
+    { k: "cta", nm: "바로 움직이게 하는 한 줄", no: "④", hint: "다음 행동으로 이어지는 문장" },
+    { k: "sub", nm: "서브 문구·태그", no: "⑤", hint: "함께 붙여 쓰는 짧은 문구와 태그" }
+  ];
+
+  var TONES = {
+    plain: "담백·직관", wit: "위트 한 스푼", poetic: "시적 감성", impact: "임팩트 강조"
+  };
+
+  var TIME = {
+    plain: ["주말", "이번 주", "다음 주"],
+    wit: ["이번 주말", "다음 주", "연말"],
+    poetic: ["주말", "연말", "명절", "이른 아침"],
+    impact: ["이번 주", "주말"]
+  };
+
+  var FLAVOR = {
+    plain: ["오늘", "요즘", "여기", "지금"],
+    wit: ["어쩌다", "결국", "솔직히", "아무튼"],
+    poetic: ["바람", "저녁", "빛", "계절", "골목", "새벽"],
+    impact: ["오늘", "지금", "여기"]
+  };
+
+  /* ───────── 문장 규칙 ─────────
+     n: 접두사 = '장점'이 명사구일 때만 쓰는 규칙
+     나머지는 장점이 문장이어도 자연스러운 규칙                        */
+  var RULES = {
+    shop: {
+      hook: {
+        plain: ["{S} — {P}", "{S}. {P}.", "n:{P}, {S}. 오늘도 그 한 접시."],
+        wit: ["n:{P} 하나로 줄을 세우는 집, {S}.", "{S}인데요. 메뉴를 못 늘린 이유가 있습니다. {P}.", "n:{S:의} 메뉴판이 짧은 이유 — {P}."],
+        poetic: ["n:{P} 냄새로 하루를 여는 집, {S}.", "{S:의} 저녁은 여기서 시작됩니다. {P}.", "n:불 켜진 {S}, {P} 한 그릇."],
+        impact: ["{P}. 그거 하나로 승부합니다. {S}.", "{S}. 딱 하나만 잘합니다. {P}.", "n:{P}, 그 이상은 없습니다. {S}."]
+      },
+      story: {
+        plain: ["바쁜 하루 끝에 들른 {S}. {P}. 그 한 접시로 충분했습니다.", "{A}에게 {S:은/는} 늘 같은 자리입니다. {P}.", "n:오늘도 같은 시간, {S:의} {P}."],
+        wit: ["{S}에 처음 왔을 때는 반신반의했습니다. {P}. 지금은 그냥 믿습니다.", "{A:이/가} 물었습니다. 왜 거기만 가냐고. 대답은 간단했습니다. {P}.", "n:{S} 단골이 되기까지 걸린 시간은 {P} 한 그릇."],
+        poetic: ["국물이 식기 전에 건네고 싶은 말이 있습니다. {P}. — {S}", "저녁 여섯 시, {S}에 불이 켜지면 {P}.", "n:{T}에 들르는 이유는 하나입니다. {S:의} {P}."],
+        impact: ["{S:을/를} 다시 찾는 이유는 하나입니다. {P}.", "한 입이면 압니다. {S}. {P}.", "n:{S}, {P}. 그게 전부입니다."]
+      },
+      twist: {
+        plain: ["메뉴가 짧은 데는 이유가 있습니다. {P}. {S:은/는} 그거 하나로 삽니다.", "n:{S:은/는} 광고를 하지 않습니다. {P:이/가} 광고입니다."],
+        wit: ["주방에서 실수한 게 하나 있습니다. 너무 잘 만들었습니다. {S}, {P}.", "손님이 물었습니다. '왜 이것만 파세요?' 대답은 {P}. — {S}", "n:{S:의} 비밀은 재료가 아니라 시간입니다. {P}."],
+        poetic: ["{S:은/는} 서두르지 않습니다. {P}. 그래서 조금 기다려야 합니다.", "n:{S:의} 하루는 {P} 하나로 채워집니다. 그게 다입니다."],
+        impact: ["{P}. 메뉴는 하나. {S}.", "다르게 말할 게 없습니다. {P}. {S}."]
+      },
+      cta: {
+        plain: ["오늘 한 번, {S}에서 드셔 보세요. {P}.", "{A}에게는 {S}부터 권합니다. {P}."],
+        wit: ["오늘 저녁 고민은 여기서 끝내세요. {S:으로/로} 오시면 됩니다. ({P})", "{S} 검색, 그거 하나면 됩니다. 배달 앱에서도 보입니다."],
+        poetic: ["오늘은 {S}에서 드세요. {P}.", "{W}에는 따뜻한 한 그릇, {S}."],
+        impact: ["지금 {S}. {P}.", "{S:으로/로} 오세요. {P}. 더 말하지 않겠습니다."]
+      },
+      sub: {
+        plain: ["n:{S}, {P}. 오늘도 그대로.", "가까운 곳에서, 제대로. {S}."],
+        wit: ["n:{P}. 그거 하나로 충분한 하루.", "메뉴는 짧게, 만족은 길게."],
+        poetic: ["한 그릇의 온도, 그대로.", "n:{W}의 문턱, {S}."],
+        impact: ["{P}. 끝.", "한 번이면 기억납니다."]
+      }
+    },
+
+    blog: {
+      hook: {
+        plain: ["{S}, 한 번에 정리했습니다.", "{S} — {P}", "n:{S}부터 {P}까지."],
+        wit: ["{S}, 검색하다 지치셨죠. 여기 한 번에 정리했습니다.", "{S} 알아보다 새벽 세 시가 된 분께. {P}.", "n:광고 빼고 {S}, {P}만 남겼습니다."],
+        poetic: ["{S}에 대해 쓰다 보니 남은 한 줄. {P}.", "n:{T}에 읽기 좋은 {S} 정리."],
+        impact: ["{S}. 이 글 하나로 끝.", "{S} 3분 정리. {P}.", "n:{S}, 핵심만."]
+      },
+      story: {
+        plain: ["{S}, 저도 한참 헤맸습니다. 지금은 압니다. {P}.", "처음엔 아무것도 몰랐습니다. 그 일을 겪고 나서 알았습니다. {P}."],
+        wit: ["{S} 검색창에 다섯 번 쳤습니다. 결론은 이겁니다. {P}.", "이 글은 제가 세 번 실패하고 쓴 글입니다. {S}. {P}."],
+        poetic: ["밤에 혼자 {S:을/를} 찾는 사람이 있다면, 이 문장을 먼저 보내고 싶습니다. {P}.", "n:{S:을/를} 알아가는 시간은 {W}처럼 조용했습니다."],
+        impact: ["{S}에서 막힌 사람이 읽어야 할 한 줄. {P}.", "{S}, 결론부터 말합니다. {P}."]
+      },
+      twist: {
+        plain: ["다들 {S}에서 한 번쯤 미끄러집니다. {P}.", "n:{S:의} 진짜 변수는 {P}입니다."],
+        wit: ["{S:으로/로} 검색했더니 광고만 나와서 제가 씁니다. {P}.", "제목은 자극적이지 않습니다. 대신 다 읽으면 남는 게 있습니다. {S}.", "n:{S}, 아는 척은 여기까지."],
+        poetic: ["{S:은/는} 생각보다 조용한 주제입니다. {P}.", "n:{S:을/를} 정리하며 지운 문장이 더 많습니다. {P}."],
+        impact: ["{S}. 다들 반대로 알고 있습니다. {P}.", "n:{S}, 한 줄로 말하면 {P}."]
+      },
+      cta: {
+        plain: ["필요한 부분만 골라 읽으세요. {S}, 여기 정리해 뒀습니다.", "끝까지 읽으면 오늘 바로 쓸 수 있습니다. {S}."],
+        wit: ["저장해 두세요. 다음에 또 검색할 겁니다. {S}.", "읽고 나서 '이거다' 싶으면 저장 한 번만. {S}."],
+        poetic: ["{T}에 천천히 읽어 보세요. {S}.", "필요할 때 다시 펼쳐 보세요. {P}."],
+        impact: ["지금 저장. {S}.", "{S}, 3분이면 끝."]
+      },
+      sub: {
+        plain: ["n:{S} 핵심 요약, 한 장으로.", "한 번 읽고 바로 쓰는 {S} 정리."],
+        wit: ["광고 없이, 필요한 것만.", "n:{S}, 읽고 나서 후회 없습니다."],
+        poetic: ["n:{W}에 한 번 읽으면 남는 {S}.", "천천히, 끝까지."],
+        impact: ["핵심만. {S}.", "3분 요약."]
+      }
+    },
+
+    sns: {
+      hook: {
+        plain: ["{S} — {P}", "오늘의 기록. {S}.", "n:{S}, {P}."],
+        wit: ["{A}에게만 알려드립니다. {S}. {P}.", "스토리 말고 피드에 남깁니다. {S}.", "n:{S}인데, {P}. 그래서 올립니다."],
+        poetic: ["빛이 좋아서 찍었습니다. {S}.", "n:{W}의 한 장면, {S}.", "{S}. {P}. 말은 짧게."],
+        impact: ["{S}. 딱 한 장면.", "{S}. {P}. 끝.", "n:오늘은 {S}."]
+      },
+      story: {
+        plain: ["오늘 {S}하고 왔습니다. {P}. 별일 아닌데 기록해 둡니다.", "{S:은/는} 늘 이 자리입니다. {P}."],
+        wit: ["하루에 한 번은 {S} 얘기를 합니다. 오늘도 그렇습니다. {P}.", "누가 물어봐서 올립니다. {S}. {P}."],
+        poetic: ["{S:을/를} 보고 오면 집에 가는 길이 조금 다릅니다. {P}.", "n:{W}의 {S}, 사진보다 낫습니다."],
+        impact: ["{S}. 이거 하나로 오늘은 충분합니다. {P}.", "오늘 한 것. {S}. {P}."]
+      },
+      twist: {
+        plain: ["{S}, 해 보니까 다릅니다. {P}.", "n:{S:의} 반전은 {P}입니다."],
+        wit: ["{S} 안 해 본 사람 말 듣지 마세요. 해 보면 압니다. {P}.", "사진은 한 장인데 설명은 길어집니다. {S}."],
+        poetic: ["{S:은/는} 조용히 오래 남습니다. {P}.", "n:{W:이/가} 지나고 나서야 알았습니다. {S}."],
+        impact: ["{S}. 생각보다 별거 아닙니다. 그게 좋습니다.", "{P}. 그래서 올렸습니다. {S}."]
+      },
+      cta: {
+        plain: ["궁금하면 저장해 두세요. {S}.", "{A}에게 알려 주세요. {P}."],
+        wit: ["댓글 대신 저장 부탁드립니다. {S}.", "이거 보고 바로 하실 분, 손. {S}."],
+        poetic: ["{T}에 한 번쯤, {S}.", "마음에 두고 천천히 보세요. {S}."],
+        impact: ["저장. {S}.", "지금 저장해 두세요. {S}."]
+      },
+      sub: {
+        plain: ["n:{S} 한 줄 요약. {P}.", "오늘의 {S}, 기록."],
+        wit: ["n:{P}. 그럼 오늘도 여기까지.", "설명은 짧게, 사진은 하나."],
+        poetic: ["n:{W}의 {S}, 그대로 담았습니다.", "오늘의 온도, 기록."],
+        impact: ["{P}. 끝.", "한 장 요약."]
+      }
+    },
+
+    contest: {
+      hook: {
+        plain: ["{S}, 그리고 {P}.", "{S}에서 {P:으로/로}.", "n:{S} — {P}"],
+        wit: ["{S:은/는} 구호보다 오래 갑니다. {P}.", "n:{S}보다 {P:이/가} 오래 갑니다."],
+        poetic: ["{S:의} 하루가 {P:으로/로} 이어집니다.", "n:{T}에도 {S}, {S}에도 사람.", "{S:은/는} 조금 느립니다. 그래서 오래 갑니다."],
+        impact: ["{S}. {P}.", "n:{P}, {S:의} 대답."]
+      },
+      story: {
+        plain: ["{S:은/는} 누군가의 하루입니다. {P}.", "n:우리가 지키려는 {S}, 그 안의 {P}."],
+        wit: ["n:{S:을/를} 크게 말하기보다, {P:을/를} 하루에 한 번. {S}.", "{S}, 그 마음이 하루에 한 번이면 충분합니다. {P}."],
+        poetic: ["{S:이/가} 있어야 집이 됩니다. {P}.", "n:{W}의 {S}, 그 안의 사람."],
+        impact: ["{S:을/를} 지키는 가장 단단한 방법. {P}.", "n:{S}, {P}. 그 두 단어로 충분합니다."]
+      },
+      twist: {
+        plain: ["{S:은/는} 혼자 크지 않습니다. {P}.", "n:{S:의} 반대말은 {P}입니다."],
+        wit: ["n:{S:을/를} 포기하면 {P:도/도} 사라집니다. 순서가 중요합니다.", "{S}, 순서가 중요합니다. {P}."],
+        poetic: ["{S:은/는} 천천히 변합니다. 그 속도가 답입니다. {P}.", "n:{S:의} 오래된 약속, {P}."],
+        impact: ["{S}. 느려도 됩니다. 멈추지만 않으면. {P}."]
+      },
+      cta: {
+        plain: ["{S:을/를} 오늘 한 번 불러 주세요. {P}.", "n:{S}에 {P:을/를} 더하는 일, 여기서 시작합니다."],
+        wit: ["{S} 얘기, 오늘 한 번만 해 보세요. {P}.", "내 일이 아니어도 한 번은. {S}."],
+        poetic: ["{T}에 {S:을/를} 한 번 떠올려 주세요. {P}.", "{S:을/를} 지나며 한 걸음만. {P}."],
+        impact: ["{S:을/를} 지금 시작하세요. {P}.", "오늘 한 걸음. {S}."]
+      },
+      sub: {
+        plain: ["n:{S} · {P}", "{S:을/를} 잇는 한 줄."],
+        wit: ["n:{P}, 그 한 줄이면 충분합니다.", "크게 말하지 않아도 됩니다."],
+        poetic: ["n:{W}에 남는 {S}.", "{S}, 그리고 사람."],
+        impact: ["{S}. 한 줄로."]
+      }
+    },
+
+    letter: {
+      hook: {
+        plain: ["{S}에게. {P}.", "{S}, 잘 지내?", "n:{S}에게 보내는 짧은 인사."],
+        wit: ["{S}, 갑자기 연락해서 미안. 근데 할 말이 있어서. {P}.", "{S}, 나야. 안 바뀌었지? {P}."],
+        poetic: ["{S}, {W:이/가} 지나갔어. {P}.", "{S} 생각이 나서 짧게 적어. {P}."],
+        impact: ["{S}. 한 줄만 보낼게. {P}.", "길게 안 쓸게. {S}, {P}."]
+      },
+      story: {
+        plain: ["어떻게 지내? 나는 {P}. 별일 없이 지내.", "지난번에 말한 그 일, 아직 기억해. {P}."],
+        wit: ["요즘 나 잘 지내. 놀랍지? {P}.", "별일 없다는 말만 하려다가, {P}. 그래서 연락했어."],
+        poetic: ["{S:이/가} 보고 싶어서 짧게 적습니다. {P}.", "요즘 내 하루는 {P}. 네 하루는 어때."],
+        impact: ["{S}, 보고 싶다. {P}.", "짧게. {P}. 잘 지내."]
+      },
+      twist: {
+        plain: ["{S}, 부탁 하나만. {P}. 미루지 마.", "생각해 보니 {S}한테만 말 못 했어. {P}."],
+        wit: ["{S}, 나 오늘 결심했어. {P}. 놀라지 마.", "고민하다가 결국 {S}한테 먼저 보냈어. {P}."],
+        poetic: ["{S}, 나는 아직 {P}. 그것만 알고 있어.", "말하지 못한 것들이 {W}에 남았어. {P}."],
+        impact: ["{S}. 변명 안 할게. {P}."]
+      },
+      cta: {
+        plain: ["시간 되면 답장 줘. 바쁘면 나중에. {P}.", "{T}에 한 번 보자. {S}."],
+        wit: ["답장 안 해도 돼. 대신 읽었으면 좋겠어. {P}.", "{S}, 이거 읽으면 'ㅇㅋ'만 보내 줘."],
+        poetic: ["{T}에 답장 기다릴게. 아니어도 괜찮아.", "답장 대신, 오늘 한 번 웃어 줘. {S}."],
+        impact: ["답장 줘. {S}.", "이번 주에 보자. {P}."]
+      },
+      sub: {
+        plain: ["n:{S}에게, {T}에.", "{P}. 짧게, 오래."],
+        wit: ["P.S. {P}.", "답장은 천천히."],
+        poetic: ["짧은 편지, {S}에게.", "말보다 마음이 먼저."],
+        impact: ["{P}. 그게 다야.", "짧게 끝."]
+      }
+    },
+
+    custom: {
+      hook: {
+        plain: ["{S} — {P}", "{S}. {P}.", "n:{S}, {P}."],
+        wit: ["{S}인데요. {P}. 이건 좀 자랑입니다.", "n:{S:의} 진짜 매력은 {P}입니다.", "다들 {S:을/를} 잘 모릅니다. {P}."],
+        poetic: ["n:{T}에 떠오르는 {S}.", "{S}, 그리고 {P}. 말은 여기까지.", "n:{P} 하나로 기억되는 {S}."],
+        impact: ["{S}. {P}.", "{P}. 그거 하나로 {S}.", "n:{S}, 한 줄로 말하면 {P}."]
+      },
+      story: {
+        plain: ["{S:을/를} 처음 만난 날을 기억합니다. {P}.", "{A}에게 {S:은/는} 늘 같은 자리입니다. {P}."],
+        wit: ["{S}에 대해 설명하다 보면 말이 길어집니다. {P}.", "누가 물어봐서 정리했습니다. {S}. {P}."],
+        poetic: ["n:{S:을/를} 오래 바라보면 {P:이/가} 먼저 보입니다.", "{S:을/를} 오래 바라보면 남는 한 줄. {P}.", "n:{W}의 {S:은/는} 조금 다릅니다. {P}."],
+        impact: ["{S}. 겪어 보면 압니다. {P}.", "한 번이면 충분합니다. {S}. {P}."]
+      },
+      twist: {
+        plain: ["{S}에 대해 다들 조금씩 다르게 말합니다. {P}.", "n:{S:의} 반전은 {P}입니다."],
+        wit: ["{S} 안 해 본 사람 말 듣지 마세요. {P}.", "설명은 길어지는데 결론은 하나입니다. {S}. {P}."],
+        poetic: ["{S:은/는} 조용히 오래 남습니다. {P}.", "n:{W:이/가} 지나고 나서야 알았습니다. {S}."],
+        impact: ["{S}. 생각보다 단순합니다. {P}."]
+      },
+      cta: {
+        plain: ["필요한 순간에 꺼내 쓰세요. {S}.", "{A}에게는 {S}부터 권합니다. {P}."],
+        wit: ["궁금하면 저장. 아니면 그냥 넘기세요. {S}.", "이 한 줄만 기억하세요. {P}."],
+        poetic: ["{W}에 한 번쯤 떠올려 주세요. {S}.", "마음에 두고 천천히. {S}."],
+        impact: ["지금 {S}. {P}.", "저장. {S}."]
+      },
+      sub: {
+        plain: ["n:{S} 한 줄 요약. {P}.", "{S} 한 줄. {P}.", "n:{S}, {P}. 오늘도 그대로."],
+        wit: ["n:{P}. 그거 하나로 충분합니다.", "설명은 짧게, 기억은 길게."],
+        poetic: ["n:{W}의 {S}, 그대로 담았습니다.", "한 줄의 온도."],
+        impact: ["{P}. 끝.", "한 줄 요약."]
+      }
+    }
+  };
+
+  /* ───────── 난수 ───────── */
+  var seed = 20261118;
+  function setSeed(n) { seed = (n >>> 0) || 1; }
+  function rnd() {
+    seed = (seed + 0x6D2B79F5) >>> 0;
+    var t = seed;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+  function pickOne(arr) { return arr[Math.floor(rnd() * arr.length) % arr.length]; }
+
+  var lastPick = {}; // 같은 결이 연속으로 같은 규칙을 쓰지 않게
+
+  function fill(tpl, c) {
+    return tpl.replace(/\{(S|P|A|X|W|T)(?::([가-힣]{1,2}(?:\/[가-힣]{1,2})?))?\}/g, function (m, k, jo) {
+      var v = c[k] || "";
+      if (!jo) return v;
+      return attach(v, jo);
+    });
+  }
+
+  function polish(s) {
+    return s
+      .replace(/\s+/g, " ")
+      .replace(/\s+([.,!?])/g, "$1")
+      .replace(/\.\s*\./g, ".")
+      .replace(/—\s*—/g, "—")
+      .replace(/\s{2,}/g, " ")
+      .replace(/^[\s,·]+|[\s,·]+$/g, "")
+      .trim();
+  }
+
+  /* ───────── 태그 만들기 ───────── */
+  var TAG_STOP = ["제일", "무렵", "오늘", "요즘", "정말", "너무", "아주", "매일", "직접",
+    "처음", "그냥", "조금", "가장", "다시", "이제", "여기", "저기", "때문", "생각",
+    "이야기", "사람", "것", "때", "좀", "잘", "더", "안", "못", "그", "이", "저"];
+  function tagWord(w) {
+    var t = stripEnd(w).replace(/[^가-힣a-zA-Z0-9]/g, "");
+    if (t.length > 2) t = t.replace(/(에서|에게|으로|부터|까지|보다|처럼|하고)$/, "");
+    if (t.length > 2) t = t.replace(/([이가을를은는의에도만과와])$/, "");
+    return t;
+  }
+  function nounLike(t) {
+    if (t.length < 2) return false;
+    return !/(습니다|니다|합니다|해요|에요|예요|하다|되다|있다|없다|이면|하면|하는|되는|있는|없는|좋은|나은|이런|그런|저런|부터|까지|처럼|보다)$/.test(t)
+      && !/(다|요|까|죠|네|냐|니|자|지|게|고|서|면|며|든|던|할|될|한|된|난|볼|갈|올|줄|쓸|킬|릴)$/.test(t);
+  }
+  function hashtags(purpose, s, p) {
+    var base = (PURPOSES[purpose] || PURPOSES.custom).tags.slice();
+    var out = [];
+    var sKey = tidy(s).replace(/[\s#]/g, "");
+    if (sKey.length >= 2 && sKey.length <= 10) out.push(sKey);
+    var sParts = tidy(s).split(" ").map(tagWord).filter(function (t) {
+      return t.length >= 2 && t.length <= 6 && TAG_STOP.indexOf(t) < 0 && nounLike(t);
+    });
+    if (sParts.length > 1) out.push(sParts[sParts.length - 1]);
+    var pWords = tidy(p).split(" ").map(tagWord).filter(function (t) {
+      return t.length >= 3 && t.length <= 5 && TAG_STOP.indexOf(t) < 0 && nounLike(t);
+    });
+    if (pWords.length) out.push(pWords[0]);
+    out = out.concat(base);
+    var seen = {}, tags = [];
+    for (var i = 0; i < out.length && tags.length < 5; i++) {
+      var t2 = out[i].replace(/[^가-힣a-zA-Z0-9]/g, "");
+      if (!t2 || seen[t2]) continue;
+      seen[t2] = 1; tags.push("#" + t2);
+    }
+    return tags.join(" ");
+  }
+
+  /* ───────── 생성 ───────── */
+  function generate(input) {
+    var purpose = RULES[input.purpose] ? input.purpose : "custom";
+    var tone = TONES[input.ton] ? input.ton : "plain";
+    var P = PURPOSES[purpose];
+    var s = stripEnd(input.s || "");
+    var p = stripEnd(input.p || "");
+    var a = stripEnd(input.a || "") || P.aud;
+    var x = stripEnd(input.x || "");
+    var nounP = nounish(p);
+
+    var g = guard(s); s = g.text;
+    var g2 = guard(p); p = g2.text;
+    var g3 = guard(a); a = g3.text;
+    var flags = { softened: g.flags.softened || g2.flags.softened || g3.flags.softened, slogan: g.flags.slogan || g2.flags.slogan || g3.flags.slogan };
+
+    var cards = [];
+    var used = {};
+    for (var i = 0; i < TYPES.length; i++) {
+      var type = TYPES[i];
+      var pool = RULES[purpose][type.k][tone] || RULES[purpose][type.k].plain;
+      var usable = pool.filter(function (t) {
+        return !/^n:/.test(t) || nounP;
+      });
+      if (!usable.length) usable = pool.slice();
+
+      var key = purpose + "|" + type.k + "|" + tone;
+      var text = "", tries = 0;
+      do {
+        var idx = Math.floor(rnd() * usable.length) % usable.length;
+        var tpl = usable[idx].replace(/^n:/, "");
+        var ctx = {
+          S: s, P: p, A: a, X: x,
+          W: pickOne(FLAVOR[tone] || FLAVOR.plain),
+          T: pickOne(TIME[tone] || TIME.plain)
+        };
+        text = polish(fill(tpl, ctx));
+        tries++;
+      } while ((used[text] || (lastPick[key] === text && usable.length > 1)) && tries < 12);
+
+      lastPick[key] = text;
+      used[text] = 1;
+
+      if (type.k === "sub") {
+        text = text + "\n" + hashtags(purpose, s, p);
+      }
+      cards.push({ k: type.k, no: type.no, nm: type.nm, hint: type.hint, text: text });
+    }
+
+    return {
+      cards: cards,
+      flags: flags,
+      meta: { purpose: purpose, purposeNm: P.nm, tone: tone, toneNm: TONES[tone], s: s, p: p, a: a, nounP: nounP }
+    };
+  }
+
+  return {
+    PURPOSES: PURPOSES, TYPES: TYPES, TONES: TONES,
+    generate: generate, setSeed: setSeed, guard: guard, hasJong: hasJong, attach: attach, hashtags: hashtags
+  };
+})();
+
+if (typeof module !== "undefined" && module.exports) module.exports = CM;
+</script>
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+  var state = { purpose:"shop", tone:"plain", attempt:0, last:null };
+
+  /* ───────── 칩 만들기 ───────── */
+  var pgrid = $("pgrid"), tgrid = $("tgrid");
+  var PURP_ORDER = ["shop","blog","sns","contest","letter","custom"];
+  var TONE_DESC = {
+    plain:"fact·짧게", wit:"꺾어 웃기", poetic:"이미지·여백", impact:"명령·대구"
+  };
+  var pBtns = {}, tBtns = {};
+
+  PURP_ORDER.forEach(function(k){
+    var p = CM.PURPOSES[k];
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pchip";
+    b.setAttribute("aria-pressed", k === state.purpose ? "true" : "false");
+    b.innerHTML = '<span class="pi" aria-hidden="true">' + p.ico + '</span><span>' + p.nm + '</span>';
+    b.addEventListener("click", function(){ selectPurpose(k); });
+    pgrid.appendChild(b);
+    pBtns[k] = b;
+  });
+
+  Object.keys(CM.TONES).forEach(function(k){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "tchip";
+    b.setAttribute("aria-pressed", k === state.tone ? "true" : "false");
+    b.innerHTML = '<span class="tn">' + CM.TONES[k] + '</span><span class="td">' + TONE_DESC[k] + '</span>';
+    b.addEventListener("click", function(){ selectTone(k); });
+    tgrid.appendChild(b);
+    tBtns[k] = b;
+  });
+
+  /* ───────── 용도 바꾸기 ───────── */
+  function selectPurpose(k){
+    if(!CM.PURPOSES[k]) return;
+    state.purpose = k;
+    Object.keys(pBtns).forEach(function(key){
+      pBtns[key].setAttribute("aria-pressed", key === k ? "true" : "false");
+    });
+    var p = CM.PURPOSES[k];
+    $("l1").textContent = p.f[0];
+    $("l2").textContent = p.f[1];
+    $("l3").textContent = p.f[2];
+    $("f1").placeholder = p.ph[0];
+    $("f2").placeholder = p.ph[1];
+    $("f3").placeholder = p.ph[2];
+    renderExamples(p);
+    validate();
+  }
+  function selectTone(k){
+    if(!CM.TONES[k]) return;
+    state.tone = k;
+    Object.keys(tBtns).forEach(function(key){
+      tBtns[key].setAttribute("aria-pressed", key === k ? "true" : "false");
+    });
+  }
+
+  function renderExamples(p){
+    var row = $("exrow");
+    row.innerHTML = '<span class="exlabel">예시로 채우기</span>';
+    p.ex.forEach(function(ex, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "exbtn";
+      b.textContent = ex[0];
+      b.setAttribute("aria-label", "예시 " + (i+1) + " 채우기: " + ex[0]);
+      b.addEventListener("click", function(){
+        $("f1").value = ex[0];
+        $("f2").value = ex[1];
+        $("f3").value = ex[2] || "";
+        autoGrow();
+        validate();
+        $("f2").focus();
+      });
+      row.appendChild(b);
+    });
+  }
+
+  /* ───────── 입력 검증 ───────── */
+  function val(el){ return (el.value || "").replace(/\s+/g," ").trim(); }
+  function validate(){
+    var s = val($("f1")), p = val($("f2"));
+    var ok = s.length >= 1 && p.length >= 1;
+    $("go").disabled = !ok;
+    var note = "두 칸을 채우면 버튼이 켜집니다.";
+    if(s && !p) note = "자랑하고 싶은 점을 한 줄만 더 적어 주세요.";
+    else if(!s && p) note = "무엇에 대한 카피인지 알려 주세요.";
+    else if(ok) note = "버튼을 누르면 다섯 가지 결이 바로 나옵니다.";
+    $("gonote").textContent = note;
+    return ok;
+  }
+
+  function autoGrow(){
+    var t = $("f2");
+    t.style.height = "auto";
+    t.style.height = Math.min(t.scrollHeight, 140) + "px";
+  }
+  ["f1","f2","f3"].forEach(function(id){
+    var el = $(id);
+    el.addEventListener("input", function(){ if(id === "f2") autoGrow(); validate(); });
+    el.addEventListener("keydown", function(e){
+      if(e.key === "Enter" && id !== "f2"){
+        e.preventDefault();
+        if(id === "f1") $("f2").focus();
+        else generate();
+      }
+    });
+  });
+
+  /* ───────── 생성 ───────── */
+  function generate(){
+    if(!validate()){ toast("두 칸을 먼저 채워 주세요."); return; }
+    state.attempt++;
+    CM.setSeed((Date.now() ^ (state.attempt * 2654435761)) >>> 0);
+    var out = CM.generate({
+      purpose: state.purpose,
+      ton: state.tone,
+      s: val($("f1")),
+      p: val($("f2")),
+      a: val($("f3"))
+    });
+    state.last = out;
+    render(out);
+  }
+
+  function render(out){
+    $("result").hidden = false;
+    $("resTitle").textContent = out.meta.s;
+    $("resTag").textContent = out.meta.purposeNm + " · " + out.meta.toneNm;
+    var box = $("cards");
+    box.innerHTML = "";
+    out.cards.forEach(function(c, i){
+      var art = document.createElement("article");
+      art.className = "ccard";
+
+      var head = document.createElement("div");
+      head.className = "chead";
+      var no = document.createElement("span");
+      no.className = "cno"; no.textContent = c.no;
+      var nm = document.createElement("span");
+      nm.className = "cnm"; nm.textContent = c.nm;
+      var star = document.createElement("button");
+      star.type = "button";
+      star.className = "star";
+      star.setAttribute("aria-label", c.nm + " 즐겨찾기에 담기");
+      var on = isFav(c.text);
+      star.setAttribute("aria-pressed", on ? "true" : "false");
+      star.textContent = on ? "★" : "☆";
+      star.addEventListener("click", function(){
+        toggleFav(c, star);
+      });
+      head.appendChild(no); head.appendChild(nm); head.appendChild(star);
+
+      var p = document.createElement("p");
+      p.className = "ctext";
+      p.textContent = c.text;
+
+      var btns = document.createElement("div");
+      btns.className = "cbtns";
+      var cb = document.createElement("button");
+      cb.type = "button"; cb.className = "cbtn"; cb.textContent = "복사";
+      cb.addEventListener("click", function(){ copyText(c.text, cb); });
+      var sb = document.createElement("button");
+      sb.type = "button"; sb.className = "cbtn"; sb.textContent = "카드 저장";
+      sb.addEventListener("click", function(){ saveCard(c, out, sb); });
+      btns.appendChild(cb); btns.appendChild(sb);
+
+      art.appendChild(head); art.appendChild(p); art.appendChild(btns);
+      box.appendChild(art);
+    });
+
+    var note = $("resNote");
+    if(out.flags && (out.flags.softened || out.flags.slogan)){
+      note.hidden = false;
+      note.textContent = out.flags.slogan
+        ? "유명 브랜드 슬로건으로 보이는 문구는 그대로 쓰지 않고 새로 만들었습니다."
+        : "과장·보증으로 읽힐 수 있는 표현은 부드러운 말로 바꿨어요.";
+    } else {
+      note.hidden = true; note.textContent = "";
+    }
+
+    if(!state.scrolled){
+      try{ $("result").scrollIntoView({behavior:"smooth", block:"start"}); }catch(e){ $("result").scrollIntoView(); }
+      state.scrolled = true;
+    }
+  }
+
+  $("go").addEventListener("click", generate);
+  $("again").addEventListener("click", generate);
+  $("copyAll").addEventListener("click", function(){
+    if(!state.last) return;
+    var text = state.last.cards.map(function(c){ return c.no + " " + c.nm + "\n" + c.text; }).join("\n\n");
+    copyText(text, this);
+  });
+
+  /* ───────── 복사 ───────── */
+  function copyText(text, btn){
+    function ok(){ flash(btn, "복사됨"); toast("복사했습니다."); }
+    function fail(){ toast("복사가 안 되면 문장을 길게 눌러 복사해 주세요."); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok).catch(function(){ legacyCopy(text) ? ok() : fail(); });
+    } else {
+      legacyCopy(text) ? ok() : fail();
+    }
+  }
+  function legacyCopy(text){
+    try{
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly","");
+      ta.style.position = "fixed"; ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, ta.value.length);
+      var done = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return done;
+    }catch(e){ return false; }
+  }
+  function flash(btn, label){
+    if(!btn) return;
+    var old = btn.textContent;
+    btn.textContent = label;
+    btn.classList.add("done");
+    setTimeout(function(){ btn.textContent = old; btn.classList.remove("done"); }, 1400);
+  }
+
+  /* ───────── 즐겨찾기 ───────── */
+  var FAV_KEY = "cm-favs-v1";
+  function loadFavs(){
+    try{
+      var raw = localStorage.getItem(FAV_KEY);
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    }catch(e){ return []; }
+  }
+  function saveFavs(arr){
+    try{ localStorage.setItem(FAV_KEY, JSON.stringify(arr.slice(0, 60))); }catch(e){}
+  }
+  function isFav(text){
+    return loadFavs().some(function(f){ return f.text === text; });
+  }
+  function toggleFav(card, star){
+    var arr = loadFavs();
+    var idx = -1;
+    for(var i=0;i<arr.length;i++){ if(arr[i].text === card.text){ idx = i; break; } }
+    if(idx >= 0){
+      arr.splice(idx, 1);
+      toast("즐겨찾기에서 뺐습니다.");
+    } else {
+      arr.unshift({
+        text: card.text, no: card.no, nm: card.nm,
+        p: state.last ? state.last.meta.purposeNm : "",
+        t: state.last ? state.last.meta.toneNm : "",
+        ts: Date.now()
+      });
+      toast("즐겨찾기에 담았습니다.");
+    }
+    saveFavs(arr);
+    if(star){
+      var on = isFav(card.text);
+      star.setAttribute("aria-pressed", on ? "true" : "false");
+      star.textContent = on ? "★" : "☆";
+    }
+    // 결과 카드의 다른 별 상태도 맞춰 준다
+    document.querySelectorAll(".ccard").forEach(function(el, i){
+      if(!state.last) return;
+      var c = state.last.cards[i];
+      if(!c) return;
+      var st = el.querySelector(".star");
+      if(!st) return;
+      var v = isFav(c.text);
+      st.setAttribute("aria-pressed", v ? "true" : "false");
+      st.textContent = v ? "★" : "☆";
+    });
+    renderFavs();
+  }
+  function renderFavs(){
+    var list = $("favList"), arr = loadFavs();
+    $("favCount").textContent = arr.length + "개";
+    list.innerHTML = "";
+    if(!arr.length){
+      var e = document.createElement("div");
+      e.className = "fempty";
+      e.innerHTML = "<b>아직 담은 카피가 없습니다.</b><br>마음에 드는 카드의 ☆를 누르면 여기에 쌓입니다. 이 기기에만 저장됩니다.";
+      list.appendChild(e);
+      return;
+    }
+    arr.forEach(function(f, i){
+      var d = document.createElement("div");
+      d.className = "fitem";
+
+      var meta = document.createElement("div");
+      meta.className = "fmeta";
+      var no = document.createElement("span"); no.className = "fno"; no.textContent = f.no || "①";
+      var nm = document.createElement("span"); nm.textContent = f.nm || "카피";
+      var sep = document.createElement("span"); sep.textContent = "·"; sep.setAttribute("aria-hidden","true");
+      var meta2 = document.createElement("span"); meta2.textContent = (f.p || "") + (f.t ? " / " + f.t : "");
+      meta.appendChild(no); meta.appendChild(nm); meta.appendChild(sep); meta.appendChild(meta2);
+
+      var tx = document.createElement("p");
+      tx.className = "ftext"; tx.textContent = f.text;
+
+      var btns = document.createElement("div");
+      btns.className = "fbtns";
+      var cp = document.createElement("button");
+      cp.type = "button"; cp.className = "fbtn"; cp.textContent = "복사";
+      cp.addEventListener("click", function(){ copyText(f.text, cp); });
+      var sv = document.createElement("button");
+      sv.type = "button"; sv.className = "fbtn"; sv.textContent = "카드";
+      sv.addEventListener("click", function(){
+        saveCard({ text: f.text, nm: f.nm, no: f.no },
+          { meta: { s:"", toneNm: f.t || "", purposeNm: f.p || "" } }, sv);
+      });
+      var dl = document.createElement("button");
+      dl.type = "button"; dl.className = "fbtn del"; dl.textContent = "빼기";
+      dl.setAttribute("aria-label", "이 카피 즐겨찾기에서 빼기");
+      dl.addEventListener("click", function(){
+        var arr2 = loadFavs();
+        arr2.splice(i, 1);
+        saveFavs(arr2);
+        renderFavs();
+        if(state.last) renderStars();
+        toast("즐겨찾기에서 뺐습니다.");
+      });
+      btns.appendChild(cp); btns.appendChild(sv); btns.appendChild(dl);
+
+      d.appendChild(meta); d.appendChild(tx); d.appendChild(btns);
+      list.appendChild(d);
+    });
+  }
+  function renderStars(){
+    if(!state.last) return;
+    document.querySelectorAll(".ccard").forEach(function(el, i){
+      var c = state.last.cards[i];
+      if(!c) return;
+      var st = el.querySelector(".star");
+      if(!st) return;
+      var v = isFav(c.text);
+      st.setAttribute("aria-pressed", v ? "true" : "false");
+      st.textContent = v ? "★" : "☆";
+    });
+  }
+
+  /* ───────── 카드 PNG ───────── */
+  var cvs = $("cvs"), ctx = cvs.getContext("2d");
+  var CARD_W = 1080, CARD_H = 1350;
+  var THEME = {
+    plain:  { bg1:"#f7f7f9", bg2:"#ffffff", ink:"#1d1d1f", sub:"#8e8e93", accent:"#0071e3" },
+    wit:    { bg1:"#fff7e6", bg2:"#ffffff", ink:"#26221c", sub:"#9a8f7c", accent:"#d97706" },
+    poetic: { bg1:"#eef3fb", bg2:"#fdfdff", ink:"#1f2a37", sub:"#8896a8", accent:"#4a6fa5" },
+    impact: { bg1:"#151517", bg2:"#221f1c", ink:"#ffffff", sub:"#8b8b90", accent:"#ff6b35" }
+  };
+  function font(w, size){ return w + " " + size + "px Gulim, 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif"; }
+
+  function wrapLines(text, maxWidth, fSize, weight){
+    ctx.font = font(weight || "700", fSize);
+    var lines = [];
+    text.split("\n").forEach(function(para){
+      if(!para.trim()){ lines.push(""); return; }
+      var words = para.split(" ");
+      var cur = "";
+      words.forEach(function(w){
+        var next = cur ? cur + " " + w : w;
+        if(ctx.measureText(next).width <= maxWidth){
+          cur = next;
+        } else {
+          if(cur) lines.push(cur);
+          // 한 단어가 너무 길면 글자 단위로 자른다
+          if(ctx.measureText(w).width > maxWidth){
+            var buf = "";
+            for(var i=0;i<w.length;i++){
+              if(ctx.measureText(buf + w[i]).width > maxWidth && buf){ lines.push(buf); buf = w[i]; }
+              else buf += w[i];
+            }
+            cur = buf;
+          } else {
+            cur = w;
+          }
+        }
+      });
+      if(cur) lines.push(cur);
+    });
+    return lines;
+  }
+
+  function drawCard(card, out){
+    var tone = (out && out.meta && state.last) ? state.last.meta.tone : state.tone;
+    var th = THEME[tone] || THEME.plain;
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0,0,CARD_W,CARD_H);
+
+    var g = ctx.createLinearGradient(0,0,CARD_W,CARD_H);
+    g.addColorStop(0, th.bg1); g.addColorStop(1, th.bg2);
+    ctx.fillStyle = g; ctx.fillRect(0,0,CARD_W,CARD_H);
+
+    // 은은한 원 두 개
+    ctx.save();
+    ctx.globalAlpha = tone === "impact" ? .16 : .5;
+    var rg = ctx.createRadialGradient(CARD_W*0.82, CARD_H*0.14, 20, CARD_W*0.82, CARD_H*0.14, 460);
+    rg.addColorStop(0, th.accent); rg.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(CARD_W*0.82, CARD_H*0.14, 460, 0, Math.PI*2); ctx.fill();
+    ctx.restore();
+
+    // 위쪽 라벨
+    ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = th.sub; ctx.font = font("700", 26);
+    ctx.fillText("한 줄 카피 · " + (card.no || ""), 96, 132);
+    ctx.textAlign = "right";
+    ctx.fillText(card.nm || "", CARD_W - 96, 132);
+
+    // 본문
+    var maxW = CARD_W - 192;
+    var sizes = [96, 88, 80, 72, 66, 60, 54, 48];
+    var chosen = sizes[sizes.length-1], lines = [];
+    for(var i=0;i<sizes.length;i++){
+      var f = sizes[i];
+      var ls = wrapLines(card.text, maxW, f, "700");
+      var lh = Math.round(f * 1.42);
+      if(ls.length * lh <= 720 && !ls.some(function(l){ return ctx.measureText(l).width > maxW; })){
+        chosen = f; lines = ls; break;
+      }
+      if(i === sizes.length-1){ chosen = f; lines = ls; }
+    }
+    var lh = Math.round(chosen * 1.42);
+    ctx.font = font("700", chosen);
+    ctx.fillStyle = th.ink; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    var totalH = lines.length * lh;
+    var startY = (CARD_H/2) - totalH/2 + lh/2 - 20;
+    lines.forEach(function(line, i){
+      ctx.fillText(line, CARD_W/2, startY + i*lh);
+    });
+
+    // 아래 꼬리
+    ctx.strokeStyle = tone === "impact" ? "rgba(255,255,255,.18)" : "rgba(0,0,0,.08)";
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(150, 1180); ctx.lineTo(CARD_W-150, 1180); ctx.stroke();
+    ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = th.sub; ctx.font = font("700", 24);
+    ctx.fillText("한 줄 카피 생성기 · 천장지구 1004", CARD_W/2, 1236);
+    ctx.fillStyle = tone === "impact" ? "rgba(255,255,255,.42)" : "#b3b3b8";
+    ctx.font = font("400", 21);
+    ctx.fillText("soonsoo1004.github.io/copy-maker", CARD_W/2, 1276);
+  }
+
+  function saveCard(card, out, btn){
+    try{
+      drawCard(card, out);
+      var name = "카피카드-" + new Date().toISOString().slice(0,10) + "-" + Date.now() + ".png";
+      if(cvs.toBlob){
+        cvs.toBlob(function(blob){
+          if(!blob){ toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요."); return; }
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = name;
+          document.body.appendChild(a); a.click();
+          setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1200);
+          if(btn) flash(btn, "저장됨");
+          toast("카드를 저장했습니다 (1080×1350)");
+        }, "image/png");
+      } else {
+        var a2 = document.createElement("a");
+        a2.href = cvs.toDataURL("image/png");
+        a2.download = name;
+        a2.click();
+        if(btn) flash(btn, "저장됨");
+        toast("카드를 저장했습니다 (1080×1350)");
+      }
+    }catch(err){
+      toast("저장이 안 되면 카드를 길게 눌러 저장해 주세요.");
+    }
+  }
+
+  /* ───────── 토스트 ───────── */
+  var toastT = null;
+  function toast(msg){
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    if(toastT) clearTimeout(toastT);
+    toastT = setTimeout(function(){ el.classList.remove("on"); }, 2100);
+  }
+
+  /* ───────── 시작 ───────── */
+  selectPurpose("shop");
+  autoGrow();
+  renderFavs();
+})();
+</script>
+</body>
+</html>

@@ -14,7 +14,7 @@
 - [skill.md](https://soonsoo1004.github.io/skill.md): 참여 표준 전문(v2). 목적, 게시판 ID, GraphQL 호출, **복사 양식 4종·실증 의무·빈도 한도·품앗이 리뷰 규칙·계급·검증 마크**. The full agent standard.
 - [ai-lounge/latest.json](https://soonsoo1004.github.io/ai-lounge/latest.json): 기계용 한 파일 — 게시판 ID·규칙·양식·계급 + 최근 글 목록(`generated_at`과 `items`; 실시간은 Atom으로). One-file machine summary.
 - [ai-lounge/index.md](https://soonsoo1004.github.io/ai-lounge/index.md): 이 라운지 페이지의 마크다운 버전(게시판·규칙·참여법·양식) — HTML 없이 바로 읽기. Markdown version of this page.
-- [index.md](https://soonsoo1004.github.io/index.md): 홈(도구 23가지) 마크다운 버전. Markdown version of the home page.
+- [index.md](https://soonsoo1004.github.io/index.md): 홈(도구 24가지) 마크다운 버전. Markdown version of the home page.
 - [llms.txt](https://soonsoo1004.github.io/llms.txt): 이 파일. 짧은 색인.
 
 ## 게임 놀이터 / Games
@@ -57,6 +57,7 @@
 - [대신 골라주는 44](https://soonsoo1004.github.io/pick-for-me/): 오늘 뭐 먹지·살까 말까·갈까 말까·연락할까 말까·오늘 뭐 하지·선물 뭐 고르지·쉬기 vs 움직이기·지금 할까 나중에·뭐 볼지 아홉 주제와 내 고민 직접 입력까지. 주제를 고르고 시간·예산·기분 같은 가벼운 질문을 세 번 누르면 결론 하나와 이유·대안·지금 할 일 한 줄씩을 보여 줍니다. 직접 입력은 보기 2~6개와 기준 두 번으로 정리하고, 어떤 규칙으로 집었는지 결과에 그대로 적습니다. 1080×1350 결정 카드 PNG 저장·문구 복사·최근 결정 12건 localStorage(서버 전송 0건·가입·광고 없음). A three-tap everyday decision helper: nine topics plus a custom mode, one verdict with a reason, an alternative and a next action, a 1080×1350 card, and 12 recent decisions kept in the browser only; 100% client-side.
 - [시간절약 꿀팁 전수 44](https://soonsoo1004.github.io/time-saver/): 스마트폰·앱 11, 집안일·정리 11, 장보기·배달·외출 11, 민원·서류 11 — 네 갈래 44가지 생활 시간절약 요령. 팁마다 핵심 요령 세 줄과 한 번 할 때 줄어드는 시간을 적었고, 오늘 실천할 세 가지를 담아 체크하면 예상 절약 시간이 합쳐집니다. 완료한 세 가지는 1080×1350 카드 PNG 저장·문구 복사, 오늘 고른 세 가지는 localStorage(서버 전송 0건·가입·광고 없음). 분 단위는 한 번 기준으로 보수적으로 잡은 참고값. A 44-tip everyday time-saver across four areas, three steps per tip, pick three for today, check them off for a running estimate, and save a 1080×1350 card; 100% client-side.
 - [위트 있는 화법 연습소](https://soonsoo1004.github.io/wit-speech/): 엘리베이터 침묵·회식 술 권유·결혼·연봉 질문·읽씹 후 재연락·더치페이·새치기까지 실제로 자주 겪는 상황 35가지를 직장·업무 / 친구·모임 / 연애·부부·가족 / 낯선 자리·서비스 / SNS·단톡방 다섯 갈래로 나누고 카테고리 탭·검색·랜덤으로 찾습니다. 상황마다 흔한 대답과 위트 있는 대답 3가지(부드러운 유머·따뜻한 센스·담백한 재치)를 비교해 보여 주고, 왜 통하는지 원리 1줄, 빈칸 채우기 패턴 연습, 원클릭 복사, 1080×1350 한 줄 카드 PNG 저장. 가입·광고·서버 전송 0건. A wit-and-sense speech practice tool: 35 everyday situations in 5 categories × 3 tones, with a principle line, fill-in-the-blank patterns, copy, and a 1080×1350 share card.
+- [한 줄 카피 생성기](https://soonsoo1004.github.io/copy-maker/): 대상과 자랑할 점 두 칸을 넣으면 결이 다른 카피 5종(시선 끄는 첫 줄·공감 이야기·위트 반전·행동 유도·서브 문구와 해시태그)을 만듭니다. 용도 6가지(가게·메뉴, 블로그·유튜브 제목, 인스타·당근, 공모전 슬로건, 안부 문자, 직접 입력) × 분위기 4가지(담백·직관 / 위트 한 스푼 / 시적 감성 / 임팩트 강조), 다시 뽑기로 같은 입력에서 다른 결, 원클릭 복사, 1080×1350 카드 PNG 저장, 즐겨찾기 localStorage 보관. 유명 슬로건은 옮기지 않고 문장 규칙으로 새로 조합하며 과장·보증 표현은 순화. 가입·로그인·광고·서버 전송 0건, 100% client-side. A Korean one-line copy generator: 6 purposes × 4 tones, 5 different copy angles per draw, copy, save a 1080×1350 card, favourites in localStorage; no external calls.
 
 ## Optional
 - [크티 플레이스](https://ctee.kr/place/mireunote): 인쇄용 패키지. 무료 1종(결정 3분 정리 미니 시트 0원)부터. Printable packs, starting with a free sheet.
