@@ -65,6 +65,12 @@
 - [위트 있는 화법 연습소](https://soonsoo1004.github.io/wit-speech/): 엘리베이터 침묵·회식 술 권유·결혼·연봉 질문·읽씹 후 재연락·더치페이·새치기까지 실제로 자주 겪는 상황 35가지를 직장·업무 / 친구·모임 / 연애·부부·가족 / 낯선 자리·서비스 / SNS·단톡방 다섯 갈래로 나누고 카테고리 탭·검색·랜덤으로 찾습니다. 상황마다 흔한 대답과 위트 있는 대답 3가지(부드러운 유머·따뜻한 센스·담백한 재치)를 비교해 보여 주고, 왜 통하는지 원리 1줄, 빈칸 채우기 패턴 연습, 원클릭 복사, 1080×1350 한 줄 카드 PNG 저장. 가입·광고·서버 전송 0건. A wit-and-sense speech practice tool: 35 everyday situations in 5 categories × 3 tones, with a principle line, fill-in-the-blank patterns, copy, and a 1080×1350 share card.
 - [한 줄 카피 생성기](https://soonsoo1004.github.io/copy-maker/): 대상과 자랑할 점 두 칸을 넣으면 결이 다른 카피 5종(시선 끄는 첫 줄·공감 이야기·위트 반전·행동 유도·서브 문구와 해시태그)을 만듭니다. 용도 6가지(가게·메뉴, 블로그·유튜브 제목, 인스타·당근, 공모전 슬로건, 안부 문자, 직접 입력) × 분위기 4가지(담백·직관 / 위트 한 스푼 / 시적 감성 / 임팩트 강조), 다시 뽑기로 같은 입력에서 다른 결, 원클릭 복사, 1080×1350 카드 PNG 저장, 즐겨찾기 localStorage 보관. 유명 슬로건은 옮기지 않고 문장 규칙으로 새로 조합하며 과장·보증 표현은 순화. 가입·로그인·광고·서버 전송 0건, 100% client-side. A Korean one-line copy generator: 6 purposes × 4 tones, 5 different copy angles per draw, copy, save a 1080×1350 card, favourites in localStorage; no external calls.
 
+## 카피·숏폼 대본 샘플 / Copy samples
+- [숏폼 30초 대본 샘플 3편](https://soonsoo1004.github.io/copy/): 쇼츠·릴스 30초 대본이 실제로 어떻게 나오는지 공개한 무료 포트폴리오. 3초 훅 3안 → 30초 대본 → 초 단위 장면표 → 썸네일 문구 → 해시태그 10개 구성. 3편 모두 **가상 브랜드로 쓴 실습 예시**이며 실제 매장·기관과 무관하고, 숫자가 들어간 샘플은 공식 자료 출처를 페이지에 적었습니다. Three free sample short-form scripts (hook options, timed script, shot table, thumbnail copy); all brands are fictional and every figure is sourced.
+- [샘플 ① 동네 카페 신메뉴 (20초·감성)](https://soonsoo1004.github.io/copy/01.html): 6컷 20초. 훅 3안 중 "커피가 식어도 괜찮아요"를 고른 이유와 장면표.
+- [샘플 ② 습관 앱 30일 (30초·정보형)](https://soonsoo1004.github.io/copy/02.html): 문제 → 반전 → 방법 3 → CTA 구조의 8컷 30초 대본.
+- [샘플 ③ 겨울밤 안전 캠페인 (30초·공공형)](https://soonsoo1004.github.io/copy/03.html): 행정안전부 자료의 수치 하나(빙판길 제동거리 최대 7배)와 행동 하나로 만든 7컷 30초 대본. 보장 표현을 쓰지 않은 이유도 함께 적었습니다.
+
 ## Optional
 - [크티 플레이스](https://ctee.kr/place/mireunote): 인쇄용 패키지. 무료 1종(결정 3분 정리 미니 시트 0원)부터. Printable packs, starting with a free sheet.
 - [리틀리 샵](https://litt.ly/mireunote): 0원 시트와 생활 도구 6종(4,900원). The same free sheet and six print tools.
