@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한 달에 몇 번 가면 정기권이 이득인가 — 1회 1만 원으로 계산해 봤습니다</title>
+<meta name="description" content="부산 해운대 좌동 스크린골프 연습장 정기권 손익 계산. 스크린 18홀 10,000원 기준 1개월 12회·3개월 월 11회·6개월 월 10회, 그 아래면 1회 결제가 낫습니다.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="한 달에 몇 번 가면 정기권이 이득인가 — 1회 1만 원으로 계산해 봤습니다">
+<meta property="og:description" content="부산 해운대 좌동 스크린골프 연습장 정기권 손익 계산. 스크린 18홀 10,000원 기준 1개월 12회·3개월 월 11회·6개월 월 10회, 그 아래면 1회 결제가 낫습니다.">
+<meta property="og:image" content="https://soonsoo1004.github.io/won-screen-golf/notes/photos/lounge-coffee.jpg">
+<meta property="og:url" content="https://soonsoo1004.github.io/won-screen-golf/notes/membership-breakeven/">
+<style>
+  :root { --ink:#1d1d1f; --sub:#5b5f66; --line:#e6e3dc; --bg:#fbfaf7; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Gulim','굴림','GulimChe',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    font-size:17px; line-height:1.9; -webkit-text-size-adjust:100%; }
+  .wrap { max-width:660px; margin:0 auto; padding:34px 22px 64px; }
+  .topnav { font-size:14px; color:var(--sub); margin:0 0 26px; }
+  .topnav a { color:var(--sub); text-decoration:none; border-bottom:1px solid var(--line); }
+  h1 { font-size:23px; line-height:1.5; letter-spacing:-.4px; margin:0 0 10px; }
+  .meta { color:var(--sub); font-size:14px; margin:0 0 26px; }
+  h2 { font-size:17px; margin:34px 0 8px; padding-top:18px; border-top:1px solid var(--line); letter-spacing:-.2px; }
+  h3 { font-size:16px; margin:22px 0 6px; }
+  p { margin:0 0 16px; }
+  a { color:#0b5cad; }
+  figure.photo { margin:8px 0 26px; }
+  figure.photo img { display:block; width:100%; height:auto; border-radius:12px; border:1px solid var(--line); background:#eee; }
+  figure.photo figcaption { margin-top:9px; color:var(--sub); font-size:14px; line-height:1.65; }
+  .call { display:inline-block; margin:2px 0 6px; padding:12px 20px; border:1px solid var(--ink); border-radius:10px;
+    font-size:19px; font-weight:700; color:var(--ink); text-decoration:none; }
+  .note { color:var(--sub); font-size:14.5px; }
+  .box { border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:26px 0; background:#fff; }
+  .box dt { color:var(--sub); font-size:14px; margin:12px 0 2px; }
+  .box dt:first-child { margin-top:0; }
+  .box dd { margin:0; }
+  table.price { width:100%; border-collapse:collapse; margin:8px 0 10px; font-size:16px; line-height:1.6; }
+  table.price th, table.price td { padding:8px 0; border-bottom:1px dotted var(--line); }
+  table.price th.item { text-align:left; font-weight:400; }
+  table.price td.p { text-align:right; white-space:nowrap; font-weight:700; padding-left:12px; }
+  table.price tr.grp th { padding-top:16px; font-size:14.5px; color:var(--sub); font-weight:400; border-bottom:1px solid var(--line); }
+  ul.plain { margin:0 0 16px; padding-left:20px; }
+  ul.plain li { margin:0 0 6px; }
+  ul.index { margin:0 0 26px; padding:0; list-style:none; }
+  ul.index li { padding:16px 0; border-bottom:1px dotted var(--line); }
+  ul.index li:last-child { border-bottom:0; }
+  ul.index a { color:var(--ink); font-size:17.5px; font-weight:700; text-decoration:none; border-bottom:1px solid var(--line); }
+  ul.index p { margin:6px 0 0; }
+  .src { margin:26px 0 0; padding:16px 18px; border:1px solid var(--line); border-radius:12px; background:#fff; font-size:14.5px; line-height:1.75; }
+  .src h2 { border-top:0; padding-top:0; margin:0 0 8px; font-size:15px; color:var(--sub); font-weight:400; }
+  .src ul { margin:0; padding-left:18px; }
+  .src li { margin:0 0 6px; word-break:break-all; }
+  .more { margin:34px 0 0; padding:18px 0 0; border-top:1px solid var(--line); }
+  .more h2 { border-top:0; padding-top:0; margin-top:0; }
+  .more ul { margin:0; padding-left:20px; font-size:16px; }
+  .more li { margin:0 0 8px; }
+  footer { margin-top:44px; padding-top:18px; border-top:1px solid var(--line); color:var(--sub); font-size:14px; line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="topnav"><a href="../">← WON 스크린골프 노트</a> · <a href="../../">매장 안내</a></p>
+
+  <h1>한 달에 몇 번 가면 정기권이 이득인가 — 1회 1만 원으로 계산해 봤습니다</h1>
+  <p class="meta">2026년 11월 19일 · 부산 해운대구 좌동</p>
+  <figure class="photo">
+    <img src="../photos/lounge-coffee.jpg" alt="WON 스크린골프 대기 공간 — 회색 소파와 테이블, 옆에 라면 조리기와 무인 키오스크가 있습니다." decoding="async">
+    <figcaption>대기 공간. 소파와 테이블, 라면 조리기, 무인 키오스크가 한자리에 있습니다.<br>사진: 매장이 직접 등록한 사진</figcaption>
+  </figure>
+
+  <p>올해 골프 지표를 보면 사람들이 돈 쓰는 방식이 눈에 띄게 달라졌습니다. 대한골프협회가 11월 초에 발표한 조사에서 평일 라운드 비중이 2023년 48.1%에서 2025년 62.2%로 올랐고, 평일 오전 라운드도 21.8%에서 31.1%로 늘었습니다. 주말 대신 평일을 고르는 사람이 많아졌다는 뜻입니다. 같은 기간 골프 활동 인구는 624만 명에서 581만 명으로 줄었고요. 많이 치는 대신 한 번에 덜 쓰는 쪽으로 움직였다고 읽었습니다.</p>
+
+  <p>그러면 실내 연습장 쪽 질문은 하나로 좁혀집니다. 1회 결제와 정기권 중 뭐가 나은가. 계산은 요금표만 있으면 됩니다.</p>
+
+  <h2>요금표</h2>
+
+  <table class="price">
+    <caption>매장 1층 배너·네이버 지도 가격표 기준 (2026-11-17 확인)</caption>
+    <tbody>
+      <tr class="grp"><th colspan="2" scope="colgroup">1회</th></tr>
+      <tr><th class="item" scope="row">스크린 18홀 (1인)</th><td class="p">10,000원</td></tr>
+      <tr><th class="item" scope="row">연습장 1시간</th><td class="p">10,000원</td></tr>
+      <tr class="grp"><th colspan="2" scope="colgroup">연습장 정기권</th></tr>
+      <tr><th class="item" scope="row">1개월</th><td class="p">120,000원</td></tr>
+      <tr><th class="item" scope="row">3개월</th><td class="p">330,000원</td></tr>
+      <tr><th class="item" scope="row">6개월</th><td class="p">600,000원</td></tr>
+    </tbody>
+  </table>
+
+  <h2>1회 1만 원으로 나눠 보기</h2>
+
+  <p>기간권 값을 1회 값으로 나누면 '몇 회 이상 가야 남는가'가 바로 나옵니다.</p>
+
+  <table class="price">
+    <caption>1회 10,000원 기준 환산</caption>
+    <tbody>
+      <tr class="grp"><th colspan="2" scope="colgroup">기간권을 회수로 환산</th></tr>
+      <tr><th class="item" scope="row">1개월 120,000원</th><td class="p">12회분</td></tr>
+      <tr><th class="item" scope="row">3개월 330,000원 (월 110,000원)</th><td class="p">월 11회분</td></tr>
+      <tr><th class="item" scope="row">6개월 600,000원 (월 100,000원)</th><td class="p">월 10회분</td></tr>
+    </tbody>
+  </table>
+
+  <p>그래서 기준선은 세 개입니다. 한 달에 <b>12회</b> 넘게 가면 1개월권이, <b>11회</b>를 넘기면 3개월권이, <b>10회</b>를 넘기면 6개월권이 1회 결제보다 쌉니다. 반대로 한 달에 8회 정도라면 80,000원이니 1회로 끊는 게 낫습니다.</p>
+
+  <p>겨울에는 이 계산이 조금 달라집니다. 공을 치러 오는 날과 그냥 몸을 푸는 날이 섞이기 때문입니다. 저는 기간권을 살 때 '최소 몇 회는 올 수 있는 달'을 먼저 세고, 그 달에만 기간을 맞춥니다. 못 채운 회차는 그냥 사라지니까요.</p>
+
+  <h2>확인해야 할 것</h2>
+
+  <p>요금표에는 기간권의 <b>사용 조건</b>이 적혀 있지 않습니다. 하루에 한 번만 되는지, 시간 제한이 있는지, 타석 지정이 있는지는 표에 없습니다. 이 세 가지에 따라 12회분의 값이 달라지므로, 기간권을 생각하고 계시면 방문 전에 <a href="tel:0517479933">051-747-9933</a>으로 물어보시는 게 정확합니다. 아래는 제가 전화로 확인할 때 적어 두는 항목입니다.</p>
+
+  <ul class="plain">
+    <li>하루 이용 횟수 제한이 있는지</li>
+    <li>1회 이용 시간이 정해져 있는지 (예: 1시간)</li>
+    <li>QED 타석과 일반 타석 중 어디까지 포함인지</li>
+    <li>기간 중 쉬는 달이 생겼을 때 정지가 되는지</li>
+  </ul>
+
+  <h2>참고로 본 시장 숫자</h2>
+
+  <p>전국에 깔린 스크린골프 시뮬레이터는 2026년 2분기 기준 5만 7,600여 대입니다(골프존홀딩스 반기보고서, 참여와혁신 2026-11-19 인터뷰에서 인용). 겨울에 땅이 얼어 야외 라운드가 어려운 기간이 1년에 4~5개월이라는 설명도 같은 인터뷰에 나옵니다. 매장을 고를 때 기기 종류와 거리, 주차를 같이 보게 되는 이유입니다.</p>
+
+  <div class="src">
+    <h2>자료</h2>
+    <ul>
+      <li><a href="https://www.fnnews.com/news/202611021113006267" target="_blank" rel="noopener">파이낸셜뉴스, 「골프 열풍 식었나…국내 골프 인구 2년 새 43만 명 감소」 (2026-11-02)</a> — 대한골프협회 ‘2025 한국골프지표 조사’ 인용. 활동 인구 581만 명, 평일 라운드 62.2%</li>
+      <li><a href="https://www.laborplus.co.kr/news/articleView.html?idxno=41827" target="_blank" rel="noopener">참여와혁신, 「스크린골프, 다음 라운딩이 이어지려면?」 (2026-11-19)</a> — 골프존홀딩스 반기보고서 인용, 2분기 시뮬레이터 5만 7,600여 대</li>
+      <li><a href="https://map.naver.com/p/entry/place/1888900425" target="_blank" rel="noopener">네이버 지도 플레이스 — 윈스크린골프연습장 가격표</a> (2026-11-17 확인)</li>
+      <li>매장 1층 배너 요금 안내 (현장 사진, 2026-11-17)</li>
+      <li><a href="https://www.data.go.kr/data/3075744/fileData.do" target="_blank" rel="noopener">부산광역시 해운대구 신고체육시설업 현황</a> — 공공데이터포털(행정안전부 지방행정인허가데이터). 상호 윈스크린골프연습장·업종 골프연습장업·도로명주소 확인</li>
+    </ul>
+  </div>
+
+  <a class="call" href="tel:0517479933">051-747-9933</a>
+  <p class="note">타석·스크린 룸·단체는 전화로 예약하시는 게 가장 빠릅니다.</p>
+
+  <div class="more">
+    <h2>같이 보면 좋은 글</h2>
+    <ul>
+      <li><a href="../after-work-one-hour/">퇴근하고 한 시간, 18홀에 만 원</a></li>
+      <li><a href="../lesson-plan-compare/">레슨 기간권 4가지, 타석값과 레슨값을 나눠 보면</a></li>
+      <li><a href="../first-visit-checklist/">처음 가는 스크린골프장에서 안 헤매는 법</a></li>
+
+      <li><a href="../../">WON 스크린골프 매장 안내 (주소·요금·사진)</a></li>
+    </ul>
+  </div>
+
+  <footer>
+    WON 스크린골프 · 윈스크린골프연습장<br>
+    부산광역시 해운대구 해운대로774번길 11, 해천빌딩 6층 · 051-747-9933<br>
+    이 페이지는 매장이 공개한 정보(매장 1층 배너, 네이버 지도 플레이스, 김캐디 매장 등록 정보)를 정리한 안내입니다.
+    요금과 운영 시간은 바뀔 수 있으니 방문 전에 매장으로 전화해 확인하시는 게 정확합니다.
+  </footer>
+</div>
+</body>
+</html>
