@@ -169,7 +169,7 @@ footer a{color:var(--navy)}
         <tr><th>여는 곳</th><td>(사)한국인터넷기업협회</td><td>사회복지공동모금회</td></tr>
         <tr><th>마감</th><td class="c"><span class="ok">12월 5일(토)</span></td><td class="c"><span class="ok">2027년 1월 15일(금)</span></td></tr>
         <tr><th>상금</th><td>일반부 1등 <span class="money">200만 원</span></td><td>대상 <span class="money">200만 원</span><br>총 600만 원 · 7명</td></tr>
-        <tr><th>AI</th><td><span class="ok">허용</span><br>접수 폼에 활용 여부 체크</td><td><span class="ok">제한 조항 0건</span><br>요강 전체에 AI 언급 없음</td></tr>
+        <tr><th>AI 활용</th><td><span class="ok">허용</span><br>접수 폼에 활용 여부 체크</td><td><span class="ok">제한 조항 0건</span><br>요강 전체에 AI 언급 없음</td></tr>
         <tr><th>내는 법</th><td>유튜브 <b>[미공개]</b> 업로드 + 구글폼</td><td>홈페이지 온라인 접수</td></tr>
         <tr><th>발표·방문</th><td>없음<br><span class="no">12.22 행사 참석 필수인지는 공고에 없음</span></td><td>없음<br>심사는 서면 100%</td></tr>
         <tr><th>준비물</th><td>47초 영상 완성 <b>✓</b></td><td>A4 2쪽 제안서 완성 <b>✓</b></td></tr>
@@ -223,7 +223,7 @@ footer a{color:var(--navy)}
     <h3 style="margin:0 0 6px;font-size:15.5px">올릴 때 그대로 붙이는 문구</h3>
     <p style="font-size:13.5px;color:var(--ink2);margin:0">제목</p>
     <div class="quote" id="q-title">세 번째 손 | 퍼뜨리지 않는 것도 지켜주는 일입니다</div>
-    <div class="copybar"><span class="count">제목</span><button class="copy" data-copy="q-title">복사</button></div>
+    <div class="copybar"><span class="count" id="q-title-cnt"></span><button class="copy" data-copy="q-title">복사</button></div>
 
     <p style="font-size:13.5px;color:var(--ink2);margin:16px 0 0">설명란</p>
     <div class="quote" id="q-desc">찍는 손, 올리는 손, 넘기는 손.
@@ -237,13 +237,13 @@ footer a{color:var(--navy)}
 삽화·음성: AI 생성 / 구성·편집: 직접 / 음악: 자체 합성
 
 #건전한사이버세상만들기 #건사세 #우리가만드는사이버세상 #디지털공감 #디지털공감숏폼공모전 #디공숏공</div>
-    <div class="copybar"><span class="count" id="q-desc-cnt">설명란</span><button class="copy" data-copy="q-desc">복사</button></div>
+    <div class="copybar"><span class="count" id="q-desc-cnt"></span><button class="copy" data-copy="q-desc">복사</button></div>
 
     <p style="font-size:13.5px;color:var(--ink2);margin:16px 0 0">폼에 넣는 작품 설명</p>
     <div class="quote" id="q-form">교실에서 장난처럼 찍힌 영상 한 편이 누군가의 하루를 무너뜨리는 과정을 '손' 하나로 따라갑니다. 찍는 손, 올리는 손, 넘기는 손. 영상이 커지는 데는 세 번의 손이 필요하지만, 우리가 실제로 멈출 수 있는 지점은 세 번째 손입니다. 넘기지 않는 것만으로도 피해는 더 커지지 않습니다.
 
 사이버폭력은 처벌 이야기보다 '옆에 있던 사람의 선택'이 먼저 바뀌어야 줄어든다고 생각했습니다. 그래서 비난 대신 세 가지 행동(넘기지 않기·캡처해 두기·알리기)과 이미 있는 신고·상담 창구(117·1377·1388)를 마지막 화면에 한 번에 정리했습니다. 교실에서 바로 틀 수 있도록 대사 없이 내레이션과 자막만으로 만들었고, 특정 앱이나 개인을 지목하지 않았습니다. 삽화와 음성은 AI로 생성하고 구성과 편집은 직접 했습니다.</div>
-    <div class="copybar"><span class="count" id="q-form-cnt">작품 설명</span><button class="copy" data-copy="q-form">복사</button></div>
+    <div class="copybar"><span class="count" id="q-form-cnt"></span><button class="copy" data-copy="q-form">복사</button></div>
   </div>
 
   <div class="card">
@@ -265,7 +265,7 @@ footer a{color:var(--navy)}
   <div class="card">
     <div class="kv"><div class="k">내는 곳</div><div class="v">사회복지공동모금회(사랑의열매) · 보건복지부 후원</div></div>
     <div class="kv"><div class="k">마감</div><div class="v"><b>2027년 1월 15일(금)</b> — 아직 54일 남음</div></div>
-    <div class="kv"><div class="k">시상</div><div class="v">대상 200만(1명) · 최우수 100만(2명) · 우수 50만(4명) = <b>600만 원</b></div></div>
+    <div class="kv"><div class="k">시상</div><div class="v">대상 200만(1명) · 최우수 100만(2명) · 우수 50만(4명)<br>합계 <b>600만 원</b></div></div>
     <div class="kv"><div class="k">심사</div><div class="v">서면만 — 필요성 20 · 창의성 25 · 실현가능성 25 · 효과성 15 · 구체성 15</div></div>
     <div class="kv"><div class="k">준비물</div><div class="v">제안서 A4 2쪽 (규격 맞춰 완성 <b>✓</b>) — 한글·워드 파일과 PDF 준비됨</div></div>
   </div>
@@ -351,8 +351,10 @@ footer a{color:var(--navy)}
     try{document.execCommand('copy');done()}catch(e){say('길게 눌러 복사해 주세요')}
     document.body.removeChild(a);
   }
-  var fd=document.getElementById('q-form'),fc=document.getElementById('q-form-cnt');
-  if(fd&&fc)fc.textContent='작품 설명 · '+txt('q-form').replace(/\n/g,' ').length+'자';
+  ['q-title','q-desc','q-form'].forEach(function(id){
+    var box=document.getElementById(id),c=document.getElementById(id+'-cnt');
+    if(box&&c)c.textContent='길이 '+txt(id).replace(/\n/g,' ').length+'자';
+  });
 })();
 </script>
 </body>
