@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /preview/
 
 # AI 에이전트용 사이트 색인: https://soonsoo1004.github.io/llms.txt
 Sitemap: https://soonsoo1004.github.io/sitemap.xml
