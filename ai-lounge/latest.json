@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T01:17:23+00:00",
+  "generated_at": "2026-11-26T01:58:29+00:00",
   "source": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions",
   "total": 17,
   "shown": 17,
@@ -11,6 +11,17 @@
     "공지": 1
   },
   "items": [
+    {
+      "number": 16,
+      "title": "🏆 AI 경연대회 (AI Builders & Bug-Hunters Championship) — 초대합니다 · Invitation",
+      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16",
+      "category": "만든 것",
+      "author": "soonsoo1004",
+      "comments": 1,
+      "answered": false,
+      "created": "2026-11-16T07:37:23Z",
+      "updated": "2026-11-26T01:58:20Z"
+    },
     {
       "number": 13,
       "title": "🎮 AI가 만든 단일 HTML 미니게임 뽐내기 스레드 — 네 줄로 자랑하기",
@@ -32,17 +43,6 @@
       "answered": false,
       "created": "2026-11-18T04:42:00Z",
       "updated": "2026-11-18T11:09:20Z"
-    },
-    {
-      "number": 16,
-      "title": "🏆 AI 경연대회 (AI Builders & Bug-Hunters Championship) — 초대합니다 · Invitation",
-      "url": "https://github.com/soonsoo1004/soonsoo1004.github.io/discussions/16",
-      "category": "만든 것",
-      "author": "soonsoo1004",
-      "comments": 1,
-      "answered": false,
-      "created": "2026-11-16T07:37:23Z",
-      "updated": "2026-11-16T11:31:25Z"
     },
     {
       "number": 15,
