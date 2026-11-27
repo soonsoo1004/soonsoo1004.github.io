@@ -2,6 +2,9 @@
 <html lang="ko" data-theme="light">
 <head>
 <meta charset="utf-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-40Z0FSENYQ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-40Z0FSENYQ');</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>🎮 AI 놀이터 · 무광고 게임 열여덟 개 + 제1회 웹게임 제작 페스티벌</title>
 <meta name="description" content="AI 라운지에서 만든 무광고 게임 열세 개에 MIT 오픈소스 명작 5종(2048·타워 쌓기·Chogan 101종·스네이크·Flexbox Froggy)을 더한 열여덟 개를 바로 플레이하는 놀이터입니다. 테니스·탁구 듀얼 3D, 힐링 콤보 퍼즐, 힐링 벽돌깨기, 별빛 블록 드롭, 네온 블록 콤보, 사이버 타워 오르기, 꼬물꼬물 지렁이 대모험, 그리고 신작 수머라탱크·헛소리 박물관·대답하면 져!(질문만 받아치기)·별빛 피아노, 24장면 추리게임 사라진 네 번째 것, 60초 타이밍 게임 1분 승부. 제1회 무광고·중독성 최고 웹게임 제작 페스티벌(4대 명예 부문)도 함께 엽니다 — 가입·설치·광고·하트·결제 없이 폰에서 바로 시작합니다.">
@@ -232,6 +235,53 @@ footer nav a:hover{color:var(--ink)}
   *{transition:none !important;animation:none !important;scroll-behavior:auto !important}
   .card:hover,.btn:hover{transform:none}
 }
+
+/* ── xmas renewal ── */
+:root{--xg:#E8B84B;--xr:#C62828;--xr2:#E53935;--xe:#1E9E6A;--xa:var(--accent,var(--focus,#3182f6))}
+html[data-theme="light"]{--xrt:#B71C1C;--xet:#0F7A50}
+html[data-theme="dark"]{--xrt:#FF8A80;--xet:#5FE0A8}
+body{min-height:100vh;min-height:100dvh;padding-bottom:env(safe-area-inset-bottom)}
+img.xc{display:block;object-fit:contain;flex:0 0 auto;max-width:none;-webkit-user-drag:none;user-select:none;pointer-events:none}
+#xsnow{position:fixed;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,footer{position:relative;z-index:1}
+.xhub-sec{padding:14px 0 6px}
+.xhub{display:flex;flex-direction:column;gap:12px}
+.xtop{display:flex;align-items:center;gap:12px}
+.xtop .xh{margin:0;font-size:clamp(1.4rem,6vw,2.2rem);line-height:1.22;letter-spacing:-.045em;font-weight:850;max-width:none}
+.xtop .xh em{font-style:normal;color:var(--xrt)}
+.xrib{height:10px;border-radius:6px;background:repeating-linear-gradient(90deg,var(--xr) 0 18px,var(--xg) 18px 24px,var(--xe) 24px 42px,var(--xg) 42px 48px)}
+.xbtns{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+a.xb{display:flex;align-items:center;gap:12px;min-height:64px;padding:8px 14px;border-radius:18px;
+  border:2px solid var(--line2,var(--line));border-left-width:6px;background:var(--card);color:var(--ink);
+  box-shadow:0 2px 0 rgba(0,0,0,.06);touch-action:manipulation;text-decoration:none}
+a.xb:active{transform:translateY(1px)}
+a.xb.c1{border-left-color:var(--xr)}a.xb.c2{border-left-color:var(--xe)}a.xb.c3{border-left-color:var(--xg)}a.xb.c4{border-left-color:var(--xr)}
+a.xb .xt{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+a.xb .xn{font-size:16px;font-weight:800;letter-spacing:-.03em}
+a.xb .xs{font-size:12px;color:var(--ink2);letter-spacing:-.01em}
+a.xb .xg{margin-left:auto;color:var(--xrt);font-weight:800}
+a.xb:focus-visible,.xnew:focus-visible{outline:3px solid var(--xa);outline-offset:2px}
+.xnew{display:inline-block;background:var(--xr);color:#fff;font-size:10.5px;font-weight:800;letter-spacing:.04em;padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.xorn{display:inline-block;vertical-align:middle}
+@media(min-width:760px){.xbtns{grid-template-columns:repeat(4,minmax(0,1fr))}a.xb{flex-direction:column;justify-content:center;text-align:center;min-height:132px;border-left-width:2px;border-top:6px solid var(--xr)}
+ a.xb.c2{border-top-color:var(--xe)}a.xb.c3{border-top-color:var(--xg)}a.xb .xg{display:none}}
+@media(max-width:640px){
+  a.tbtn,button.tbtn,.chip,.pill,.fbtn,.fchip,.cat,.btn{min-height:44px}
+}
+@media(max-width:760px),(pointer:coarse){
+  a.brand,a.skip,a.more,a.tbtn,button.tbtn,button.copy,.seg button,footer nav a,.demos a,.copyrow a{min-height:44px;min-width:44px}
+  a.brand,a.more,footer nav a,.copyrow a,.demos a{display:inline-flex;align-items:center}
+  a.skip{display:flex;align-items:center}
+  .fine a,.note a,.lede a,p a{padding:15px 16px;margin:0 -16px}
+}
+@media (prefers-reduced-motion:reduce){#xsnow{display:none}}
+.card{position:relative}
+.card .xbd{position:absolute;top:10px;right:10px;width:32px;height:32px}
+.xgt{display:flex;align-items:center;justify-content:center;gap:12px}
+.xgt h1{margin-top:0;text-align:left}
+.xinvb{display:inline-flex;align-items:center;gap:10px;min-height:48px;margin-top:16px;padding:6px 18px 6px 12px;border-radius:999px;border:2px solid var(--xe);background:var(--card);color:var(--ink);font-weight:800;font-size:14px;touch-action:manipulation}
+.xinvb .xs{font-size:12px;font-weight:600;color:var(--ink2)}
+.xfoot{display:flex;gap:10px;justify-content:center;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -258,8 +308,9 @@ footer nav a:hover{color:var(--ink)}
   <section class="hero">
     <div class="wrap">
       <p class="kick"><span class="dot" aria-hidden="true"></span>AI가 만든 게임 · made with AI</p>
-      <h1>손가락으로<br><em>바로 해 보세요</em></h1>
+      <div class="xgt"><img class="xc" src="/assets/xmas/xmas_santa.png" alt="" aria-hidden="true" width="80" height="80" decoding="async" loading="eager" fetchpriority="high" draggable="false"><h1>손가락으로<br><em>바로 해 보세요</em></h1></div>
       <p class="lede">라운지에서 만든 게임 열세 개와 MIT 오픈소스 명작 다섯 개, 모두 열여덟 개입니다. 가입 없고, 설치 없고, 광고도 하트도 결제도 없습니다. 폰에서 열면 바로 시작합니다.</p>
+      <a class="xinvb" href="https://soonsoo1004.github.io/invite-hub.html"><img class="xc" src="/assets/xmas/xmas_rudolph.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="eager" fetchpriority="high" draggable="false"><span>🎟️ AI 초대장 허브 <span class="xs">초대코드 한곳에</span></span></a>
       <ul class="facts">
         <li><b>18종</b> · 무광고 게임</li>
         <li><b>가입 없음</b></li>
@@ -281,7 +332,7 @@ footer nav a:hover{color:var(--ink)}
   <section id="games" class="sec">
     <div class="wrap">
       <div class="cards">
-        <a class="card" href="dual-racket-3d.html">
+        <a class="card" href="dual-racket-3d.html"><span class="xbd" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_santa.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="lazy" draggable="false"></span>
           <span class="art" aria-hidden="true">🎾</span>
           <span class="nm">테니스 &amp; 탁구 듀얼 3D</span>
           <span class="en">Dual Racket 3D</span>
@@ -297,7 +348,7 @@ footer nav a:hover{color:var(--ink)}
           <span class="tags"><span>매치3</span><span>연쇄 콤보</span><span>12간지 6종</span></span>
           <span class="go">바로 플레이 <span aria-hidden="true">→</span></span>
         </a>
-        <a class="card" href="brick-breaker.html">
+        <a class="card" href="brick-breaker.html"><span class="xbd" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_snowman.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="lazy" draggable="false"></span>
           <span class="art" aria-hidden="true">🏰</span>
           <span class="nm">힐링 벽돌깨기 · 석재 던전</span>
           <span class="en">Brick Breaker · Stone Dungeon</span>
@@ -313,7 +364,7 @@ footer nav a:hover{color:var(--ink)}
           <span class="tags"><span>8×8 퍼즐</span><span>회전 3회</span><span>되돌리기 1회</span><span>콤보 배율</span><span>v2 · 억지 막힘 제거</span></span>
           <span class="go">바로 플레이 <span aria-hidden="true">→</span></span>
         </a>
-        <a class="card" href="starlight-block/">
+        <a class="card" href="starlight-block/"><span class="xbd" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_rudolph.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="lazy" draggable="false"></span>
           <span class="art" aria-hidden="true">🌟</span>
           <span class="nm">별빛 블록 드롭</span>
           <span class="en">Starlight Blocks</span>
@@ -329,7 +380,7 @@ footer nav a:hover{color:var(--ink)}
           <span class="tags"><span>원터치 등반</span><span>무한 타워</span><span>4구역 배경</span><span>Web Audio 합성</span></span>
           <span class="go">바로 플레이 <span aria-hidden="true">→</span></span>
         </a>
-        <a class="card" href="cute-worm.html">
+        <a class="card" href="cute-worm.html"><span class="xbd" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_tree.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="lazy" draggable="false"></span>
           <span class="art" aria-hidden="true">🐛</span>
           <span class="nm">꼬물꼬물 지렁이 대모험</span>
           <span class="en">Cute Worm Adventure</span>
@@ -369,7 +420,7 @@ footer nav a:hover{color:var(--ink)}
           <span class="tags"><span>24장면 추리</span><span>짧은 판 6장면</span><span>반전 72가지</span><span>최고 기록 저장</span><span>신작</span><span>무광고</span></span>
           <span class="go">바로 플레이 <span aria-hidden="true">→</span></span>
         </a>
-        <a class="card" href="one-minute-just-tap.html">
+        <a class="card" href="one-minute-just-tap.html"><span class="xbd" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_penguin.png" alt="" aria-hidden="true" width="32" height="32" decoding="async" loading="lazy" draggable="false"></span>
           <span class="art" aria-hidden="true">⏱️</span>
           <span class="nm">1분 승부 · 저스트 탭 래더</span>
           <span class="en">One Minute Just Tap</span>
@@ -552,6 +603,7 @@ footer nav a:hover{color:var(--ink)}
 
 <footer>
   <div class="wrap">
+    <div class="xfoot" aria-hidden="true"><img class="xc" src="/assets/xmas/xmas_penguin.png" alt="" aria-hidden="true" width="48" height="48" decoding="async" loading="lazy" draggable="false"><img class="xc" src="/assets/xmas/xmas_tree.png" alt="" aria-hidden="true" width="48" height="48" decoding="async" loading="lazy" draggable="false"></div>
     <span class="fbrand"><span class="logo" aria-hidden="true">1004</span>천장지구 1004 · AI 놀이터</span>
     <nav aria-label="바깥 링크">
       <a href="../ai-lounge/">라운지</a>
@@ -574,6 +626,33 @@ footer nav a:hover{color:var(--ink)}
   function paint(){var d=root.getAttribute("data-theme")==="dark";txt.textContent=d?"DARK":"LIGHT";btn.setAttribute("aria-label",d?"라이트 모드로 전환":"다크 모드로 전환");}
   paint();
   btn.addEventListener("click",function(){var d=root.getAttribute("data-theme")==="dark";root.setAttribute("data-theme",d?"light":"dark");try{localStorage.setItem("cj-theme",d?"light":"dark");}catch(e){}paint();});
+})();
+</script>
+<canvas id="xsnow" aria-hidden="true"></canvas>
+<script>
+(function(){
+var c=document.getElementById("xsnow");if(!c||!c.getContext)return;
+var mq=window.matchMedia?matchMedia("(prefers-reduced-motion: reduce)"):null;
+if(mq&&mq.matches){c.parentNode.removeChild(c);window.__xsnow={n:0,reduced:true};return}
+var x=c.getContext("2d"),W=0,H=0,dpr=Math.min(window.devicePixelRatio||1,2),f=[],last=0,raf=0,N=0;
+function size(){W=window.innerWidth;H=window.innerHeight;c.width=Math.round(W*dpr);c.height=Math.round(H*dpr);x.setTransform(dpr,0,0,dpr,0,0);
+  N=Math.max(28,Math.min(40,Math.round(W/12)));
+  while(f.length<N)f.push({x:Math.random()*W,y:Math.random()*H,r:1.4+Math.random()*2.2,v:16+Math.random()*28,a:6+Math.random()*14,p:Math.random()*6.28});
+  f.length=N;window.__xsnow={n:N,reduced:false}}
+function draw(t){raf=0;if(document.hidden)return;
+  var dt=last?Math.min((t-last)/1000,0.033):0.016;last=t;
+  var dark=document.documentElement.getAttribute("data-theme")==="dark";
+  x.clearRect(0,0,W,H);x.fillStyle=dark?"rgba(255,255,255,.85)":"rgba(110,155,210,.7)";
+  x.beginPath();
+  for(var i=0;i<f.length;i++){var s=f[i];s.y+=s.v*dt;s.p+=dt*0.9;var px=s.x+Math.sin(s.p)*s.a;
+    if(s.y>H+6){s.y=-6;s.x=Math.random()*W}
+    x.moveTo(px+s.r,s.y);x.arc(px,s.y,s.r,0,6.2832)}
+  x.fill();raf=requestAnimationFrame(draw)}
+function go(){if(!raf&&!document.hidden){last=0;raf=requestAnimationFrame(draw)}}
+size();window.addEventListener("resize",size);
+document.addEventListener("visibilitychange",function(){if(document.hidden){if(raf){cancelAnimationFrame(raf);raf=0}}else go()});
+if(mq&&mq.addEventListener)mq.addEventListener("change",function(e){if(e.matches){if(raf)cancelAnimationFrame(raf);raf=0;if(c.parentNode)c.parentNode.removeChild(c);window.__xsnow={n:0,reduced:true}}});
+go();
 })();
 </script>
 </body>
