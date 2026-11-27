@@ -36,6 +36,11 @@ background:#123341bb;user-select:none}
 #hint{position:fixed;bottom:34px;left:24px;font-size:12px;
 color:#8298b3;pointer-events:none}
 .hidden{display:none!important}
+#tools{position:fixed;top:120px;right:22px;display:flex;gap:8px}
+#tools button{padding:8px 12px;font-size:15px;border-radius:12px}
+#buffs{position:fixed;top:130px;left:22px;font-size:14px;font-weight:800;pointer-events:none;line-height:1.7}
+#pop{position:fixed;top:38%;left:0;right:0;text-align:center;font-size:30px;font-weight:900;color:#4affee;
+text-shadow:0 0 25px #4affee;pointer-events:none;opacity:0;transition:opacity .3s}
 </style>
 </head>
 <body>
@@ -47,13 +52,15 @@ color:#8298b3;pointer-events:none}
   <div class="bar"><div id="energy"></div></div>
   <div class="label" style="margin-top:8px">DASH ENERGY</div></div>
 </div>
-<div id="hint">← → 이동 · SPACE 대시</div>
+<div id="tools"><button id="mute">🔊</button><button id="pause">⏸</button></div>
+<div id="buffs"></div><div id="pop"></div>
+<div id="hint">← → 이동 · SPACE 대시 · P 일시정지</div>
 <button id="dash">⚡ DASH</button>
 <div id="overlay"><div class="panel">
   <h1>NEON<br><span>RUSH</span></h1>
-  <p id="message">속도를 지배하세요.<br>코인을 연결하고, 대시로 장애물을 부수세요.</p>
+  <p id="message">속도를 지배하세요.<br>코인을 연결하고, 대시로 장애물을 부수세요.<br>🛡 방패 · 🧲 자석 · ✖2 점수 아이템 · 아슬아슬 회피 보너스</p>
   <button id="start">질주 시작 →</button>
-  <p style="font-size:12px">방향키 / A · D / 좌우 스와이프</p>
+  <p style="font-size:12px">방향키 / A · D / 좌우 스와이프 · 화면 탭 = 대시</p>
 </div></div>
 <script>
 "use strict";
@@ -75,12 +82,14 @@ $("best").textContent=best;
 let playing=false,lane=0,playerX=0,score=0,combo=0,energy=100;
 let dashTime=0,speed=24,elapsed=0,travel=0,spawn=0,shake=0;
 let objects=[],particles=[],last=performance.now(),audio;
+let paused=false,muted=false,shield=false,magnet=0,double=0,nextMilestone=1000,popT=0;
+try{muted=localStorage.getItem("neon-rush-mute")==="1"}catch{}
 const stars=Array.from({length:75},()=>({
   x:Math.random(),y:Math.random()*.5,r:Math.random()*1.5+.3
 }));
 
 function beep(freq,duration=.09,type="sine",volume=.035){
-  if(!audio)return;
+  if(!audio||muted)return;
   const o=audio.createOscillator(),g=audio.createGain();
   o.type=type;o.frequency.setValueAtTime(freq,audio.currentTime);
   g.gain.setValueAtTime(volume,audio.currentTime);
@@ -95,7 +104,7 @@ function start(){
   }catch{}
   playing=true;lane=0;playerX=0;score=0;combo=0;energy=100;
   dashTime=0;speed=24;elapsed=0;travel=0;spawn=.25;shake=0;
-  objects=[];particles=[];
+  objects=[];particles=[];paused=false;shield=false;magnet=0;double=0;nextMilestone=1000;
   $("overlay").classList.add("hidden");
 }
 function move(dir){if(playing)lane=Math.max(-1,Math.min(1,lane+dir))}
@@ -103,7 +112,18 @@ function dash(){
   if(!playing||energy<38||dashTime>0)return;
   energy-=38;dashTime=.75;shake=5;beep(150,.2,"sawtooth",.025);
 }
-$("start").onclick=start;
+function pop(t){$("pop").textContent=t;$("pop").style.opacity=1;popT=1.1}
+function togglePause(){
+  if(!playing)return;paused=!paused;
+  $("message").innerHTML="일시정지<br>점수 "+Math.floor(score).toLocaleString();
+  $("start").textContent="계속하기 →";
+  $("overlay").classList.toggle("hidden",!paused);
+}
+$("start").onclick=()=>paused?togglePause():start();
+$("pause").onpointerdown=e=>{e.preventDefault();togglePause()};
+$("mute").textContent=muted?"🔇":"🔊";
+$("mute").onpointerdown=e=>{e.preventDefault();muted=!muted;$("mute").textContent=muted?"🔇":"🔊";
+  try{localStorage.setItem("neon-rush-mute",muted?"1":"0")}catch{}};
 $("dash").onpointerdown=e=>{e.preventDefault();dash()};
 addEventListener("keydown",e=>{
   if(["ArrowLeft","ArrowRight","Space","Enter"].includes(e.code))
@@ -112,6 +132,7 @@ addEventListener("keydown",e=>{
   if(e.code==="ArrowLeft"||e.code==="KeyA")move(-1);
   if(e.code==="ArrowRight"||e.code==="KeyD")move(1);
   if(e.code==="Space")dash();
+  if(e.code==="KeyP"||e.code==="Escape")togglePause();
   if(e.code==="Enter"&&!playing)start();
 });
 let touchX=null;
@@ -119,7 +140,7 @@ canvas.addEventListener("pointerdown",e=>{touchX=e.clientX});
 canvas.addEventListener("pointerup",e=>{
   if(touchX===null)return;
   const dx=e.clientX-touchX;
-  if(Math.abs(dx)>20)move(Math.sign(dx));
+  if(Math.abs(dx)>20)move(Math.sign(dx));else dash();
   touchX=null;
 });
 canvas.addEventListener("pointercancel",()=>touchX=null);
@@ -159,14 +180,20 @@ function burst(x,z,color,count=24){
 function wave(){
   const safe=Math.floor(Math.random()*3)-1;
   for(let l=-1;l<=1;l++){
-    if(l!==safe&&Math.random()<.78)
-      objects.push({type:"wall",x:l*2,z:100,done:false});
+    if(l!==safe&&Math.random()<.78){
+      const moving=elapsed>20&&Math.random()<Math.min(.35,(elapsed-20)/120);
+      objects.push({type:"wall",x:l*2,base:l*2,z:100,done:false,moving,ph:Math.random()*6});
+    }
   }
-  for(let i=0;i<4;i++)
-    objects.push({type:"coin",x:safe*2,z:100+i*2.6,done:false});
+  if(Math.random()<.12){
+    objects.push({type:["shield","magnet","double"][Math.floor(Math.random()*3)],x:safe*2,z:104,done:false});
+  }else{
+    for(let i=0;i<4;i++)
+      objects.push({type:"coin",x:safe*2,z:100+i*2.6,done:false});
+  }
 }
 function end(){
-  playing=false;shake=15;beep(65,.4,"sawtooth",.05);
+  playing=false;paused=false;shake=15;if(navigator.vibrate)navigator.vibrate(150);beep(65,.4,"sawtooth",.05);
   const final=Math.floor(score),record=final>best;
   best=Math.max(best,final);
   try{localStorage.setItem("neon-rush-best",best)}catch{}
@@ -183,32 +210,57 @@ function update(dt){
     p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=260*dt;p.life-=dt;
   });
   particles=particles.filter(p=>p.life>0);
-  if(!playing)return;
+  popT=Math.max(0,popT-dt);if(popT<=0)$("pop").style.opacity=0;
+  if(!playing||paused)return;
+  magnet=Math.max(0,magnet-dt);double=Math.max(0,double-dt);
   elapsed+=dt;speed=Math.min(58,24+elapsed*.48);
   dashTime=Math.max(0,dashTime-dt);
   energy=Math.min(100,energy+dt*9);
   const velocity=speed*(dashTime>0?1.35:1);
-  travel+=velocity*dt;score+=velocity*dt*2;
+  const mult=double>0?2:1;
+  travel+=velocity*dt;score+=velocity*dt*2*mult;
+  if(score>=nextMilestone){pop(nextMilestone.toLocaleString()+"!");beep(880,.15,"triangle",.04);nextMilestone+=nextMilestone<5000?1000:5000;}
   playerX+=(lane*2-playerX)*(1-Math.exp(-dt*19));
   spawn-=dt;
   if(spawn<=0){wave();spawn=35/speed}
   for(const o of objects){
     const previous=o.z;o.z-=velocity*dt;
+    if(o.moving&&!o.done)o.x=Math.max(-2,Math.min(2,o.base+Math.sin(elapsed*2.2+o.ph)*1.1));
+    if(o.type==="coin"&&magnet>0&&!o.done&&o.z<14)o.x+=(playerX-o.x)*Math.min(1,dt*8);
     if(!o.done&&previous>3&&o.z<=3){
       o.done=true;
+      if(o.type!=="wall"&&o.type!=="coin"){
+        if(Math.abs(o.x-playerX)<.9){
+          if(o.type==="shield"){shield=true;pop("🛡 방패");}
+          if(o.type==="magnet"){magnet=7;pop("🧲 자석");}
+          if(o.type==="double"){double=8;pop("✖2 점수");}
+          burst(o.x,3,"#b48cff",30);beep(700,.2,"triangle",.05);
+        }
+        continue;
+      }
       if(Math.abs(o.x-playerX)<.83){
         if(o.type==="coin"){
-          combo++;score+=30+Math.min(combo,30)*3;
+          combo++;score+=(30+Math.min(combo,30)*3)*mult;
           energy=Math.min(100,energy+1.7);
           burst(o.x,3,"#ffdc6e",12);
           beep(520+Math.min(combo,20)*35,.06);
         }else if(dashTime>0){
           score+=100;shake=8;burst(o.x,3,"#ff488e",35);
           beep(95,.13,"triangle",.07);
+        }else if(shield){
+          shield=false;shake=10;burst(o.x,3,"#4affee",40);pop("방패 파괴!");
+          beep(240,.2,"triangle",.06);if(navigator.vibrate)navigator.vibrate(60);
         }else{
           burst(playerX,3,"#4affee",45);end();break;
         }
-      }else if(o.type==="coin"){combo=0}
+      }else if(o.type==="shield"||o.type==="magnet"||o.type==="double"){
+      const c={shield:["#7dfff0","#127c86","#2dc3c9","#d8fffb"],magnet:["#c99bff","#4b2386","#8550d6","#eadbff"],
+        double:["#ffe36e","#86621a","#d3a630","#fff6c8"]}[o.type];
+      box(o.x,.5+Math.sin(elapsed*4)*.15,o.z,.8,.8,.8,c);
+    }else if(o.type==="coin"){combo=0}
+      else if(Math.abs(o.x-playerX)<1.6&&dashTime<=0){
+        score+=25*mult;energy=Math.min(100,energy+4);beep(1200,.04,"sine",.02);
+      }
     }
   }
   objects=objects.filter(o=>o.z>-3&&!(o.done&&o.type==="coin"));
@@ -275,6 +327,8 @@ function draw(){
         ["#65fff0","#117a96","#20bfd0","#aefff6"]);
       box(o.x,.48,3.15,.48,.24,.6,
         ["#d2fcff","#13526f","#287f9c","#8defff"]);
+      if(shield){const p=project(o.x,.45,3);ctx.strokeStyle="#4affeeaa";ctx.lineWidth=3;
+        ctx.beginPath();ctx.ellipse(p.x,p.y,p.s*.75,p.s*.45,0,0,Math.PI*2);ctx.stroke();}
     }
   }
   for(const p of particles){
@@ -294,13 +348,14 @@ function draw(){
   $("score").textContent=Math.floor(score).toLocaleString();
   $("combo").textContent=combo>1?combo+" COMBO · +"+(30+Math.min(combo,30)*3):"";
   $("energy").style.width=energy+"%";
+  $("buffs").innerHTML=(shield?"🛡 방패<br>":"")+(magnet>0?"🧲 "+magnet.toFixed(1)+"s<br>":"")+(double>0?"✖2 "+double.toFixed(1)+"s":"");
   $("dash").style.opacity=energy>=38?"1":".4";
 }
 function frame(now){
   const dt=Math.min((now-last)/1000,.035);last=now;
   update(dt);draw();requestAnimationFrame(frame);
 }
-document.addEventListener("visibilitychange",()=>{last=performance.now()});
+document.addEventListener("visibilitychange",()=>{last=performance.now();if(document.hidden&&playing&&!paused)togglePause()});
 requestAnimationFrame(frame);
 </script>
 </body>
