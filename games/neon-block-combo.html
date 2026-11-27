@@ -22,7 +22,7 @@
   html,body{margin:0;padding:0;height:100%;background:#04050c;}
   body{overflow:hidden;overscroll-behavior:none;-webkit-text-size-adjust:100%;
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;}
-  #nbc{position:fixed;inset:0;height:100vh;height:100dvh;display:flex;flex-direction:column;
+  #nbc{position:fixed;inset:0;height:100vh;height:100dvh;box-sizing:border-box;display:flex;flex-direction:column;
     padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);
     background:
       radial-gradient(120% 70% at 50% -12%, rgba(60,90,220,.38) 0%, rgba(8,10,26,0) 62%),
@@ -43,7 +43,7 @@
     background:linear-gradient(180deg,#7dffd1,#25d9ff);
     box-shadow:0 0 18px rgba(60,240,220,.55);}
   .nbc-tools{display:flex;gap:6px;flex:0 0 auto;}
-  .nbc-ico{width:34px;height:34px;padding:0;border-radius:11px;font-size:14px;line-height:1;
+  .nbc-ico{width:44px;height:44px;padding:0;border-radius:11px;font-size:14px;line-height:1;
     border:1px solid rgba(130,190,255,.18);background:rgba(18,26,50,.72);color:#cfe6ff;
     display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s,border-color .15s,transform .08s;}
   .nbc-ico:active{transform:scale(.94);}
@@ -344,7 +344,16 @@ function newTray(){
   var hasSmall = false, i;
   for (i = 0; i < 3; i++) if (a[i].n <= 3) hasSmall = true;
   if (!hasSmall) a[Math.floor(Math.random() * 3)] = smallShape();
-  return [makePiece(a[0]), makePiece(a[1]), makePiece(a[2])];
+  var t = [makePiece(a[0]), makePiece(a[1]), makePiece(a[2])];
+  /* 최소 1조각은 지금 판에 실제로 놓을 수 있게 보장(회전 전 기준) */
+  var ok = false, k, tries = 0;
+  for (k = 0; k < 3; k++) if (anyFit(G.board, t[k])) ok = true;
+  while (!ok && G.board && emptyCount(G.board) > 0 && tries < 40){
+    var cand = makePiece(smallShape());
+    tries++;
+    if (anyFit(G.board, cand)){ t[Math.floor(Math.random() * 3)] = cand; ok = true; }
+  }
+  return t;
 }
 function cellsKey(cells){
   return cells.map(function(a){ return a[0] + ',' + a[1]; }).sort().join(';');
