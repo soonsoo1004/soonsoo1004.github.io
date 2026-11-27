@@ -41,11 +41,36 @@ em.ok{background:rgba(124,245,199,.16);color:#a8ffdc}
 .b.main{background:hsl(var(--h),55%,42%);border-color:transparent}
 .n{margin-top:14px;font-size:13px;text-align:center;color:#aab3cf}
 .n a{color:#9fb2ff;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0 8px;vertical-align:middle}
+
+.x{margin:10px 0 14px;padding:14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(143,162,255,.45)}
+.x h2{font-size:16px;margin-bottom:8px}.tabs{display:flex;gap:6px;margin-bottom:10px}.tabs button{flex:1;min-height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#c9d0e6;font:inherit;font-weight:700}
+.tabs button[aria-selected=true]{background:#4f6bff;color:#fff;border-color:#8fa2ff}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}.chips button{min-height:40px;padding:0 12px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#dfe4f5;font:inherit;font-size:13px}
+.chips button[aria-pressed=true]{background:#a24fff;color:#fff;border-color:#d3a8ff}
+.go{width:100%;min-height:50px;border:0;border-radius:12px;background:linear-gradient(135deg,#4f6bff,#a24fff);color:#fff;font:inherit;font-size:16px;font-weight:800}
+.go:disabled{opacity:.5}
+.res{margin-top:10px;padding:12px;border-radius:12px;background:rgba(0,0,0,.25);font-size:14px;word-break:break-all}
+.res .lk{display:block;margin:6px 0;color:#a8ffdc;font-weight:700}
+.res .row{display:flex;gap:6px;margin-top:8px}.res .row a,.res .row button{flex:1;min-height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:13px;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.res .row .main{background:#2bb58a;border-color:transparent;font-weight:700}
+.x label{display:block;font-size:13px;color:#aab3cf;margin:8px 0 4px}.x input,.x select{width:100%;min-height:46px;border-radius:10px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.25);color:#fff;font:inherit;padding:0 10px}
+.left{font-size:12px;color:#aab3cf;margin-left:4px}.note{font-size:12px;color:#aab3cf;margin-top:8px}
 </style></head><body>
 <header><h1>AI 초대장 허브</h1>
 <div class="f" role="group" aria-label="필터"><button aria-pressed="true" data-f="all">전체</button><button aria-pressed="false" data-f="official">공식 사이트</button><button aria-pressed="false" data-f="unk">확인 중</button><button aria-pressed="false" data-f="ko">한국어지원</button></div></header>
-<p class="s">① AI 고르기 → ② 버튼 눌러 이동 · 초대장은 카페에서 받기</p>
-<div class="t"><a href="https://cafe.naver.com/ailounge1004" target="_blank" rel="noopener noreferrer">네이버 카페 초대장 나눔방 열기 →</a></div>
+<p class="s">① 교환함에서 받기·나누기 → ② 공식 사이트에서 가입</p>
+<div class="t"><a href="https://cafe.naver.com/ailounge1004" target="_blank" rel="noopener noreferrer">네이버 카페 나눔방도 열기 →</a></div>
+
+<section class="x" aria-labelledby="xh"><h2 id="xh">🎟️ 초대장 교환함</h2>
+<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="get">초대장 받기</button><button role="tab" aria-selected="false" data-t="give">내 초대장 나누기</button></div>
+<div id="pget"><div class="chips" id="chips"></div><button class="go" id="getb" disabled>서비스를 고르세요</button><div class="res" id="gres" hidden></div></div>
+<div id="pgive" hidden>
+<label for="gs">서비스</label><select id="gs"></select>
+<label for="gl">내 초대 링크 또는 코드</label><input id="gl" placeholder="예: https://pickle.com/i/..." autocomplete="off">
+<label for="gq">나눌 수 있는 인원(정원)</label><input id="gq" type="number" min="1" max="50" value="5" inputmode="numeric">
+<button class="go" id="giveb" style="margin-top:12px">등록하기</button><div class="res" id="vres" hidden></div>
+<p class="note">등록한 링크는 받는 사람에게 공개됩니다. 공식 도메인 링크만 받아요.</p></div>
+</section>
 <p class="s" id="cnt" aria-live="polite">8개 중 8개</p>
 <main class="g" id="g">
 <article class="c" data-ko="1" data-s="official" style="--h:210"><div class="r"><span class="i" aria-hidden="true">P</span><b>피클 Pickle</b><em class="ok">공식 확인</em></div><p>한국어 화면 확인 · 나만의 AI 에이전트</p><div class="a"><a class="b main" href="https://pickle.com" target="_blank" rel="noopener noreferrer">공식 열기</a><a class="b" href="https://cafe.naver.com/ailounge1004" target="_blank" rel="noopener noreferrer">카페</a></div></article>
@@ -72,4 +97,60 @@ B.forEach(function(b){b.onclick=function(){
   document.getElementById("cnt").textContent=ALL+"개 중 "+n+"개";
   document.getElementById("none").hidden=n>0;
 }});
-</script></body></html>
+</script><script>
+(function(){
+var SHEET_ID="1hiQo8Z_n08YMiOc2QS9QOqDkIATPcKduj3ItqOilQjw";
+var FORM="https://docs.google.com/forms/d/e/1FAIpQLSe5EdzBz5zPqo1NLLUKRT_myYqowhwogdkuLVqZ29g9Yj1QBw/formResponse";
+var E={type:"entry.662776214",service:"entry.644104851",link:"entry.1921309140",quota:"entry.391645924"};
+var SV=[
+ {id:"pickle",n:"피클 Pickle",d:["pickle.com"],code:false},
+ {id:"vooy",n:"vooy",d:["vooy.com"],code:true},
+ {id:"keyring",n:"키링",d:[],code:true},
+ {id:"muse",n:"Muse",d:[],code:true},
+ {id:"channelx",n:"채널X",d:["ch.xyz"],code:false},
+ {id:"duet",n:"Claude Duet",d:["claude.ai","claude.com"],code:false},
+ {id:"cue",n:"Cue by Manus",d:["cue.im","manus.im"],code:true},
+ {id:"instinct",n:"Instinct",d:["instinct.com"],code:false}
+];
+var REPORT_MAX=2,data=null,sel=null;
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function isUrl(s){return /^https:\/\//i.test(s)}
+function okDomain(sv,s){try{var h=new URL(s).hostname.toLowerCase();return sv.d.some(function(d){return h==d||h.endsWith("."+d)})}catch(e){return false}}
+function valid(sv,s){s=s.trim();if(!s||s.length>300)return false;if(isUrl(s))return okDomain(sv,s);return sv.code&&/^[A-Za-z0-9\-_]{4,40}$/.test(s)}
+function post(o){var f=new URLSearchParams();Object.keys(o).forEach(function(k){f.append(E[k],o[k])});return fetch(FORM,{method:"POST",mode:"no-cors",body:f})}
+function load(){
+ return fetch("https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/gviz/tq?tqx=out:json&headers=1&t="+Date.now()).then(function(r){return r.text()}).then(function(t){
+  var j=JSON.parse(t.slice(t.indexOf("{"),t.lastIndexOf("}")+1));var cols=j.table.cols.map(function(c){return (c.label||"").trim()});
+  var ix=function(n){return cols.indexOf(n)};var rows=(j.table.rows||[]).map(function(r){var g=function(n){var c=r.c[ix(n)];return c&&c.v!=null?String(c.v).trim():""};return{type:g("type"),service:g("service"),link:g("link"),quota:parseInt(g("quota"))||1}});
+  var L={};
+  rows.forEach(function(r){var sv=SV.find(function(s){return s.id==r.service});if(!sv)return;var k=r.service+"|"+r.link;
+   if(r.type=="give"&&valid(sv,r.link)){if(!L[k])L[k]={s:r.service,link:r.link,q:Math.min(r.quota,50),c:0,rp:0}}
+   else if(L[k]&&r.type=="claim")L[k].c++;else if(L[k]&&r.type=="report")L[k].rp++;});
+  data=L;return L;});
+}
+function avail(id){if(!data)return[];return Object.keys(data).map(function(k){return data[k]}).filter(function(x){return x.s==id&&x.c<x.q&&x.rp<REPORT_MAX}).sort(function(a,b){return a.c-b.c})}
+function chips(){var h="";SV.forEach(function(s){var n=avail(s.id).reduce(function(a,x){return a+(x.q-x.c)},0);h+='<button aria-pressed="false" data-id="'+s.id+'">'+esc(s.n)+'<span class="left">'+(data?n:"…")+'</span></button>'});$("chips").innerHTML=h;
+ $("chips").querySelectorAll("button").forEach(function(b){b.onclick=function(){$("chips").querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");sel=b.dataset.id;var sv=SV.find(function(s){return s.id==sel});$("getb").disabled=false;$("getb").textContent=sv.n+" 초대장 받기";$("gres").hidden=true}})}
+function mine(id){try{return JSON.parse(localStorage.getItem("ih_"+id)||"null")}catch(e){return null}}
+function show(id,link){var sv=SV.find(function(s){return s.id==id});var r=$("gres");r.hidden=false;
+ r.innerHTML='배정된 '+esc(sv.n)+' 초대'+(isUrl(link)?' 링크':' 코드')+'<span class="lk">'+esc(link)+'</span>'+(isUrl(link)?'주소창 도메인이 공식 사이트인지 확인하세요.':'가입 화면에서 이 코드를 입력하세요.')+
+ '<div class="row">'+(isUrl(link)?'<a class="main" href="'+esc(link)+'" target="_blank" rel="noopener noreferrer">바로 열기</a>':'<button class="main" id="cp">코드 복사</button>')+'<button id="rp">만료됨 · 신고</button></div>';
+ var cp=$("cp");if(cp)cp.onclick=function(){navigator.clipboard&&navigator.clipboard.writeText(link);cp.textContent="복사됨"};
+ $("rp").onclick=function(){post({type:"report",service:id,link:link,quota:""});localStorage.removeItem("ih_"+id);$("rp").textContent="신고됨 · 다시 받기를 누르세요";$("rp").disabled=true;if(data){var k=id+"|"+link;if(data[k])data[k].rp=REPORT_MAX}}}
+$("getb").onclick=function(){if(!sel)return;var b=$("getb");b.disabled=true;b.textContent="확인 중…";
+ load().then(function(){var m=mine(sel);if(m&&data[sel+"|"+m]&&data[sel+"|"+m].rp<REPORT_MAX){show(sel,m);return}
+  var a=avail(sel);if(!a.length){$("gres").hidden=false;$("gres").innerHTML="지금 남은 초대장이 없어요. 나중에 다시 오거나 카페 나눔방을 확인하세요.";return}
+  var p=a[0];post({type:"claim",service:sel,link:p.link,quota:""});p.c++;localStorage.setItem("ih_"+sel,JSON.stringify(p.link));show(sel,p.link)})
+ .catch(function(){$("gres").hidden=false;$("gres").textContent="불러오지 못했어요. 잠시 뒤 다시 눌러주세요."})
+ .then(function(){b.disabled=false;b.textContent=SV.find(function(s){return s.id==sel}).n+" 초대장 받기";chips();var c=$("chips").querySelector('[data-id="'+sel+'"]');if(c)c.setAttribute("aria-pressed","true")})};
+var gs=$("gs");SV.forEach(function(s){var o=document.createElement("option");o.value=s.id;o.textContent=s.n;gs.appendChild(o)});
+$("giveb").onclick=function(){var sv=SV.find(function(s){return s.id==gs.value}),l=$("gl").value.trim(),q=Math.max(1,Math.min(50,parseInt($("gq").value)||1)),r=$("vres");r.hidden=false;
+ if(!valid(sv,l)){r.textContent=sv.d.length?("공식 도메인("+sv.d.join(", ")+") 링크"+(sv.code?"나 영문·숫자 코드":"")+"만 등록할 수 있어요."):"영문·숫자 코드만 등록할 수 있어요.";return}
+ if(data&&data[sv.id+"|"+l]){r.textContent="이미 등록된 초대장이에요.";return}
+ $("giveb").disabled=true;post({type:"give",service:sv.id,link:l,quota:q}).then(function(){r.textContent="등록됐어요! 1~2분 안에 교환함에 올라가요. 고마워요 🙌";$("gl").value=""}).catch(function(){r.textContent="등록하지 못했어요. 다시 눌러주세요."}).then(function(){$("giveb").disabled=false})};
+document.querySelectorAll(".tabs button").forEach(function(t){t.onclick=function(){document.querySelectorAll(".tabs button").forEach(function(x){x.setAttribute("aria-selected","false")});t.setAttribute("aria-selected","true");$("pget").hidden=t.dataset.t!="get";$("pgive").hidden=t.dataset.t=="get"}});
+chips();load().then(chips).catch(function(){});
+})();
+</script>
+</body></html>
