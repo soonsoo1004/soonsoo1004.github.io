@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>1분 승부 · 저스트 탭 래더 — 무설치 1분 타이밍 미니게임</title>
+<meta name="description" content="60초 동안 탭 한 번으로 노란 존에 맞추는 1분 승부 미니게임. 설치·가입·광고 없이 폰 브라우저에서 바로 시작하고, 콤보·피버 배율과 S/A/B/C 등급, 오늘의 기록 복사까지 한 파일로 끝납니다.">
+<meta name="keywords" content="1분 승부, 1분 미니게임, 무설치 웹게임, 시간순삭 타이밍 게임, 1분 게임, 무료 미니게임, 브라우저 게임, 집중력 게임, 광고 없는 게임">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0b1020">
+<link rel="canonical" href="https://soonsoo1004.github.io/games/one-minute-just-tap.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="1분 승부 · 저스트 탭 래더 — 1분 타이밍 미니게임">
+<meta property="og:description" content="놓치면 아까운 60초. 탭 한 번으로 노란 존에 맞추면 콤보가 쌓이고 피버가 터집니다. 설치·가입·광고 0건, 폰에서 바로 시작.">
+<meta property="og:url" content="https://soonsoo1004.github.io/games/one-minute-just-tap.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1분 승부 — 무설치 1분 타이밍 미니게임">
+<meta name="twitter:description" content="60초 타이밍 게임. 탭 한 번으로 PERFECT, 콤보 5에서 피버 ×2. 광고·설치·가입 없음.">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:#0b1020;color:#eef2ff;font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;overflow:hidden;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+#app{position:relative;width:100%;height:100vh;height:100dvh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);display:flex;flex-direction:column;max-width:560px;margin:0 auto}
+canvas{flex:1;width:100%;min-height:0;display:block}
+#hud{display:flex;justify-content:space-between;padding:10px 14px 0;font-weight:800;font-size:15px}
+#hud b{font-size:26px;font-variant-numeric:tabular-nums}
+#msg{position:absolute;left:0;right:0;top:36%;text-align:center;font-size:30px;font-weight:900;pointer-events:none;opacity:0}
+#over{position:absolute;inset:0;background:#080c1c;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px;text-align:center}
+#over h2{margin:0;font-size:54px}
+#over button{min-height:48px;min-width:200px;border:0;border-radius:12px;font-size:17px;font-weight:800;padding:0 18px;color:#0b1020;background:#7cf5c7}
+#over button.s2{background:#334;color:#eef2ff}
+#cp{width:92%;max-width:420px;font-size:14px;padding:8px;display:none;background:#1a2140;color:#fff;border:1px solid #556;border-radius:8px;user-select:text;-webkit-user-select:text}
+#foot{display:flex;justify-content:space-between;align-items:center;padding:4px 14px 8px;font-size:12px;color:#9aa6c8}
+#mute{min-width:44px;min-height:44px;background:none;border:0;color:#cdd6f6;font-size:20px}
+.dim{color:#9aa6c8;font-size:15px}
+</style></head><body>
+<div id="app">
+<div id="hud"><div>점수<br><b id="sc">0</b></div><div style="text-align:center">남은 시간<br><b id="tm">60</b></div><div style="text-align:right">최고 <span id="bs">0</span><br>콤보 <b id="cb">×1</b></div></div>
+<canvas id="cv"></canvas><div id="msg"></div>
+<div id="foot"><span id="seedl"></span><button id="mute" aria-label="음소거">🔊</button></div>
+<div id="over"><h2 id="gr">A</h2><div id="rs" style="font-size:22px;font-weight:800"></div><div class="dim" id="nx"></div>
+<div class="dim" style="font-size:12px">S 20,000 · A 10,000 · B 4,000 · C 4,000 미만</div>
+<button id="again">한판 더</button><button id="copy" class="s2">오늘의 기록 복사</button>
+<textarea id="cp" rows="2" readonly></textarea><div class="dim" id="cph" style="display:none">길게 눌러 복사</div></div>
+</div>
+<script>
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function makeCore(seed){
+  var rnd=mulberry32(seed),centers=[];
+  for(var i=0;i<400;i++)centers.push(0.18+rnd()*0.64);
+  centers[0]=0.5;
+  var S={T:60000,t:0,pos:0.1,dir:1,idx:0,hits:0,fails:0,combo:0,maxCombo:0,score:0,perfects:0,feverLeft:0,feverCount:0,widen:0,over:false,c:centers[0]};
+  S.width=function(){var w=Math.max(0.12,0.30-0.008*S.hits)+S.widen;if(S.t<5000)w=Math.max(w,0.36);return Math.min(0.5,w)};
+  S.speed=function(){return 0.8+1.1*(S.t/S.T)};
+  S.mult=function(){return Math.min(10,1+S.combo)};
+  S.step=function(dt){
+    if(S.over)return;
+    dt=Math.min(dt,33);
+    var rem=S.T-S.t; if(dt>=rem){dt=rem}
+    S.t+=dt;
+    var sp=S.speed()*(S.feverLeft>0?1.15:1)*dt/1000;
+    S.pos+=S.dir*sp;
+    while(S.pos>1||S.pos<0){if(S.pos>1){S.pos=2-S.pos;S.dir=-1}else{S.pos=-S.pos;S.dir=1}}
+    if(S.feverLeft>0){S.feverLeft=Math.max(0,S.feverLeft-dt);if(S.feverLeft===0)S.ev='feverEnd'}
+    if(S.t>=S.T){S.over=true;S.ev='end'}
+  };
+  S.tap=function(){
+    if(S.over)return null;
+    var w=S.width(),d=S.pos-S.c,ad=Math.abs(d),r={};
+    if(ad<=w/2){
+      var perfect=ad<=w*0.2;
+      S.combo++;S.hits++;if(perfect)S.perfects++;
+      S.maxCombo=Math.max(S.maxCombo,S.combo);
+      var fever=S.feverLeft>0;
+      var pts=10*S.mult()*(perfect?2:1)*(fever?2:1);
+      S.score+=pts;S.widen=Math.max(0,S.widen-0.01);
+      if(S.combo>=5&&!fever&&!S.feverCool){S.feverLeft=3000;S.feverCount++;S.feverCool=true;r.fever=true}
+      if(S.combo<5)S.feverCool=false;
+      r={ok:true,perfect:perfect,pts:pts,fever:r.fever};
+      S.idx++;S.c=centers[S.idx%centers.length];
+    }else{
+      var approaching=(S.dir>0&&S.pos<S.c)||(S.dir<0&&S.pos>S.c);
+      var why=ad>w*1.6?'빗나감':(approaching?'빠름':'늦음');
+      S.fails++;S.combo=S.feverLeft>0?1:0;
+      S.widen=Math.min(0.08,S.widen+0.02);
+      r={ok:false,why:why};
+    }
+    return r;
+  };
+  S.grade=function(){return S.score>=GC.S?'S':S.score>=GC.A?'A':S.score>=GC.B?'B':'C'};
+  return S;
+}
+var GC={S:20000,A:10000,B:4000};
+
+(function(){
+var cv=document.getElementById('cv'),cx=cv.getContext('2d'),$=function(i){return document.getElementById(i)};
+function kst(){var d=new Date(Date.now()+9*3600*1000);return d.getUTCFullYear()+('0'+(d.getUTCMonth()+1)).slice(-2)+('0'+d.getUTCDate()).slice(-2)}
+var seedStr=kst(),seed=parseInt(seedStr,10);
+$('seedl').textContent='seed '+seedStr;
+var ls={get:function(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var best=parseInt(ls.get('omj_best_'+seedStr,'0'),10)||0;$('bs').textContent=best;
+var muted=ls.get('omj_mute','0')==='1';$('mute').textContent=muted?'🔇':'🔊';
+var AC=null;function ac(){if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d,type,vol,slide){if(muted)return;var a=ac();if(!a)return;var o=a.createOscillator(),g=a.createGain();o.type=type||'sine';o.frequency.value=f;if(slide)o.frequency.exponentialRampToValueAtTime(slide,a.currentTime+d);g.gain.setValueAtTime(vol||.15,a.currentTime);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+d);o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+d)}
+$('mute').onclick=function(e){e.stopPropagation();muted=!muted;ls.set('omj_mute',muted?'1':'0');$('mute').textContent=muted?'🔇':'🔊'};
+var S=null,state='idle',W=0,H=0,dpr=1,parts=[],shake=0,punch=0,flash=null,last=0,grace=0,shownScore=0,newBest=false,raf=0,nick=null;
+function resize(){dpr=Math.min(2,window.devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
+window.addEventListener('resize',function(){resize();if(state!=='play'&&parts)draw(0)});resize();
+function setMsg(t,col){var m=$('msg');m.textContent=t;m.style.color=col;m.style.transition='none';m.style.opacity=1;m.style.transform='scale(1.15)';requestAnimationFrame(function(){requestAnimationFrame(function(){m.style.transition='opacity .5s,transform .12s';m.style.transform='scale(1)';m.style.opacity=0})})}
+function burst(x,y,n,col){for(var i=0;i<n;i++){var a=Math.random()*6.283,s=60+Math.random()*180;parts.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-40,l:.5,c:col})}}
+function trackX(p){return 24+p*(W-48)}
+function start(){S=makeCore(seed);state='play';parts=[];shownScore=0;newBest=false;grace=500;$('copy').textContent='오늘의 기록 복사';last=performance.now();$('over').style.display='none';$('cp').style.display='none';$('cph').style.display='none';upd();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
+function upd(){$('sc').textContent=Math.round(shownScore).toLocaleString('en-US');$('cb').textContent='×'+(S?S.mult():1);$('tm').textContent=S?Math.max(0,Math.ceil((S.T-S.t)/1000)):60;$('bs').textContent=Math.max(best,S?S.score:0)}
+function loop(now){
+  var dt=now-last;last=now;
+  if(dt>500){grace=500;dt=0}
+  if(grace>0){grace-=dt;dt=0;if(grace<0)grace=0}
+  if(state==='play'){
+    S.step(dt);
+    var wasFever=S.feverLeft>0;
+    if(S.ev==='feverEnd'){tone(300,.25,'triangle',.15,150);S.ev=null}
+    if(S.t>=S.T-10000&&S.t<S.T-9950)tone(660,.12,'square',.08);
+    if(S.over){end()}
+    if(shownScore<S.score)shownScore=Math.min(S.score,shownScore+Math.max(8,(S.score-shownScore)*0.25));
+    upd();
+  }
+  draw(dt/1000);
+  if(state==='play')raf=requestAnimationFrame(loop);
+}
+function draw(dt){
+  var fever=S&&S.feverLeft>0,lowT=S&&state==='play'&&S.T-S.t<=10000;
+  var sx=shake>0?(Math.random()-.5)*shake*2:0,sy=shake>0?(Math.random()-.5)*shake*2:0;shake=Math.max(0,shake-dt*20);punch=Math.max(0,punch-dt*3);
+  cx.save();cx.translate(sx,sy);
+  cx.fillStyle=fever?'#1d0b2e':'#0b1020';cx.fillRect(-5,-5,W+10,H+10);
+  if(lowT){cx.fillStyle='rgba(255,60,80,'+(0.08+0.07*Math.sin(S.t/80))+')';cx.fillRect(0,0,W,H)}
+  var y=H*0.5;
+  cx.fillStyle='#1b2447';cx.fillRect(24,y-6,W-48,12);
+  if(S){
+    var w=S.width(),zx=trackX(S.c-w/2),zw=w*(W-48);
+    cx.fillStyle=fever?'#ff9bf0':'#7cf5c7';cx.globalAlpha=.28;cx.fillRect(zx,y-40,zw,80);cx.globalAlpha=1;
+    cx.strokeStyle=fever?'#ff9bf0':'#7cf5c7';cx.lineWidth=2;cx.strokeRect(zx,y-40,zw,80);
+    var pw=w*0.4*(W-48);cx.fillStyle='#ffd84a';cx.globalAlpha=.55;cx.fillRect(trackX(S.c)-pw/2,y-40,pw,80);cx.globalAlpha=1;
+    cx.fillStyle='#ffd84a';cx.font='bold 12px sans-serif';cx.textAlign='center';cx.fillText('★ PERFECT',trackX(S.c),y-48);
+    var mx=trackX(S.pos),sc=1+punch*.15;
+    cx.save();cx.translate(mx,y);cx.scale(sc,sc);cx.fillStyle='#fff';cx.beginPath();cx.moveTo(0,-30);cx.lineTo(14,0);cx.lineTo(0,30);cx.lineTo(-14,0);cx.closePath();cx.fill();cx.restore();
+    if(fever){cx.fillStyle='#ff9bf0';cx.font='bold 22px sans-serif';cx.fillText('FEVER ×2 '+(S.feverLeft/1000).toFixed(1)+'s',W/2,26)}
+    cx.fillStyle='#cdd6f6';cx.font='bold 16px sans-serif';cx.fillText(state==='play'?'콤보 '+S.combo+(S.combo>=5&&!fever?' · 피버 대기':''):'',W/2,y+90);
+  }
+  if(state==='idle'){cx.fillStyle='#fff';cx.font='900 34px sans-serif';cx.textAlign='center';cx.fillText('저스트 탭 래더',W/2,y-110);cx.font='700 18px sans-serif';cx.fillStyle='#7cf5c7';cx.fillText('탭하면 시작',W/2,y+110)}
+  for(var i=parts.length-1;i>=0;i--){var p=parts[i];p.l-=dt;if(p.l<=0){parts.splice(i,1);continue}p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=300*dt;cx.globalAlpha=Math.max(0,p.l*2);cx.fillStyle=p.c;cx.fillRect(p.x-2,p.y-2,4,4)}
+  cx.globalAlpha=1;cx.restore();
+}
+function tap(){
+  ac();
+  if(state==='idle'){askNick();start();return}
+  if(state!=='play'||grace>0)return;
+  var r=S.tap();if(!r)return;
+  var x=trackX(S.pos),y=H*.5;
+  if(r.ok){
+    punch=1;shake=r.perfect?4:2;
+    var base=520+Math.min(S.combo,12)*45;
+    tone(base,r.perfect?.18:.1,r.perfect?'triangle':'sine',.18);
+    if(r.perfect)tone(base*1.5,.12,'sine',.1);
+    burst(x,y,Math.min(16,8+S.combo),r.perfect?'#ffd84a':'#7cf5c7');
+    setMsg((r.perfect?'★ PERFECT +':'✔ GOOD +')+r.pts,r.perfect?'#ffd84a':'#7cf5c7');
+    if(r.fever){tone(880,.35,'sawtooth',.12,1760);setMsg('🔥 FEVER!','#ff9bf0')}
+    if(!newBest&&best>0&&S.score>best){newBest=true;setMsg('🏆 신기록!','#ffd84a');tone(1200,.3,'triangle',.15)}
+  }else{
+    shake=3;tone(160,.2,'sawtooth',.14,90);burst(x,y,6,'#ff5a6e');setMsg('✘ '+r.why,'#ff5a6e')
+  }
+}
+function askNick(){if(nick!==null)return;nick=ls.get('omj_nick',null);if(nick===null){var v='';try{v=prompt('닉네임 (최대 10자, 비우면 익명)','')||''}catch(e){}nick=v.trim().slice(0,10);ls.set('omj_nick',nick)}}
+function dateDash(){return seedStr.slice(0,4)+'-'+seedStr.slice(4,6)+'-'+seedStr.slice(6)}
+function recText(){return '[1분 승부] '+(nick||'익명')+' | '+S.score.toLocaleString('en-US')+'점 | 최대 콤보 ×'+S.maxCombo+' | 등급 '+S.grade()+' | '+dateDash()}
+function end(){
+  state='over';tone(440,.5,'triangle',.18,220);
+  shownScore=S.score;upd();
+  var g=S.grade();
+  if(S.score>best){best=S.score;ls.set('omj_best_'+seedStr,String(best));if(!newBest)setMsg('🏆 신기록!','#ffd84a')}
+  $('gr').textContent=g;$('rs').textContent=S.score.toLocaleString('en-US')+'점 · 콤보 ×'+S.maxCombo;
+  var nxt=g==='S'?null:g==='A'?GC.S:g==='B'?GC.A:g==='C'?GC.B:0;
+  $('nx').textContent=nxt?(g==='C'?'B':g==='B'?'A':'S')+'까지 '+(nxt-S.score).toLocaleString('en-US')+'점':'최고 등급 달성';
+  setTimeout(function(){$('over').style.display='flex'},200);
+}
+$('again').onclick=function(e){e.stopPropagation();start()};
+$('copy').onclick=function(e){e.stopPropagation();var t=recText();
+  function fallback(){var c=$('cp');c.value=t;c.style.display='block';$('cph').style.display='block';c.focus();c.select()}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){$('copy').textContent='복사됨 ✔'},fallback)}else fallback()}catch(err){fallback()}};
+cv.addEventListener('pointerdown',function(e){e.preventDefault();tap()});
+document.addEventListener('keydown',function(e){if(e.code==='Space'||e.key===' '){e.preventDefault();if($('over').style.display==='flex'){start()}else tap()}});
+document.addEventListener('visibilitychange',function(){grace=500});
+draw(0);
+})();
+</script>
+</body></html>
