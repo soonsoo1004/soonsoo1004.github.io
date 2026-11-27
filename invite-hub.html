@@ -22,7 +22,7 @@ body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-g
 @media(prefers-reduced-motion:reduce){body::before{animation:none}.c{transition:none}}
 header{position:sticky;top:0;z-index:5;padding:calc(10px + env(safe-area-inset-top)) 0 8px;background:rgba(11,16,32,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 h1{font-size:18px;margin-bottom:8px}
-.f{display:flex;gap:6px}.f button{flex:1;min-height:44px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.05);color:#c9d0e6;font:inherit;font-size:13px;padding:0 4px}
+.f{display:flex;gap:6px}.f button{flex:1;min-height:44px;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:rgba(255,255,255,.05);color:#c9d0e6;font:inherit;font-size:clamp(11px,3.3vw,13px);padding:0 4px;white-space:nowrap;letter-spacing:-.02em}
 .f button[aria-pressed=true]{background:#4f6bff;color:#fff;font-weight:700;border-color:#8fa2ff}
 button:focus-visible,a:focus-visible{outline:3px solid #ffd86b;outline-offset:2px}
 .s{margin:8px 0;font-size:13px;color:#aab3cf}
