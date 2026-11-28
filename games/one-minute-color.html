@@ -26,7 +26,7 @@
 <div id="top"><span id="t">60</span><span id="s">0점</span><span id="c">콤보 0</span></div>
 <div id="word">시작</div><div id="hint">글자 뜻 말고 <b>글자 색</b>을 눌러!</div>
 <div id="btns"></div><div id="bar"></div>
-<div id="ov"><h1>🎨 1분 색깔 함정</h1><p>"빨강"이 파란색으로 써 있으면 <b>파랑</b>을 누른다.<br>콤보 5부터 점수 2배, 틀리면 콤보 0 + 2초 감점.</p><p id="res"></p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
+<div id="ov"><h1>🎨 1분 색깔 함정</h1><p>"빨강"이 파란색으로 써 있으면 <b>파랑</b>을 누른다.<br>콤보 5부터 점수 2배, 틀리면 콤보 0 + 2초 감점.</p><p id="res"></p><p style="font-size:12px;font-weight:700;opacity:.55">S 12,000 · A 7,000 · B 3,000 · C 3,000 미만</p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
 <script>
 const C=[["빨강","#ef4444"],["파랑","#3b82f6"],["초록","#22c55e"],["노랑","#eab308"]];
 let sc,co,mx,end,cur,timer,cnt,ok;const $=i=>document.getElementById(i);
@@ -38,7 +38,8 @@ function tap(i){if(!timer)return;const w=$("word");w.className="";void w.offsetW
 if(i==cur){ok++;co++;mx=Math.max(mx,co);sc+=10*(co>=5?2:1)+Math.min(co,20);w.className="ok";beep(600+co*20)}else{co=0;end-=2000;w.className="bad";beep(150);navigator.vibrate&&navigator.vibrate(80)}
 $("s").textContent=sc+"점";$("c").textContent="콤보 "+co;next()}
 function loop(){const r=Math.max(0,end-Date.now());$("t").textContent=Math.ceil(r/1000);$("bar").style.width=r/600+"%";if(r<=0)return fin();timer=requestAnimationFrame(loop)}
-function grade(){return sc>=1500?"S":sc>=1000?"A":sc>=600?"B":"C"}
+const GC={S:12000,A:7000,B:3000};
+function grade(){return sc>=GC.S?"S":sc>=GC.A?"A":sc>=GC.B?"B":"C"}
 function fin(){cancelAnimationFrame(timer);timer=0;const acc=cnt?Math.round(ok/cnt*100):0,d=(function(){var x=new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')})();
 $("res").innerHTML=`<b style="font-size:40px">${grade()}</b><br>${sc.toLocaleString()}점 · 최대 콤보 ×${mx} · 정확도 ${acc}%`;
 const t=`[1분 색깔 함정] ${sc.toLocaleString()}점 | 최대 콤보 ×${mx} | 정확도 ${acc}% | 등급 ${grade()} | ${d}`;$("rec").textContent=t;$("rec").style.display="block";

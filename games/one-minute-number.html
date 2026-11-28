@@ -22,7 +22,7 @@
 #ov button{padding:16px 40px;font-size:22px;border:0;border-radius:14px;background:#38bdf8;font-weight:800}#rec{width:92%;max-width:380px;padding:9px 10px;font-size:12px;font-weight:700;text-align:center;line-height:1.45;word-break:break-word;background:#ffffff14;border:1px solid #ffffff33;border-radius:10px;color:#e5e7eb}
 </style></head><body>
 <div id="top"><span id="t">60</span><span id="s">0점</span><span id="lv">판 1</span></div><div id="need">다음: 1</div><div id="g"></div>
-<div id="ov"><h1>🔢 1분 숫자 순서</h1><p>1부터 순서대로 빨리 눌러라.<br>두 판 깨면 칸이 커진다(3×3 → 4×4 → 5×5).<br>빨리 깰수록 보너스, 틀리면 1초 감점.</p><p id="res"></p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
+<div id="ov"><h1>🔢 1분 숫자 순서</h1><p>1부터 순서대로 빨리 눌러라.<br>두 판 깨면 칸이 커진다(3×3 → 4×4 → 5×5).<br>빨리 깰수록 보너스, 틀리면 1초 감점.</p><p id="res"></p><p style="font-size:12px;font-weight:700;opacity:.55">S 4,000 · A 2,500 · B 1,200 · C 1,200 미만</p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
 <script>
 const $=i=>document.getElementById(i);let sc,lv,n,need,end,timer,rs,miss,cleared;
 function beep(f){try{const a=beep.a||(beep.a=new AudioContext()),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.06)}catch(e){}}
@@ -34,7 +34,8 @@ if(need>n*n){const sec=(Date.now()-rs)/1000;sc+=Math.max(0,Math.round((n*n*1.2-s
 else{miss++;end-=1000;b.classList.add("bad");setTimeout(()=>b.classList.remove("bad"),200);beep(150);navigator.vibrate&&navigator.vibrate(80)}
 $("s").textContent=sc+"점"}
 function loop(){const r=Math.max(0,end-Date.now());$("t").textContent=Math.ceil(r/1000);if(r<=0)return fin();timer=requestAnimationFrame(loop)}
-function grade(){return sc>=900?"S":sc>=600?"A":sc>=350?"B":"C"}
+const GC={S:4000,A:2500,B:1200};
+function grade(){return sc>=GC.S?"S":sc>=GC.A?"A":sc>=GC.B?"B":"C"}
 function fin(){cancelAnimationFrame(timer);timer=0;const d=(function(){var x=new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')})();
 $("res").innerHTML=`<b style="font-size:40px">${grade()}</b><br>${sc.toLocaleString()}점 · ${cleared}판 클리어 · 실수 ${miss}`;
 const t=`[1분 숫자 순서] ${sc.toLocaleString()}점 | ${cleared}판 클리어 | 실수 ${miss} | 등급 ${grade()} | ${d}`;$("rec").textContent=t;$("rec").style.display="block";
