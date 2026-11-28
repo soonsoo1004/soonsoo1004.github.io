@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-40Z0FSENYQ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-40Z0FSENYQ');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="description" content="글자 뜻과 글자 색이 다른 함정을 60초 동안 받아치는 색깔 반응 게임. 5콤보부터 점수 2배, 틀리면 2초 감점. 설치·가입·광고 없이 폰 브라우저에서 바로.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#111827">
+<link rel="canonical" href="https://soonsoo1004.github.io/games/one-minute-color.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="1분 승부 · 색깔 함정 — 무설치 1분 색깔 게임">
+<meta property="og:description" content="&quot;빨강&quot;이 파란색으로 떠 있으면 파란 버튼을 누릅니다. 60초 색깔 함정, 5콤보부터 점수 2배, 틀리면 2초 감점. 광고·설치·가입 없음.">
+<meta property="og:url" content="https://soonsoo1004.github.io/games/one-minute-color.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<title>1분 승부 · 색깔 함정</title>
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}body{font-family:system-ui,sans-serif;background:#111827;color:#fff;height:100vh;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none}
+#top{position:fixed;top:12px;left:0;right:0;display:flex;justify-content:space-around;font-size:18px;font-weight:700}
+#word{font-size:72px;font-weight:900;margin:30px 0 10px;transition:transform .08s}#hint{opacity:.7;font-size:15px;margin-bottom:24px}
+#btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(92vw,380px)}#btns button{height:84px;border:0;border-radius:18px;font-size:24px;font-weight:800;color:#fff}
+#bar{position:fixed;bottom:0;left:0;height:8px;background:#22c55e;width:100%}
+.ok{transform:scale(1.15)}.bad{animation:sh .25s}@keyframes sh{25%{transform:translateX(-12px)}75%{transform:translateX(12px)}}
+#ov{position:fixed;inset:0;background:#111827;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+#ov button{padding:16px 40px;font-size:22px;border:0;border-radius:14px;background:#f59e0b;font-weight:800}#rec{width:92%;max-width:380px;padding:9px 10px;font-size:12px;font-weight:700;text-align:center;line-height:1.45;word-break:break-word;background:#ffffff14;border:1px solid #ffffff33;border-radius:10px;color:#e5e7eb}
+</style></head><body>
+<div id="top"><span id="t">60</span><span id="s">0점</span><span id="c">콤보 0</span></div>
+<div id="word">시작</div><div id="hint">글자 뜻 말고 <b>글자 색</b>을 눌러!</div>
+<div id="btns"></div><div id="bar"></div>
+<div id="ov"><h1>🎨 1분 색깔 함정</h1><p>"빨강"이 파란색으로 써 있으면 <b>파랑</b>을 누른다.<br>콤보 5부터 점수 2배, 틀리면 콤보 0 + 2초 감점.</p><p id="res"></p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
+<script>
+const C=[["빨강","#ef4444"],["파랑","#3b82f6"],["초록","#22c55e"],["노랑","#eab308"]];
+let sc,co,mx,end,cur,timer,cnt,ok;const $=i=>document.getElementById(i);
+const B=$("btns");C.forEach((c,i)=>{const b=document.createElement("button");b.textContent=c[0];b.style.background=c[1];b.onpointerdown=()=>tap(i);B.appendChild(b)});
+function shuffleBtns(){[...B.children].sort(()=>Math.random()-.5).forEach(b=>B.appendChild(b))}
+function next(){const w=Math.random()*4|0;let k=Math.random()*4|0;if(Math.random()<.75)while(k==w)k=Math.random()*4|0;cur=k;$("word").textContent=C[w][0];$("word").style.color=C[k][1];if(sc>150)shuffleBtns()}
+function beep(f){try{const a=beep.a||(beep.a=new AudioContext()),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.07)}catch(e){}}
+function tap(i){if(!timer)return;const w=$("word");w.className="";void w.offsetWidth;cnt++;
+if(i==cur){ok++;co++;mx=Math.max(mx,co);sc+=10*(co>=5?2:1)+Math.min(co,20);w.className="ok";beep(600+co*20)}else{co=0;end-=2000;w.className="bad";beep(150);navigator.vibrate&&navigator.vibrate(80)}
+$("s").textContent=sc+"점";$("c").textContent="콤보 "+co;next()}
+function loop(){const r=Math.max(0,end-Date.now());$("t").textContent=Math.ceil(r/1000);$("bar").style.width=r/600+"%";if(r<=0)return fin();timer=requestAnimationFrame(loop)}
+function grade(){return sc>=1500?"S":sc>=1000?"A":sc>=600?"B":"C"}
+function fin(){cancelAnimationFrame(timer);timer=0;const acc=cnt?Math.round(ok/cnt*100):0,d=(function(){var x=new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')})();
+$("res").innerHTML=`<b style="font-size:40px">${grade()}</b><br>${sc.toLocaleString()}점 · 최대 콤보 ×${mx} · 정확도 ${acc}%`;
+const t=`[1분 색깔 함정] ${sc.toLocaleString()}점 | 최대 콤보 ×${mx} | 정확도 ${acc}% | 등급 ${grade()} | ${d}`;$("rec").textContent=t;$("rec").style.display="block";
+navigator.clipboard&&navigator.clipboard.writeText(t).catch(()=>{});$("go").textContent="다시";$("ov").style.display="flex"}
+$("go").onclick=()=>{sc=co=mx=cnt=ok=0;end=Date.now()+60000;$("ov").style.display="none";$("s").textContent="0점";$("c").textContent="콤보 0";next();timer=requestAnimationFrame(loop)};
+</script></body></html>

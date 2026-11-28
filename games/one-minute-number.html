@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-40Z0FSENYQ"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-40Z0FSENYQ');</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<meta name="description" content="1부터 순서대로 눌러 판을 깨는 60초 순발력 게임. 3×3에서 5×5까지 커지고 빨리 깰수록 보너스, 틀리면 1초 감점. 설치·가입·광고 없이 폰에서 바로.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://soonsoo1004.github.io/games/one-minute-number.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="1분 승부 · 숫자 순서 — 무설치 1분 순발력 게임">
+<meta property="og:description" content="1부터 순서대로 누르면 판이 깨집니다. 3×3에서 5×5까지, 빨리 깰수록 보너스, 틀리면 1초 감점. 60초 한 판, 광고·설치·가입 없음.">
+<meta property="og:url" content="https://soonsoo1004.github.io/games/one-minute-number.html">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<title>1분 승부 · 숫자 순서</title>
+<style>
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}body{font-family:system-ui,sans-serif;background:#0f172a;color:#fff;height:100vh;height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;user-select:none}
+#top{display:flex;gap:22px;font-size:18px;font-weight:700;margin-bottom:10px}#need{font-size:15px;opacity:.8;margin-bottom:10px}
+#g{display:grid;gap:6px;width:min(94vw,400px);aspect-ratio:1}#g button{border:0;border-radius:10px;background:#1e293b;color:#fff;font-size:22px;font-weight:800}
+#g button.done{background:#0b1220;color:#334155}#g button.bad{background:#7f1d1d}
+#ov{position:fixed;inset:0;background:#0f172a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+#ov button{padding:16px 40px;font-size:22px;border:0;border-radius:14px;background:#38bdf8;font-weight:800}#rec{width:92%;max-width:380px;padding:9px 10px;font-size:12px;font-weight:700;text-align:center;line-height:1.45;word-break:break-word;background:#ffffff14;border:1px solid #ffffff33;border-radius:10px;color:#e5e7eb}
+</style></head><body>
+<div id="top"><span id="t">60</span><span id="s">0점</span><span id="lv">판 1</span></div><div id="need">다음: 1</div><div id="g"></div>
+<div id="ov"><h1>🔢 1분 숫자 순서</h1><p>1부터 순서대로 빨리 눌러라.<br>두 판 깨면 칸이 커진다(3×3 → 4×4 → 5×5).<br>빨리 깰수록 보너스, 틀리면 1초 감점.</p><p id="res"></p><div id="rec" style="display:none"></div><button id="go">시작</button></div>
+<script>
+const $=i=>document.getElementById(i);let sc,lv,n,need,end,timer,rs,miss,cleared;
+function beep(f){try{const a=beep.a||(beep.a=new AudioContext()),o=a.createOscillator(),g=a.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.06)}catch(e){}}
+function board(){n=lv<2?3:lv<4?4:5;need=1;rs=Date.now();const g=$("g");g.innerHTML="";g.style.gridTemplateColumns=`repeat(${n},1fr)`;
+const a=[...Array(n*n)].map((_,i)=>i+1).sort(()=>Math.random()-.5);a.forEach(v=>{const b=document.createElement("button");b.textContent=v;b.onpointerdown=()=>tap(b,v);g.appendChild(b)});$("need").textContent="다음: 1";$("lv").textContent="판 "+(lv+1)}
+function tap(b,v){if(!timer||b.classList.contains("done"))return;
+if(v==need){b.classList.add("done");sc+=5;beep(400+need*25);need++;$("need").textContent="다음: "+need;
+if(need>n*n){const sec=(Date.now()-rs)/1000;sc+=Math.max(0,Math.round((n*n*1.2-sec)*20));cleared++;lv++;beep(1200);board()}}
+else{miss++;end-=1000;b.classList.add("bad");setTimeout(()=>b.classList.remove("bad"),200);beep(150);navigator.vibrate&&navigator.vibrate(80)}
+$("s").textContent=sc+"점"}
+function loop(){const r=Math.max(0,end-Date.now());$("t").textContent=Math.ceil(r/1000);if(r<=0)return fin();timer=requestAnimationFrame(loop)}
+function grade(){return sc>=900?"S":sc>=600?"A":sc>=350?"B":"C"}
+function fin(){cancelAnimationFrame(timer);timer=0;const d=(function(){var x=new Date();return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')})();
+$("res").innerHTML=`<b style="font-size:40px">${grade()}</b><br>${sc.toLocaleString()}점 · ${cleared}판 클리어 · 실수 ${miss}`;
+const t=`[1분 숫자 순서] ${sc.toLocaleString()}점 | ${cleared}판 클리어 | 실수 ${miss} | 등급 ${grade()} | ${d}`;$("rec").textContent=t;$("rec").style.display="block";
+navigator.clipboard&&navigator.clipboard.writeText(t).catch(()=>{});$("go").textContent="다시";$("ov").style.display="flex"}
+$("go").onclick=()=>{sc=lv=miss=cleared=0;end=Date.now()+60000;$("ov").style.display="none";$("s").textContent="0점";board();timer=requestAnimationFrame(loop)};
+</script></body></html>
